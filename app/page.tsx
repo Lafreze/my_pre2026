@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { MermaidDiagram } from "./MermaidDiagram";
 
 type Phase = "すべて" | "基盤" | "対話" | "行動" | "接続" | "開発";
 
@@ -43,6 +44,68 @@ const sources = [
   { n: 18, label: "IPA, テキスト生成AIの導入・運用ガイドライン (2024)", url: "https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2024/generative-ai-guideline.html" },
 ];
 
+const evolutionChart = String.raw`flowchart LR
+  T["2017<br/>Transformer<br/><small>注意機構</small>"] --> G["2018<br/>GPT<br/><small>事前学習</small>"]
+  G --> S["2019–20<br/>GPT-2 / GPT-3<br/><small>スケールと文脈内学習</small>"]
+  S --> C["2022<br/>ChatGPT<br/><small>指示追従と対話</small>"]
+  C --> M["2023<br/>GPT-4<br/><small>マルチモーダル</small>"]
+  M --> U["2023<br/>Tool Use<br/><small>Function Calling</small>"]
+  U --> A["2024<br/>Agent<br/><small>計画・実行ループ</small>"]
+  A --> P["2024<br/>MCP<br/><small>接続の標準化</small>"]
+  P --> E["2025–26<br/>Agent Ecosystem<br/><small>A2A / Vibe Coding</small>"]
+  classDef foundation fill:#f1f0e8,stroke:#11130f,color:#11130f;
+  classDef turning fill:#d9ff43,stroke:#11130f,color:#11130f,stroke-width:2px;
+  class T,G,S foundation;
+  class C,M,U,A,P,E turning;`;
+
+const agentChart = String.raw`flowchart LR
+  GOAL(["目標を受け取る"]) --> PLAN["1. 計画する"]
+  PLAN --> SELECT{"2. ツールを選ぶ"}
+  SELECT --> ACT["3. 実行する"]
+  ACT --> OBSERVE["4. 結果を観察する"]
+  OBSERVE --> CHECK{"完了条件を満たした?"}
+  CHECK -- "NO" --> PLAN
+  CHECK -- "YES" --> DONE(["結果を返す"])
+  SELECT -. "高影響な操作" .-> HUMAN["人間の承認"]
+  HUMAN --> ACT
+  classDef action fill:#d9ff43,stroke:#11130f,color:#11130f;
+  classDef gate fill:#f7f6ef,stroke:#11130f,color:#11130f;
+  class PLAN,ACT,OBSERVE action;
+  class SELECT,CHECK,HUMAN gate;`;
+
+const mcpChart = String.raw`flowchart LR
+  subgraph HOST["HOST — AIアプリが権限と会話を管理"]
+    MODEL["LLM / Agent"] --> C1["MCP Client"]
+    MODEL --> C2["MCP Client"]
+    MODEL --> C3["MCP Client"]
+  end
+  C1 <-->|"JSON-RPC / 能力交渉"| S1["MCP Server<br/>Resources<br/><small>社内文書・DB</small>"]
+  C2 <-->|"JSON-RPC / 能力交渉"| S2["MCP Server<br/>Tools<br/><small>検索・API・操作</small>"]
+  C3 <-->|"JSON-RPC / 能力交渉"| S3["MCP Server<br/>Prompts<br/><small>定型ワークフロー</small>"]
+  classDef client fill:#d9ff43,stroke:#11130f,color:#11130f;
+  classDef server fill:#ffffff,stroke:#11130f,color:#11130f;
+  class C1,C2,C3 client;
+  class S1,S2,S3 server;`;
+
+const adoptionChart = String.raw`flowchart TD
+  START["AI活用候補を選ぶ"] --> VALUE{"業務価値を測れる?"}
+  VALUE -- "NO" --> STOP["目的とKPIを再定義"]
+  VALUE -- "YES" --> FIXED{"固定手順で解ける?"}
+  FIXED -- "YES" --> WORKFLOW["Workflow<br/><small>予測可能・監査しやすい</small>"]
+  FIXED -- "NO" --> AGENT["Agent<br/><small>柔軟・自律的</small>"]
+  WORKFLOW --> ACTION{"外部へ書き込む?"}
+  AGENT --> ACTION
+  ACTION -- "NO / 読み取りのみ" --> PILOT["限定データで試行"]
+  ACTION -- "YES" --> APPROVAL["承認点・権限・停止条件を設計"]
+  APPROVAL --> PILOT
+  PILOT --> EVAL{"評価基準を満たす?"}
+  EVAL -- "NO" --> IMPROVE["失敗例から改善"] --> PILOT
+  EVAL -- "YES" --> SCALE["段階的に展開・継続監視"]
+  classDef go fill:#d9ff43,stroke:#11130f,color:#11130f;
+  classDef caution fill:#ffcf71,stroke:#11130f,color:#11130f;
+  class WORKFLOW,AGENT,PILOT,SCALE go;
+  class APPROVAL,IMPROVE caution;`;
+
 export default function Home() {
   const [phase, setPhase] = useState<Phase>("すべて");
   const filtered = phase === "すべて" ? timeline : timeline.filter((item) => item.phase === phase);
@@ -52,7 +115,7 @@ export default function Home() {
       <header className="topbar">
         <a className="brand" href="#top">GEN AI / 2017—2026</a>
         <nav aria-label="ページ内ナビゲーション">
-          <a href="#timeline">年表</a><a href="#agent">Agent</a><a href="#mcp">MCP</a><a href="#action">社内活用</a>
+          <a href="#overview">全体像</a><a href="#timeline">年表</a><a href="#agent">Agent</a><a href="#mcp">MCP</a><a href="#action">社内活用</a>
         </nav>
       </header>
 
@@ -61,6 +124,9 @@ export default function Home() {
         <p className="kicker">THE EVOLUTION OF GENERATIVE AI</p>
         <h1>生成AIは、<br /><em>「答える」から「動く」へ。</em></h1>
         <p className="lead">GPTの誕生からAgent、MCP、Vibe Codingまで。<br />9年間の変化を「能力の積み上がり」として読み解く。</p>
+        <div className="hero-metrics" aria-label="資料の概要">
+          <div><b>09</b><span>YEARS</span></div><div><b>13</b><span>TURNING POINTS</span></div><div><b>04</b><span>VISUAL MAPS</span></div>
+        </div>
         <div className="hero-foot">
           <div className="thesis"><b>本日の結論</b><span>競争力の焦点は、モデル単体の性能から<br />「業務・ツール・人をどうつなぐか」へ移った。</span></div>
           <a href="#timeline" className="scroll-cue">SCROLL TO EXPLORE <span>↓</span></a>
@@ -75,9 +141,22 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="overview-section section-pad" id="overview">
+        <div className="section-head">
+          <div><div className="section-no">01 / BIG PICTURE</div><h2>まず、全体像を<br />1枚でつかむ。</h2></div>
+          <p>横軸は時間、ノードは能力の転換点。<br />後半ほど「モデル」から「システム」へ重心が移る。</p>
+        </div>
+        <MermaidDiagram chart={evolutionChart} label="2017年から2026年までの生成AI技術進化図" caption="図1｜生成AIの主役は、予測モデル → 対話UI → 行動するシステム → 接続されたエコシステムへ。" />
+        <div className="reading-keys">
+          <article><span>01</span><h3>能力は置き換わらず、積み上がる</h3><p>予測・指示追従・対話・認識・行動・接続が、後続システムの中に重なっている。</p></article>
+          <article><span>02</span><h3>2023年が「外部世界」への分岐点</h3><p>Function Callingにより、言葉を返すだけでなくAPIを通じて状態を変えられるようになった。</p></article>
+          <article><span>03</span><h3>今の競争軸は統合品質</h3><p>モデル性能だけでなく、文脈・ツール・権限・評価・ガバナンスを組み合わせる力が重要。</p></article>
+        </div>
+      </section>
+
       <section className="timeline-section section-pad" id="timeline">
         <div className="section-head">
-          <div><div className="section-no">01 / TIMELINE</div><h2>9年を、<br />13の転換点で。</h2></div>
+          <div><div className="section-no">02 / TIMELINE</div><h2>9年を、<br />13の転換点で。</h2></div>
           <p>モデル名の羅列ではなく、<br />「何が新しく可能になったか」で整理する。</p>
         </div>
         <div className="filters" role="group" aria-label="年表の絞り込み">
@@ -100,7 +179,7 @@ export default function Home() {
 
       <section className="agent-section dark section-pad" id="agent">
         <div className="section-head light-head">
-          <div><div className="section-no">02 / AGENT</div><h2>ChatbotとAgentは、<br />何が違うのか。</h2></div>
+          <div><div className="section-no">03 / AGENT</div><h2>ChatbotとAgentは、<br />何が違うのか。</h2></div>
           <p>Agentは「賢いチャット」ではない。<br />目標に向けて、次の行動を自ら選ぶシステム。</p>
         </div>
         <div className="compare">
@@ -120,26 +199,16 @@ export default function Home() {
             <ul><li>モデルがプロセスとツールを選択</li><li>検索・ファイル・API・画面を操作</li><li>成功条件は「タスクの完了」</li></ul>
           </article>
         </div>
+        <MermaidDiagram chart={agentChart} label="AI Agentが計画、実行、観察、修正を繰り返す処理フロー" caption="図2｜Agentの本質は、自ら次の行動を選び、完了条件までループすること。高影響な操作には人間の承認点を置く。" />
         <p className="definition">Anthropicの整理では、<b>Workflow</b>は事前定義された経路、<b>Agent</b>はLLMが動的にプロセスとツール利用を指揮するシステム。複雑さ・コスト・遅延とのトレードオフがあるため、常にAgentが正解ではない。<a href={sources[14].url} target="_blank" rel="noreferrer">[15] ↗</a></p>
       </section>
 
       <section className="mcp-section section-pad" id="mcp">
         <div className="section-head">
-          <div><div className="section-no">03 / MCP</div><h2>MCPは、<br />AIのUSB-C。</h2></div>
+          <div><div className="section-no">04 / MCP</div><h2>MCPは、<br />AIのUSB-C。</h2></div>
           <p>Model Context Protocol。<br />モデルそのものではなく「つなぎ方」の標準。</p>
         </div>
-        <div className="mcp-diagram" aria-label="MCPのHost Client Server構造図">
-          <div className="host">
-            <small>HOST</small><strong>AIアプリ</strong><span>Claude / ChatGPT / IDE など</span>
-            <div className="clients"><i>CLIENT</i><i>CLIENT</i><i>CLIENT</i></div>
-          </div>
-          <div className="protocol"><b>MCP</b><span>JSON-RPC</span><span>権限・能力を交渉</span></div>
-          <div className="servers">
-            <div><small>SERVER</small><strong>DATA</strong><span>ファイル・DB</span></div>
-            <div><small>SERVER</small><strong>TOOLS</strong><span>検索・API</span></div>
-            <div><small>SERVER</small><strong>WORKFLOW</strong><span>定型手順</span></div>
-          </div>
-        </div>
+        <MermaidDiagram chart={mcpChart} label="MCPのHost Client Serverアーキテクチャ図" caption="図3｜Hostが権限と会話を保持し、各Clientが1つのServerと接続する。Serverは必要な機能だけを公開する。" />
         <div className="mcp-notes">
           <article><span>01</span><h3>標準化</h3><p>N×Mの個別連携を共通プロトコルへ。サーバーはResources / Prompts / Toolsを公開する。</p></article>
           <article><span>02</span><h3>分離</h3><p>Hostが同意・権限・会話を管理し、各Serverは必要最小限の文脈だけを受け取る。</p></article>
@@ -148,8 +217,22 @@ export default function Home() {
         <div className="protocol-pair"><div><b>MCP</b><span>Agent ↔ Tools / Data</span></div><i>＋</i><div><b>A2A</b><span>Agent ↔ Agent</span></div><p>補完関係</p></div>
       </section>
 
+      <section className="concept-section section-pad">
+        <div className="section-head compact-head">
+          <div><div className="section-no">04B / DO NOT CONFUSE</div><h2>似ている言葉を、<br />役割で分ける。</h2></div>
+          <p>この4つは競合製品ではない。<br />1つのAIシステムの中で組み合わせて使う。</p>
+        </div>
+        <div className="concept-grid">
+          <article><span>THINK</span><b>LLM</b><h3>頭脳</h3><p>入力を理解し、推論し、次の出力や行動を決めるモデル。</p></article>
+          <article><span>KNOW</span><b>RAG</b><h3>参照</h3><p>質問に関連する社内文書などを検索し、回答時の文脈に加える方式。</p></article>
+          <article><span>CONNECT</span><b>MCP</b><h3>接続</h3><p>データやツールをAIアプリへ共通形式で公開するプロトコル。</p></article>
+          <article><span>ACT</span><b>AGENT</b><h3>実行</h3><p>目標に向けてツールを選び、結果を見ながら処理を進める仕組み。</p></article>
+        </div>
+        <p className="concept-example"><b>例：</b>AgentがLLMで計画し、RAGで社内規程を確認し、MCP経由で申請システムを操作する。</p>
+      </section>
+
       <section className="vibe-section acid section-pad">
-        <div className="section-no">04 / VIBE CODING</div>
+        <div className="section-no">05 / VIBE CODING</div>
         <div className="vibe-grid">
           <h2>コードを書く。<br />から、<br /><span>意図を伝える。</span>へ。</h2>
           <div>
@@ -163,13 +246,17 @@ export default function Home() {
 
       <section className="action-section section-pad" id="action">
         <div className="section-head">
-          <div><div className="section-no">05 / FOR OUR COMPANY</div><h2>社内導入は、<br />3段階で考える。</h2></div>
+          <div><div className="section-no">06 / FOR OUR COMPANY</div><h2>社内導入は、<br />3段階で考える。</h2></div>
           <p>いきなり全自動化しない。<br />価値とリスクを同じ速度で検証する。</p>
         </div>
         <div className="levels">
           <article><div className="level-no">LEVEL 1</div><h3>ASSIST<br /><span>個人を支援</span></h3><p>要約、翻訳、アイデア、メール、コード補完。人が確認して使う。</p><div className="risk low">低リスク / 早く始める</div></article>
           <article><div className="level-no">LEVEL 2</div><h3>CONNECT<br /><span>社内情報へ接続</span></h3><p>RAGやMCPで文書・DB・業務ツールへ接続。権限とログを設計する。</p><div className="risk mid">中リスク / 小さく検証</div></article>
           <article><div className="level-no">LEVEL 3</div><h3>ACT<br /><span>業務を実行</span></h3><p>Agentが更新・送信・申請・操作を実施。承認点、停止条件、監査を組み込む。</p><div className="risk high">高リスク / 人間を制御点に</div></article>
+        </div>
+        <div className="decision-visual">
+          <div className="decision-intro"><span>DECISION FLOW</span><h3>Agentを使うべきか、<br />どう安全に広げるか。</h3><p>「AIを使う」から始めず、価値・予測可能性・外部作用・評価の順に判断する。</p></div>
+          <MermaidDiagram chart={adoptionChart} label="社内AI導入の判断と段階展開フロー" caption="図4｜固定手順で解ける仕事はWorkflowを優先。Agentは柔軟性が必要な場面に限定し、外部操作には承認と停止条件を置く。" />
         </div>
         <div className="guardrails">
           <h3>導入前の6チェック</h3>
@@ -181,14 +268,14 @@ export default function Home() {
       </section>
 
       <section className="takeaway dark section-pad">
-        <div className="section-no">06 / TAKEAWAY</div>
+        <div className="section-no">07 / TAKEAWAY</div>
         <h2>未来を分けるのは、<br /><span>AIを持っているか</span>ではない。</h2>
         <p>仕事を分解し、必要な文脈を与え、適切なツールへつなぎ、<br />人間の責任のもとで改善できるか。</p>
         <div className="formula"><span>MODEL</span><b>×</b><span>CONTEXT</span><b>×</b><span>TOOLS</span><b>×</b><span>GOVERNANCE</span><strong>= BUSINESS VALUE</strong></div>
       </section>
 
       <section className="sources-section section-pad" id="sources">
-        <div className="section-head"><div><div className="section-no">07 / SOURCES</div><h2>一次資料・<br />公的資料。</h2></div><p>研究論文、公式発表、標準仕様、政府機関資料を優先。<br />製品仕様は2026年8月19日時点。</p></div>
+        <div className="section-head"><div><div className="section-no">08 / SOURCES</div><h2>一次資料・<br />公的資料。</h2></div><p>研究論文、公式発表、標準仕様、政府機関資料を優先。<br />製品仕様は2026年8月19日時点。</p></div>
         <div className="source-list">
           {sources.map(source => <a key={source.n} href={source.url} target="_blank" rel="noreferrer"><span>{String(source.n).padStart(2,"0")}</span><p>{source.label}</p><b>↗</b></a>)}
         </div>
