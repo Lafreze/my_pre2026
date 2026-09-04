@@ -1,100 +1,52 @@
-# vinext-starter
+# 生成AIの進化 — 社内発表資料
 
-A clean full-stack starter running on
-[vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and
-Drizzle support.
+GPTからReasoning、Multimodal、Open-weight / Local AI、Agent、MCP、Vibe Coding、Harness Engineering、Loop Engineering、Evalsまでを日本語で整理したローカル閲覧用Web資料です。
 
-## Prerequisites
+## ローカルで見る
 
-- Node.js `>=22.13.0`
+### 一番簡単な方法
 
-## Quick Start
+このフォルダーにある **`一键启动演示.cmd`** をダブルクリックしてください。
 
-```bash
-npm install
-npm run dev
-npm run build
+- ローカルサーバーが起動し、ブラウザーが自動的に開きます。
+- 黒いウィンドウを閉じると終了します。
+- すでに起動している場合は、新しく起動せずブラウザーだけを開きます。
+- `5173` が別のアプリで使用中の場合は、`5174`〜`5190` の空きポートを自動的に選びます。
+
+### PowerShellから起動する場合
+
+PowerShellでこのフォルダーを開き、次を実行します。
+
+```powershell
+.\start-local.ps1
 ```
 
-This starter does not use `wrangler.jsonc`.
+ブラウザーが自動的に `http://127.0.0.1:5173/` を開きます。
 
-## Included Shape
+表示はプレゼンテーション形式です。`←` `→`、`PageUp` `PageDown`、`Space`、マウスホイール、タッチ操作でページを移動できます。右下の `⛶` で全画面表示に切り替えられます。
 
-- edit site code under `app/`
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
-- `vite.config.ts` simulates declared bindings for local development
-- `db/schema.ts` starts intentionally empty
-- `examples/d1/` contains an optional D1 example surface
-- `drizzle.config.ts` supports local migration generation when needed
+「制作例」ページでは [Day Card](https://www.daycard.site/) をライブWebサイトとして小窓内に表示します。`LIVE SITE` はインターネット接続が必要です。`CONCEPT` へ切り替えると、HTML/CSSの3Dカード反転を含む演出をローカルで体験できます。
 
-## Workspace Auth Headers
+背景光、章ごとのアクセントカラー、スクロール連動の表示、ガラス調ナビゲーション、カーソル追従表現はブラウザー上で動作します。OSまたはブラウザーで「視差効果を減らす」が有効な場合は、動きを抑えた表示に自動的に切り替わります。
 
-Signed-in visitors receive both `oai-authenticated-user-id` and `oai-authenticated-user-email`. Private Sites require every visitor to sign in; public Sites may also have anonymous visitors, for whom neither header is present.
+通常のNode.js環境では次でも起動できます。
 
-The user ID is stable for the same user on the same Site and different across Sites. Email and name are intended for display or contact purposes.
-
-SIWC-authenticated workspace sites may also receive
-`oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty
-`name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by
-`oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
-
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const userId = requestHeaders.get("oai-authenticated-user-id");
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```powershell
+pnpm install
+pnpm dev -- --host 127.0.0.1
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+## 確認コマンド
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs
-optional or required ChatGPT sign-in:
+```powershell
+pnpm typecheck
+pnpm build
+```
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send
-  anonymous visitors through Sign in with ChatGPT.
-- Use `chatGPTSignInPath(returnTo)` and `chatGPTSignOutPath(returnTo)` for
-  browser links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in
-  or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because
-  they depend on per-request identity headers.
+このプロジェクトにはオンライン公開設定、Cloudflare Worker、D1/R2バインディング、デプロイ用アーカイブを含めていません。
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the
-OAuth cookies, and identity header injection. Do not implement app routes for
-those reserved paths. Routes that do not import and call the helper remain
-anonymous-compatible.
+## なぜローカルサーバーが必要か
 
-SIWC establishes identity only; it does not prove workspace membership. Use the
-Sites hosting platform's access policy controls for workspace-wide restrictions,
-or enforce explicit server-side membership or allowlist checks.
+この資料は単一の静的HTMLではなく、Reactによるページ操作、Mermaid図のブラウザー内描画、モジュール分割を利用しています。`file://` でHTMLを直接開く方式では、ブラウザーのセキュリティ制限によりJavaScriptモジュールや関連ファイルの読み込みが不安定になります。
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write
-actions tied to the current ChatGPT user. Leave public content anonymous.
-
-## Useful Commands
-
-- `npm run dev`: start local development
-- `npm run build`: verify the vinext build output
-- `npm test`: build the starter and verify its rendered loading skeleton
-- `npm run db:generate`: generate Drizzle migrations after schema changes
-
-## Learn More
-
-- [vinext Documentation](https://github.com/cloudflare/vinext)
-- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+ローカルサーバーを使うと、インターネットへ公開せずに、通常のWebサイトと同じHTTP環境で安定して動かせます。翻页、全画面、Mermaid図、レスポンシブ表示を維持しながら、更新後の再読み込みも速くなります。
