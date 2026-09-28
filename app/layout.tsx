@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "生成AIは、「答える」から「動く」へ。",
-  description: "GPTからReasoning、Multimodal、Agent、MCP、Vibe Coding、Harness / Loop Engineeringまでを読み解く社内発表資料。",
+  title: "小さなアイデアを、動くものに。 — 王博のワークスタジオ",
+  description: "生成AIの発展と実践。AI Agentとつくる、私のワークスタジオ。10分のインタラクティブな発表と、旧版の全資料。",
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
 };
 

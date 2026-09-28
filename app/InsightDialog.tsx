@@ -29,6 +29,7 @@ export function InsightDialog({ insight, onClose }: InsightDialogProps) {
     <dialog
       ref={dialogRef}
       className="insight-dialog"
+      aria-labelledby="insight-dialog-title"
       onClose={onClose}
       onClick={(event) => {
         if (event.target === event.currentTarget) onClose();
@@ -39,7 +40,7 @@ export function InsightDialog({ insight, onClose }: InsightDialogProps) {
           <span>{insight.kicker}</span>
           <button type="button" onClick={onClose} aria-label="詳細を閉じる">×</button>
         </header>
-        <h2>{insight.title}</h2>
+        <h2 id="insight-dialog-title">{insight.title}</h2>
         <p>{insight.summary}</p>
         <ol>
           {insight.points.map((point, index) => <li key={point}><span>{String(index + 1).padStart(2, "0")}</span><b>{point}</b></li>)}

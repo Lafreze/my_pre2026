@@ -39,3 +39,7 @@ yarn-error.log*
 /.wrangler/
 /outputs/
 /work/
+
+# Local build cache and standalone design-reference checkout
+*.tsbuildinfo
+/beautiful-html-templates/

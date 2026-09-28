@@ -1,0 +1,414 @@
+{
+  "checked": "2026-09-28",
+  "scope": "Legacy link reachability. Main-line factual sources separately opened and read. Unverified legacy statements remain archival background.",
+  "sources": [
+    {
+      "number": 1,
+      "title": "Vaswani et al., Attention Is All You Need (2017)",
+      "url": "https://arxiv.org/abs/1706.03762",
+      "status": 200,
+      "finalURL": "https://arxiv.org/abs/1706.03762",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 2,
+      "title": "OpenAI, Improving Language Understanding by Generative Pre-Training (2018)",
+      "url": "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf",
+      "status": 200,
+      "finalURL": "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 3,
+      "title": "OpenAI, Better language models and their implications (2019)",
+      "url": "https://openai.com/index/better-language-models/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/better-language-models/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 4,
+      "title": "Brown et al., Language Models are Few-Shot Learners (2020)",
+      "url": "https://arxiv.org/abs/2005.14165",
+      "status": 200,
+      "finalURL": "https://arxiv.org/abs/2005.14165",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 5,
+      "title": "OpenAI, Introducing ChatGPT (2022)",
+      "url": "https://openai.com/index/chatgpt/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/chatgpt/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 6,
+      "title": "OpenAI, GPT-4 Technical Report / Milestone (2023)",
+      "url": "https://openai.com/index/gpt-4-research/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/gpt-4-research/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 7,
+      "title": "Yao et al., ReAct (2022)",
+      "url": "https://arxiv.org/abs/2210.03629",
+      "status": 200,
+      "finalURL": "https://arxiv.org/abs/2210.03629",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 8,
+      "title": "Schick et al., Toolformer (2023)",
+      "url": "https://arxiv.org/abs/2302.04761",
+      "status": 200,
+      "finalURL": "https://arxiv.org/abs/2302.04761",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 9,
+      "title": "OpenAI, Function calling and other API updates (2023)",
+      "url": "https://openai.com/index/function-calling-and-other-api-updates/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/function-calling-and-other-api-updates/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 10,
+      "title": "Anthropic, Developing a computer use model (2024)",
+      "url": "https://www.anthropic.com/news/developing-computer-use",
+      "status": 200,
+      "finalURL": "https://www.anthropic.com/news/developing-computer-use",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 11,
+      "title": "Anthropic, Introducing the Model Context Protocol (2024)",
+      "url": "https://www.anthropic.com/news/model-context-protocol",
+      "status": 200,
+      "finalURL": "https://www.anthropic.com/news/model-context-protocol",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 12,
+      "title": "OpenAI, New tools for building agents / Google, A2A (2025)",
+      "url": "https://openai.com/index/new-tools-for-building-agents/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/new-tools-for-building-agents/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 13,
+      "title": "OpenAI API, Model catalog (accessed 2026-08-19)",
+      "url": "https://developers.openai.com/api/docs/models",
+      "status": 200,
+      "finalURL": "https://developers.openai.com/api/docs/models",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 14,
+      "title": "Andrej Karpathy, Software Is Changing (Again) (2025)",
+      "url": "https://www.youtube.com/watch?v=LCEmiRjPEtQ",
+      "status": 200,
+      "finalURL": "https://www.youtube.com/watch?v=LCEmiRjPEtQ",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 15,
+      "title": "Anthropic, Building effective agents (2024)",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "status": 200,
+      "finalURL": "https://www.anthropic.com/engineering/building-effective-agents",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 16,
+      "title": "NIST AI 600-1, Generative AI Profile (2024)",
+      "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+      "status": 200,
+      "finalURL": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 17,
+      "title": "経済産業省・総務省, AI事業者ガイドライン 第1.2版 (2026)",
+      "url": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20260331_report.html",
+      "status": 403,
+      "finalURL": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20260331_report.html",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 18,
+      "title": "IPA, テキスト生成AIの導入・運用ガイドライン (2024)",
+      "url": "https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2024/generative-ai-guideline.html",
+      "status": 200,
+      "finalURL": "https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2024/generative-ai-guideline.html",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 19,
+      "title": "GitHub, Copilot / Copilot Chat product history (2021–)",
+      "url": "https://github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer/",
+      "status": 200,
+      "finalURL": "https://github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 20,
+      "title": "OpenAI, Introducing Codex (2025)",
+      "url": "https://openai.com/index/introducing-codex/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/introducing-codex/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 21,
+      "title": "OpenAI, Harness engineering: leveraging Codex in an agent-first world (2026)",
+      "url": "https://openai.com/ja-JP/index/harness-engineering/",
+      "status": 403,
+      "finalURL": "https://openai.com/ja-JP/index/harness-engineering/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 22,
+      "title": "Anthropic, Effective harnesses for long-running agents (2025)",
+      "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "status": 200,
+      "finalURL": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 23,
+      "title": "OpenAI, The next evolution of the Agents SDK (2026)",
+      "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 24,
+      "title": "IBM, What Is Loop Engineering? (2026) — emerging practice",
+      "url": "https://www.ibm.com/think/topics/loop-engineering",
+      "status": 200,
+      "finalURL": "https://www.ibm.com/think/topics/loop-engineering",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 25,
+      "title": "OpenAI, An open-source spec for Codex orchestration: Symphony (2026)",
+      "url": "https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/open-source-codex-orchestration-symphony/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 26,
+      "title": "Anthropic, Scaling Managed Agents: Decoupling the brain from the hands (2026)",
+      "url": "https://www.anthropic.com/engineering/managed-agents",
+      "status": 200,
+      "finalURL": "https://www.anthropic.com/engineering/managed-agents",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 27,
+      "title": "OpenAI, Learning to reason with LLMs / o1 (2024)",
+      "url": "https://openai.com/index/learning-to-reason-with-llms/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/learning-to-reason-with-llms/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 28,
+      "title": "DeepSeek-AI et al., DeepSeek-R1 (2025)",
+      "url": "https://arxiv.org/abs/2501.12948",
+      "status": 200,
+      "finalURL": "https://arxiv.org/abs/2501.12948",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 29,
+      "title": "Ho et al., Denoising Diffusion Probabilistic Models (2020)",
+      "url": "https://arxiv.org/abs/2006.11239",
+      "status": 200,
+      "finalURL": "https://arxiv.org/abs/2006.11239",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 30,
+      "title": "OpenAI, DALL·E: Creating images from text (2021)",
+      "url": "https://openai.com/index/dall-e/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/dall-e/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 31,
+      "title": "Stability AI, Stable Diffusion Public Release (2022)",
+      "url": "https://stability.ai/news-updates/stable-diffusion-public-release",
+      "status": 200,
+      "finalURL": "https://stability.ai/news-updates/stable-diffusion-public-release",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 32,
+      "title": "OpenAI, Video generation models as world simulators / Sora (2024)",
+      "url": "https://openai.com/index/video-generation-models-as-world-simulators/",
+      "status": 403,
+      "finalURL": "https://openai.com/index/video-generation-models-as-world-simulators/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 33,
+      "title": "Meta AI, Introducing LLaMA (2023)",
+      "url": "https://ai.meta.com/blog/large-language-model-llama-meta-ai/",
+      "status": 200,
+      "finalURL": "https://ai.meta.com/blog/large-language-model-llama-meta-ai/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 34,
+      "title": "Hu et al., LoRA: Low-Rank Adaptation of Large Language Models (2021)",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "status": 200,
+      "finalURL": "https://arxiv.org/abs/2106.09685",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 35,
+      "title": "Ollama, Llama 3.2 goes small and multimodal — local processing (2024)",
+      "url": "https://ollama.com/blog/llama3.2",
+      "status": 200,
+      "finalURL": "https://ollama.com/blog/llama3.2",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 36,
+      "title": "Anthropic, Demystifying evals for AI agents (2026)",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "status": 200,
+      "finalURL": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 37,
+      "title": "OWASP, Top 10 for Large Language Model Applications (2025)",
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/",
+      "status": 200,
+      "finalURL": "https://owasp.org/projects/top-10-for-large-language-model-applications",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 38,
+      "title": "Model Context Protocol, 2026-07-28 Specification Release (2026)",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "status": 200,
+      "finalURL": "https://blog.modelcontextprotocol.io/posts/2026-07-28/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 39,
+      "title": "Linux Foundation, Formation of the Agentic AI Foundation (2025)",
+      "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation",
+      "status": 200,
+      "finalURL": "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 40,
+      "title": "OWASP, Top 10 for Agentic Applications (2025)",
+      "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+      "status": 200,
+      "finalURL": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 41,
+      "title": "IPA, セキュリティ担当者のための生成AIセキュリティ (2026)",
+      "url": "https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2026/ai-security.html",
+      "status": 200,
+      "finalURL": "https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2026/ai-security.html",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 42,
+      "title": "OpenAI, Create browser-based games with Codex (accessed 2026-08-27)",
+      "url": "https://learn.chatgpt.com/use-cases/browser-games",
+      "status": 200,
+      "finalURL": "https://learn.chatgpt.com/use-cases/browser-games",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 43,
+      "title": "OpenAI, Subagents in ChatGPT and Codex (accessed 2026-08-27)",
+      "url": "https://learn.chatgpt.com/docs/agent-configuration/subagents",
+      "status": 200,
+      "finalURL": "https://learn.chatgpt.com/docs/agent-configuration/subagents",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 44,
+      "title": "OpenAI, Git worktrees in Codex (accessed 2026-08-27)",
+      "url": "https://learn.chatgpt.com/docs/environments/git-worktrees",
+      "status": 200,
+      "finalURL": "https://learn.chatgpt.com/docs/environments/git-worktrees",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 45,
+      "title": "Anthropic, Create custom subagents in Claude Code (accessed 2026-08-27)",
+      "url": "https://code.claude.com/docs/en/sub-agents",
+      "status": 200,
+      "finalURL": "https://code.claude.com/docs/en/sub-agents",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 46,
+      "title": "Hunicke, LeBlanc & Zubek, MDA: A Formal Approach to Game Design and Game Research (2004)",
+      "url": "https://aaai.org/papers/ws04-04-001-mda-a-formal-approach-to-game-design-and-game-research/",
+      "status": 403,
+      "finalURL": "https://aaai.org/papers/ws04-04-001-mda-a-formal-approach-to-game-design-and-game-research/",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 47,
+      "title": "Unity + USC Games Unlocked, Prototyping / Milestones / Vertical Slice",
+      "url": "https://learn.unity.com/course/design-and-publish-your-original-game-unity-usc-games-unlocked/unit/milestones",
+      "status": 200,
+      "finalURL": "https://learn.unity.com/course/design-and-publish-your-original-game-unity-usc-games-unlocked/unit/milestones",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 48,
+      "title": "Microsoft, Xbox Accessibility Guidelines (updated 2026)",
+      "url": "https://learn.microsoft.com/en-us/xbox/accessibility/guidelines",
+      "status": 200,
+      "finalURL": "https://learn.microsoft.com/en-us/xbox/accessibility/guidelines",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 49,
+      "title": "OpenAI API, Evals — evaluation structure and testing criteria (accessed 2026-09-02)",
+      "url": "https://developers.openai.com/api/reference/java/resources/evals/methods/create",
+      "status": 200,
+      "finalURL": "https://developers.openai.com/api/reference/java/resources/evals/methods/create",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 50,
+      "title": "OpenAI API, Responses tools — built-in, MCP, and function tools (accessed 2026-09-02)",
+      "url": "https://developers.openai.com/api/reference/cli/resources/responses/methods/retrieve",
+      "status": 200,
+      "finalURL": "https://developers.openai.com/api/reference/cli/resources/responses/methods/retrieve",
+      "check": "URL reachability only; historical claims not revalidated"
+    },
+    {
+      "number": 51,
+      "title": "Lewis et al., Retrieval-Augmented Generation (2020)",
+      "url": "https://arxiv.org/abs/2005.11401",
+      "status": 200,
+      "finalURL": "https://arxiv.org/abs/2005.11401",
+      "check": "URL reachability only; historical claims not revalidated"
+    }
+  ]
+}

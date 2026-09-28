@@ -170,13 +170,13 @@ export function MermaidDiagram({ chart, label, caption, showCode = false, classN
   }, [getNodeId]);
 
   const activeIndex = nodes.findIndex((node) => node.id === activeNode);
-  const activeLabel = activeIndex >= 0 ? nodes[activeIndex].label : "カーソルを重ねて、つながりを追う";
+  const activeLabel = activeIndex >= 0 ? nodes[activeIndex].label : "";
 
   return (
     <figure className={`mermaid-figure interactive-diagram ${activeNode ? "has-focus" : ""} ${className}`.trim()} aria-label={label}>
       <div className="diagram-toolbar">
         <div className="diagram-status" aria-live="polite">
-          <span>{activeNode ? `NODE ${String(activeIndex + 1).padStart(2, "0")} / ${String(nodes.length).padStart(2, "0")}` : "INTERACTIVE MAP"}</span>
+          <span>{activeNode ? `${String(activeIndex + 1).padStart(2, "0")} / ${String(nodes.length).padStart(2, "0")}` : ""}</span>
           <b>{activeLabel}</b>
         </div>
         <div className="diagram-actions" role="group" aria-label="図の操作">

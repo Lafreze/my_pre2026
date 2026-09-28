@@ -42,7 +42,7 @@ const buildSteps = [
 
 type PreviewMode = "live" | "concept";
 
-export function DaycardShowcase() {
+export function DaycardShowcase({ active: slideActive = true }: { active?: boolean }) {
   const [mode, setMode] = useState<PreviewMode>("live");
   const [activeStep, setActiveStep] = useState(2);
   const [revealed, setRevealed] = useState(false);
@@ -58,7 +58,7 @@ export function DaycardShowcase() {
         <p><b>AIが短縮するのは、アイデアから「実際に遊べる形」までの距離。</b><br />ここでは、一つのゲームアイデアを、企画 → 実装 → 検証 → 公開まで進め、実際にブラウザで遊べるWebゲームにする例を示す。</p>
       </div>
 
-      <div className="daycard-stage">
+      <div className="daycard-stage" data-scene-controls>
         <article className="daycard-browser" aria-label="数時間で制作した、ブラウザで遊べるWebゲームのライブプレビュー">
           <header className="browser-chrome">
             <div className="browser-lights" aria-hidden="true"><i /><i /><i /></div>
@@ -72,22 +72,21 @@ export function DaycardShowcase() {
               <button type="button" className={mode === "concept" ? "active" : ""} onClick={() => setMode("concept")}>CONCEPT</button>
             </div>
 
-            <div className="daycard-live-shell" aria-hidden={mode !== "live"}>
+            <div className="daycard-live-shell" aria-hidden={mode !== "live"} inert={mode !== "live"}>
               <div className="daycard-loading"><i /><span>DAY CARD</span><small>connecting to live experience…</small></div>
-              <iframe
+              {slideActive && mode === "live" && <iframe
                 src="https://www.daycard.site/"
                 title="Day Card ライブサイト"
                 loading="lazy"
                 referrerPolicy="strict-origin-when-cross-origin"
                 sandbox="allow-forms allow-popups allow-same-origin allow-scripts"
-              />
+              />}
             </div>
 
-            <div className="daycard-concept" aria-hidden={mode !== "concept"}>
+            <div className="daycard-concept" data-build-stage={activeStep} aria-hidden={mode !== "concept"} inert={mode !== "concept"}>
               <div className="ritual-copy">
-                <span>ONE QUIET QUESTION</span>
+                <span>{active.label}</span>
                 <h3>今日、問いを<br />一枚のカードへ。</h3>
-                <p>答えを当てるのではなく、<br />まだ言葉にならない気持ちを整理する。</p>
               </div>
               <button
                 type="button"
@@ -103,8 +102,6 @@ export function DaycardShowcase() {
               </button>
               <div className="ritual-orbit" aria-hidden="true"><i /><i /><i /></div>
             </div>
-
-            <div className="daycard-preview-note"><span>{mode === "live" ? "PLAYABLE WEB GAME" : "HTML 3D FLIP"}</span><b>{mode === "live" ? "数時間で制作・公開した、ブラウザで遊べるWebゲーム" : "状態変化と立体変形をCSSで表現"}</b></div>
           </div>
         </article>
 
@@ -119,9 +116,7 @@ export function DaycardShowcase() {
                 type="button"
                 key={step.label}
                 className={activeStep === index ? "active" : ""}
-                onMouseEnter={() => setActiveStep(index)}
-                onFocus={() => setActiveStep(index)}
-                onClick={() => setActiveStep(index)}
+                onClick={() => { setActiveStep(index); setMode("concept"); setRevealed(false); }}
                 aria-pressed={activeStep === index}
               >
                 <span>{step.number}</span>

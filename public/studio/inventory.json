@@ -1,0 +1,495 @@
+{
+  "checked": "2026-09-28",
+  "legacyPages": [
+    [
+      "intro",
+      "自己紹介",
+      "個人"
+    ],
+    [
+      "cover",
+      "表紙",
+      "背景"
+    ],
+    [
+      "manifesto",
+      "論点",
+      "背景"
+    ],
+    [
+      "overview",
+      "全体像 / 3D Atlas",
+      "仕組み"
+    ],
+    [
+      "timeline",
+      "年表",
+      "背景"
+    ],
+    [
+      "agent",
+      "Agent / Tool Use",
+      "仕組み"
+    ],
+    [
+      "mcp",
+      "MCP",
+      "仕組み"
+    ],
+    [
+      "concepts",
+      "用語整理",
+      "仕組み"
+    ],
+    [
+      "vibe",
+      "Vibe Coding",
+      "制作"
+    ],
+    [
+      "commodity",
+      "Product価値",
+      "制作"
+    ],
+    [
+      "engineering",
+      "Engineering Stack",
+      "仕組み"
+    ],
+    [
+      "harness",
+      "Harness / Loop",
+      "仕組み"
+    ],
+    [
+      "game-process",
+      "ゲーム制作プロセス",
+      "制作"
+    ],
+    [
+      "game-agents",
+      "Multi-Agent制作",
+      "制作"
+    ],
+    [
+      "game-sprint",
+      "90分制作ループ（旧版の仮定）",
+      "制作"
+    ],
+    [
+      "game-case",
+      "Webゲーム制作 / Day Card",
+      "制作"
+    ],
+    [
+      "reasoning",
+      "Reasoning",
+      "背景"
+    ],
+    [
+      "media",
+      "画像・音声・動画",
+      "背景"
+    ],
+    [
+      "open-local",
+      "Open / Local",
+      "背景"
+    ],
+    [
+      "trust",
+      "Evals / Security",
+      "検証"
+    ],
+    [
+      "adoption",
+      "社内導入",
+      "検証"
+    ],
+    [
+      "synthesis",
+      "3層モデル",
+      "仕組み"
+    ],
+    [
+      "takeaway",
+      "まとめ",
+      "背景"
+    ],
+    [
+      "sources",
+      "出典（原文51件）",
+      "出典"
+    ]
+  ],
+  "legacySources": [
+    {
+      "number": 1,
+      "label": "Vaswani et al., Attention Is All You Need (2017)",
+      "url": "https://arxiv.org/abs/1706.03762"
+    },
+    {
+      "number": 2,
+      "label": "OpenAI, Improving Language Understanding by Generative Pre-Training (2018)",
+      "url": "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf"
+    },
+    {
+      "number": 3,
+      "label": "OpenAI, Better language models and their implications (2019)",
+      "url": "https://openai.com/index/better-language-models/"
+    },
+    {
+      "number": 4,
+      "label": "Brown et al., Language Models are Few-Shot Learners (2020)",
+      "url": "https://arxiv.org/abs/2005.14165"
+    },
+    {
+      "number": 5,
+      "label": "OpenAI, Introducing ChatGPT (2022)",
+      "url": "https://openai.com/index/chatgpt/"
+    },
+    {
+      "number": 6,
+      "label": "OpenAI, GPT-4 Technical Report / Milestone (2023)",
+      "url": "https://openai.com/index/gpt-4-research/"
+    },
+    {
+      "number": 7,
+      "label": "Yao et al., ReAct (2022)",
+      "url": "https://arxiv.org/abs/2210.03629"
+    },
+    {
+      "number": 8,
+      "label": "Schick et al., Toolformer (2023)",
+      "url": "https://arxiv.org/abs/2302.04761"
+    },
+    {
+      "number": 9,
+      "label": "OpenAI, Function calling and other API updates (2023)",
+      "url": "https://openai.com/index/function-calling-and-other-api-updates/"
+    },
+    {
+      "number": 10,
+      "label": "Anthropic, Developing a computer use model (2024)",
+      "url": "https://www.anthropic.com/news/developing-computer-use"
+    },
+    {
+      "number": 11,
+      "label": "Anthropic, Introducing the Model Context Protocol (2024)",
+      "url": "https://www.anthropic.com/news/model-context-protocol"
+    },
+    {
+      "number": 12,
+      "label": "OpenAI, New tools for building agents / Google, A2A (2025)",
+      "url": "https://openai.com/index/new-tools-for-building-agents/"
+    },
+    {
+      "number": 13,
+      "label": "OpenAI API, Model catalog (accessed 2026-08-19)",
+      "url": "https://developers.openai.com/api/docs/models"
+    },
+    {
+      "number": 14,
+      "label": "Andrej Karpathy, Software Is Changing (Again) (2025)",
+      "url": "https://www.youtube.com/watch?v=LCEmiRjPEtQ"
+    },
+    {
+      "number": 15,
+      "label": "Anthropic, Building effective agents (2024)",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents"
+    },
+    {
+      "number": 16,
+      "label": "NIST AI 600-1, Generative AI Profile (2024)",
+      "url": "https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence"
+    },
+    {
+      "number": 17,
+      "label": "経済産業省・総務省, AI事業者ガイドライン 第1.2版 (2026)",
+      "url": "https://www.meti.go.jp/shingikai/mono_info_service/ai_shakai_jisso/20260331_report.html"
+    },
+    {
+      "number": 18,
+      "label": "IPA, テキスト生成AIの導入・運用ガイドライン (2024)",
+      "url": "https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2024/generative-ai-guideline.html"
+    },
+    {
+      "number": 19,
+      "label": "GitHub, Copilot / Copilot Chat product history (2021–)",
+      "url": "https://github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer/"
+    },
+    {
+      "number": 20,
+      "label": "OpenAI, Introducing Codex (2025)",
+      "url": "https://openai.com/index/introducing-codex/"
+    },
+    {
+      "number": 21,
+      "label": "OpenAI, Harness engineering: leveraging Codex in an agent-first world (2026)",
+      "url": "https://openai.com/ja-JP/index/harness-engineering/"
+    },
+    {
+      "number": 22,
+      "label": "Anthropic, Effective harnesses for long-running agents (2025)",
+      "url": "https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents"
+    },
+    {
+      "number": 23,
+      "label": "OpenAI, The next evolution of the Agents SDK (2026)",
+      "url": "https://openai.com/index/the-next-evolution-of-the-agents-sdk/"
+    },
+    {
+      "number": 24,
+      "label": "IBM, What Is Loop Engineering? (2026) — emerging practice",
+      "url": "https://www.ibm.com/think/topics/loop-engineering"
+    },
+    {
+      "number": 25,
+      "label": "OpenAI, An open-source spec for Codex orchestration: Symphony (2026)",
+      "url": "https://openai.com/index/open-source-codex-orchestration-symphony/"
+    },
+    {
+      "number": 26,
+      "label": "Anthropic, Scaling Managed Agents: Decoupling the brain from the hands (2026)",
+      "url": "https://www.anthropic.com/engineering/managed-agents"
+    },
+    {
+      "number": 27,
+      "label": "OpenAI, Learning to reason with LLMs / o1 (2024)",
+      "url": "https://openai.com/index/learning-to-reason-with-llms/"
+    },
+    {
+      "number": 28,
+      "label": "DeepSeek-AI et al., DeepSeek-R1 (2025)",
+      "url": "https://arxiv.org/abs/2501.12948"
+    },
+    {
+      "number": 29,
+      "label": "Ho et al., Denoising Diffusion Probabilistic Models (2020)",
+      "url": "https://arxiv.org/abs/2006.11239"
+    },
+    {
+      "number": 30,
+      "label": "OpenAI, DALL·E: Creating images from text (2021)",
+      "url": "https://openai.com/index/dall-e/"
+    },
+    {
+      "number": 31,
+      "label": "Stability AI, Stable Diffusion Public Release (2022)",
+      "url": "https://stability.ai/news-updates/stable-diffusion-public-release"
+    },
+    {
+      "number": 32,
+      "label": "OpenAI, Video generation models as world simulators / Sora (2024)",
+      "url": "https://openai.com/index/video-generation-models-as-world-simulators/"
+    },
+    {
+      "number": 33,
+      "label": "Meta AI, Introducing LLaMA (2023)",
+      "url": "https://ai.meta.com/blog/large-language-model-llama-meta-ai/"
+    },
+    {
+      "number": 34,
+      "label": "Hu et al., LoRA: Low-Rank Adaptation of Large Language Models (2021)",
+      "url": "https://arxiv.org/abs/2106.09685"
+    },
+    {
+      "number": 35,
+      "label": "Ollama, Llama 3.2 goes small and multimodal — local processing (2024)",
+      "url": "https://ollama.com/blog/llama3.2"
+    },
+    {
+      "number": 36,
+      "label": "Anthropic, Demystifying evals for AI agents (2026)",
+      "url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents"
+    },
+    {
+      "number": 37,
+      "label": "OWASP, Top 10 for Large Language Model Applications (2025)",
+      "url": "https://owasp.org/www-project-top-10-for-large-language-model-applications/"
+    },
+    {
+      "number": 38,
+      "label": "Model Context Protocol, 2026-07-28 Specification Release (2026)",
+      "url": "https://blog.modelcontextprotocol.io/posts/2026-07-28/"
+    },
+    {
+      "number": 39,
+      "label": "Linux Foundation, Formation of the Agentic AI Foundation (2025)",
+      "url": "https://www.linuxfoundation.org/press/linux-foundation-announces-the-formation-of-the-agentic-ai-foundation"
+    },
+    {
+      "number": 40,
+      "label": "OWASP, Top 10 for Agentic Applications (2025)",
+      "url": "https://genai.owasp.org/2025/12/09/owasp-top-10-for-agentic-applications-the-benchmark-for-agentic-security-in-the-age-of-autonomous-ai/"
+    },
+    {
+      "number": 41,
+      "label": "IPA, セキュリティ担当者のための生成AIセキュリティ (2026)",
+      "url": "https://www.ipa.go.jp/jinzai/ics/core_human_resource/final_project/2026/ai-security.html"
+    },
+    {
+      "number": 42,
+      "label": "OpenAI, Create browser-based games with Codex (accessed 2026-08-27)",
+      "url": "https://learn.chatgpt.com/use-cases/browser-games"
+    },
+    {
+      "number": 43,
+      "label": "OpenAI, Subagents in ChatGPT and Codex (accessed 2026-08-27)",
+      "url": "https://learn.chatgpt.com/docs/agent-configuration/subagents"
+    },
+    {
+      "number": 44,
+      "label": "OpenAI, Git worktrees in Codex (accessed 2026-08-27)",
+      "url": "https://learn.chatgpt.com/docs/environments/git-worktrees"
+    },
+    {
+      "number": 45,
+      "label": "Anthropic, Create custom subagents in Claude Code (accessed 2026-08-27)",
+      "url": "https://code.claude.com/docs/en/sub-agents"
+    },
+    {
+      "number": 46,
+      "label": "Hunicke, LeBlanc & Zubek, MDA: A Formal Approach to Game Design and Game Research (2004)",
+      "url": "https://aaai.org/papers/ws04-04-001-mda-a-formal-approach-to-game-design-and-game-research/"
+    },
+    {
+      "number": 47,
+      "label": "Unity + USC Games Unlocked, Prototyping / Milestones / Vertical Slice",
+      "url": "https://learn.unity.com/course/design-and-publish-your-original-game-unity-usc-games-unlocked/unit/milestones"
+    },
+    {
+      "number": 48,
+      "label": "Microsoft, Xbox Accessibility Guidelines (updated 2026)",
+      "url": "https://learn.microsoft.com/en-us/xbox/accessibility/guidelines"
+    },
+    {
+      "number": 49,
+      "label": "OpenAI API, Evals — evaluation structure and testing criteria (accessed 2026-09-02)",
+      "url": "https://developers.openai.com/api/reference/java/resources/evals/methods/create"
+    },
+    {
+      "number": 50,
+      "label": "OpenAI API, Responses tools — built-in, MCP, and function tools (accessed 2026-09-02)",
+      "url": "https://developers.openai.com/api/reference/cli/resources/responses/methods/retrieve"
+    },
+    {
+      "number": 51,
+      "label": "Lewis et al., Retrieval-Augmented Generation (2020)",
+      "url": "https://arxiv.org/abs/2005.11401"
+    }
+  ],
+  "legacyAssets": [
+    {
+      "path": "public/card-chime.vtt",
+      "bytes": 111
+    },
+    {
+      "path": "public/card-chime.wav",
+      "bytes": 132344
+    },
+    {
+      "path": "public/favicon.svg",
+      "bytes": 718
+    },
+    {
+      "path": "public/file.svg",
+      "bytes": 393
+    },
+    {
+      "path": "public/globe.svg",
+      "bytes": 1037
+    },
+    {
+      "path": "public/models/atlas/CREDITS.md",
+      "bytes": 979
+    },
+    {
+      "path": "public/models/atlas/factory/cog-a.glb",
+      "bytes": 13660
+    },
+    {
+      "path": "public/models/atlas/factory/conveyor.glb",
+      "bytes": 18676
+    },
+    {
+      "path": "public/models/atlas/factory/License.txt",
+      "bytes": 700
+    },
+    {
+      "path": "public/models/atlas/factory/oopi.glb",
+      "bytes": 79380
+    },
+    {
+      "path": "public/models/atlas/factory/robot-arm-b.glb",
+      "bytes": 44524
+    },
+    {
+      "path": "public/models/atlas/factory/scanner-high.glb",
+      "bytes": 21656
+    },
+    {
+      "path": "public/models/atlas/factory/screen-wide.glb",
+      "bytes": 13904
+    },
+    {
+      "path": "public/models/atlas/factory/Textures/colormap.png",
+      "bytes": 11813
+    },
+    {
+      "path": "public/models/atlas/furniture/bookcaseOpen.glb",
+      "bytes": 18020
+    },
+    {
+      "path": "public/models/atlas/furniture/books.glb",
+      "bytes": 6864
+    },
+    {
+      "path": "public/models/atlas/furniture/chairDesk.glb",
+      "bytes": 39016
+    },
+    {
+      "path": "public/models/atlas/furniture/computerKeyboard.glb",
+      "bytes": 3476
+    },
+    {
+      "path": "public/models/atlas/furniture/computerMouse.glb",
+      "bytes": 5868
+    },
+    {
+      "path": "public/models/atlas/furniture/computerScreen.glb",
+      "bytes": 6404
+    },
+    {
+      "path": "public/models/atlas/furniture/desk.glb",
+      "bytes": 15048
+    },
+    {
+      "path": "public/models/atlas/furniture/License.txt",
+      "bytes": 614
+    },
+    {
+      "path": "public/og.png",
+      "bytes": 1802154
+    },
+    {
+      "path": "public/window.svg",
+      "bytes": 387
+    }
+  ],
+  "manuscripts": [
+    "原稿.md",
+    "発表原稿_日本語.md"
+  ],
+  "preservedFeatures": [
+    "24 pages / 19 default-visible",
+    "profile editing: gen-ai-profile-v1",
+    "page editing, hide, reorder: gen-ai-slide-settings-v2",
+    "topic labels: gen-ai-topic-labels-v1",
+    "topic grouping: gen-ai-slide-topics-v1",
+    "fullscreen, keyboard, touch, laser pointer",
+    "all original simulations, Mermaid diagrams and DaycardShowcase",
+    "standalone /atlas/",
+    "app/chatgpt-auth.ts and .openai/project.json unchanged"
+  ]
+}

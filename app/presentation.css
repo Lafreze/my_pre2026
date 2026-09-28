@@ -1,0 +1,695 @@
+/* Presentation art direction: ink, precise blue, and signal teal.
+   Loaded after the retained slide layouts; this is the authoritative theme. */
+@property --signal-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+:root {
+  --ink: #13243a;
+  --paper: #f4f7fb;
+  --white: #ffffff;
+  --acid: #265ed9;
+  --orange: #087f80;
+  --muted: #53647a;
+  --line: #ced9e6;
+  --bp-text: var(--ink);
+  --bp-muted: var(--muted);
+  --bp-light: #6b7f94;
+  --bp-bg: var(--paper);
+  --bp-primary: #265ed9;
+  --bp-border: #d3deeb;
+  --bp-accent: #eaf0fc;
+  --bp-accent-strong: #dce8fc;
+  --deck-radius: 18px;
+  --deck-border: var(--bp-border);
+  --deck-shadow: 0 14px 36px #203b6610;
+  --deck-font: "Yu Gothic UI", "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  --slide-display: var(--deck-font);
+  --slide-body: var(--deck-font);
+  --slide-meta: "Aptos", "Segoe UI", var(--deck-font);
+  --type-page-title: clamp(34px, 2.85vw, 46px);
+  --type-card-title: clamp(18px, 1.4vw, 24px);
+  --type-lead: clamp(24px, 2.1vw, 34px);
+  --type-body: clamp(16px, 1.02vw, 18px);
+  --type-small: 13px;
+  --type-meta: 12px;
+  --ease-stage: cubic-bezier(.16, 1, .3, 1);
+}
+
+html, body { background: #0a1729; }
+::selection { background: #bfeced; color: #10253c; }
+#presentation.deck { background: var(--paper); scroll-behavior: auto; }
+#presentation.deck > section {
+  --slide-accent: #265ed9;
+  padding: clamp(90px, 11vh, 128px) clamp(32px, 5.5vw, 104px) 92px;
+  background: radial-gradient(ellipse at 95% 0%, #e6effc 0, transparent 42%), #f4f7fb !important;
+  background-size: auto !important;
+  color: var(--ink) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scrollbar-width: thin;
+  scrollbar-color: #b3c6df transparent;
+  box-shadow: none;
+  scroll-padding: 90px 0;
+}
+#presentation.deck > section::before, #presentation.deck > section::after { display: none !important; }
+#presentation.deck > section[hidden] { display: none !important; }
+#presentation.deck > section > * { min-width: 0; flex-shrink: 0; }
+#presentation.deck > section :where(h1,h2,h3,h4) { text-wrap: balance; }
+#presentation.deck > section :where(p,li) { text-wrap: pretty; }
+#presentation.deck > section:not(.is-active) :where(.section-head,.mermaid-figure) { opacity: 1; transform: none; }
+#presentation.deck > section :where(.section-head,.mermaid-figure,.compare,.concept-grid,.engineering-cards,.agent-role-grid,.media-river,.levels,.eval-board,.source-list) {
+  animation: none;
+}
+#presentation .deck-atmosphere, #presentation .ambient-cursor { display: none !important; }
+#presentation.deck :where(button,a,input,select,summary,[tabindex="0"]):focus-visible {
+  outline: 3px solid #138aab !important;
+  outline-offset: 4px;
+}
+
+/* The navigation remains steady while the slide changes beneath it. */
+#presentation .topbar {
+  inset: 14px 22px auto !important;
+  height: 52px !important;
+  padding: 0 22px !important;
+  grid-template-columns: max-content minmax(0, 1fr) max-content !important;
+  gap: 26px !important;
+  border: 1px solid #ffffff21 !important;
+  border-radius: 14px !important;
+  background: #0c1c30ed !important;
+  box-shadow: 0 8px 30px #08172e18 !important;
+  backdrop-filter: blur(20px) saturate(150%) !important;
+  color: #eef5ff !important;
+  view-transition-name: presentation-navigation;
+}
+#presentation .topbar .brand { color: #f1f6ff !important; font-size: 11px !important; letter-spacing: .13em; }
+#presentation .brand::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 10px; border-radius: 50%; background: #64dfcc; box-shadow: 0 0 12px #64dfcc60; }
+#presentation .topbar nav { display: flex; gap: 5px !important; justify-self: center; overflow-x: auto; scrollbar-width: none; }
+#presentation .topbar nav button {
+  border: 0 !important;
+  border-radius: 7px !important;
+  padding: 9px 10px !important;
+  background: transparent !important;
+  color: #b3c3d8 !important;
+  font-size: 12px !important;
+  white-space: nowrap;
+  box-shadow: none !important;
+  transition: color .2s, background .2s;
+}
+#presentation .topbar nav button > span { color: #738aa5 !important; font-size: 10px !important; }
+#presentation .topbar nav button.active { color: #fff !important; background: #ffffff15 !important; }
+#presentation .topbar nav button.active > span { color: #75e1d3 !important; }
+#presentation .topbar nav button:hover { color: #fff !important; background: #ffffff0b !important; }
+#presentation .deck-editor-toggle { border: 1px solid #ffffff28 !important; background: #ffffff08 !important; color: #cfdaea !important; border-radius: 7px !important; font-size: 12px !important; padding: 8px 12px !important; }
+#presentation .deck-progress { top: auto !important; bottom: 0 !important; left: 0 !important; right: 0 !important; height: 3px !important; background: #dce5f0 !important; border-radius: 0; view-transition-name: presentation-progress; }
+#presentation .deck-progress i { background: linear-gradient(90deg, #265ed9, #30bdad) !important; box-shadow: none !important; }
+#presentation .slide-context {
+  position: fixed !important; top: auto !important; bottom: 28px !important; left: clamp(32px, 5.5vw, 104px) !important;
+  padding: 0 !important; border: 0 !important; background: transparent !important; box-shadow: none !important; backdrop-filter: none !important;
+  gap: 12px; view-transition-name: presentation-context;
+}
+#presentation .slide-context span { color: #2963d2 !important; font: 700 13px var(--slide-meta) !important; }
+#presentation .slide-context b { color: #66778c !important; font-size: 12px !important; letter-spacing: .06em !important; }
+#presentation .presenter-controls {
+  left: auto !important; right: 28px !important; bottom: 18px !important;
+  display: flex !important; gap: 4px !important; padding: 6px !important;
+  border: 1px solid #ffffff22 !important; border-radius: 13px !important;
+  background: #102238f2 !important; color: #eef5ff !important;
+  box-shadow: 0 8px 24px #152b4925 !important; backdrop-filter: blur(18px) !important;
+  view-transition-name: presentation-controls;
+}
+#presentation .presenter-controls > div { display: flex !important; align-items: baseline; gap: 6px; min-width: 76px; padding: 0 12px !important; background: transparent !important; }
+#presentation .presenter-controls > div b { color: #fff !important; font-size: 18px !important; }
+#presentation .presenter-controls > div span { color: #8ca2bb !important; font-size: 12px !important; }
+#presentation .presenter-controls > div small { display: none !important; }
+#presentation .presenter-controls > button {
+  width: 36px !important; height: 36px !important; min-width: 36px;
+  border: 0 !important; border-radius: 8px !important;
+  background: transparent !important; color: #d7e6f8 !important;
+  font-size: 19px !important; box-shadow: none !important;
+}
+#presentation .presenter-controls > button:hover:not(:disabled) { transform: none; background: #ffffff18 !important; color: #7de9d5 !important; }
+#presentation .presenter-controls > button:disabled { opacity: .25 !important; }
+#presentation .slide-rail { display: none !important; }
+
+/* A single typography hierarchy across all chapters. */
+#presentation .section-head { gap: 32px; margin-bottom: clamp(22px, 3vh, 38px) !important; align-items: flex-end !important; }
+#presentation .section-head > div { padding-top: 0 !important; }
+#presentation .section-head > div::before { display: none !important; }
+#presentation.deck > section .section-no { color: #386493 !important; font-size: 12px !important; letter-spacing: .16em !important; }
+#presentation.deck > section .section-no::before { display: none !important; }
+#presentation.deck > section .section-head h2 { margin-top: 15px !important; letter-spacing: -.045em !important; line-height: 1.16 !important; }
+#presentation.deck > section:not(.hero) .section-head > p { max-width: 450px; margin: 0 0 4px !important; font-size: 16px !important; font-weight: 400 !important; color: #52677e !important; }
+#presentation.deck > section:not(.hero) .section-head > p b { color: #1e3d5c !important; }
+#presentation.deck > section :where(.card-tag,.card-index,.compare-label) { color: #3970a7 !important; }
+#presentation.deck > section :where(.manifesto-insights,.reading-keys,.mcp-insights,.local-stack,.eval-board,.levels,.takeaway-balance) { border-color: #d3deeb !important; background: #ffffff !important; box-shadow: var(--deck-shadow); }
+#presentation.deck > section :where(.manifesto-insights article,.reading-keys article,.mcp-insights article,.local-stack article,.eval-board article,.levels article) { background: transparent !important; border-color: #dbe4ef !important; }
+#presentation.deck > section :where(.precision-note,.caution-note,.definition,.stack-caption,.synthesis-reading-note,.framework-note) { color: #586c82 !important; }
+#presentation.deck > section :where(.card-reveal-trigger,.page-insight-trigger) { background: #f5f9ff !important; border-color: #c8d9ec !important; color: #2b65c0 !important; box-shadow: none !important; font-size: 11px !important; }
+
+/* Opening: editorial identity with a strong, contained ink panel. */
+#presentation.deck > .profile-section { display: flex; flex-direction: column; }
+#presentation .profile-head { border-bottom: 1px solid #d2ddea !important; padding-bottom: 18px; }
+#presentation .profile-head-tools > span { color: #74859a !important; font-size: 11px !important; letter-spacing: .09em; }
+#presentation .profile-layout { grid-template-columns: minmax(280px, .85fr) minmax(0, 1.3fr); gap: clamp(28px, 4vw, 68px); padding: 30px 0; align-items: stretch; }
+#presentation .profile-identity {
+  display: flex; flex-direction: column; justify-content: center; position: relative;
+  padding: clamp(28px, 3.6vw, 56px); border: 1px solid #ffffff16; border-radius: 22px;
+  background: radial-gradient(ellipse at 100% 0%, #215078 0, transparent 70%), #0d223b;
+  box-shadow: 0 20px 44px #18355422;
+}
+#presentation .profile-identity > span { color: #71dccc !important; font-size: 12px !important; }
+#presentation .profile-identity h1 { color: #f7fbff !important; font-size: clamp(64px, 7.5vw, 114px); margin: 26px 0 15px; letter-spacing: -.04em; line-height: 1.07; }
+#presentation .profile-identity > p { color: #adbed2 !important; font-size: 17px !important; }
+#presentation .profile-current { margin-top: 36px; border-top: 1px solid #ffffff25 !important; padding-top: 24px; }
+#presentation .profile-current small { color: #6ad7c5 !important; }
+#presentation .profile-current b { color: #f4f8ff !important; font-size: clamp(20px, 1.8vw, 29px) !important; }
+#presentation .profile-current > span { color: #a9c0d7 !important; }
+#presentation .profile-career { align-self: center; background: transparent !important; border: 0 !important; border-radius: 0; box-shadow: none !important; }
+#presentation .profile-career-title { background: transparent !important; padding: 0 0 22px; border-bottom: 1px solid #cbd8e7 !important; }
+#presentation .profile-career-title span { color: #316491 !important; font-size: 12px !important; }
+#presentation .profile-career article { min-height: 118px; padding: 20px 0; grid-template-columns: minmax(135px, .4fr) 1fr; border-color: #d4dfeb !important; }
+#presentation .profile-career article time { color: #2b63bd !important; font-size: clamp(25px, 2.3vw, 36px); }
+#presentation .profile-career article.is-current { background: transparent !important; }
+#presentation .profile-career article.is-current time { color: #07827e !important; }
+#presentation .profile-career article.is-current h2 { color: #08716f !important; }
+#presentation .profile-career article h2 { font-size: 21px !important; }
+#presentation .profile-career article p { font-size: 15px !important; }
+#presentation .profile-footer { border-top: 1px solid #d2ddea !important; padding-top: 18px; }
+#presentation .profile-footer > div { background: transparent !important; border: 0 !important; }
+#presentation .profile-footer b { color: #163957 !important; }
+#presentation .profile-identity .profile-edit-input { color: #fff !important; background: #ffffff12 !important; border-color: #8ab1da !important; }
+
+/* The cover is the one immersive scene, with a meaningful three-layer map. */
+#presentation.deck > section.hero {
+  display: flex !important; flex-direction: column; justify-content: flex-start !important;
+  padding: clamp(96px, 12vh, 142px) clamp(36px, 6vw, 110px) 94px !important;
+  background: radial-gradient(ellipse at 85% 44%, #153d5b 0, transparent 50%), linear-gradient(135deg, #0a1829, #0b2137) !important;
+  color: #f2f7ff !important;
+}
+#presentation .hero .eyebrow { margin: 0 0 28px !important; border: 0 !important; color: #a4bbd4 !important; }
+#presentation .hero .eyebrow span { font-size: 11px !important; letter-spacing: .16em; }
+#presentation .hero .eyebrow span:last-child { margin-left: auto; }
+#presentation .hero .eyebrow, #presentation .hero .kicker { flex-shrink: 0; }
+#presentation .hero .kicker { max-width: 57%; margin: 0 0 21px !important; font-size: 12px !important; color: #6cdeca !important; letter-spacing: .17em; }
+#presentation.deck > .hero h1 {
+  position: relative; z-index: 2; max-width: 61%; margin: 0 !important;
+  font-size: clamp(44px, 5.8vw, 88px) !important; font-weight: 750 !important;
+  letter-spacing: -.05em !important; line-height: 1.13 !important; color: #f1f7ff !important;
+}
+#presentation.deck > .hero h1 em {
+  display: block; margin-top: 18px; max-width: 100%; padding: 0 !important;
+  font-size: clamp(23px, 2.6vw, 42px) !important; font-weight: 500; line-height: 1.45;
+  color: #86cde4 !important; -webkit-text-fill-color: #86cde4 !important;
+  background: none !important; white-space: normal;
+}
+#presentation .hero .lead { z-index: 2; width: 53%; max-width: 720px !important; margin: 24px 0 0 !important; color: #abc0d6 !important; font-size: clamp(15px, 1.1vw, 18px) !important; line-height: 1.9 !important; }
+#presentation .hero-metrics { display: flex !important; width: 52%; margin: 28px 0 24px !important; gap: 0 !important; }
+#presentation .hero-metrics > div { flex: 1; min-width: 0; padding: 0 20px; border-left: 1px solid #ffffff22 !important; background: transparent !important; }
+#presentation .hero-metrics > div:first-child { padding-left: 0; border-left: 0 !important; }
+#presentation .hero-metrics b { font: 500 clamp(27px, 2.8vw, 43px) / 1.1 var(--slide-meta) !important; color: #e4f7ff !important; }
+#presentation .hero-metrics span { margin-top: 8px; font-size: 10px !important; letter-spacing: .12em; color: #7895b1 !important; }
+#presentation .hero .hero-path {
+  z-index: 2; display: flex !important; align-items: center; width: 100%; min-height: 75px; margin: auto 0 0 !important;
+  padding: 20px 0 0; border: 0 !important; border-top: 1px solid #ffffff20 !important; background: none !important; box-shadow: none !important; border-radius: 0 !important;
+}
+#presentation .hero-path > span::before, #presentation .hero-path > span::after, #presentation .hero-path > i::before, #presentation .hero-path > i::after { display: none !important; }
+#presentation .hero-path > span { align-content: center; }
+#presentation .hero-path > i { display: block; width: auto; height: auto; padding: 0; border: 0 !important; background: transparent !important; }
+#presentation .hero-path > span { flex: 1; display: grid; grid-template-columns: 26px auto; row-gap: 5px; padding: 0 14px !important; border: 0 !important; background: transparent !important; font-size: 13px !important; color: #d7e8f7 !important; }
+#presentation .hero-path > span:first-child { padding-left: 0 !important; }
+#presentation .hero-path > span b { grid-row: 1 / 3; padding-top: 2px; color: #58cabb !important; font-size: 11px !important; }
+#presentation .hero-path > span small { grid-column: 2; color: #8ca8c4 !important; font-size: 11px !important; }
+#presentation .hero-path > i { color: #548096 !important; font-size: 15px !important; }
+#presentation .hero .hero-foot { margin-top: 20px !important; padding-top: 0 !important; border: 0 !important; }
+#presentation .hero .thesis { color: #9ab2ca !important; font-size: 13px !important; }
+#presentation .hero .thesis b { color: #81dfce !important; background: transparent !important; border: 0 !important; padding: 0 !important; }
+#presentation .hero .scroll-cue { color: #bcd1e6 !important; background: transparent !important; border: 1px solid #ffffff25 !important; font-size: 11px !important; }
+#presentation .capability-map { position: absolute; z-index: 1; width: 43%; max-width: 620px; right: 2.5%; top: 15%; margin: 0; pointer-events: none; }
+#presentation .capability-map svg { display: block; width: 100%; height: auto; overflow: visible; }
+#presentation .capability-map figcaption { text-align: center; margin-top: 6px; color: #6889a9 !important; font: 10px var(--slide-meta) !important; letter-spacing: .2em; }
+#presentation .map-coordinates { color: #a4c5e5; opacity: .1; }
+#presentation .map-orbits > ellipse { stroke: #78bfdb; stroke-width: 1; opacity: .28; }
+#presentation .map-orbits > .map-signal { stroke: #76ebd1; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 42 1400; opacity: 1; filter: drop-shadow(0 0 4px #5bd7bb); }
+#presentation .map-links { opacity: .25; stroke-dasharray: 2 6; }
+#presentation .map-core-title { fill: #f1f8ff; font: 600 34px var(--slide-meta); letter-spacing: .07em; }
+#presentation .map-micro { fill: #70d9cb; font: 10px var(--slide-meta); letter-spacing: .14em; }
+#presentation .map-note { fill: #8caccc; font: 12px var(--deck-font); letter-spacing: .03em; }
+#presentation .map-node circle { fill: #8ae8d5; stroke: #0e304a; stroke-width: 4; }
+#presentation .map-node > text:not(.map-note) { fill: #cfe2f6; font: 600 12px var(--slide-meta); letter-spacing: .11em; }
+#presentation .map-layer { fill: #8faccc; font: 11px var(--slide-meta); letter-spacing: .16em; }
+#presentation .hero.is-active .map-signal-outer { animation: signal-orbit 16s linear infinite; }
+#presentation .hero.is-active .map-signal-inner { animation: signal-orbit 12s linear infinite reverse; }
+#presentation.deck[data-current-slide="cover"] .slide-context b { color: #829dbb !important; }
+#presentation.deck[data-current-slide="cover"] .slide-context span { color: #69d6c5 !important; }
+
+/* Content chapters: consistent materials, differences driven by meaning. */
+#presentation .giant-copy { margin: 32px 0 !important; max-width: 1200px; font-size: clamp(30px, 3.1vw, 49px) !important; line-height: 1.55 !important; letter-spacing: -.025em; color: #1a304c !important; }
+#presentation .giant-copy span { color: #2365bb !important; background: linear-gradient(transparent 78%, #cfe5f9 0) !important; }
+#presentation .evolution-strip { border: 1px solid #d0ddeb !important; border-radius: 14px; background: #fff; overflow: hidden; }
+#presentation .evolution-strip > div { border-color: #d4e1ee !important; padding: 18px 16px !important; }
+#presentation .evolution-strip > div:last-child { background: #123553 !important; }
+#presentation .evolution-strip > div:last-child :where(span,small) { color: #d5f6ed !important; }
+#presentation .manifesto-insights { margin-top: 24px !important; }
+#presentation .manifesto-insights article > span { color: #55789d !important; }
+#presentation .manifesto-insights article > b { color: #277798 !important; }
+#presentation .era-card { border: 1px solid #d0ddec !important; border-radius: 16px !important; background: #fff !important; box-shadow: var(--deck-shadow); overflow: hidden; }
+#presentation .era-card > header { background: #edf3fc !important; border-color: #d6e2f0 !important; }
+#presentation .era-card > header strong { color: #6995ce !important; }
+#presentation .era-card:last-child > header { background: #e5f5f2 !important; }
+#presentation .era-nodes > button { border-color: #d9e4ef !important; background: transparent !important; transition: background .2s, opacity .2s, translate .2s; }
+#presentation .era-nodes > button.is-selected { background: #dfeefd !important; border-color: #619bdf !important; box-shadow: inset 3px 0 #3277c8 !important; }
+#presentation .era-detail { border-color: #d1dfea !important; background: #eaf1f9 !important; box-shadow: none !important; }
+#presentation .timeline-card { background: #ffffff !important; border: 1px solid #d6e1ec !important; border-radius: 13px !important; box-shadow: 0 4px 18px #19335a07; transition: border-color .2s, box-shadow .2s !important; }
+#presentation .timeline-card:hover { border-color: #7ca6da !important; box-shadow: 0 10px 28px #1b406a14; }
+#presentation .timeline-card .card-point { color: #216388 !important; background: #e9f4f9 !important; }
+#presentation .filters button { border-color: #ccdbea !important; background: #fff !important; color: #526c88 !important; border-radius: 7px !important; padding: 8px 16px !important; }
+#presentation .filters button.active, #presentation .filters button[aria-pressed="true"] { background: #205cb6 !important; color: #fff !important; border-color: #205cb6 !important; }
+#presentation .tool-list b { color: #476681 !important; background: #f2f6fb !important; border-color: #d9e3ee !important; }
+#presentation .agent-control-compare { border: 1px solid #ccdbeb !important; background: #fff !important; box-shadow: var(--deck-shadow); }
+#presentation .workflow-linear { background: #fff !important; }
+#presentation .agent-cycle { background: #eaf4fa !important; border-color: #c8dce9 !important; }
+#presentation .workflow-flow b, #presentation .workflow-flow strong { border-color: #c7d8e9 !important; background: #f0f5fb !important; color: #376080 !important; }
+#presentation .cycle-orbit { border-color: #85b4c6 !important; }
+#presentation .cycle-orbit button { border-color: #c2d9e7 !important; background: #fff !important; box-shadow: 0 8px 20px #25517310 !important; }
+#presentation .cycle-orbit button:hover { background: #dff5ee !important; border-color: #3ca68c !important; }
+#presentation .cycle-orbit > i { color: #218d8d !important; }
+#presentation .agent-process { border-color: #cadbea !important; background: #fff !important; }
+#presentation .agent-process .process-title { background: #16496b !important; }
+#presentation .agent-process .process-title :where(span,b,i) { color: #ddf6f5 !important; }
+#presentation .process-step { background: #f2f7fc !important; border-color: #d4e1ed !important; }
+#presentation .approval-branch { background: #f8f0e4 !important; border-color: #dec99f !important; }
+#presentation .mcp-interface { background: #fff !important; border-color: #c9d9e9 !important; box-shadow: var(--deck-shadow); }
+#presentation .mcp-core { background: #103c58 !important; border-color: #317b91 !important; }
+#presentation .mcp-core > :is(span,b,small,i) { color: #c4f4eb !important; }
+#presentation .mcp-core > b { color: #fff !important; letter-spacing: -.035em; }
+#presentation .mcp-core { border: 2px solid transparent !important; background: linear-gradient(#103c58, #103c58) padding-box, conic-gradient(from var(--signal-angle), #2c7192, #8bedd5, #2c7192 40%) border-box !important; }
+#presentation .mcp-section.is-active .mcp-core { animation: interface-signal 7s linear 3; }
+#presentation .mcp-world button { background: #eef5fc !important; border-color: #c7dcec !important; }
+#presentation .mcp-side strong { background: #eef4fa !important; border-color: #ccdfea !important; color: #2c6187 !important; }
+#presentation .mcp-technical { background: #eaf1f9 !important; border-color: #cdddec !important; }
+#presentation .protocol-compare { background: #e9f3f8 !important; border-color: #c5dce9 !important; }
+#presentation .concept-role { background: #fff !important; border-color: #ccdaeb !important; box-shadow: 0 6px 20px #18355308; }
+#presentation .concept-role.role-system { background: #e9f5f2 !important; border-color: #b1dcd1 !important; }
+#presentation .concept-role.role-system > b { color: #067c74 !important; }
+#presentation .concept-architecture { background: #eaf1f9 !important; border-color: #c8d9e9 !important; }
+#presentation .concept-agent-frame { background: #f5fafc !important; border-color: #b9d7df !important; }
+#presentation .concept-stage { background: #fff !important; border-color: #bfd4e7 !important; }
+#presentation .concept-stage:hover { background: #e4f2fc !important; }
+#presentation .intent-shift, #presentation .vibe-grid .vibe-loop { background: #fff !important; border-color: #ccdaeb !important; }
+#presentation .vibe-loop .loop-center { background: #16476a !important; color: #eaf8ff !important; }
+#presentation .cost-stage, #presentation .paradigm-panel, #presentation .value-migration { border-color: #cbddeb !important; box-shadow: var(--deck-shadow); }
+#presentation .cost-stage { background: #fff !important; }
+#presentation .cost-stage.ai-native { background: #e9f6f2 !important; }
+#presentation .value-differentiated { background: #e8f3fa !important; }
+#presentation .value-migration-core { background: #133e5b !important; }
+#presentation .value-migration-core :is(span,b,i,strong) { color: #b9ece5 !important; }
+
+/* Layer diagrams gain depth; feedback paths carry a moving signal. */
+#presentation .engineering-nest { background: #edf4fb !important; border-color: #c7d8e9 !important; box-shadow: 0 16px 38px #22416a12; perspective: 1100px; }
+#presentation .engineering-layer-ring { border-color: #aebfd9 !important; box-shadow: 0 8px 18px #2447720c, inset 0 1px #ffffffcc; transition: translate .4s var(--ease-stage), box-shadow .4s; }
+#presentation .engineering-layer-ring.ring-04 { background: #d7e5f7 !important; }
+#presentation .engineering-layer-ring.ring-03 { background: #e3edfa !important; }
+#presentation .engineering-layer-ring.ring-02 { background: #eef5fc !important; }
+#presentation .engineering-layer-ring.ring-01 { background: #fff !important; border-color: #66a6c6 !important; box-shadow: 0 12px 25px #1d619923; }
+#presentation .engineering-layer-ring:has(button:hover), #presentation .engineering-layer-ring:has(button:focus-visible) { translate: 0 -4px; box-shadow: 0 18px 35px #2447721c; }
+#presentation .engineering-layer-ring > button { background: #ffffffb3 !important; }
+#presentation .engineering-layer-list { border-color: #cbdcea !important; background: #fff !important; box-shadow: var(--deck-shadow); }
+#presentation .engineering-layer-list > button { border-color: #d9e3ef !important; }
+#presentation .engineering-layer-list > button:hover { background: #edf5fc !important; }
+#presentation .harness-interactive-map { background: #edf4fa !important; border-color: #c1d5e6 !important; box-shadow: var(--deck-shadow); }
+#presentation .model-policy-band { background: #fff !important; border-color: #c6d9e9 !important; }
+#presentation .agent-loop-track { position: relative; overflow: hidden; background: #103a56 !important; border-color: #247491 !important; }
+#presentation .agent-loop-track :where(b,small,span,i) { color: #d7f4f0 !important; }
+#presentation .agent-loop-track .pass { background: #166755 !important; }
+#presentation .agent-loop-track .retry { background: #365568 !important; }
+#presentation .agent-loop-track .human { background: #635041 !important; }
+#presentation .loop-track-main { position: relative; }
+#presentation .loop-track-main > b { background: #1c4b65 !important; border-color: #518697 !important; }
+#presentation .loop-track-main::after { content: ""; position: absolute; left: 4%; right: 4%; bottom: -6px; height: 2px; background: linear-gradient(90deg, transparent, #7fe8ca, transparent); transform: scaleX(.08); transform-origin: left; }
+#presentation .harness-section.is-active .loop-track-main::after { animation: loop-signal 5s ease-in-out 3; }
+#presentation .harness-node { border-color: #ccdae9 !important; background: #fff !important; }
+#presentation .harness-node.is-active { border-color: #4b9da9 !important; background: #e1f2f0 !important; box-shadow: inset 3px 0 #289487 !important; }
+#presentation .harness-module-detail { border-color: #c8dce8 !important; background: #f9fcff !important; }
+#presentation .evidence-timeline a { border-color: #d0dfeb !important; background: #fff !important; }
+#presentation .game-flow-track article { background: #fff !important; border-color: #cedfeb !important; }
+#presentation .game-flow-track article.is-active { background: #e2f3ef !important; border-color: #83bcb0 !important; }
+#presentation .agent-role-grid article { background: #fff !important; border-color: #cbdcea !important; }
+#presentation .studio-director { background: #123d5d !important; border-color: #2f668d !important; }
+#presentation .studio-director :where(b,h3,p,span) { color: #d8ecf9 !important; }
+#presentation .studio-contract { background: #e5eff9 !important; border-color: #c0d6e9 !important; }
+#presentation .media-river article { border-left: 3px solid #629ed3 !important; }
+#presentation .media-river article:nth-child(2) { border-left-color: #35a99c !important; }
+#presentation .media-river article:nth-child(3) { border-left-color: #8173b6 !important; }
+#presentation .local-decision { background: #edf5fa !important; border-color: #cadae9 !important; }
+#presentation .local-stack article > div b { background: #e6f0fa !important; color: #225e95 !important; }
+#presentation .levels article:nth-child(2) { background: #f0f6fc !important; }
+#presentation .levels article:nth-child(3) { background: #e9f5f3 !important; }
+#presentation .risk.low { background: #dcf1eb !important; color: #217865 !important; }
+#presentation .risk.mid { background: #e4edf9 !important; color: #38669e !important; }
+#presentation .risk.high { background: #f3e7df !important; color: #965a3a !important; }
+#presentation .design-layer { border-color: #cadcea !important; box-shadow: var(--deck-shadow); }
+#presentation .model-layer { background: #edf4fd !important; }
+#presentation .system-layer { background: #e7f4f3 !important; }
+#presentation .engineering-layer { background: #edf0f9 !important; }
+#presentation .layer-elements > button { background: #ffffffc9 !important; border-color: #cbdde8 !important; }
+#presentation .framework-outcome { border-color: #bed3e3 !important; background: #e4f0f8 !important; }
+#presentation.deck > section.daycard-case { background: radial-gradient(ellipse at 85% 0%, #e3f1f6, transparent 46%), #f4f7fb !important; }
+#presentation .daycard-build { background: #fff !important; border-color: #cbdcea !important; box-shadow: var(--deck-shadow); }
+#presentation .daycard-browser { border-color: #9cb7ce !important; box-shadow: 0 20px 45px #153a6220 !important; }
+#presentation .daycard-learning { background: #e6f1f8 !important; border-color: #c0d8e9 !important; }
+#presentation .daycard-step-detail { background: #eaf4fa !important; border-color: #bfd7e9 !important; }
+#presentation .daycard-step-list button.active { background: #eaf4fa !important; border-color: #bed6e8 !important; }
+#presentation.deck > section.takeaway.critical-section { background: radial-gradient(ellipse at 90% 10%, #dcecf9 0, transparent 50%), #f0f5fa !important; }
+#presentation .critical-section h2 { font-size: clamp(36px, 4.25vw, 66px) !important; color: #17344e !important; }
+#presentation .critical-section h2 span { color: #246bb9 !important; }
+#presentation .takeaway-balance article { background: #fff !important; border-color: #70a5ce !important; }
+#presentation .takeaway-balance .takeaway-limit { background: #f5f1eb !important; border-color: #ba9b71 !important; }
+#presentation .takeaway-balance .takeaway-action { background: #eaf5f0 !important; border-color: #61a98e !important; }
+#presentation .takeaway-advice { background: #dfeef9 !important; border-color: #3a83b9 !important; }
+#presentation .source-list a { border-color: #d0deeb !important; background: transparent !important; border-radius: 0 !important; }
+#presentation .source-list a:hover { background: #e5eff9 !important; }
+#presentation .source-list { display: grid !important; grid-template-columns: repeat(3,minmax(0,1fr)) !important; grid-template-rows: none !important; grid-auto-flow: row !important; height: auto !important; gap: 0 14px; overflow: visible !important; }
+#presentation .source-list a { grid-template-columns: 25px minmax(0,1fr) 16px !important; min-height: 40px !important; height: auto !important; padding: 8px 5px !important; align-items: start; font-size: 12px !important; line-height: 1.5 !important; border-right: 0 !important; }
+#presentation .source-list a p { font-size: 13px !important; line-height: 1.5 !important; margin: 0 !important; white-space: normal !important; overflow: visible !important; overflow-wrap: anywhere; }
+#presentation .source-list a :where(span,b) { line-height: 1.4 !important; }
+#presentation .source-list a span { color: #3b78b4 !important; }
+#presentation .method-note { border-color: #bdcfdf !important; background: #eaf1f8 !important; }
+
+/* Native SVG figures: focus relationships, with a short directional pulse. */
+#presentation.deck .interactive-diagram, #presentation.deck .interactive-diagram:hover { border: 1px solid #cbdbea !important; background: #fff !important; box-shadow: var(--deck-shadow) !important; border-radius: 16px; }
+#presentation.deck .interactive-diagram .mermaid-canvas { background: radial-gradient(#b5cbe155 .7px, transparent .7px), #fafdff !important; background-size: 18px 18px !important; }
+#presentation.deck .interactive-diagram .diagram-toolbar { background: transparent !important; border: 0 !important; }
+#presentation.deck .interactive-diagram :is(.diagram-status,.diagram-actions) { border-color: #d2deeb !important; background: #fffffff2 !important; box-shadow: 0 4px 14px #173c6610 !important; }
+#presentation.deck .interactive-diagram .diagram-status span { color: #377ba7 !important; }
+#presentation.deck .interactive-diagram figcaption { color: #58718a !important; background: #edf4fa !important; border-color: #d4e0ec !important; }
+#presentation.deck .interactive-diagram .mermaid-canvas svg g.node.is-active-node :is(rect,polygon,circle,path) { stroke: #168f99 !important; fill: #e5f8f1 !important; filter: drop-shadow(0 4px 7px #278b9830) !important; }
+#presentation.deck .interactive-diagram .mermaid-canvas svg .is-active-edge { stroke: #178e9a !important; stroke-width: 2.8px !important; stroke-dasharray: 7 5; }
+#presentation.deck section.is-active .interactive-diagram .is-active-edge { animation: edge-signal 1.3s linear 4; }
+
+/* Top-layer dialog: accessible native focus handling, discrete open/close motion. */
+#presentation .insight-dialog {
+  max-width: min(700px, calc(100vw - 40px)) !important; max-height: min(84dvh, 800px) !important;
+  border: 1px solid #c5d8e9 !important; border-radius: 22px !important;
+  background: #fbfdff !important; box-shadow: 0 32px 100px #04182b40 !important;
+  opacity: 0; translate: 0 18px; scale: .98;
+  transition: opacity .24s ease, translate .35s var(--ease-stage), scale .35s var(--ease-stage), overlay .35s allow-discrete, display .35s allow-discrete;
+}
+#presentation .insight-dialog[open] { opacity: 1; translate: 0 0; scale: 1; }
+#presentation .insight-dialog::backdrop { background: #071a35a6 !important; backdrop-filter: blur(9px) !important; opacity: 0; transition: opacity .25s, overlay .35s allow-discrete, display .35s allow-discrete; }
+#presentation .insight-dialog[open]::backdrop { opacity: 1; }
+#presentation .insight-dialog article { padding: clamp(24px, 4vw, 44px) !important; }
+#presentation .insight-dialog h2 { color: #133b60 !important; font-size: clamp(24px, 2.5vw, 34px) !important; line-height: 1.45 !important; }
+#presentation .insight-dialog p, #presentation .insight-dialog li b { color: #4f6680 !important; font-size: 16px !important; line-height: 1.85 !important; }
+#presentation .insight-dialog header > span { color: #268783 !important; font-size: 12px !important; }
+#presentation .insight-dialog li { border-color: #d3e0ee !important; }
+#presentation .insight-dialog li > span { color: #2c829c !important; }
+#presentation .insight-dialog article > a { color: #286ba9 !important; background: #e9f3fc !important; border-color: #c6dcee !important; }
+@starting-style {
+  #presentation .insight-dialog[open] { opacity: 0; translate: 0 18px; scale: .98; }
+  #presentation .insight-dialog[open]::backdrop { opacity: 0; }
+}
+#presentation .deck-editor { border: 1px solid #c7d8e8 !important; background: #f5f9fd !important; box-shadow: -16px 0 60px #0a254833 !important; }
+#presentation .deck-editor li { background: #fff !important; border-color: #d2dfec !important; }
+
+/* Native snapshot transitions have an immediate navigation fallback in JS. */
+::view-transition-old(root) { animation: stage-out .28s ease both; }
+::view-transition-new(root) { animation: stage-in .48s var(--ease-stage) both; }
+html[data-slide-direction="back"]::view-transition-old(root) { animation-name: stage-out-back; }
+html[data-slide-direction="back"]::view-transition-new(root) { animation-name: stage-in-back; }
+::view-transition-group(presentation-navigation),
+::view-transition-group(presentation-controls),
+::view-transition-group(presentation-context),
+::view-transition-group(presentation-progress) { animation-duration: .3s; }
+@keyframes stage-out { to { opacity: 0; transform: translateY(-18px) scale(.99); } }
+@keyframes stage-in { from { opacity: 0; transform: translateY(32px) scale(1.012); } }
+@keyframes stage-out-back { to { opacity: 0; transform: translateY(18px) scale(.99); } }
+@keyframes stage-in-back { from { opacity: 0; transform: translateY(-32px) scale(1.012); } }
+@keyframes interface-signal { to { --signal-angle: 360deg; } }
+@keyframes signal-orbit { to { stroke-dashoffset: -1442; } }
+@keyframes edge-signal { to { stroke-dashoffset: -24; } }
+@keyframes loop-signal { 0%, 10% { transform: translateX(0) scaleX(.08); opacity: 0; } 20% { opacity: 1; } 80% { opacity: 1; } 95%, 100% { transform: translateX(92%) scaleX(.08); opacity: 0; } }
+
+@media (hover: hover) and (pointer: fine) {
+  #presentation.deck :where(.concept-role,.layer-elements > button,.era-nodes > button,.harness-node) { transition: translate .25s var(--ease-stage), box-shadow .25s, border-color .25s, background .25s; }
+  #presentation.deck :where(.concept-role,.layer-elements > button,.harness-node):hover { translate: 0 -3px; box-shadow: 0 12px 22px #234d7514; }
+}
+
+/* Dense slides use deliberate grids rather than inherited minimum heights. */
+@media (min-width: 1001px) {
+  #presentation.deck > section { padding-top: 88px !important; padding-bottom: 72px !important; }
+  #presentation .section-head { margin-bottom: 20px !important; }
+  #presentation .overview-head { align-items: center !important; }
+  #presentation .overview-anchor { width: 40%; grid-template-columns: 1fr; gap: 15px; }
+  #presentation .overview-anchor > div { display: flex; align-items: center; gap: 20px; border: 0; }
+  #presentation .overview-anchor time { font-size: 27px; }
+  #presentation .overview-anchor i { width: 90px; height: 1px; background: #86abc8; }
+  #presentation .overview-anchor i::before, #presentation .overview-anchor i::after { display: none; }
+  #presentation .overview-anchor ol { display: flex; flex-wrap: wrap; gap: 8px 15px; }
+  #presentation .overview-anchor li { display: block; font-size: 11px !important; }
+  #presentation .overview-section .reading-keys { display: grid !important; margin-top: 16px !important; }
+  #presentation .reading-keys article { min-height: 0 !important; padding: 15px 20px !important; }
+  #presentation .reading-keys h3 { font-size: 18px !important; margin: 8px 0 !important; }
+  #presentation .reading-keys p { font-size: 14px !important; margin-bottom: 0 !important; }
+  #presentation .timeline-grid.all-view { display: grid !important; grid-template-columns: repeat(4, minmax(0,1fr)) !important; grid-template-rows: repeat(4, minmax(110px,1fr)) !important; height: auto !important; gap: 9px; border: 0 !important; background: transparent; overflow: visible; }
+  #presentation .timeline-grid.all-view .timeline-card { min-height: 120px !important; grid-template-columns: 85px 1fr !important; grid-template-areas: "year tag" "title title" "point point" !important; gap: 5px 8px; padding: 12px 15px 32px !important; border: 1px solid #d4e0ed !important; }
+  #presentation .timeline-grid.all-view .card-year { font-size: 18px !important; white-space: nowrap; }
+  #presentation .timeline-grid.all-view .card-tag { font-size: 9px !important; letter-spacing: .07em !important; }
+  #presentation .timeline-grid.all-view .timeline-card h3 { font-size: 17px !important; line-height: 1.25 !important; margin: 2px 0 !important; }
+  #presentation .timeline-grid.all-view .card-point { padding: 5px 8px !important; font-size: 12px !important; line-height: 1.4 !important; }
+  #presentation .timeline-grid.all-view .card-point span { display: none; }
+  #presentation .timeline-grid.all-view .timeline-reveal { font-size: 9px !important; min-height: 22px; bottom: 6px; }
+  #presentation .frontier-grid { min-height: 0 !important; height: 450px !important; }
+  #presentation .reasoning-copy { background: #eaf2fb !important; border-color: #609bcd !important; }
+  #presentation .reasoning-copy > span, #presentation .reasoning-copy .inline-sources a { color: #337caf !important; }
+  #presentation .media-river { margin-top: 22px !important; }
+  #presentation .media-river article { min-height: 0 !important; padding: 23px 20px !important; }
+  #presentation .media-takeaways article { min-height: 0 !important; padding: 18px 20px !important; }
+  #presentation .media-river article > div b, #presentation .media-river article > div span, #presentation .media-takeaways article > span { color: #277c9b !important; }
+  #presentation .agent-control-compare { grid-template-columns: .85fr .95fr 1.4fr !important; height: 305px !important; min-height: 0 !important; }
+  #presentation .agent-control-compare > article { min-height: 0 !important; padding: 21px !important; }
+  #presentation .agent-control-compare .agent-cycle { grid-template-columns: minmax(0,1fr) 180px !important; gap: 14px !important; }
+  #presentation .agent-control-compare h3 { font-size: 20px !important; margin: 13px 0 10px !important; }
+  #presentation .agent-control-compare p { font-size: 14px !important; line-height: 1.7 !important; }
+  #presentation .agent-control-compare .cycle-orbit { display: block !important; position: relative; width: 180px !important; height: 190px !important; transform: none !important; }
+  #presentation .agent-control-compare .cycle-orbit button { position: absolute !important; width: 65px !important; height: 65px !important; border-radius: 50% !important; }
+  #presentation .cycle-orbit button:nth-of-type(1) { inset: 0 auto auto 58px !important; }
+  #presentation .cycle-orbit button:nth-of-type(2) { inset: 63px 0 auto auto !important; }
+  #presentation .cycle-orbit button:nth-of-type(3) { inset: auto auto 0 58px !important; }
+  #presentation .cycle-orbit button:nth-of-type(4) { inset: 63px auto auto 0 !important; }
+  #presentation .cycle-orbit button b { font-size: 10px !important; }
+  #presentation .cycle-orbit button small { font-size: 10px !important; }
+  #presentation .cycle-orbit > i { display: grid !important; inset: 69px auto auto 66px !important; width: 48px; height: 48px; }
+  #presentation .agent-process-label { margin-top: 18px !important; }
+  #presentation .agent-process { min-height: 94px !important; height: 94px !important; }
+  #presentation .agent-definition { display: block !important; margin-top: 76px !important; font-size: 14px !important; }
+  #presentation .approval-branch { padding: 8px 16px !important; min-height: 0; }
+  #presentation .mcp-interface { grid-template-columns: 1fr 228px 1.18fr !important; grid-template-rows: 1fr !important; min-height: 0 !important; height: 260px !important; gap: 24px; padding: 22px !important; }
+  #presentation .mcp-interface .mcp-side { display: flex !important; flex-direction: column; align-items: flex-start; justify-content: center; padding: 0 !important; }
+  #presentation .mcp-side > b { font-size: 31px !important; margin: 14px 0 8px !important; }
+  #presentation .mcp-side > div { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; border: 0 !important; }
+  #presentation .mcp-side > div strong { font-size: 10px !important; padding: 8px !important; border: 1px solid #cbddeb !important; border-radius: 5px; }
+  #presentation .mcp-interface .mcp-core { display: flex !important; flex-direction: column; justify-content: center; align-items: center; width: 212px; height: 212px; padding: 15px !important; margin: auto; border-radius: 50%; text-align: center; }
+  #presentation .mcp-core > span { font-size: 10px !important; }
+  #presentation .mcp-core > b { margin: 20px 0 12px !important; font-size: 56px !important; }
+  #presentation .mcp-core > small { font-size: 12px !important; }
+  #presentation .mcp-world { display: flex !important; flex-direction: column; padding: 8px 0 !important; gap: 16px; }
+  #presentation .mcp-world > div { grid-template-columns: repeat(3,1fr); gap: 8px; border: 0; }
+  #presentation .mcp-world button { min-height: 73px !important; padding: 10px !important; border: 1px solid #c7dcec !important; border-radius: 8px; }
+  #presentation .mcp-world button b { font-size: 12px !important; }
+  #presentation .mcp-technical { min-height: 68px !important; height: auto !important; margin-top: 16px !important; padding: 0 !important; }
+  #presentation .mcp-technical > :is(span,div,i) { min-height: 66px !important; height: auto !important; padding: 10px !important; }
+  #presentation .mcp-technical small { font-size: 11px !important; }
+  #presentation .mcp-insights { display: grid !important; height: auto !important; min-height: 0 !important; margin-top: 16px !important; }
+  #presentation .mcp-insights article { display: flex !important; flex-direction: column; gap: 8px; height: auto !important; min-height: 142px !important; padding: 16px 20px !important; }
+  #presentation .mcp-insights article > h3 { font-size: 19px !important; line-height: 1.45 !important; margin: 0 !important; }
+  #presentation .mcp-insights article > :is(p,a,span) { font-size: 12px !important; line-height: 1.5 !important; }
+  #presentation .mcp-insights article > p { margin: 0 !important; }
+  #presentation .mcp-insights article > a { margin-top: auto !important; }
+  #presentation .protocol-compare { display: flex !important; height: auto !important; min-height: 50px !important; gap: 18px; padding: 10px 16px; margin-top: 14px !important; }
+  #presentation .protocol-compare article { display: flex; align-items: baseline; gap: 10px; padding: 0 18px; }
+  #presentation .protocol-compare > span { padding: 0; }
+  #presentation .protocol-compare article > b { font-size: 24px !important; color: #27799b !important; }
+  #presentation .protocol-compare p { margin: 0; font-size: 12px !important; }
+  #presentation .harness-practice-layout { grid-template-columns: minmax(210px,.65fr) minmax(0,2.5fr) !important; gap: 24px !important; }
+  #presentation .framework-legend article { padding: 13px 0 !important; }
+  #presentation .framework-legend article h3 { font-size: 21px !important; margin: 8px 0 12px !important; }
+  #presentation .framework-legend article b { padding: 5px 7px !important; font-size: 10px !important; background: #f9fcff; }
+  #presentation .framework-note { padding: 12px 0 !important; font-size: 14px !important; line-height: 1.6 !important; }
+  #presentation .framework-legend article > div { gap: 5px; }
+  #presentation .harness-system-architecture { gap: 7px !important; padding: 10px !important; }
+  #presentation .model-policy-band { padding: 8px 12px; }
+  #presentation .model-policy-band > p { font-size: 14px !important; }
+  #presentation .model-policy-band span { font-size: 12px !important; }
+  #presentation .agent-loop-track { padding: 8px !important; }
+  #presentation .loop-outcomes span, #presentation .loop-outcomes span b { font-size: 10px !important; }
+  #presentation .harness-system-architecture .harness-network { grid-template-columns: repeat(3,minmax(0,1fr)); grid-template-rows: auto repeat(2,1fr); padding: 8px; gap: 7px; }
+  #presentation .harness-map-body { grid-template-columns: minmax(0,1.7fr) minmax(230px,1fr) !important; }
+  #presentation .harness-node { padding: 9px !important; }
+  #presentation .harness-node span { font-size: 12px !important; }
+  #presentation .harness-node b { font-size: 12px !important; }
+  #presentation .harness-system-architecture .harness-module-detail > p { font-size: 14px !important; margin: 8px 0 !important; }
+  #presentation .harness-module-detail dd { font-size: 12px !important; }
+  #presentation .evidence-timeline { margin-top: 12px !important; padding-top: 12px; }
+  #presentation .evidence-timeline a { min-height: 0 !important; padding: 13px !important; }
+  #presentation .game-process-map { min-height: 0 !important; padding: 20px !important; }
+  #presentation .player-feedback { min-height: 55px !important; margin-top: 20px; }
+  #presentation .player-feedback::before, #presentation .player-feedback::after { height: 25px; }
+  #presentation .game-flow-track article { min-height: 100px !important; }
+  #presentation .game-agentic-split article { min-height: 0 !important; padding: 18px !important; }
+  #presentation .game-agentic-split article p { font-size: 14px !important; margin: 8px 0 0 !important; }
+  #presentation .game-agentic-split > strong { padding: 10px; font-size: 13px !important; }
+  #presentation .game-design-rules article { min-height: 142px !important; padding: 16px 20px 32px !important; }
+  #presentation .game-design-rules h3 { margin: 10px 0 !important; }
+  #presentation .game-design-rules p { font-size: 13px !important; margin: 8px 0 0 !important; }
+  #presentation .game-design-rules h3 { font-size: 18px !important; }
+  #presentation .guardrails { margin-top: 15px !important; }
+  #presentation .guardrails article { min-height: 0 !important; padding: 14px !important; }
+  #presentation .levels article { min-height: 0 !important; padding: 18px 24px !important; }
+  #presentation .levels h3 { margin: 12px 0 !important; }
+  #presentation .levels p { font-size: 14px !important; }
+  #presentation .eval-board article { min-height: 0 !important; padding: 17px 22px !important; }
+  #presentation .trust-section .eval-note { font-size: 14px !important; }
+  #presentation .security-updates article { min-height: 0 !important; padding: 15px !important; }
+  #presentation .trust-section .risk-visual { grid-template-columns: 220px 1fr !important; gap: 24px; }
+}
+
+@media (max-height: 850px) and (min-width: 1001px) {
+  :root { --type-page-title: clamp(32px, 3vw, 44px); --type-body: 15px; --type-card-title: 18px; }
+  #presentation.deck > section { padding-top: 86px; padding-bottom: 82px; }
+  #presentation .section-head { margin-bottom: 20px !important; }
+  #presentation.deck > section:not(.hero) .section-head > p { font-size: 14px !important; }
+  #presentation.deck > section.hero { padding-top: 88px !important; padding-bottom: 78px !important; }
+  #presentation .hero .eyebrow { margin-bottom: 22px !important; }
+  #presentation .hero .kicker { margin-bottom: 14px !important; }
+  #presentation.deck > .hero h1 { font-size: clamp(40px, 5.2vw, 66px) !important; }
+  #presentation.deck > .hero h1 em { font-size: clamp(22px, 2.3vw, 32px) !important; margin-top: 10px; }
+  #presentation .hero .lead { font-size: 14px !important; line-height: 1.75 !important; margin-top: 16px !important; }
+  #presentation .hero-metrics { margin: 20px 0 !important; }
+  #presentation .hero-metrics b { font-size: 28px !important; }
+  #presentation .hero .hero-path { min-height: 62px; padding-top: 15px; }
+  #presentation .hero .hero-foot { margin-top: 14px !important; }
+  #presentation .capability-map { top: 14%; width: 39%; right: 4%; }
+  #presentation .profile-layout { padding: 22px 0; }
+  #presentation .profile-career article { min-height: 95px; padding: 15px 0; }
+  #presentation .profile-current { margin-top: 26px; padding-top: 18px; }
+  #presentation .profile-identity h1 { font-size: 80px; margin-top: 18px; }
+  #presentation .giant-copy { margin: 22px 0 !important; font-size: clamp(29px, 2.8vw, 40px) !important; }
+}
+
+@media (max-width: 1100px) {
+  #presentation .topbar { gap: 14px !important; padding: 0 14px !important; }
+  #presentation .topbar .brand { font-size: 10px !important; }
+  #presentation .topbar nav button { padding: 8px !important; font-size: 11px !important; }
+  #presentation .topbar nav button > span { display: none; }
+}
+@media (max-width: 1000px) {
+  #presentation .source-list { grid-template-columns: repeat(2,minmax(0,1fr)) !important; }
+  #presentation.deck > section { padding: 90px 28px 96px; height: 100dvh !important; min-height: 100dvh !important; overflow-y: auto !important; }
+  #presentation .topbar { inset: 10px 14px auto !important; height: 52px !important; grid-template-columns: auto 1fr auto !important; }
+  #presentation .topbar nav { justify-self: start; width: 100%; }
+  #presentation .profile-layout { grid-template-columns: minmax(230px,.85fr) minmax(0,1.2fr); gap: 24px; }
+  #presentation .profile-identity { padding: 25px; }
+  #presentation .profile-identity h1 { font-size: 65px; }
+  #presentation .profile-career article { grid-template-columns: 105px 1fr; }
+  #presentation .profile-career article time { font-size: 24px; }
+  #presentation .profile-career article h2 { font-size: 18px !important; }
+  #presentation .section-head { gap: 22px; }
+  #presentation.deck > section:not(.hero) .section-head > p { font-size: 14px !important; max-width: 38%; }
+  #presentation .engineering-nested-layout { grid-template-columns: 1fr; }
+  #presentation .hero .lead { width: 56%; }
+  #presentation .hero-metrics { width: 58%; }
+  #presentation .hero-metrics > div { padding: 0 10px; }
+  #presentation .hero-metrics span { font-size: 9px !important; }
+}
+@media (max-width: 700px) {
+  :root { --type-page-title: 31px; --type-body: 16px; --type-card-title: 19px; --type-small: 13px; }
+  #presentation .topbar { gap: 12px !important; padding: 0 12px !important; grid-template-columns: 1fr auto !important; }
+  #presentation .topbar nav { display: none !important; }
+  #presentation .topbar .brand { font-size: 10px !important; }
+  #presentation.deck > section { padding: 88px 20px 106px !important; }
+  #presentation.deck > section:not(.hero) .section-head { display: block; }
+  #presentation.deck > section:not(.hero) .section-head > p { margin-top: 18px !important; max-width: none; font-size: 15px !important; }
+  #presentation .slide-context { left: 20px !important; bottom: 30px !important; }
+  #presentation .slide-context b { max-width: 104px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 10px !important; }
+  #presentation .presenter-controls { right: 14px !important; bottom: 17px !important; padding: 4px !important; gap: 1px !important; }
+  #presentation .presenter-controls > div { min-width: 51px; padding: 0 5px !important; }
+  #presentation .presenter-controls > button { width: 32px !important; min-width: 32px; height: 34px !important; }
+  #presentation .presenter-controls > div b { font-size: 15px !important; }
+  #presentation .presenter-controls > div span { font-size: 10px !important; }
+  #presentation .profile-layout { display: flex; flex-direction: column; gap: 30px; padding-top: 24px; flex: none; }
+  #presentation .profile-identity { padding: 30px; }
+  #presentation .profile-identity h1 { font-size: 70px; }
+  #presentation .profile-career { width: 100%; }
+  #presentation .profile-career article { min-height: 110px; grid-template-columns: 110px 1fr; }
+  #presentation .profile-head-tools > span { display: none; }
+  #presentation .profile-footer > div { flex-wrap: wrap; gap: 10px; }
+  #presentation.deck > section.hero { padding: 90px 24px 105px !important; }
+  #presentation .hero .eyebrow { margin-bottom: 27px !important; }
+  #presentation .hero .kicker, #presentation.deck > .hero h1 { max-width: 100%; }
+  #presentation.deck > .hero h1 { font-size: 46px !important; }
+  #presentation.deck > .hero h1 em { font-size: 25px !important; }
+  #presentation .hero .lead { width: 100%; font-size: 15px !important; }
+  #presentation .capability-map { position: relative; inset: auto; width: 100%; max-width: 360px; margin: 14px auto 20px; order: 2; }
+  #presentation .hero-metrics { width: 100%; margin-top: 25px !important; }
+  #presentation .hero .hero-path { order: 3; display: grid !important; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; padding-top: 24px; }
+  #presentation .hero-path > i { display: none; }
+  #presentation .hero-path > span { padding: 0 !important; }
+  #presentation .hero .hero-foot { order: 4; margin-top: 22px !important; }
+  #presentation .hero .thesis { line-height: 1.75 !important; }
+  #presentation .giant-copy { font-size: 29px !important; }
+  #presentation .evolution-strip { display: grid; grid-template-columns: repeat(2,1fr); }
+  #presentation .evolution-strip > div { min-width: 0; }
+  #presentation .manifesto-insights,#presentation .mcp-insights,#presentation .local-stack,#presentation .eval-board,#presentation .levels,#presentation .agent-role-grid,#presentation .takeaway-balance { grid-template-columns: 1fr !important; }
+  #presentation .era-grid { grid-template-columns: 1fr !important; }
+  #presentation .era-detail { grid-template-columns: 1fr !important; }
+  #presentation .concept-roles { grid-template-columns: 1fr !important; }
+  #presentation .value-migration { grid-template-columns: minmax(0,1fr) !important; height: auto !important; }
+  #presentation .value-migration > article { min-width: 0; padding: 20px; }
+  #presentation .value-migration-core { min-height: 110px; }
+  #presentation .frontier-grid { grid-template-columns: minmax(0,1fr) !important; }
+  #presentation .frontier-grid > *, #presentation .interactive-diagram { min-width: 0 !important; max-width: 100% !important; }
+  #presentation .interactive-diagram .mermaid-canvas { max-width: 100%; overflow: auto !important; justify-content: start !important; overscroll-behavior-x: contain; }
+  #presentation .mcp-interface { height: auto !important; grid-template-columns: minmax(0,1fr) !important; grid-template-rows: auto auto auto !important; }
+  #presentation .mcp-side { display: flex; flex-direction: column; align-items: flex-start; padding: 24px !important; }
+  #presentation .mcp-side > div { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; border: 0 !important; }
+  #presentation .mcp-side > div strong { border: 1px solid #cbddec; border-radius: 5px; padding: 9px; font-size: 11px; }
+  #presentation .mcp-core { height: auto !important; min-height: 114px; padding: 20px 24px !important; display: flex; flex-wrap: wrap; gap: 10px; }
+  #presentation .mcp-core > b { margin: 0 0 0 auto; font-size: 42px; }
+  #presentation .mcp-core > small { width: 100%; text-align: center; }
+  #presentation .mcp-world { display: block; padding: 24px !important; }
+  #presentation .mcp-world > div { margin-top: 16px; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  #presentation .protocol-compare { height: auto !important; }
+  #presentation .concept-agent-flow { display: flex !important; flex-direction: column; }
+  #presentation .concept-agent-flow > button { width: 100%; }
+  #presentation .concept-agent-flow > i { rotate: 90deg; }
+  #presentation .engineering-nest { min-height: 340px; }
+  #presentation .engineering-layer-ring.ring-03 { inset: 60px 22px 35px; }
+  #presentation .engineering-layer-ring.ring-02 { inset: 113px 44px 70px; }
+  #presentation .engineering-layer-ring.ring-01 { inset: 172px 68px 105px; }
+  #presentation .engineering-layer-ring > em { display: none; }
+  #presentation .takeaway-balance article { border-left: 0 !important; }
+  #presentation .critical-section h2 { font-size: 34px !important; }
+  #presentation .source-list { grid-template-columns: 1fr !important; }
+  #presentation .insight-dialog { max-width: calc(100vw - 24px) !important; }
+}
+
+/* Motion is optional. No animated loops continue on offscreen slides. */
+#presentation.deck > section:not(.is-active) *, #presentation.deck > section:not(.is-active) *::before, #presentation.deck > section:not(.is-active) *::after { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  #presentation.deck *, #presentation.deck *::before, #presentation.deck *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  #presentation .insight-dialog { translate: none; scale: 1; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
+}
+@media print {
+  @page { size: landscape; margin: 10mm; }
+  html, body, #presentation.deck { height: auto !important; overflow: visible !important; background: #fff !important; }
+  #presentation.deck { display: flex !important; flex-direction: column; }
+  #presentation.deck > section { height: auto !important; min-height: 180mm !important; overflow: visible !important; contain: none !important; padding: 12mm !important; break-after: page; background: #fff !important; box-shadow: none !important; }
+  #presentation .topbar,#presentation .presenter-controls,#presentation .slide-context,#presentation .deck-progress,#presentation .deck-editor,#presentation .insight-dialog { display: none !important; }
+  #presentation.deck * { animation: none !important; transition: none !important; opacity: 1 !important; }
+  #presentation.deck > section.hero { background: #0c2035 !important; print-color-adjust: exact; }
+  #presentation .profile-identity { print-color-adjust: exact; }
+}
