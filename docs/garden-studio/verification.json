@@ -1,0 +1,585 @@
+{
+  "garden": {
+    "results": [
+      {
+        "name": "reduced motion starts still; daylight and dusk keep every chapter reachable",
+        "pass": true
+      },
+      {
+        "name": "little bird discovers all seven objects, saves visits and starts a fresh tour",
+        "pass": true
+      },
+      {
+        "name": "drag, wheel, accessible zoom and reset preserve the selected chapter",
+        "pass": true
+      },
+      {
+        "name": "garden controls and separate 44px object targets fit phones and tablets",
+        "pass": true
+      },
+      {
+        "name": "two-finger pinch zooms the phone scene without opening a chapter",
+        "pass": true
+      },
+      {
+        "name": "ambient motion pauses completely and chapter transitions stay responsive",
+        "pass": true
+      },
+      {
+        "name": "no browser exceptions or WebGL shader errors",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "metrics": [
+      {
+        "mode": "ambient",
+        "renderedFrames": 33,
+        "milliseconds": 1100
+      },
+      {
+        "mode": "notebook",
+        "drawCalls": 195,
+        "triangles": 547270,
+        "quality": "standard"
+      }
+    ]
+  },
+  "studio": {
+    "results": [
+      {
+        "name": "starts in fullscreen 3D with no explanations, no sidebar, one canvas",
+        "pass": true
+      },
+      {
+        "name": "8 chapters, 600 seconds, complete Japanese manuscript",
+        "pass": true
+      },
+      {
+        "name": "all seven objects open their own content and close to the room",
+        "pass": true
+      },
+      {
+        "name": "actual monitor mesh is clickable, not just hotspot buttons",
+        "pass": true
+      },
+      {
+        "name": "Agent failure and repair visibly change real 320px HTML",
+        "pass": true
+      },
+      {
+        "name": "Agent replay pauses, advances, and stops at delivery",
+        "pass": true
+      },
+      {
+        "name": "Day Card theme, draw, reveal, repeat and process notes work",
+        "pass": true
+      },
+      {
+        "name": "human review changes preview and scene checks",
+        "pass": true
+      },
+      {
+        "name": "archive searches all 24 old pages, deep links, unmounts and restores state",
+        "pass": true
+      },
+      {
+        "name": "index mode switch preserves interaction state",
+        "pass": true
+      },
+      {
+        "name": "keyboard navigation, Escape and Enter",
+        "pass": true
+      },
+      {
+        "name": "speaker timer is optional and never changes chapters automatically",
+        "pass": true
+      },
+      {
+        "name": "idle scene stops rendering",
+        "pass": true
+      },
+      {
+        "name": "all interaction surfaces fit 1366×768",
+        "pass": true
+      },
+      {
+        "name": "all interaction surfaces fit 820×1180",
+        "pass": true
+      },
+      {
+        "name": "all interaction surfaces fit 390×844",
+        "pass": true
+      },
+      {
+        "name": "all interaction surfaces fit 320×720",
+        "pass": true
+      },
+      {
+        "name": "touch drawing and flipping work with reduced motion",
+        "pass": true
+      },
+      {
+        "name": "WebGL unavailable exposes same interactions and retry",
+        "pass": true
+      },
+      {
+        "name": "rapid navigation replaces camera transition; dragging does not activate objects",
+        "pass": true
+      },
+      {
+        "name": "context loss offers working recovery",
+        "pass": true
+      },
+      {
+        "name": "no runtime exceptions",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "layouts": [
+      {
+        "width": 1366,
+        "height": 768,
+        "chapter": 0,
+        "body": 1366,
+        "w": 1366,
+        "panelOverflow": false,
+        "panelBottom": 655.15625,
+        "footerTop": 696,
+        "canvasHeight": 768
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "chapter": 1,
+        "body": 1366,
+        "w": 1366,
+        "panelOverflow": false,
+        "panelBottom": 661.9140625,
+        "footerTop": 696,
+        "canvasHeight": 768
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "chapter": 2,
+        "body": 1366,
+        "w": 1366,
+        "panelOverflow": false,
+        "panelBottom": 0,
+        "footerTop": 704,
+        "canvasHeight": 768
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "chapter": 3,
+        "body": 1366,
+        "w": 1366,
+        "panelOverflow": false,
+        "panelBottom": 608.5859375,
+        "footerTop": 696,
+        "canvasHeight": 768
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "chapter": 4,
+        "body": 1366,
+        "w": 1366,
+        "panelOverflow": false,
+        "panelBottom": 677,
+        "footerTop": 696,
+        "canvasHeight": 768
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "chapter": 5,
+        "body": 1366,
+        "w": 1366,
+        "panelOverflow": false,
+        "panelBottom": 677,
+        "footerTop": 696,
+        "canvasHeight": 768
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "chapter": 6,
+        "body": 1366,
+        "w": 1366,
+        "panelOverflow": false,
+        "panelBottom": 677,
+        "footerTop": 696,
+        "canvasHeight": 768
+      },
+      {
+        "width": 1366,
+        "height": 768,
+        "chapter": 7,
+        "body": 1366,
+        "w": 1366,
+        "panelOverflow": false,
+        "panelBottom": 641.0859375,
+        "footerTop": 696,
+        "canvasHeight": 768
+      },
+      {
+        "width": 820,
+        "height": 1180,
+        "chapter": 0,
+        "body": 820,
+        "w": 820,
+        "panelOverflow": false,
+        "panelBottom": 1096,
+        "footerTop": 1111,
+        "canvasHeight": 1180
+      },
+      {
+        "width": 820,
+        "height": 1180,
+        "chapter": 1,
+        "body": 820,
+        "w": 820,
+        "panelOverflow": false,
+        "panelBottom": 1096,
+        "footerTop": 1111,
+        "canvasHeight": 1180
+      },
+      {
+        "width": 820,
+        "height": 1180,
+        "chapter": 2,
+        "body": 820,
+        "w": 820,
+        "panelOverflow": false,
+        "panelBottom": 0,
+        "footerTop": 1119,
+        "canvasHeight": 1180
+      },
+      {
+        "width": 820,
+        "height": 1180,
+        "chapter": 3,
+        "body": 820,
+        "w": 820,
+        "panelOverflow": false,
+        "panelBottom": 1096,
+        "footerTop": 1107.734375,
+        "canvasHeight": 1180
+      },
+      {
+        "width": 820,
+        "height": 1180,
+        "chapter": 4,
+        "body": 820,
+        "w": 820,
+        "panelOverflow": false,
+        "panelBottom": 1096,
+        "footerTop": 1107.734375,
+        "canvasHeight": 1180
+      },
+      {
+        "width": 820,
+        "height": 1180,
+        "chapter": 5,
+        "body": 820,
+        "w": 820,
+        "panelOverflow": false,
+        "panelBottom": 1096,
+        "footerTop": 1107.734375,
+        "canvasHeight": 1180
+      },
+      {
+        "width": 820,
+        "height": 1180,
+        "chapter": 6,
+        "body": 820,
+        "w": 820,
+        "panelOverflow": false,
+        "panelBottom": 1096,
+        "footerTop": 1107.734375,
+        "canvasHeight": 1180
+      },
+      {
+        "width": 820,
+        "height": 1180,
+        "chapter": 7,
+        "body": 820,
+        "w": 820,
+        "panelOverflow": false,
+        "panelBottom": 1096,
+        "footerTop": 1107.734375,
+        "canvasHeight": 1180
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "chapter": 0,
+        "body": 390,
+        "w": 390,
+        "panelOverflow": false,
+        "panelBottom": 760,
+        "footerTop": 775,
+        "canvasHeight": 844
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "chapter": 1,
+        "body": 390,
+        "w": 390,
+        "panelOverflow": false,
+        "panelBottom": 760,
+        "footerTop": 775,
+        "canvasHeight": 844
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "chapter": 2,
+        "body": 390,
+        "w": 390,
+        "panelOverflow": false,
+        "panelBottom": 0,
+        "footerTop": 783,
+        "canvasHeight": 844
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "chapter": 3,
+        "body": 390,
+        "w": 390,
+        "panelOverflow": false,
+        "panelBottom": 760,
+        "footerTop": 771.734375,
+        "canvasHeight": 844
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "chapter": 4,
+        "body": 390,
+        "w": 390,
+        "panelOverflow": false,
+        "panelBottom": 760,
+        "footerTop": 771.734375,
+        "canvasHeight": 844
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "chapter": 5,
+        "body": 390,
+        "w": 390,
+        "panelOverflow": false,
+        "panelBottom": 760,
+        "footerTop": 771.734375,
+        "canvasHeight": 844
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "chapter": 6,
+        "body": 390,
+        "w": 390,
+        "panelOverflow": false,
+        "panelBottom": 760,
+        "footerTop": 771.734375,
+        "canvasHeight": 844
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "chapter": 7,
+        "body": 390,
+        "w": 390,
+        "panelOverflow": false,
+        "panelBottom": 760,
+        "footerTop": 771.734375,
+        "canvasHeight": 844
+      },
+      {
+        "width": 320,
+        "height": 720,
+        "chapter": 0,
+        "body": 320,
+        "w": 320,
+        "panelOverflow": false,
+        "panelBottom": 636,
+        "footerTop": 651,
+        "canvasHeight": 720
+      },
+      {
+        "width": 320,
+        "height": 720,
+        "chapter": 1,
+        "body": 320,
+        "w": 320,
+        "panelOverflow": false,
+        "panelBottom": 636,
+        "footerTop": 651,
+        "canvasHeight": 720
+      },
+      {
+        "width": 320,
+        "height": 720,
+        "chapter": 2,
+        "body": 320,
+        "w": 320,
+        "panelOverflow": false,
+        "panelBottom": 0,
+        "footerTop": 659,
+        "canvasHeight": 720
+      },
+      {
+        "width": 320,
+        "height": 720,
+        "chapter": 3,
+        "body": 320,
+        "w": 320,
+        "panelOverflow": false,
+        "panelBottom": 636,
+        "footerTop": 651,
+        "canvasHeight": 720
+      },
+      {
+        "width": 320,
+        "height": 720,
+        "chapter": 4,
+        "body": 320,
+        "w": 320,
+        "panelOverflow": false,
+        "panelBottom": 636,
+        "footerTop": 651,
+        "canvasHeight": 720
+      },
+      {
+        "width": 320,
+        "height": 720,
+        "chapter": 5,
+        "body": 320,
+        "w": 320,
+        "panelOverflow": false,
+        "panelBottom": 636,
+        "footerTop": 651,
+        "canvasHeight": 720
+      },
+      {
+        "width": 320,
+        "height": 720,
+        "chapter": 6,
+        "body": 320,
+        "w": 320,
+        "panelOverflow": false,
+        "panelBottom": 636,
+        "footerTop": 651,
+        "canvasHeight": 720
+      },
+      {
+        "width": 320,
+        "height": 720,
+        "chapter": 7,
+        "body": 320,
+        "w": 320,
+        "panelOverflow": false,
+        "panelBottom": 636,
+        "footerTop": 651,
+        "canvasHeight": 720
+      }
+    ]
+  },
+  "materials": {
+    "results": [
+      {
+        "name": "late PBR textures repaint the idle scene",
+        "pass": true
+      },
+      {
+        "name": "textured scene becomes idle again",
+        "pass": true
+      },
+      {
+        "name": "all close-ups render without material or shader errors",
+        "pass": true
+      },
+      {
+        "name": "Atlas loads all thirteen assets in both views",
+        "pass": true
+      },
+      {
+        "name": "missing maps retain a usable scene and interactions",
+        "pass": true
+      },
+      {
+        "name": "no WebGL shader errors or browser exceptions",
+        "pass": true
+      }
+    ],
+    "errors": [],
+    "textureCount": 13,
+    "textureBytes": 6251854
+  },
+  "performance": {
+    "date": "2026-09-28",
+    "browser": "153.0.8010.53",
+    "mode": "Headless Google Chrome, default graphics backend, no forced SwiftShader",
+    "viewport": "1440x1000",
+    "productionBytes": 1315589,
+    "measurements": [
+      {
+        "chapter": 0,
+        "rafFps": 60.30575401398171,
+        "renderedFrames": 88,
+        "duration": 2603.600000047684,
+        "quality": "standard",
+        "drawCalls": "198",
+        "triangles": "550112",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      },
+      {
+        "chapter": 3,
+        "rafFps": 60.19938650196682,
+        "renderedFrames": 88,
+        "duration": 2608.2000000953676,
+        "quality": "standard",
+        "drawCalls": "174",
+        "triangles": "542120",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      },
+      {
+        "chapter": 4,
+        "rafFps": 60.16708821841456,
+        "renderedFrames": 88,
+        "duration": 2609.499999952317,
+        "quality": "standard",
+        "drawCalls": "196",
+        "triangles": "547710",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      },
+      {
+        "chapter": 5,
+        "rafFps": 60.146343333282765,
+        "renderedFrames": 88,
+        "duration": 2610.2999999523163,
+        "quality": "standard",
+        "drawCalls": "217",
+        "triangles": "557670",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      },
+      {
+        "chapter": 2,
+        "rafFps": 60.206312076876515,
+        "renderedFrames": 122,
+        "duration": 2607.699999952316,
+        "quality": "standard",
+        "drawCalls": "137",
+        "triangles": "404616",
+        "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+      }
+    ]
+  }
+}

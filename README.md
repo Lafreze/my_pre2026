@@ -1,3 +1,5 @@
+> 2026-09-28 庭院版本：工作室新增树木、草地、野花、长椅和小鸟导览，支持昼夕光照、旋转缩放与七处探索进度。最终截图、灵感转化与生产版本验证见 [GARDEN_STUDIO.md](./GARDEN_STUDIO.md)。
+>
 > 2026-09-28 更新：主页现在直接进入全屏3D工作室，点击物件才展开内容。右上角Index提供章节、导览模式和讲者备注。旧版24页完整保留于 `/reference/`，可从资料柜或Archive按主题打开。原有启动方式不变。
 >
 > 新版操作、备份、截图、实际验证与限制：[STUDIO_DELIVERY.md](./STUDIO_DELIVERY.md)。日语讲稿：[STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。以下为旧版说明，全文保留。

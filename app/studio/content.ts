@@ -2,7 +2,7 @@ export type ObjectId = "name" | "notebook" | "board" | "monitor" | "cards" | "ch
 export type ViewId = ObjectId | "room";
 export type CameraPreset = { position: [number, number, number]; target: [number, number, number]; span: number };
 export const cameras: Record<ViewId, CameraPreset> = {
-  room: { position: [8, 9.5, 10], target: [0, .85, 0], span: 12.1 },
+  room: { position: [8, 9.5, 10], target: [.15, .8, .2], span: 16.0 },
   name: { position: [3.1, 2.9, 4.2], target: [-1.32, .86, -1.25], span: 3.75 },
   notebook: { position: [2.3, 3.6, 3.8], target: [-1.3, .78, -1.25], span: 3.5 },
   board: { position: [2.2, 2.8, 5.2], target: [.7, 1.7, -2.3], span: 4.5 },
