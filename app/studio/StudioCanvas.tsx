@@ -13,15 +13,15 @@ export default function StudioCanvas({view,chapter,paused,cardOpen,boardStep,rev
   useEffect(()=>{latest.current={view,paused,cardOpen,boardStep,review,onSelect,skipToken,agentStep,flipped,cardTheme};trigger.current();},[view,paused,cardOpen,boardStep,review,onSelect,skipToken,agentStep,flipped,cardTheme]);
   useEffect(()=>{
     const element=host.current!;
-    if(new URLSearchParams(location.search).has("no3d")){setStatus("fallback");return;}
+    if(new URLSearchParams(location.search).has("no3d")){const fallback=requestAnimationFrame(()=>setStatus("fallback"));return()=>cancelAnimationFrame(fallback);}
     let renderer:THREE.WebGLRenderer;
-    try { renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:"low-power"}); } catch { setStatus("fallback"); return; }
-    renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<700?1.25:1.65));renderer.shadowMap.enabled=true;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;
+    try { renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:"low-power"}); } catch { const fallback=requestAnimationFrame(()=>setStatus("fallback"));return()=>cancelAnimationFrame(fallback); }
+    renderer.setPixelRatio(Math.min(devicePixelRatio,innerWidth<700?1.25:1.65));renderer.shadowMap.enabled=true;renderer.shadowMap.autoUpdate=false;renderer.shadowMap.needsUpdate=true;renderer.shadowMap.type=THREE.PCFShadowMap;renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.02;
     renderer.domElement.setAttribute("aria-label","クリックできる3Dワークスタジオ。各物件は画面上のボタンからも開けます。");renderer.domElement.setAttribute("role","img");element.prepend(renderer.domElement);
-    const scene=new THREE.Scene();const room=buildRoom();scene.add(room.root);const pmrem=new THREE.PMREMGenerator(renderer);const environmentScene=new RoomEnvironment();const environment=pmrem.fromScene(environmentScene,.04);scene.environment=environment.texture;scene.environmentIntensity=.24;environmentScene.dispose();pmrem.dispose();
+    const scene=new THREE.Scene();const room=buildRoom(()=>trigger.current(), Math.min(8,renderer.capabilities.getMaxAnisotropy()));scene.add(room.root);const pmrem=new THREE.PMREMGenerator(renderer);const environmentScene=new RoomEnvironment();const environment=pmrem.fromScene(environmentScene,.04);scene.environment=environment.texture;scene.environmentIntensity=.55;environmentScene.dispose();pmrem.dispose();
     if(innerWidth<700){room.sun.shadow.mapSize.set(1024,1024);}
     const camera=new THREE.PerspectiveCamera(34,1,.1,80);
-    let target=new THREE.Vector3(),span=4,previousView:ViewId=latest.current.view;
+    const target=new THREE.Vector3();let span=4,previousView:ViewId=latest.current.view;
     const start=cameras[previousView];camera.position.set(...start.position);target.set(...start.target);span=start.span;
     let raf=0,last=0,dirty=true,from=0,duration=1100,animating=false,disposed=false,open=0,card=0,flip=0,focusBlend=latest.current.view==="room"?0:1;
     let sourcePosition=camera.position.clone(),sourceTarget=target.clone(),sourceSpan=span,skip=latest.current.skipToken,shadowOpen=-1,shadowCard=-1,slowFrames=0;
@@ -30,7 +30,7 @@ export default function StudioCanvas({view,chapter,paused,cardOpen,boardStep,rev
     const metrics={frames:0,ms:0,drawCalls:0,triangles:0};
     function project(){const w=element.clientWidth,h=element.clientHeight;objects.forEach(o=>{const b=labels.current.get(o.id);if(!b)return;const v=new THREE.Vector3(...o.anchor).project(camera);b.style.left=`${(v.x*.5+.5)*w}px`;b.style.top=`${(-v.y*.5+.5)*h}px`;b.dataset.offscreen=String(v.z>1||v.x < -.95||v.x > .92||v.y < -.92||v.y> .95);});}
     function frame(t:number){raf=0;if(disposed||document.hidden||latest.current.paused)return;const interval=t-(last||t),dt=Math.min(100,interval);last=t;
-      if(animating&&interval>55)slowFrames++;if(slowFrames===4){renderer.setPixelRatio(.85);element.dataset.quality="economy";renderer.shadowMap.enabled=false;}
+      if(animating&&interval>55&&interval<250)slowFrames++;else slowFrames=Math.max(0,slowFrames-1);if(slowFrames===18){renderer.setPixelRatio(.85);element.dataset.quality="economy";renderer.shadowMap.enabled=false;}
       const state=latest.current;
       if(previousView!==state.view){sourcePosition=camera.position.clone();sourceTarget=target.clone();sourceSpan=span;from=t;duration=state.view==="room"&&["name","notebook"].includes(previousView)?2400:1100;previousView=state.view;orbit=0;animating=true;}
       const desired=cameras[state.view];const finish=skip!==state.skipToken||reduced.matches;skip=state.skipToken;
@@ -51,7 +51,7 @@ export default function StudioCanvas({view,chapter,paused,cardOpen,boardStep,rev
       if(dirty){dirty=false;setStatus("ready");}
       if(animating||Math.abs(focusBlend-focusGoal)>.002||Math.abs(open-noteGoal)>.002||Math.abs(card-cardGoal)>.002||Math.abs(flip-flipGoal)>.002)raf=requestAnimationFrame(frame);
     }
-    function wake(){if(!raf&&!disposed)raf=requestAnimationFrame(frame);}
+    function wake(){if(!raf&&!disposed){last=0;raf=requestAnimationFrame(frame);}}
     trigger.current=wake;
     function resize(){renderer.setSize(element.clientWidth,element.clientHeight);wake();}
     const ro=new ResizeObserver(resize);ro.observe(element);

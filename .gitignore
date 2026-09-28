@@ -38,6 +38,8 @@ yarn-error.log*
 /dist/
 /.wrangler/
 /outputs/
+/output/
+/.playwright-cli/
 /work/
 
 # Local build cache and standalone design-reference checkout

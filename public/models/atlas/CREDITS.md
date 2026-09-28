@@ -13,3 +13,8 @@ Public models by **Kenney**, licensed under **Creative Commons Zero (CC0 1.0)**.
 Downloaded from Kenney's official asset downloads on 2026-09-17. Models are served locally, with original geometry and texture assets. Scale, arrangement and mechanical-arm joint poses are adapted in the application. The processor, storage racks, connection ports, display graphics, cables and diagram platforms are original code-generated geometry.
 
 The objects are visual metaphors for software roles, not a required physical hardware architecture.
+
+The 2026-09-28 material pass adds local Poly Haven CC0 PBR surfaces and original
+microdetail at runtime. Original GLB files and palette UVs are preserved; a
+separate UV channel carries material detail. See
+[surface credits](/materials/studio/CREDITS.md) for sources and checksums.

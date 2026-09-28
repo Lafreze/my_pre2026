@@ -2,6 +2,7 @@ import * as T from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import type { StationKind } from "./atlasVisuals";
+import { createSurfaceMaterials, metricUV, type SurfaceKind } from "./surfaceMaterials";
 
 const files = {
   shelf: "furniture/bookcaseOpen", books: "furniture/books", desk: "furniture/desk",
@@ -35,13 +36,21 @@ export function disposeAtlasObjects(objects: T.Object3D[]) {
   geometries.forEach(geometry => geometry.dispose()); materials.forEach(material => material.dispose());
 }
 
-export function createStation(templates: Templates, kind: StationKind, color: string, id: string) {
+export function createStation(templates: Templates, kind: StationKind, color: string, id: string, finishes: ReturnType<typeof createSurfaceMaterials>) {
   const root = new T.Group();
   const moving: { object: T.Object3D; axis: "x" | "y" | "z"; base: number; amplitude: number; speed: number }[] = [];
   const accent = new T.Color(color);
-  const material = (c: T.ColorRepresentation, metal = .1) => new T.MeshStandardMaterial({ color: c, roughness: .55, metalness: metal });
+  const stationMaterials = new Map<string, T.MeshPhysicalMaterial>();
+  const material = (c: T.ColorRepresentation, metal = .28) => {
+    const key = `${new T.Color(c).getHexString()}:${metal}`;
+    if (!stationMaterials.has(key)) {
+      const finish = finishes.material("metal", c).clone(); finish.metalness = metal; finish.roughness = .4;
+      stationMaterials.set(key, finish);
+    }
+    return stationMaterials.get(key)!;
+  };
   const box = (w: number, h: number, d: number, c: T.ColorRepresentation, x = 0, y = 0, z = 0, parent: T.Object3D = root) => {
-    const mesh = new T.Mesh(new RoundedBoxGeometry(w, h, d, 2, Math.min(.055, h / 4)), material(c));
+    const mesh = new T.Mesh(metricUV(new RoundedBoxGeometry(w, h, d, 3, Math.min(.055, h / 4))), material(c));
     mesh.position.set(x, y, z); mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
   };
   const cable = (points: number[][], c: T.ColorRepresentation, radius = .025, parent: T.Object3D = root) => {
@@ -65,14 +74,30 @@ export function createStation(templates: Templates, kind: StationKind, color: st
       ctx.fillStyle = color; ctx.fillRect(312, 18, 8, 8); ctx.fillRect(330, 18, 8, 8); ctx.fillRect(348, 18, 8, 8);
     }
     const texture = new T.CanvasTexture(canvas); texture.colorSpace = T.SRGBColorSpace;
-    const mesh = new T.Mesh(new T.PlaneGeometry(width, height), new T.MeshBasicMaterial({ map: texture, side: T.DoubleSide }));
+    const mesh = new T.Mesh(new T.PlaneGeometry(width, height), new T.MeshPhysicalMaterial({ map: texture, side: T.DoubleSide, roughness: style === "paper" ? .85 : .3, emissiveMap: style === "screen" ? texture : null, emissive: style === "screen" ? "#ffffff" : "#000000", emissiveIntensity: .25, clearcoat: style === "screen" ? .3 : 0, bumpMap: style === "paper" ? finishes.material("paper", "#ffffff").bumpMap : null, bumpScale: .0005 }));
     mesh.position.set(x, y, z); if (flat) mesh.rotation.x = -Math.PI / 2; root.add(mesh); return mesh;
   };
   const add = (name: Asset, size: number, x = 0, y = 0, z = 0, rotation = 0, parent: T.Object3D = root) => {
     const source = templates.get(name);
     if (!source) { const substitute = new T.Group(); substitute.add(box(size * .7, size * .5, size * .35, color)); parent.add(substitute); substitute.position.set(x, y, z); return substitute; }
     const model = source.clone(true);
-    model.traverse(object => { if (object instanceof T.Mesh) { object.material = Array.isArray(object.material) ? object.material.map(m => m.clone()) : object.material.clone(); object.castShadow = true; object.receiveShadow = true; } });
+    model.traverse(object => {
+      if (!(object instanceof T.Mesh)) return;
+      // Keep Kenney's palette UVs on channel 0. Independent metric UVs carry
+      // the surface detail so palette-atlas coordinates never stretch grain.
+      object.geometry = metricUV(object.geometry.clone(), .7, "uv1");
+      const refine = (source: T.Material) => {
+        if (!(source instanceof T.MeshStandardMaterial)) return source.clone();
+        const label = source.name.toLowerCase();
+        const surface: SurfaceKind = label === "wood" ? "wood" : name === "books" ? (label === "carpetwhite" ? "paper" : "fabric") : label.includes("carpet") ? "leather" : label === "metaldark" ? "rubber" : "metal";
+        const finish = finishes.material(surface, surface === "wood" ? "#f4e4ce" : source.color, 1).clone();
+        if (source.map) { finish.map = source.map; finish.metalness = name === "gear" ? .85 : .38; finish.roughness = name === "gear" ? .3 : .44; }
+        finish.name = `${name}-${source.name}-${surface}`;
+        return finish;
+      };
+      object.material = Array.isArray(object.material) ? object.material.map(refine) : refine(object.material);
+      object.castShadow = true; object.receiveShadow = true;
+    });
     const bounds = new T.Box3().setFromObject(model), dimensions = bounds.getSize(new T.Vector3());
     const scale = size / Math.max(dimensions.x, dimensions.y, dimensions.z);
     model.scale.multiplyScalar(scale);
@@ -91,6 +116,7 @@ export function createStation(templates: Templates, kind: StationKind, color: st
       box(.76, .26, .055, "#152c38", 0, .25 + i * .32, .385, g);
       box(.4, .028, .02, "#7e96a0", -.08, .25 + i * .32, .42, g);
       box(.06, .06, .02, color, .26, .25 + i * .32, .42, g);
+      for(let slot=0;slot<7;slot++) box(.026,.055,.009,"#091a22",-.28+slot*.055,.31+i*.32,.419,g);
     }
     box(.69, .045, .53, "#829ba5", 0, 1.925, 0, g); return g;
   };
@@ -99,7 +125,13 @@ export function createStation(templates: Templates, kind: StationKind, color: st
   base.name = "station-platform";
   box(2.65, .055, 2.23, "#b2c3c7", 0, -.115, 0);
   const strip = box(1.7, .025, .035, color, 0, .105, 1.16);
+  strip.material = strip.material.clone();
   strip.material.emissive.copy(accent); strip.material.emissiveIntensity = .4;
+  for(const x of [-1.26,1.26]) for(const z of [-1.05,1.05]) {
+    const screw = new T.Mesh(new T.CylinderGeometry(.032,.032,.009,16),material("#93a3ab",.8));
+    screw.position.set(x,.097,z); screw.castShadow=true;root.add(screw);
+    box(.034,.002,.007,"#33444c",x,.103,z);
+  }
 
   if (kind === "chip") {
     box(2.15, .09, 1.75, "#227b73", 0, .19);

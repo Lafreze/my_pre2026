@@ -26,7 +26,7 @@ export function AtlasCanvas({ nodes, edges, mode, active, selected, hologramRef,
     setStatus("loading");
     let cancelled = false, cleanup = () => {};
     const fail = () => { if (!cancelled) setStatus("fallback"); };
-    void Promise.all([import("three"), import("three/addons/controls/OrbitControls.js"), import("three/addons/geometries/RoundedBoxGeometry.js"), import("./atlasModels")]).then(async ([T, { OrbitControls }, { RoundedBoxGeometry }, { loadAtlasModels, createStation, disposeAtlasObjects }]) => {
+    void Promise.all([import("three"), import("three/addons/controls/OrbitControls.js"), import("three/addons/geometries/RoundedBoxGeometry.js"), import("./atlasModels"), import("./surfaceMaterials"), import("three/addons/environments/RoomEnvironment.js")]).then(async ([T, { OrbitControls }, { RoundedBoxGeometry }, { loadAtlasModels, createStation, disposeAtlasObjects }, { createSurfaceMaterials }, { RoomEnvironment }]) => {
       if (cancelled) return;
       const templates = await loadAtlasModels();
       if (cancelled) { disposeAtlasObjects([...templates.values()]); return; }
@@ -36,7 +36,7 @@ export function AtlasCanvas({ nodes, edges, mode, active, selected, hologramRef,
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
       renderer.outputColorSpace = T.SRGBColorSpace;
       renderer.toneMapping = T.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
+      renderer.toneMappingExposure = 1.02;
       renderer.shadowMap.enabled = true;
       renderer.shadowMap.type = T.PCFShadowMap;
       renderer.shadowMap.autoUpdate = false;
@@ -48,6 +48,11 @@ export function AtlasCanvas({ nodes, edges, mode, active, selected, hologramRef,
       const controls = new OrbitControls(camera, renderer.domElement);
       let dirty = true, contextLost = false;
       const changed = () => { dirty = true; };
+      const finishes = createSurfaceMaterials(changed, Math.min(8, renderer.capabilities.getMaxAnisotropy()));
+      const pmrem = new T.PMREMGenerator(renderer), environmentScene = new RoomEnvironment();
+      const environment = pmrem.fromScene(environmentScene, .04);
+      scene.environment = environment.texture; scene.environmentIntensity = .5;
+      environmentScene.dispose(); pmrem.dispose();
       invalidateRef.current = changed;
       controls.addEventListener("change", changed);
       controls.enableDamping = true;
@@ -84,7 +89,7 @@ export function AtlasCanvas({ nodes, edges, mode, active, selected, hologramRef,
       const nodeGroups = new Map<string, InstanceType<typeof T.Group>>();
       const movements: ReturnType<typeof createStation>["moving"] = [];
       for (const node of nodes) {
-        const station = createStation(templates, atlasVisuals[node.id].kind, node.color, node.id);
+        const station = createStation(templates, atlasVisuals[node.id].kind, node.color, node.id, finishes);
         group.add(station.root); nodeGroups.set(node.id, station.root); movements.push(...station.moving);
         station.root.traverse(object => { if (object instanceof T.Mesh) meshes.push(object); });
       }
@@ -259,6 +264,7 @@ export function AtlasCanvas({ nodes, edges, mode, active, selected, hologramRef,
         renderer.domElement.removeEventListener("pointermove", move); renderer.domElement.removeEventListener("pointerdown", pointerDown); renderer.domElement.removeEventListener("pointerup", pointerUp); renderer.domElement.removeEventListener("webglcontextlost", lost);
         renderer.domElement.removeEventListener("pointerleave", leave); labels.removeEventListener("pointerover", labelEnter); labels.removeEventListener("pointerout", leave); labels.removeEventListener("focusin", labelEnter); labels.removeEventListener("focusout", leave);
         disposeAtlasObjects([scene, ...templates.values()]);
+        finishes.dispose(); environment.dispose();
         renderer.dispose(); renderer.forceContextLoss(); renderer.domElement.remove();
       };
     }).catch(fail);
