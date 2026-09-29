@@ -1,8 +1,8 @@
 {
   "date": "2026-09-29",
   "target": "Production static export at http://127.0.0.1:5180/",
-  "checks": 68,
-  "passed": 68,
+  "checks": 43,
+  "passed": 43,
   "suites": {
     "story": {
       "results": [
@@ -31,7 +31,15 @@
           "pass": true
         },
         {
-          "name": "application examples and the actual Codex-made interface are visible",
+          "name": "LLM history explains six primary-sourced milestones separately from personal memories",
+          "pass": true
+        },
+        {
+          "name": "agent components expose input, output, design choices and context-memory-RAG distinctions",
+          "pass": true
+        },
+        {
+          "name": "product workflow replaces the screenshot with five stages and leads to four competitive advantages",
           "pass": true
         },
         {
@@ -173,6 +181,180 @@
           "insideBottom": 818.2440795898438,
           "scrollBottom": 761.2321624755859,
           "insideTop": 761.232177734375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 159.96630859375,
+          "y": 181.79904174804688,
+          "width": 1120.0673828125,
+          "height": 636.397705078125,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.1967468261719,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.53704963454476,
+            "right": 1291.4629503654555,
+            "top": 175.30514183780937,
+            "bottom": 824.6948581621907
+          },
+          "insideBottom": 818.1967163085938,
+          "scrollBottom": 761.1932830810547,
+          "insideTop": 761.1932983398438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 159.96630859375,
+          "y": 181.79904174804688,
+          "width": 1120.0673828125,
+          "height": 636.397705078125,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.1967468261719,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.53704963454476,
+            "right": 1291.4629503654555,
+            "top": 175.30514183780937,
+            "bottom": 824.6948581621907
+          },
+          "insideBottom": 818.1967163085938,
+          "scrollBottom": 761.1932830810547,
+          "insideTop": 761.1932983398438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 159.96630859375,
+          "y": 181.79904174804688,
+          "width": 1120.0673828125,
+          "height": 636.397705078125,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.1967468261719,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.53704963454476,
+            "right": 1291.4629503654555,
+            "top": 175.30514183780937,
+            "bottom": 824.6948581621907
+          },
+          "insideBottom": 818.1967163085938,
+          "scrollBottom": 761.1932830810547,
+          "insideTop": 761.1932983398438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 159.96630859375,
+          "y": 181.79904174804688,
+          "width": 1120.0673828125,
+          "height": 636.397705078125,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.1967468261719,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.53704963454476,
+            "right": 1291.4629503654555,
+            "top": 175.30514183780937,
+            "bottom": 824.6948581621907
+          },
+          "insideBottom": 818.1967163085938,
+          "scrollBottom": 761.1932830810547,
+          "insideTop": 761.1932983398438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 159.96630859375,
+          "y": 181.79904174804688,
+          "width": 1120.0673828125,
+          "height": 636.397705078125,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.1967468261719,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.53704963454476,
+            "right": 1291.4629503654555,
+            "top": 175.30514183780937,
+            "bottom": 824.6948581621907
+          },
+          "insideBottom": 818.1967163085938,
+          "scrollBottom": 761.1932830810547,
+          "insideTop": 761.1932983398438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 159.96630859375,
+          "y": 181.79904174804688,
+          "width": 1120.0673828125,
+          "height": 636.397705078125,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.1967468261719,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.53704963454476,
+            "right": 1291.4629503654555,
+            "top": 175.30514183780937,
+            "bottom": 824.6948581621907
+          },
+          "insideBottom": 818.1967163085938,
+          "scrollBottom": 761.1932830810547,
+          "insideTop": 761.1932983398438,
           "outside": []
         },
         {
@@ -442,7 +624,152 @@
             1000
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
+          "x": 159.9144744873047,
+          "y": 181.7695770263672,
+          "width": 1120.171142578125,
+          "height": 636.45654296875,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.2261199951172,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.48415088410826,
+            "right": 1291.5158491158916,
+            "top": 175.2750857296072,
+            "bottom": 824.7249142703931
+          },
+          "insideBottom": 818.2261352539062,
+          "scrollBottom": 761.2174377441406,
+          "insideTop": 761.2174682617188,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 159.9144744873047,
+          "y": 181.7695770263672,
+          "width": 1120.171142578125,
+          "height": 636.45654296875,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.2261199951172,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.48415088410826,
+            "right": 1291.5158491158916,
+            "top": 175.2750857296072,
+            "bottom": 824.7249142703931
+          },
+          "insideBottom": 818.2261352539062,
+          "scrollBottom": 761.2174377441406,
+          "insideTop": 761.2174682617188,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 159.9144744873047,
+          "y": 181.7695770263672,
+          "width": 1120.171142578125,
+          "height": 636.45654296875,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.2261199951172,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.48415088410826,
+            "right": 1291.5158491158916,
+            "top": 175.2750857296072,
+            "bottom": 824.7249142703931
+          },
+          "insideBottom": 818.2261352539062,
+          "scrollBottom": 761.2174377441406,
+          "insideTop": 761.2174682617188,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 159.9144744873047,
+          "y": 181.7695770263672,
+          "width": 1120.171142578125,
+          "height": 636.45654296875,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.2261199951172,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.48415088410826,
+            "right": 1291.5158491158916,
+            "top": 175.2750857296072,
+            "bottom": 824.7249142703931
+          },
+          "insideBottom": 818.2261352539062,
+          "scrollBottom": 761.2174377441406,
+          "insideTop": 761.2174682617188,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 159.9144744873047,
+          "y": 181.7695770263672,
+          "width": 1120.171142578125,
+          "height": 636.45654296875,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 818.2261199951172,
+          "footerTop": 922,
+          "headerBottom": 92.59375,
+          "inert": false,
+          "mesh": {
+            "left": 148.48415088410826,
+            "right": 1291.5158491158916,
+            "top": 175.2750857296072,
+            "bottom": 824.7249142703931
+          },
+          "insideBottom": 818.2261352539062,
+          "scrollBottom": 761.2174377441406,
+          "insideTop": 761.2174682617188,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1440,
+            1000
+          ],
+          "chapter": 4,
+          "mode": "value",
           "x": 159.9144744873047,
           "y": 181.7695770263672,
           "width": 1120.171142578125,
@@ -521,6 +848,180 @@
           "insideBottom": 653.0618896484375,
           "scrollBottom": 604.0505981445312,
           "insideTop": 604.0505981445312,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 209.5286407470703,
+          "y": 114.98218536376953,
+          "width": 946.9376831054688,
+          "height": 538.03564453125,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.86596377229134,
+            "right": 1166.134036227709,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 209.5286407470703,
+          "y": 114.98218536376953,
+          "width": 946.9376831054688,
+          "height": 538.03564453125,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.86596377229134,
+            "right": 1166.134036227709,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 209.5286407470703,
+          "y": 114.98218536376953,
+          "width": 946.9376831054688,
+          "height": 538.03564453125,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.86596377229134,
+            "right": 1166.134036227709,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 209.5286407470703,
+          "y": 114.98218536376953,
+          "width": 946.9376831054688,
+          "height": 538.03564453125,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.86596377229134,
+            "right": 1166.134036227709,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 209.5286407470703,
+          "y": 114.98218536376953,
+          "width": 946.9376831054688,
+          "height": 538.03564453125,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.86596377229134,
+            "right": 1166.134036227709,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 209.5286407470703,
+          "y": 114.98218536376953,
+          "width": 946.9376831054688,
+          "height": 538.03564453125,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.86596377229134,
+            "right": 1166.134036227709,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
           "outside": []
         },
         {
@@ -790,7 +1291,7 @@
             768
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
           "x": 209.4803924560547,
           "y": 114.95477294921875,
           "width": 947.0342407226562,
@@ -807,6 +1308,151 @@
             "right": 1166.1832682138615,
             "top": 109.46405215121484,
             "bottom": 658.535947848785
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 209.4803924560547,
+          "y": 114.95477294921875,
+          "width": 947.0342407226562,
+          "height": 538.0904541015625,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.81673178613832,
+            "right": 1166.1832682138615,
+            "top": 109.46405215121518,
+            "bottom": 658.5359478487853
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 209.4803924560547,
+          "y": 114.95477294921875,
+          "width": 947.0342407226562,
+          "height": 538.0904541015625,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.81673178613832,
+            "right": 1166.1832682138615,
+            "top": 109.46405215121518,
+            "bottom": 658.5359478487853
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 209.4803924560547,
+          "y": 114.95477294921875,
+          "width": 947.0342407226562,
+          "height": 538.0904541015625,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.81673178613832,
+            "right": 1166.1832682138615,
+            "top": 109.46405215121518,
+            "bottom": 658.5359478487853
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 209.4803924560547,
+          "y": 114.95477294921875,
+          "width": 947.0342407226562,
+          "height": 538.0904541015625,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.81673178613832,
+            "right": 1166.1832682138615,
+            "top": 109.46405215121518,
+            "bottom": 658.5359478487853
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 4,
+          "mode": "value",
+          "x": 209.4803924560547,
+          "y": 114.95477294921875,
+          "width": 947.0342407226562,
+          "height": 538.0904541015625,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 199.81673178613832,
+            "right": 1166.1832682138615,
+            "top": 109.46405215121518,
+            "bottom": 658.5359478487853
           },
           "insideBottom": 653.0452270507812,
           "scrollBottom": 604.0370025634766,
@@ -869,6 +1515,180 @@
           "insideBottom": 653.0618896484375,
           "scrollBottom": 604.0505981445312,
           "insideTop": 604.0505981445312,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 69.9707260131836,
+          "y": 114.98218536376953,
+          "width": 884.05859375,
+          "height": 538.03564453125,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.94972116287761,
+            "right": 963.0502788371225,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 69.9707260131836,
+          "y": 114.98218536376953,
+          "width": 884.05859375,
+          "height": 538.03564453125,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.94972116287761,
+            "right": 963.0502788371225,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 69.9707260131836,
+          "y": 114.98218536376953,
+          "width": 884.05859375,
+          "height": 538.03564453125,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.94972116287761,
+            "right": 963.0502788371225,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 69.9707260131836,
+          "y": 114.98218536376953,
+          "width": 884.05859375,
+          "height": 538.03564453125,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.94972116287761,
+            "right": 963.0502788371225,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 69.9707260131836,
+          "y": 114.98218536376953,
+          "width": 884.05859375,
+          "height": 538.03564453125,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.94972116287761,
+            "right": 963.0502788371225,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 69.9707260131836,
+          "y": 114.98218536376953,
+          "width": 884.05859375,
+          "height": 538.03564453125,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0178298950195,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.94972116287761,
+            "right": 963.0502788371225,
+            "top": 109.49202487061994,
+            "bottom": 658.5079751293802
+          },
+          "insideBottom": 653.017822265625,
+          "scrollBottom": 604.0146026611328,
+          "insideTop": 604.0145874023438,
           "outside": []
         },
         {
@@ -1138,7 +1958,7 @@
             768
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
           "x": 69.9256820678711,
           "y": 114.95477294921875,
           "width": 884.148681640625,
@@ -1155,6 +1975,151 @@
             "right": 963.0962414467024,
             "top": 109.46405215121467,
             "bottom": 658.535947848785
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 69.9256820678711,
+          "y": 114.95477294921875,
+          "width": 884.148681640625,
+          "height": 538.0904541015625,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.90375855329768,
+            "right": 963.0962414467024,
+            "top": 109.46405215121501,
+            "bottom": 658.5359478487853
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 69.9256820678711,
+          "y": 114.95477294921875,
+          "width": 884.148681640625,
+          "height": 538.0904541015625,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.90375855329768,
+            "right": 963.0962414467024,
+            "top": 109.46405215121501,
+            "bottom": 658.5359478487853
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 69.9256820678711,
+          "y": 114.95477294921875,
+          "width": 884.148681640625,
+          "height": 538.0904541015625,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.90375855329768,
+            "right": 963.0962414467024,
+            "top": 109.46405215121501,
+            "bottom": 658.5359478487853
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 69.9256820678711,
+          "y": 114.95477294921875,
+          "width": 884.148681640625,
+          "height": 538.0904541015625,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.90375855329768,
+            "right": 963.0962414467024,
+            "top": 109.46405215121501,
+            "bottom": 658.5359478487853
+          },
+          "insideBottom": 653.0452270507812,
+          "scrollBottom": 604.0370025634766,
+          "insideTop": 604.0369873046875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 4,
+          "mode": "value",
+          "x": 69.9256820678711,
+          "y": 114.95477294921875,
+          "width": 884.148681640625,
+          "height": 538.0904541015625,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 653.0452270507812,
+          "footerTop": 696,
+          "headerBottom": 86.59375,
+          "inert": false,
+          "mesh": {
+            "left": 60.90375855329768,
+            "right": 963.0962414467024,
+            "top": 109.46405215121501,
+            "bottom": 658.5359478487853
           },
           "insideBottom": 653.0452270507812,
           "scrollBottom": 604.0370025634766,
@@ -1217,6 +2182,180 @@
           "insideBottom": 1065.1256103515625,
           "scrollBottom": 1012.111572265625,
           "insideTop": 1012.111572265625,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 27.970924377441406,
+          "y": 114.9638442993164,
+          "width": 764.05810546875,
+          "height": 950.072265625,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0361099243164,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.174412083343455,
+            "right": 799.8255879166569,
+            "top": 105.26922968478544,
+            "bottom": 1074.7307703152144
+          },
+          "insideBottom": 1065.0361328125,
+          "scrollBottom": 1012.0321197509766,
+          "insideTop": 1012.0321044921875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 27.970924377441406,
+          "y": 114.9638442993164,
+          "width": 764.05810546875,
+          "height": 950.072265625,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0361099243164,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.174412083343455,
+            "right": 799.8255879166569,
+            "top": 105.26922968478544,
+            "bottom": 1074.7307703152144
+          },
+          "insideBottom": 1065.0361328125,
+          "scrollBottom": 1012.0321197509766,
+          "insideTop": 1012.0321044921875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 27.970924377441406,
+          "y": 114.9638442993164,
+          "width": 764.05810546875,
+          "height": 950.072265625,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0361099243164,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.174412083343455,
+            "right": 799.8255879166569,
+            "top": 105.26922968478544,
+            "bottom": 1074.7307703152144
+          },
+          "insideBottom": 1065.0361328125,
+          "scrollBottom": 1012.0321197509766,
+          "insideTop": 1012.0321044921875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 27.970924377441406,
+          "y": 114.9638442993164,
+          "width": 764.05810546875,
+          "height": 950.072265625,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0361099243164,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.174412083343455,
+            "right": 799.8255879166569,
+            "top": 105.26922968478544,
+            "bottom": 1074.7307703152144
+          },
+          "insideBottom": 1065.0361328125,
+          "scrollBottom": 1012.0321197509766,
+          "insideTop": 1012.0321044921875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 27.970924377441406,
+          "y": 114.9638442993164,
+          "width": 764.05810546875,
+          "height": 950.072265625,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0361099243164,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.174412083343455,
+            "right": 799.8255879166569,
+            "top": 105.26922968478544,
+            "bottom": 1074.7307703152144
+          },
+          "insideBottom": 1065.0361328125,
+          "scrollBottom": 1012.0321197509766,
+          "insideTop": 1012.0321044921875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 27.970924377441406,
+          "y": 114.9638442993164,
+          "width": 764.05810546875,
+          "height": 950.072265625,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0361099243164,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.174412083343455,
+            "right": 799.8255879166569,
+            "top": 105.26922968478544,
+            "bottom": 1074.7307703152144
+          },
+          "insideBottom": 1065.0361328125,
+          "scrollBottom": 1012.0321197509766,
+          "insideTop": 1012.0321044921875,
           "outside": []
         },
         {
@@ -1486,7 +2625,152 @@
             1180
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
+          "x": 27.92618179321289,
+          "y": 114.90821075439453,
+          "width": 764.1475830078125,
+          "height": 950.18359375,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0918045043945,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.128757802377027,
+            "right": 799.871242197623,
+            "top": 105.21246061813923,
+            "bottom": 1074.7875393818617
+          },
+          "insideBottom": 1065.091796875,
+          "scrollBottom": 1012.0815124511719,
+          "insideTop": 1012.08154296875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 27.92618179321289,
+          "y": 114.90821075439453,
+          "width": 764.1475830078125,
+          "height": 950.18359375,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0918045043945,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.128757802377027,
+            "right": 799.871242197623,
+            "top": 105.21246061813923,
+            "bottom": 1074.7875393818617
+          },
+          "insideBottom": 1065.091796875,
+          "scrollBottom": 1012.0815124511719,
+          "insideTop": 1012.08154296875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 27.92618179321289,
+          "y": 114.90821075439453,
+          "width": 764.1475830078125,
+          "height": 950.18359375,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0918045043945,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.128757802377027,
+            "right": 799.871242197623,
+            "top": 105.21246061813923,
+            "bottom": 1074.7875393818617
+          },
+          "insideBottom": 1065.091796875,
+          "scrollBottom": 1012.0815124511719,
+          "insideTop": 1012.08154296875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 27.92618179321289,
+          "y": 114.90821075439453,
+          "width": 764.1475830078125,
+          "height": 950.18359375,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0918045043945,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.128757802377027,
+            "right": 799.871242197623,
+            "top": 105.21246061813923,
+            "bottom": 1074.7875393818617
+          },
+          "insideBottom": 1065.091796875,
+          "scrollBottom": 1012.0815124511719,
+          "insideTop": 1012.08154296875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 27.92618179321289,
+          "y": 114.90821075439453,
+          "width": 764.1475830078125,
+          "height": 950.18359375,
+          "body": 820,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 1065.0918045043945,
+          "footerTop": 1111,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.128757802377027,
+            "right": 799.871242197623,
+            "top": 105.21246061813923,
+            "bottom": 1074.7875393818617
+          },
+          "insideBottom": 1065.091796875,
+          "scrollBottom": 1012.0815124511719,
+          "insideTop": 1012.08154296875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 4,
+          "mode": "value",
           "x": 27.92618179321289,
           "y": 114.90821075439453,
           "width": 764.1475830078125,
@@ -1565,6 +2849,180 @@
           "insideBottom": 909.1011352539062,
           "scrollBottom": 856.0875854492188,
           "insideTop": 856.0875854492188,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 27.973901748657227,
+          "y": 114.97089385986328,
+          "width": 712.05224609375,
+          "height": 794.0582275390625,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0291213989258,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.708063623296184,
+            "right": 747.2919363767037,
+            "top": 106.86826196193425,
+            "bottom": 917.1317380380658
+          },
+          "insideBottom": 909.0291137695312,
+          "scrollBottom": 856.0252075195312,
+          "insideTop": 856.0252075195312,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 27.973901748657227,
+          "y": 114.97089385986328,
+          "width": 712.05224609375,
+          "height": 794.0582275390625,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0291213989258,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.708063623296184,
+            "right": 747.2919363767037,
+            "top": 106.86826196193425,
+            "bottom": 917.1317380380658
+          },
+          "insideBottom": 909.0291137695312,
+          "scrollBottom": 856.0252075195312,
+          "insideTop": 856.0252075195312,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 27.973901748657227,
+          "y": 114.97089385986328,
+          "width": 712.05224609375,
+          "height": 794.0582275390625,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0291213989258,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.708063623296184,
+            "right": 747.2919363767037,
+            "top": 106.86826196193425,
+            "bottom": 917.1317380380658
+          },
+          "insideBottom": 909.0291137695312,
+          "scrollBottom": 856.0252075195312,
+          "insideTop": 856.0252075195312,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 27.973901748657227,
+          "y": 114.97089385986328,
+          "width": 712.05224609375,
+          "height": 794.0582275390625,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0291213989258,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.708063623296184,
+            "right": 747.2919363767037,
+            "top": 106.86826196193425,
+            "bottom": 917.1317380380658
+          },
+          "insideBottom": 909.0291137695312,
+          "scrollBottom": 856.0252075195312,
+          "insideTop": 856.0252075195312,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 27.973901748657227,
+          "y": 114.97089385986328,
+          "width": 712.05224609375,
+          "height": 794.0582275390625,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0291213989258,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.708063623296184,
+            "right": 747.2919363767037,
+            "top": 106.86826196193425,
+            "bottom": 917.1317380380658
+          },
+          "insideBottom": 909.0291137695312,
+          "scrollBottom": 856.0252075195312,
+          "insideTop": 856.0252075195312,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 27.973901748657227,
+          "y": 114.97089385986328,
+          "width": 712.05224609375,
+          "height": 794.0582275390625,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0291213989258,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.708063623296184,
+            "right": 747.2919363767037,
+            "top": 106.86826196193425,
+            "bottom": 917.1317380380658
+          },
+          "insideBottom": 909.0291137695312,
+          "scrollBottom": 856.0252075195312,
+          "insideTop": 856.0252075195312,
           "outside": []
         },
         {
@@ -1834,7 +3292,7 @@
             1024
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
           "x": 27.933744430541992,
           "y": 114.92611694335938,
           "width": 712.132568359375,
@@ -1851,6 +3309,151 @@
             "right": 747.3329136235125,
             "top": 106.82256542546588,
             "bottom": 917.1774345745357
+          },
+          "insideBottom": 909.0739135742188,
+          "scrollBottom": 856.0640411376953,
+          "insideTop": 856.0640258789062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 27.933744430541992,
+          "y": 114.92611694335938,
+          "width": 712.132568359375,
+          "height": 794.1478271484375,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0739440917969,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.667086376488328,
+            "right": 747.3329136235125,
+            "top": 106.82256542546548,
+            "bottom": 917.1774345745353
+          },
+          "insideBottom": 909.0739135742188,
+          "scrollBottom": 856.0640411376953,
+          "insideTop": 856.0640258789062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 27.933744430541992,
+          "y": 114.92611694335938,
+          "width": 712.132568359375,
+          "height": 794.1478271484375,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0739440917969,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.667086376488328,
+            "right": 747.3329136235125,
+            "top": 106.82256542546548,
+            "bottom": 917.1774345745353
+          },
+          "insideBottom": 909.0739135742188,
+          "scrollBottom": 856.0640411376953,
+          "insideTop": 856.0640258789062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 27.933744430541992,
+          "y": 114.92611694335938,
+          "width": 712.132568359375,
+          "height": 794.1478271484375,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0739440917969,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.667086376488328,
+            "right": 747.3329136235125,
+            "top": 106.82256542546548,
+            "bottom": 917.1774345745353
+          },
+          "insideBottom": 909.0739135742188,
+          "scrollBottom": 856.0640411376953,
+          "insideTop": 856.0640258789062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 27.933744430541992,
+          "y": 114.92611694335938,
+          "width": 712.132568359375,
+          "height": 794.1478271484375,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0739440917969,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.667086376488328,
+            "right": 747.3329136235125,
+            "top": 106.82256542546548,
+            "bottom": 917.1774345745353
+          },
+          "insideBottom": 909.0739135742188,
+          "scrollBottom": 856.0640411376953,
+          "insideTop": 856.0640258789062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            768,
+            1024
+          ],
+          "chapter": 4,
+          "mode": "value",
+          "x": 27.933744430541992,
+          "y": 114.92611694335938,
+          "width": 712.132568359375,
+          "height": 794.1478271484375,
+          "body": 768,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 909.0739440917969,
+          "footerTop": 955,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 20.667086376488328,
+            "right": 747.3329136235125,
+            "top": 106.82256542546548,
+            "bottom": 917.1774345745353
           },
           "insideBottom": 909.0739135742188,
           "scrollBottom": 856.0640411376953,
@@ -1913,6 +3516,180 @@
           "insideBottom": 729.0733642578125,
           "scrollBottom": 674.0602416992188,
           "insideTop": 674.0602416992188,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 27.988513946533203,
+          "y": 114.9788818359375,
+          "width": 334.02294921875,
+          "height": 614.042236328125,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0211181640625,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.580116260095306,
+            "right": 365.4198837399045,
+            "top": 108.71314785538485,
+            "bottom": 735.2868521446152
+          },
+          "insideBottom": 729.0211181640625,
+          "scrollBottom": 674.0173187255859,
+          "insideTop": 674.017333984375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 27.988513946533203,
+          "y": 114.9788818359375,
+          "width": 334.02294921875,
+          "height": 614.042236328125,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0211181640625,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.580116260095306,
+            "right": 365.4198837399045,
+            "top": 108.71314785538485,
+            "bottom": 735.2868521446152
+          },
+          "insideBottom": 729.0211181640625,
+          "scrollBottom": 674.0173187255859,
+          "insideTop": 674.017333984375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 27.988513946533203,
+          "y": 114.9788818359375,
+          "width": 334.02294921875,
+          "height": 614.042236328125,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0211181640625,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.580116260095306,
+            "right": 365.4198837399045,
+            "top": 108.71314785538485,
+            "bottom": 735.2868521446152
+          },
+          "insideBottom": 729.0211181640625,
+          "scrollBottom": 674.0173187255859,
+          "insideTop": 674.017333984375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 27.988513946533203,
+          "y": 114.9788818359375,
+          "width": 334.02294921875,
+          "height": 614.042236328125,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0211181640625,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.580116260095306,
+            "right": 365.4198837399045,
+            "top": 108.71314785538485,
+            "bottom": 735.2868521446152
+          },
+          "insideBottom": 729.0211181640625,
+          "scrollBottom": 674.0173187255859,
+          "insideTop": 674.017333984375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 27.988513946533203,
+          "y": 114.9788818359375,
+          "width": 334.02294921875,
+          "height": 614.042236328125,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0211181640625,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.580116260095306,
+            "right": 365.4198837399045,
+            "top": 108.71314785538485,
+            "bottom": 735.2868521446152
+          },
+          "insideBottom": 729.0211181640625,
+          "scrollBottom": 674.0173187255859,
+          "insideTop": 674.017333984375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 27.988513946533203,
+          "y": 114.9788818359375,
+          "width": 334.02294921875,
+          "height": 614.042236328125,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0211181640625,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.580116260095306,
+            "right": 365.4198837399045,
+            "top": 108.71314785538485,
+            "bottom": 735.2868521446152
+          },
+          "insideBottom": 729.0211181640625,
+          "scrollBottom": 674.0173187255859,
+          "insideTop": 674.017333984375,
           "outside": []
         },
         {
@@ -2182,7 +3959,152 @@
             844
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
+          "x": 27.970840454101562,
+          "y": 114.94639587402344,
+          "width": 334.058349609375,
+          "height": 614.107177734375,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0535736083984,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.562081612217117,
+            "right": 365.4379183877836,
+            "top": 108.6799943410217,
+            "bottom": 735.3200056589786
+          },
+          "insideBottom": 729.0535888671875,
+          "scrollBottom": 674.0440368652344,
+          "insideTop": 674.0440063476562,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 27.970840454101562,
+          "y": 114.94639587402344,
+          "width": 334.058349609375,
+          "height": 614.107177734375,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0535736083984,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.562081612217117,
+            "right": 365.4379183877836,
+            "top": 108.6799943410217,
+            "bottom": 735.3200056589786
+          },
+          "insideBottom": 729.0535888671875,
+          "scrollBottom": 674.0440368652344,
+          "insideTop": 674.0440063476562,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 27.970840454101562,
+          "y": 114.94639587402344,
+          "width": 334.058349609375,
+          "height": 614.107177734375,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0535736083984,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.562081612217117,
+            "right": 365.4379183877836,
+            "top": 108.6799943410217,
+            "bottom": 735.3200056589786
+          },
+          "insideBottom": 729.0535888671875,
+          "scrollBottom": 674.0440368652344,
+          "insideTop": 674.0440063476562,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 27.970840454101562,
+          "y": 114.94639587402344,
+          "width": 334.058349609375,
+          "height": 614.107177734375,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0535736083984,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.562081612217117,
+            "right": 365.4379183877836,
+            "top": 108.6799943410217,
+            "bottom": 735.3200056589786
+          },
+          "insideBottom": 729.0535888671875,
+          "scrollBottom": 674.0440368652344,
+          "insideTop": 674.0440063476562,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 27.970840454101562,
+          "y": 114.94639587402344,
+          "width": 334.058349609375,
+          "height": 614.107177734375,
+          "body": 390,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 729.0535736083984,
+          "footerTop": 775,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.562081612217117,
+            "right": 365.4379183877836,
+            "top": 108.6799943410217,
+            "bottom": 735.3200056589786
+          },
+          "insideBottom": 729.0535888671875,
+          "scrollBottom": 674.0440368652344,
+          "insideTop": 674.0440063476562,
+          "outside": []
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 4,
+          "mode": "value",
           "x": 27.970840454101562,
           "y": 114.94639587402344,
           "width": 334.058349609375,
@@ -2261,6 +4183,180 @@
           "insideBottom": 552.0469970703125,
           "scrollBottom": 497.0351867675781,
           "insideTop": 497.0351867675781,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 27.99011993408203,
+          "y": 114.98646545410156,
+          "width": 319.019775390625,
+          "height": 437.027099609375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0135650634766,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.734816668821228,
+            "right": 350.26518333117883,
+            "top": 110.52700590681769,
+            "bottom": 556.4729940931824
+          },
+          "insideBottom": 552.0135498046875,
+          "scrollBottom": 497.01011657714844,
+          "insideTop": 497.0101318359375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 27.99011993408203,
+          "y": 114.98646545410156,
+          "width": 319.019775390625,
+          "height": 437.027099609375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0135650634766,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.734816668821228,
+            "right": 350.26518333117883,
+            "top": 110.52700590681769,
+            "bottom": 556.4729940931824
+          },
+          "insideBottom": 552.0135498046875,
+          "scrollBottom": 497.01011657714844,
+          "insideTop": 497.0101318359375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 27.99011993408203,
+          "y": 114.98646545410156,
+          "width": 319.019775390625,
+          "height": 437.027099609375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0135650634766,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.734816668821228,
+            "right": 350.26518333117883,
+            "top": 110.52700590681769,
+            "bottom": 556.4729940931824
+          },
+          "insideBottom": 552.0135498046875,
+          "scrollBottom": 497.01011657714844,
+          "insideTop": 497.0101318359375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 27.99011993408203,
+          "y": 114.98646545410156,
+          "width": 319.019775390625,
+          "height": 437.027099609375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0135650634766,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.734816668821228,
+            "right": 350.26518333117883,
+            "top": 110.52700590681769,
+            "bottom": 556.4729940931824
+          },
+          "insideBottom": 552.0135498046875,
+          "scrollBottom": 497.01011657714844,
+          "insideTop": 497.0101318359375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 27.99011993408203,
+          "y": 114.98646545410156,
+          "width": 319.019775390625,
+          "height": 437.027099609375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0135650634766,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.734816668821228,
+            "right": 350.26518333117883,
+            "top": 110.52700590681769,
+            "bottom": 556.4729940931824
+          },
+          "insideBottom": 552.0135498046875,
+          "scrollBottom": 497.01011657714844,
+          "insideTop": 497.0101318359375,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 27.99011993408203,
+          "y": 114.98646545410156,
+          "width": 319.019775390625,
+          "height": 437.027099609375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0135650634766,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.734816668821228,
+            "right": 350.26518333117883,
+            "top": 110.52700590681769,
+            "bottom": 556.4729940931824
+          },
+          "insideBottom": 552.0135498046875,
+          "scrollBottom": 497.01011657714844,
+          "insideTop": 497.0101318359375,
           "outside": []
         },
         {
@@ -2530,7 +4626,152 @@
             667
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
+          "x": 27.974918365478516,
+          "y": 114.96563720703125,
+          "width": 319.0501708984375,
+          "height": 437.0687255859375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0343627929688,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.71930455242792,
+            "right": 350.2806954475726,
+            "top": 110.50575576617858,
+            "bottom": 556.4942442338217
+          },
+          "insideBottom": 552.0343627929688,
+          "scrollBottom": 497.02569580078125,
+          "insideTop": 497.02569580078125,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 27.974918365478516,
+          "y": 114.96563720703125,
+          "width": 319.0501708984375,
+          "height": 437.0687255859375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0343627929688,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.71930455242792,
+            "right": 350.2806954475726,
+            "top": 110.50575576617858,
+            "bottom": 556.4942442338217
+          },
+          "insideBottom": 552.0343627929688,
+          "scrollBottom": 497.02569580078125,
+          "insideTop": 497.02569580078125,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 27.974918365478516,
+          "y": 114.96563720703125,
+          "width": 319.0501708984375,
+          "height": 437.0687255859375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0343627929688,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.71930455242792,
+            "right": 350.2806954475726,
+            "top": 110.50575576617858,
+            "bottom": 556.4942442338217
+          },
+          "insideBottom": 552.0343627929688,
+          "scrollBottom": 497.02569580078125,
+          "insideTop": 497.02569580078125,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 27.974918365478516,
+          "y": 114.96563720703125,
+          "width": 319.0501708984375,
+          "height": 437.0687255859375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0343627929688,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.71930455242792,
+            "right": 350.2806954475726,
+            "top": 110.50575576617858,
+            "bottom": 556.4942442338217
+          },
+          "insideBottom": 552.0343627929688,
+          "scrollBottom": 497.02569580078125,
+          "insideTop": 497.02569580078125,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 27.974918365478516,
+          "y": 114.96563720703125,
+          "width": 319.0501708984375,
+          "height": 437.0687255859375,
+          "body": 375,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 552.0343627929688,
+          "footerTop": 598,
+          "headerBottom": 70.09375,
+          "inert": false,
+          "mesh": {
+            "left": 24.71930455242792,
+            "right": 350.2806954475726,
+            "top": 110.50575576617858,
+            "bottom": 556.4942442338217
+          },
+          "insideBottom": 552.0343627929688,
+          "scrollBottom": 497.02569580078125,
+          "insideTop": 497.02569580078125,
+          "outside": []
+        },
+        {
+          "viewport": [
+            375,
+            667
+          ],
+          "chapter": 4,
+          "mode": "value",
           "x": 27.974918365478516,
           "y": 114.96563720703125,
           "width": 319.0501708984375,
@@ -2609,6 +4850,180 @@
           "insideBottom": 476.0426330566406,
           "scrollBottom": 421.0304260253906,
           "insideTop": 421.0304260253906,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 27.99156379699707,
+          "y": 91.98773193359375,
+          "width": 264.016845703125,
+          "height": 384.0245361328125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.01226806640625,
+          "footerTop": 497.4375,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.297513353777372,
+            "right": 294.70248664622255,
+            "top": 88.06911033276712,
+            "bottom": 479.93088966723286
+          },
+          "insideBottom": 476.01226806640625,
+          "scrollBottom": 421.00877380371094,
+          "insideTop": 421.0087585449219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 27.99156379699707,
+          "y": 91.98773193359375,
+          "width": 264.016845703125,
+          "height": 384.0245361328125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.01226806640625,
+          "footerTop": 497.4375,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.297513353777372,
+            "right": 294.70248664622255,
+            "top": 88.06911033276712,
+            "bottom": 479.93088966723286
+          },
+          "insideBottom": 476.01226806640625,
+          "scrollBottom": 421.00877380371094,
+          "insideTop": 421.0087585449219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 27.99156379699707,
+          "y": 91.98773193359375,
+          "width": 264.016845703125,
+          "height": 384.0245361328125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.01226806640625,
+          "footerTop": 497.4375,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.297513353777372,
+            "right": 294.70248664622255,
+            "top": 88.06911033276712,
+            "bottom": 479.93088966723286
+          },
+          "insideBottom": 476.01226806640625,
+          "scrollBottom": 421.00877380371094,
+          "insideTop": 421.0087585449219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 27.99156379699707,
+          "y": 91.98773193359375,
+          "width": 264.016845703125,
+          "height": 384.0245361328125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.01226806640625,
+          "footerTop": 497.4375,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.297513353777372,
+            "right": 294.70248664622255,
+            "top": 88.06911033276712,
+            "bottom": 479.93088966723286
+          },
+          "insideBottom": 476.01226806640625,
+          "scrollBottom": 421.00877380371094,
+          "insideTop": 421.0087585449219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 27.99156379699707,
+          "y": 91.98773193359375,
+          "width": 264.016845703125,
+          "height": 384.0245361328125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.01226806640625,
+          "footerTop": 497.4375,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.297513353777372,
+            "right": 294.70248664622255,
+            "top": 88.06911033276712,
+            "bottom": 479.93088966723286
+          },
+          "insideBottom": 476.01226806640625,
+          "scrollBottom": 421.00877380371094,
+          "insideTop": 421.0087585449219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 27.99156379699707,
+          "y": 91.98773193359375,
+          "width": 264.016845703125,
+          "height": 384.0245361328125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.01226806640625,
+          "footerTop": 497.4375,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.297513353777372,
+            "right": 294.70248664622255,
+            "top": 88.06911033276712,
+            "bottom": 479.93088966723286
+          },
+          "insideBottom": 476.01226806640625,
+          "scrollBottom": 421.00877380371094,
+          "insideTop": 421.0087585449219,
           "outside": []
         },
         {
@@ -2878,7 +5293,152 @@
             568
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
+          "x": 27.978580474853516,
+          "y": 91.96884155273438,
+          "width": 264.0428466796875,
+          "height": 384.06231689453125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.0311584472656,
+          "footerTop": 504,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.284266442775873,
+            "right": 294.7157335572241,
+            "top": 88.04984209858344,
+            "bottom": 479.9501579014169
+          },
+          "insideBottom": 476.0311584472656,
+          "scrollBottom": 421.022216796875,
+          "insideTop": 421.022216796875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 27.978580474853516,
+          "y": 91.96884155273438,
+          "width": 264.0428466796875,
+          "height": 384.06231689453125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.0311584472656,
+          "footerTop": 504,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.284266442775873,
+            "right": 294.7157335572241,
+            "top": 88.04984209858344,
+            "bottom": 479.9501579014169
+          },
+          "insideBottom": 476.0311584472656,
+          "scrollBottom": 421.022216796875,
+          "insideTop": 421.022216796875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 27.978580474853516,
+          "y": 91.96884155273438,
+          "width": 264.0428466796875,
+          "height": 384.06231689453125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.0311584472656,
+          "footerTop": 504,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.284266442775873,
+            "right": 294.7157335572241,
+            "top": 88.04984209858344,
+            "bottom": 479.9501579014169
+          },
+          "insideBottom": 476.0311584472656,
+          "scrollBottom": 421.022216796875,
+          "insideTop": 421.022216796875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 27.978580474853516,
+          "y": 91.96884155273438,
+          "width": 264.0428466796875,
+          "height": 384.06231689453125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.0311584472656,
+          "footerTop": 504,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.284266442775873,
+            "right": 294.7157335572241,
+            "top": 88.04984209858344,
+            "bottom": 479.9501579014169
+          },
+          "insideBottom": 476.0311584472656,
+          "scrollBottom": 421.022216796875,
+          "insideTop": 421.022216796875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 27.978580474853516,
+          "y": 91.96884155273438,
+          "width": 264.0428466796875,
+          "height": 384.06231689453125,
+          "body": 320,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 476.0311584472656,
+          "footerTop": 504,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 25.284266442775873,
+            "right": 294.7157335572241,
+            "top": 88.04984209858344,
+            "bottom": 479.9501579014169
+          },
+          "insideBottom": 476.0311584472656,
+          "scrollBottom": 421.022216796875,
+          "insideTop": 421.022216796875,
+          "outside": []
+        },
+        {
+          "viewport": [
+            320,
+            568
+          ],
+          "chapter": 4,
+          "mode": "value",
           "x": 27.978580474853516,
           "y": 91.96884155273438,
           "width": 264.0428466796875,
@@ -2957,6 +5517,180 @@
           "insideBottom": 298.01788330078125,
           "scrollBottom": 254.01023864746094,
           "insideTop": 254.01023864746094,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 27.98032569885254,
+          "y": 91.99485778808594,
+          "width": 788.039306640625,
+          "height": 206.0102996826172,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.0051574707031,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.939106921435055,
+            "right": 824.060893078565,
+            "top": 89.8927106926594,
+            "bottom": 300.1072893073406
+          },
+          "insideBottom": 298.0051574707031,
+          "scrollBottom": 254.00294494628906,
+          "insideTop": 254.00294494628906,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 27.98032569885254,
+          "y": 91.99485778808594,
+          "width": 788.039306640625,
+          "height": 206.0102996826172,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.0051574707031,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.939106921435055,
+            "right": 824.060893078565,
+            "top": 89.8927106926594,
+            "bottom": 300.1072893073406
+          },
+          "insideBottom": 298.0051574707031,
+          "scrollBottom": 254.00294494628906,
+          "insideTop": 254.00294494628906,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 27.98032569885254,
+          "y": 91.99485778808594,
+          "width": 788.039306640625,
+          "height": 206.0102996826172,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.0051574707031,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.939106921435055,
+            "right": 824.060893078565,
+            "top": 89.8927106926594,
+            "bottom": 300.1072893073406
+          },
+          "insideBottom": 298.0051574707031,
+          "scrollBottom": 254.00294494628906,
+          "insideTop": 254.00294494628906,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 27.98032569885254,
+          "y": 91.99485778808594,
+          "width": 788.039306640625,
+          "height": 206.0102996826172,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.0051574707031,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.939106921435055,
+            "right": 824.060893078565,
+            "top": 89.8927106926594,
+            "bottom": 300.1072893073406
+          },
+          "insideBottom": 298.0051574707031,
+          "scrollBottom": 254.00294494628906,
+          "insideTop": 254.00294494628906,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 27.98032569885254,
+          "y": 91.99485778808594,
+          "width": 788.039306640625,
+          "height": 206.0102996826172,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.0051574707031,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.939106921435055,
+            "right": 824.060893078565,
+            "top": 89.8927106926594,
+            "bottom": 300.1072893073406
+          },
+          "insideBottom": 298.0051574707031,
+          "scrollBottom": 254.00294494628906,
+          "insideTop": 254.00294494628906,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 27.98032569885254,
+          "y": 91.99485778808594,
+          "width": 788.039306640625,
+          "height": 206.0102996826172,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.0051574707031,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.939106921435055,
+            "right": 824.060893078565,
+            "top": 89.8927106926594,
+            "bottom": 300.1072893073406
+          },
+          "insideBottom": 298.0051574707031,
+          "scrollBottom": 254.00294494628906,
+          "insideTop": 254.00294494628906,
           "outside": []
         },
         {
@@ -3226,7 +5960,152 @@
             390
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
+          "x": 27.95005226135254,
+          "y": 91.98694610595703,
+          "width": 788.099853515625,
+          "height": 206.026123046875,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.01306915283203,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.908215694931837,
+            "right": 824.0917843050686,
+            "top": 89.88463506745693,
+            "bottom": 300.1153649325435
+          },
+          "insideBottom": 298.0130615234375,
+          "scrollBottom": 254.0074691772461,
+          "insideTop": 254.00747680664062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 27.95005226135254,
+          "y": 91.98694610595703,
+          "width": 788.099853515625,
+          "height": 206.026123046875,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.01306915283203,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.908215694931837,
+            "right": 824.0917843050686,
+            "top": 89.88463506745693,
+            "bottom": 300.1153649325435
+          },
+          "insideBottom": 298.0130615234375,
+          "scrollBottom": 254.0074691772461,
+          "insideTop": 254.00747680664062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 27.95005226135254,
+          "y": 91.98694610595703,
+          "width": 788.099853515625,
+          "height": 206.026123046875,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.01306915283203,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.908215694931837,
+            "right": 824.0917843050686,
+            "top": 89.88463506745693,
+            "bottom": 300.1153649325435
+          },
+          "insideBottom": 298.0130615234375,
+          "scrollBottom": 254.0074691772461,
+          "insideTop": 254.00747680664062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 27.95005226135254,
+          "y": 91.98694610595703,
+          "width": 788.099853515625,
+          "height": 206.026123046875,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.01306915283203,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.908215694931837,
+            "right": 824.0917843050686,
+            "top": 89.88463506745693,
+            "bottom": 300.1153649325435
+          },
+          "insideBottom": 298.0130615234375,
+          "scrollBottom": 254.0074691772461,
+          "insideTop": 254.00747680664062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 27.95005226135254,
+          "y": 91.98694610595703,
+          "width": 788.099853515625,
+          "height": 206.026123046875,
+          "body": 844,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 298.01306915283203,
+          "footerTop": 326,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 19.908215694931837,
+            "right": 824.0917843050686,
+            "top": 89.88463506745693,
+            "bottom": 300.1153649325435
+          },
+          "insideBottom": 298.0130615234375,
+          "scrollBottom": 254.0074691772461,
+          "insideTop": 254.00747680664062,
+          "outside": []
+        },
+        {
+          "viewport": [
+            844,
+            390
+          ],
+          "chapter": 4,
+          "mode": "value",
           "x": 27.95005226135254,
           "y": 91.98694610595703,
           "width": 788.099853515625,
@@ -3305,6 +6184,180 @@
           "insideBottom": 283.0159912109375,
           "scrollBottom": 239.0086212158203,
           "insideTop": 239.0086212158203,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 27.985288619995117,
+          "y": 91.99539947509766,
+          "width": 611.0294189453125,
+          "height": 191.00921630859375,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0046157836914,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.750295207676043,
+            "right": 645.249704792324,
+            "top": 90.0463279618103,
+            "bottom": 284.95367203818967
+          },
+          "insideBottom": 283.0046081542969,
+          "scrollBottom": 239.0024871826172,
+          "insideTop": 239.0024871826172,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 27.985288619995117,
+          "y": 91.99539947509766,
+          "width": 611.0294189453125,
+          "height": 191.00921630859375,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0046157836914,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.750295207676043,
+            "right": 645.249704792324,
+            "top": 90.0463279618103,
+            "bottom": 284.95367203818967
+          },
+          "insideBottom": 283.0046081542969,
+          "scrollBottom": 239.0024871826172,
+          "insideTop": 239.0024871826172,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 27.985288619995117,
+          "y": 91.99539947509766,
+          "width": 611.0294189453125,
+          "height": 191.00921630859375,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0046157836914,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.750295207676043,
+            "right": 645.249704792324,
+            "top": 90.0463279618103,
+            "bottom": 284.95367203818967
+          },
+          "insideBottom": 283.0046081542969,
+          "scrollBottom": 239.0024871826172,
+          "insideTop": 239.0024871826172,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 27.985288619995117,
+          "y": 91.99539947509766,
+          "width": 611.0294189453125,
+          "height": 191.00921630859375,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0046157836914,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.750295207676043,
+            "right": 645.249704792324,
+            "top": 90.0463279618103,
+            "bottom": 284.95367203818967
+          },
+          "insideBottom": 283.0046081542969,
+          "scrollBottom": 239.0024871826172,
+          "insideTop": 239.0024871826172,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 27.985288619995117,
+          "y": 91.99539947509766,
+          "width": 611.0294189453125,
+          "height": 191.00921630859375,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0046157836914,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.750295207676043,
+            "right": 645.249704792324,
+            "top": 90.0463279618103,
+            "bottom": 284.95367203818967
+          },
+          "insideBottom": 283.0046081542969,
+          "scrollBottom": 239.0024871826172,
+          "insideTop": 239.0024871826172,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 27.985288619995117,
+          "y": 91.99539947509766,
+          "width": 611.0294189453125,
+          "height": 191.00921630859375,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0046157836914,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.750295207676043,
+            "right": 645.249704792324,
+            "top": 90.0463279618103,
+            "bottom": 284.95367203818967
+          },
+          "insideBottom": 283.0046081542969,
+          "scrollBottom": 239.0024871826172,
+          "insideTop": 239.0024871826172,
           "outside": []
         },
         {
@@ -3574,7 +6627,152 @@
             375
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
+          "x": 27.96265411376953,
+          "y": 91.98832702636719,
+          "width": 611.07470703125,
+          "height": 191.0233612060547,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0116882324219,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.7271986695905,
+            "right": 645.2728013304095,
+            "top": 90.03910793108324,
+            "bottom": 284.96089206891696
+          },
+          "insideBottom": 283.0116882324219,
+          "scrollBottom": 239.0063018798828,
+          "insideTop": 239.0063018798828,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 27.96265411376953,
+          "y": 91.98832702636719,
+          "width": 611.07470703125,
+          "height": 191.0233612060547,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0116882324219,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.7271986695905,
+            "right": 645.2728013304095,
+            "top": 90.03910793108324,
+            "bottom": 284.96089206891696
+          },
+          "insideBottom": 283.0116882324219,
+          "scrollBottom": 239.0063018798828,
+          "insideTop": 239.0063018798828,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 27.96265411376953,
+          "y": 91.98832702636719,
+          "width": 611.07470703125,
+          "height": 191.0233612060547,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0116882324219,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.7271986695905,
+            "right": 645.2728013304095,
+            "top": 90.03910793108324,
+            "bottom": 284.96089206891696
+          },
+          "insideBottom": 283.0116882324219,
+          "scrollBottom": 239.0063018798828,
+          "insideTop": 239.0063018798828,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 27.96265411376953,
+          "y": 91.98832702636719,
+          "width": 611.07470703125,
+          "height": 191.0233612060547,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0116882324219,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.7271986695905,
+            "right": 645.2728013304095,
+            "top": 90.03910793108324,
+            "bottom": 284.96089206891696
+          },
+          "insideBottom": 283.0116882324219,
+          "scrollBottom": 239.0063018798828,
+          "insideTop": 239.0063018798828,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 27.96265411376953,
+          "y": 91.98832702636719,
+          "width": 611.07470703125,
+          "height": 191.0233612060547,
+          "body": 667,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 283.0116882324219,
+          "footerTop": 311,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.7271986695905,
+            "right": 645.2728013304095,
+            "top": 90.03910793108324,
+            "bottom": 284.96089206891696
+          },
+          "insideBottom": 283.0116882324219,
+          "scrollBottom": 239.0063018798828,
+          "insideTop": 239.0063018798828,
+          "outside": []
+        },
+        {
+          "viewport": [
+            667,
+            375
+          ],
+          "chapter": 4,
+          "mode": "value",
           "x": 27.96265411376953,
           "y": 91.98832702636719,
           "width": 611.07470703125,
@@ -3653,6 +6851,180 @@
           "insideBottom": 408.0328063964844,
           "scrollBottom": 364.0236587524414,
           "insideTop": 364.0236511230469,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 2,
+          "mode": "history-0",
+          "x": 27.98016357421875,
+          "y": 91.99056243896484,
+          "width": 664.0396728515625,
+          "height": 316.01885986328125,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0094223022461,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.204247766876318,
+            "right": 698.7957522331237,
+            "top": 88.7658769492965,
+            "bottom": 411.2341230507035
+          },
+          "insideBottom": 408.0094299316406,
+          "scrollBottom": 364.0068054199219,
+          "insideTop": 364.0068054199219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 2,
+          "mode": "history-1",
+          "x": 27.98016357421875,
+          "y": 91.99056243896484,
+          "width": 664.0396728515625,
+          "height": 316.01885986328125,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0094223022461,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.204247766876318,
+            "right": 698.7957522331237,
+            "top": 88.7658769492965,
+            "bottom": 411.2341230507035
+          },
+          "insideBottom": 408.0094299316406,
+          "scrollBottom": 364.0068054199219,
+          "insideTop": 364.0068054199219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 2,
+          "mode": "history-2",
+          "x": 27.98016357421875,
+          "y": 91.99056243896484,
+          "width": 664.0396728515625,
+          "height": 316.01885986328125,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0094223022461,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.204247766876318,
+            "right": 698.7957522331237,
+            "top": 88.7658769492965,
+            "bottom": 411.2341230507035
+          },
+          "insideBottom": 408.0094299316406,
+          "scrollBottom": 364.0068054199219,
+          "insideTop": 364.0068054199219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 2,
+          "mode": "history-3",
+          "x": 27.98016357421875,
+          "y": 91.99056243896484,
+          "width": 664.0396728515625,
+          "height": 316.01885986328125,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0094223022461,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.204247766876318,
+            "right": 698.7957522331237,
+            "top": 88.7658769492965,
+            "bottom": 411.2341230507035
+          },
+          "insideBottom": 408.0094299316406,
+          "scrollBottom": 364.0068054199219,
+          "insideTop": 364.0068054199219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 2,
+          "mode": "history-4",
+          "x": 27.98016357421875,
+          "y": 91.99056243896484,
+          "width": 664.0396728515625,
+          "height": 316.01885986328125,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0094223022461,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.204247766876318,
+            "right": 698.7957522331237,
+            "top": 88.7658769492965,
+            "bottom": 411.2341230507035
+          },
+          "insideBottom": 408.0094299316406,
+          "scrollBottom": 364.0068054199219,
+          "insideTop": 364.0068054199219,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 2,
+          "mode": "history-5",
+          "x": 27.98016357421875,
+          "y": 91.99056243896484,
+          "width": 664.0396728515625,
+          "height": 316.01885986328125,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0094223022461,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.204247766876318,
+            "right": 698.7957522331237,
+            "top": 88.7658769492965,
+            "bottom": 411.2341230507035
+          },
+          "insideBottom": 408.0094299316406,
+          "scrollBottom": 364.0068054199219,
+          "insideTop": 364.0068054199219,
           "outside": []
         },
         {
@@ -3922,7 +7294,152 @@
             500
           ],
           "chapter": 4,
-          "mode": "page",
+          "mode": "product-0",
+          "x": 27.94964027404785,
+          "y": 91.97603607177734,
+          "width": 664.1007080078125,
+          "height": 316.04791259765625,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0239486694336,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.17310145991597,
+            "right": 698.8268985400844,
+            "top": 88.75105430923719,
+            "bottom": 411.24894569076287
+          },
+          "insideBottom": 408.0239562988281,
+          "scrollBottom": 364.01729583740234,
+          "insideTop": 364.0173034667969,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 4,
+          "mode": "product-1",
+          "x": 27.94964027404785,
+          "y": 91.97603607177734,
+          "width": 664.1007080078125,
+          "height": 316.04791259765625,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0239486694336,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.17310145991597,
+            "right": 698.8268985400844,
+            "top": 88.75105430923719,
+            "bottom": 411.24894569076287
+          },
+          "insideBottom": 408.0239562988281,
+          "scrollBottom": 364.01729583740234,
+          "insideTop": 364.0173034667969,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 4,
+          "mode": "product-2",
+          "x": 27.94964027404785,
+          "y": 91.97603607177734,
+          "width": 664.1007080078125,
+          "height": 316.04791259765625,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0239486694336,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.17310145991597,
+            "right": 698.8268985400844,
+            "top": 88.75105430923719,
+            "bottom": 411.24894569076287
+          },
+          "insideBottom": 408.0239562988281,
+          "scrollBottom": 364.01729583740234,
+          "insideTop": 364.0173034667969,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 4,
+          "mode": "product-3",
+          "x": 27.94964027404785,
+          "y": 91.97603607177734,
+          "width": 664.1007080078125,
+          "height": 316.04791259765625,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0239486694336,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.17310145991597,
+            "right": 698.8268985400844,
+            "top": 88.75105430923719,
+            "bottom": 411.24894569076287
+          },
+          "insideBottom": 408.0239562988281,
+          "scrollBottom": 364.01729583740234,
+          "insideTop": 364.0173034667969,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 4,
+          "mode": "product-4",
+          "x": 27.94964027404785,
+          "y": 91.97603607177734,
+          "width": 664.1007080078125,
+          "height": 316.04791259765625,
+          "body": 720,
+          "overflow": false,
+          "verticalOverflow": true,
+          "bottom": 408.0239486694336,
+          "footerTop": 436,
+          "headerBottom": 58.296875,
+          "inert": false,
+          "mesh": {
+            "left": 21.17310145991597,
+            "right": 698.8268985400844,
+            "top": 88.75105430923719,
+            "bottom": 411.24894569076287
+          },
+          "insideBottom": 408.0239562988281,
+          "scrollBottom": 364.01729583740234,
+          "insideTop": 364.0173034667969,
+          "outside": []
+        },
+        {
+          "viewport": [
+            720,
+            500
+          ],
+          "chapter": 4,
+          "mode": "value",
           "x": 27.94964027404785,
           "y": 91.97603607177734,
           "width": 664.1007080078125,
@@ -3954,6 +7471,10 @@
           "pass": true
         },
         {
+          "name": "overview has no numbered badges; hover and keyboard focus reveal object names",
+          "pass": true
+        },
+        {
           "name": "little bird discovers all six objects, saves visits and starts a fresh tour",
           "pass": true
         },
@@ -3982,13 +7503,13 @@
       "metrics": [
         {
           "mode": "ambient",
-          "renderedFrames": 34,
+          "renderedFrames": 33,
           "milliseconds": 1100
         },
         {
           "mode": "notebook",
-          "drawCalls": 52,
-          "triangles": 264174,
+          "drawCalls": 58,
+          "triangles": 395786,
           "quality": "standard"
         }
       ]
@@ -4021,469 +7542,8 @@
         }
       ],
       "errors": [],
-      "textureCount": 13,
-      "textureBytes": 6251854
-    },
-    "reference": {
-      "results": [
-        {
-          "name": "default 18 pages, visible native pointer, optional laser",
-          "pass": true
-        },
-        {
-          "name": "01 career selection",
-          "pass": true
-        },
-        {
-          "name": "02 cover layers and replay",
-          "pass": true
-        },
-        {
-          "name": "03 cumulative capabilities",
-          "pass": true
-        },
-        {
-          "name": "04 3D overview, node details and keyboard isolation",
-          "pass": true
-        },
-        {
-          "name": "05 chronology, pin comparison and phase filter",
-          "pass": true
-        },
-        {
-          "name": "06 reasoning failure, revision, strict-budget pass",
-          "pass": true
-        },
-        {
-          "name": "07 media changes actual scene, opt-in audio and pause",
-          "pass": true
-        },
-        {
-          "name": "08 packet routing obeys data and network boundaries",
-          "pass": true
-        },
-        {
-          "name": "09 controllers follow distinct recovery routes and pause",
-          "pass": true
-        },
-        {
-          "name": "10 MCP wires connect, carry packets and disconnect",
-          "pass": true
-        },
-        {
-          "name": "11 module switches change grounded and actionable output",
-          "pass": true
-        },
-        {
-          "name": "12 precise prompt, loading and duplicate handling",
-          "pass": true
-        },
-        {
-          "name": "13 cost reduction and reinvestment balance",
-          "pass": true
-        },
-        {
-          "name": "14 architecture rotates, separates and selects layers",
-          "pass": true
-        },
-        {
-          "name": "15 permission failure stops, retry branch recovers",
-          "pass": true
-        },
-        {
-          "name": "20 controls change risk outcome",
-          "pass": true
-        },
-        {
-          "name": "21 adoption branches, backtracking and reset",
-          "pass": true
-        },
-        {
-          "name": "22 layer diagnosis repairs the actual artifact",
-          "pass": true
-        },
-        {
-          "name": "23 sources are a compact ordered list",
-          "pass": true
-        },
-        {
-          "name": "20 choose action and return to prototyping",
-          "pass": true
-        },
-        {
-          "name": "fullscreen, modal focus and navigation guard",
-          "pass": true
-        },
-        {
-          "name": "all 20 desktop widths fit",
-          "pass": true
-        },
-        {
-          "name": "touch MCP uses click alternative",
-          "pass": true
-        },
-        {
-          "name": "all 20 mobile widths and panel widths fit",
-          "pass": true
-        },
-        {
-          "name": "reduced motion retains keyboard and native cursor",
-          "pass": true
-        },
-        {
-          "name": "no instructional interaction banners",
-          "pass": true
-        },
-        {
-          "name": "no application runtime errors",
-          "pass": true
-        }
-      ],
-      "errors": [],
-      "layouts": [
-        {
-          "id": "intro",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1000
-        },
-        {
-          "id": "cover",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1000
-        },
-        {
-          "id": "manifesto",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 999,
-          "scrollHeight": 1153
-        },
-        {
-          "id": "overview",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 999,
-          "scrollHeight": 999
-        },
-        {
-          "id": "timeline",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1000
-        },
-        {
-          "id": "reasoning",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 999,
-          "scrollHeight": 1186
-        },
-        {
-          "id": "media",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1036
-        },
-        {
-          "id": "open-local",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1000
-        },
-        {
-          "id": "agent",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1000
-        },
-        {
-          "id": "mcp",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1000
-        },
-        {
-          "id": "concepts",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 998,
-          "scrollHeight": 998
-        },
-        {
-          "id": "vibe",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1234
-        },
-        {
-          "id": "commodity",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1059
-        },
-        {
-          "id": "engineering",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 998,
-          "scrollHeight": 998
-        },
-        {
-          "id": "harness",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1392
-        },
-        {
-          "id": "trust",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 998,
-          "scrollHeight": 1471
-        },
-        {
-          "id": "adoption",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1438
-        },
-        {
-          "id": "synthesis",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 999,
-          "scrollHeight": 999
-        },
-        {
-          "id": "sources",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 2572
-        },
-        {
-          "id": "takeaway",
-          "width": 1600,
-          "scrollWidth": 1600,
-          "height": 1000,
-          "scrollHeight": 1146
-        }
-      ],
-      "mobileLayouts": [
-        {
-          "id": "intro",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": []
-        },
-        {
-          "id": "cover",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": []
-        },
-        {
-          "id": "manifesto",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "overview",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": []
-        },
-        {
-          "id": "timeline",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "reasoning",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "media",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "open-local",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "agent",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "mcp",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "concepts",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "vibe",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "commodity",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "engineering",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "harness",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "trust",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "adoption",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "synthesis",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        },
-        {
-          "id": "sources",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": []
-        },
-        {
-          "id": "takeaway",
-          "width": 390,
-          "scrollWidth": 390,
-          "panels": [
-            {
-              "width": 350,
-              "scroll": 350
-            }
-          ]
-        }
-      ]
+      "textureCount": 27,
+      "textureBytes": 16779157
     }
   }
 }

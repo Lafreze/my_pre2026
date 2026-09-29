@@ -14,7 +14,7 @@ html:has(.work-studio),body:has(.work-studio){margin:0;overflow:hidden;backgroun
 .studio-object-labels{position:absolute;inset:0;pointer-events:none}
 .studio-object,.studio-object[data-selected=true],.studio-scene[data-view=room] .studio-object[data-object=notebook]{pointer-events:auto;position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;display:grid;place-items:center;padding:0;z-index:2;background:none;border:0}
 .studio-object i{width:20px;height:20px;display:block;border-radius:50%;border:5px solid #fffcf0;box-shadow:0 2px 12px #15203433,0 0 0 1px #fff5;background:#2e58d8;transition:transform .2s,background .2s}
-.studio-object>span,.studio-scene[data-view=room] .studio-object[data-object=notebook]>span,.studio-scene[data-view=room] .studio-object[data-object=name]>span,.studio-scene[data-view=room] .studio-object[data-object=checklist]>span{display:block;position:absolute;left:43px;top:2px;min-width:max-content;padding:9px 33px 9px 13px;background:#262d2b;color:#f9f7ef;border-radius:7px;font-size:11px;line-height:1.5;box-shadow:0 7px 25px #151d1d22;opacity:0;visibility:hidden;transform:translateX(-5px);transition:.18s;pointer-events:none;text-align:left}
+.studio-object>span{display:block;position:absolute;left:43px;top:2px;min-width:max-content;padding:9px 33px 9px 13px;background:#262d2b;color:#f9f7ef;border-radius:7px;font-size:11px;line-height:1.5;box-shadow:0 7px 25px #151d1d22;opacity:0;visibility:hidden;transform:translateX(-5px);transition:.18s;pointer-events:none;text-align:left}
 .studio-object small{display:block;font:8px/1.6 Arial,sans-serif;letter-spacing:.09em;color:#b5c5c1}.studio-object b{position:absolute;right:12px;top:16px;font-weight:400}
 .studio-object:hover i,.studio-object:focus-visible i,.studio-object[data-hovered=true] i{transform:scale(1.35);background:#2443ae}
 .studio-scene .studio-object:hover>span,.studio-scene .studio-object:focus-visible>span,.studio-scene .studio-object[data-hovered=true]>span{opacity:1;visibility:visible;transform:none}
@@ -104,3 +104,11 @@ html:has(.work-studio),body:has(.work-studio){margin:0;overflow:hidden;backgroun
 @media(max-width:1000px) and (max-height:720px){.garden-controls{bottom:153px}}
 .studio-scene[data-view] .studio-object[data-object]>span{background:#fffceff2;color:#354631;border:1px solid #6f81512b}
 .work-studio .studio-primary{background:#49634c}.work-studio .studio-primary:hover{background:#344d38}
+
+/* Models provide the navigation. Hover/focus reveals a quiet name, never a numbered marker. */
+.studio-scene .studio-object{border:0!important;background:transparent!important;box-shadow:none!important;border-radius:0}
+.studio-scene .studio-object:after{display:none!important}
+.studio-scene .studio-object>span{left:50%;top:-8px;transform:translate(-50%,-100%);min-width:max-content;padding:9px 29px 9px 13px;box-shadow:0 5px 18px #20352118}
+.studio-scene .studio-object:hover>span,.studio-scene .studio-object:focus-visible>span,.studio-scene .studio-object[data-hovered=true]>span{transform:translate(-50%,-100%);opacity:1;visibility:visible}
+.studio-scene .studio-object:focus-visible{outline:0}.studio-scene .studio-object:focus-visible>span{outline:2px solid #668754;outline-offset:3px}
+.garden-discovery>button{min-width:244px}.garden-discovery>button>span:not(.studio-sr){flex:1}

@@ -76,5 +76,89 @@
     "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/wood_floor/wood_floor_rough_1k.jpg",
     "md5": "36146634f1dbd1bc30cd071857584c10",
     "bytes": 527754
+  },
+  {
+    "file": "poly_wool_herringbone_nor_gl.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/poly_wool_herringbone/poly_wool_herringbone_nor_gl_1k.jpg",
+    "md5": "a6371d03b033a1c20e1c2758136ac757",
+    "bytes": 1045151
+  },
+  {
+    "file": "poly_wool_herringbone_rough.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/poly_wool_herringbone/poly_wool_herringbone_rough_1k.jpg",
+    "md5": "9f85f667517ee9c7f3cc85214058a7d8",
+    "bytes": 857426
+  },
+  {
+    "file": "bark_brown_02_diffuse.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_brown_02/bark_brown_02_diff_1k.jpg",
+    "md5": "6669cca520594bdca19f94084984ab72",
+    "bytes": 659592
+  },
+  {
+    "file": "bark_brown_02_nor_gl.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_brown_02/bark_brown_02_nor_gl_1k.jpg",
+    "md5": "1cad3fe0349a44df2d4d1c2859c79920",
+    "bytes": 1015623
+  },
+  {
+    "file": "bark_brown_02_rough.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/bark_brown_02/bark_brown_02_rough_1k.jpg",
+    "md5": "bbcde696e5b9418cdcb2abe638965417",
+    "bytes": 337946
+  },
+  {
+    "file": "sandstone_cracks_diffuse.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/sandstone_cracks/sandstone_cracks_diff_1k.jpg",
+    "md5": "94619de4f4d33ad9fe6711d3ad88ec4a",
+    "bytes": 696657
+  },
+  {
+    "file": "sandstone_cracks_nor_gl.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/sandstone_cracks/sandstone_cracks_nor_gl_1k.jpg",
+    "md5": "e778ce4e2ecc6a2837800022196b4118",
+    "bytes": 1307622
+  },
+  {
+    "file": "sandstone_cracks_rough.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/sandstone_cracks/sandstone_cracks_rough_1k.jpg",
+    "md5": "800ad67a79fb6f976b9aeba32d197260",
+    "bytes": 352483
+  },
+  {
+    "file": "grass_ground_diffuse.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grass_ground/grass_ground_diff_1k.jpg",
+    "md5": "299047258586c762735b7284d3c662c3",
+    "bytes": 876584
+  },
+  {
+    "file": "grass_ground_nor_gl.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grass_ground/grass_ground_nor_gl_1k.jpg",
+    "md5": "d518c5b2af6f2c0297bc807b351f511f",
+    "bytes": 1310516
+  },
+  {
+    "file": "grass_ground_rough.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/grass_ground/grass_ground_rough_1k.jpg",
+    "md5": "2e6afca246cf6b80bdb53f46fe7e5ce5",
+    "bytes": 328190
+  },
+  {
+    "file": "white_oak_veneer_diffuse.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_oak_veneer/white_oak_veneer_diff_1k.jpg",
+    "md5": "4ac6f031704bdc243f71cc61d692f823",
+    "bytes": 595257
+  },
+  {
+    "file": "white_oak_veneer_nor_gl.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_oak_veneer/white_oak_veneer_nor_gl_1k.jpg",
+    "md5": "ce3dc086c58f50ba47c026a58d03fcbd",
+    "bytes": 623607
+  },
+  {
+    "file": "white_oak_veneer_rough.jpg",
+    "source": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/1k/white_oak_veneer/white_oak_veneer_rough_1k.jpg",
+    "md5": "ae2a746fc106f6eb0f90c92d49bd7643",
+    "bytes": 520649
   }
 ]

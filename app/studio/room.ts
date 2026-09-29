@@ -17,14 +17,14 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     if (!materials.has(key)) { const m = finishes.material(metalness > .1 ? "metal" : "rubber", color).clone(); m.roughness = roughness; m.metalness = metalness; materials.set(key, m); }
     return materials.get(key)!;
   };
-  const cream = finishes.material("plaster", "#f0ece1"), wood = finishes.material("wood", "#f5e7d5"), edge = finishes.material("wood", "#d9c9b3"), graphite = finishes.material("rubber", "#202c2b"), metal = finishes.material("metal", "#a3adaa"), paper = finishes.material("paper", "#faf5e8"), blue = finishes.material("fabric", "#2c49a5"), terracotta = finishes.material("leather", "#ae5539"), olive = mat("#486140");
+  const cream = finishes.material("plaster", "#f0ece1"), wood = finishes.material("oak", "#ebd9b9"), edge = finishes.material("oak", "#c7ad86"), graphite = finishes.material("rubber", "#202c2b"), metal = finishes.material("metal", "#a3adaa"), paper = finishes.material("paper", "#faf5e8"), blue = finishes.material("fabric", "#2c49a5"), terracotta = finishes.material("leather", "#ae5539"), olive = mat("#486140");
   const brass = finishes.material("metal", "#ad8850"), ceramic = finishes.material("ceramic", "#e4ddcc"), upholstery = finishes.material("leather", "#a85435");
   function mesh(geometry: THREE.BufferGeometry, material: THREE.Material, p: number[], parent: THREE.Object3D = root) {
     const m = new THREE.Mesh(geometry, material); m.position.set(p[0], p[1], p[2]); m.castShadow = true; m.receiveShadow = true; parent.add(m); return m;
   }
   function box(size: number[], p: number[], material: THREE.Material, parent: THREE.Object3D = root, radius = .025) {
     const r = Math.min(radius, Math.min(...size) / 3);
-    const surfaceScale = ["fabric", "leather"].includes(material.userData.surface) ? .35 : 1;
+    const surfaceScale = ["fabric", "wool", "leather"].includes(material.userData.surface) ? .35 : 1;
     const key = [...size, r, surfaceScale].join(",");
     if (!geometries.has(key)) geometries.set(key, metricUV(new RoundedBoxGeometry(size[0], size[1], size[2], r >= .03 ? 4 : 2, r), surfaceScale));
     return mesh(geometries.get(key)!, material, p, parent);
@@ -110,11 +110,18 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const glassGeometry=new THREE.PlaneGeometry(1.29,1.23);geometries.set("window-glass",glassGeometry);
   const glass=mesh(glassGeometry,new THREE.MeshPhysicalMaterial({color:"#d4e8e7",roughness:.12,metalness:.08,transparent:true,opacity:.17,clearcoat:1,clearcoatRoughness:.08,side:THREE.DoubleSide}),[.085,0,0],window);glass.rotation.y=Math.PI/2;glass.castShadow=false;
   box([.018,.11,.016],[.16,-.03,.045],brass,window,.005);
-  const rug = box([2.7,.024,2.25],[.05,.042,.65],finishes.material("fabric", "#a9a58b"),root,.14);
-  rug.rotation.y = -.045;
-  for(let i=0;i<17;i++) box([.025,.002,2.05],[-1.1+i*.14,.056,.65],finishes.material("fabric", "#bbb69d"),root,.001);
-  for(const z of [-.40,1.70]) box([2.48,.004,.028],[.05,.057,z],finishes.material("fabric", "#716f58"),root,.002);
-  for(let i=0;i<46;i++) for(const z of [-.50,1.80]) rod([-1.18+i*.054,.052,z],[-1.175+i*.054,.047,z+(z<0?-.055:.055)],.0035,paper);
+  // One thin woven object: body, sewn binding and fringe share a transform.
+  const rug=group([.02,.035,.55]);rug.name="Bound wool rug";rug.rotation.y=-.045;
+  const rugBody=box([2.62,.012,2.04],[0,.006,0],finishes.material("wool","#b8af93"),rug,.003);
+  rugBody.name="woven-rug-body";rugBody.castShadow=false;
+  const binding=finishes.material("fabric","#767d62"),thread=finishes.material("wool","#d4c9a9");
+  for(const x of [-1.282,1.282])box([.035,.0025,2.0],[x,.013,0],binding,rug,.001);
+  for(const z of [-.99,.99])box([2.57,.0025,.035],[0,.013,z],binding,rug,.001);
+  for(const z of [-.945,.945])box([2.47,.001,.007],[0,.0135,z],thread,rug,.0002);
+  for(let i=0;i<70;i++)for(const side of [-1,1]){
+    const x=-1.24+i*.036;
+    tube([[x,.009,side*1.015],[x+.002,.008,side*1.035],[x+.007,.004,side*(1.058+(i%3)*.006)]],.0018,thread,rug);
+  }
   // Desk, exactly 1.4 × .70 × .74, rear left. Wall clearance for monitor leads.
   const desk = group([-1.35,0,-1.65]);
   box([1.46,.065,.76],[0,.727,0],wood,desk,.034);
@@ -181,7 +188,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   // Nameplate at the desk front, backed and supported by a wooden wedge.
   const name=group([-1.63,.786,-1.31],"name");
   const plate=box([.28,.08,.037],[0,.026,0],wood,name,.007);plate.rotation.x=-.22;
-  const nameFace=surface(.26,.066,[0,.027,.021],texture(c=>{c.fillStyle="#d1ba87";c.fillRect(0,0,1024,256);c.fillStyle="#283e33";c.textAlign="center";c.font="90px Georgia";c.fillText("WANG BO",512,129);c.font="23px sans-serif";c.fillText("MAKE / TRY / IMPROVE",512,198);},1024,256),name);nameFace.rotation.x=-.22;
+  const nameFace=surface(.26,.066,[0,.027,.021],texture(c=>{c.fillStyle="#d1ba87";c.fillRect(0,0,1024,256);c.fillStyle="#283e33";c.textAlign="center";c.font="90px Georgia";c.fillText("WANG BO",512,129);c.font="23px sans-serif";c.fillText("IMAGE PROCESSING / ADC",512,198);},1024,256),name);nameFace.rotation.x=-.22;
   for(const x of [-.12,.12])sphere([.003,.003,.002],[x,.027,.023],brass,name);
   // Jointed task lamp with actual shade, internal bulb, and warm pool.
   const lamp=group([-1.93,.765,-1.91]);cyl(.10,.105,.025,[0,.014,0],graphite,lamp);
@@ -212,7 +219,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   for(const x of [-1,1])for(const y of [-.48,.48])sphere([.014,.014,.009],[x,y,.066],metal,board);
   const boardPins:THREE.Mesh[]=[];for(let i=0;i<3;i++)boardPins.push(sphere([.023,.023,.014],[-.66+i*.66,.085,.088],brass,board));
   // A small wall clock, deliberately quiet; decorative, not a false live clock.
-  const clock=group([2.32,2.26,-2.43]);const clockRim=cyl(.19,.19,.045,[0,0,0],wood,clock);clockRim.rotation.x=Math.PI/2;
+  const clock=group([2.32,2.26,-2.43]);const clockRim=cyl(.19,.19,.045,[0,0,0],finishes.material("wood","#c7b58d"),clock);clockRim.rotation.x=Math.PI/2;
   const clockTex=texture(c=>{c.fillStyle="#efeada";c.fillRect(0,0,512,512);c.strokeStyle="#56665a";c.lineWidth=9;c.beginPath();c.arc(256,256,235,0,7);c.stroke();for(let i=0;i<12;i++){const a=i*Math.PI/6;c.beginPath();c.moveTo(256+Math.sin(a)*197,256-Math.cos(a)*197);c.lineTo(256+Math.sin(a)*214,256-Math.cos(a)*214);c.stroke();}c.lineWidth=12;c.beginPath();c.moveTo(180,195);c.lineTo(256,256);c.lineTo(341,180);c.stroke();},512,512);
   const clockGeo=new THREE.CircleGeometry(.169,48);geometries.set("clock",clockGeo);mesh(clockGeo,new THREE.MeshStandardMaterial({map:clockTex,roughness:.55}),[0,0,.025],clock);
   sphere([.011,.011,.007],[0,0,.033],brass,clock);
@@ -238,8 +245,17 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   box([1.72,.075,1.05],[0,.617,0],wood,exhibit,.04);
   for(const x of [-.71,.71])for(const z of [-.37,.37]){const leg=box([.09,.56,.09],[x,.303,z],edge,exhibit);leg.rotation.z=x>0?-.055:.055;}
   box([1.44,.05,.04],[0,.22,-.34],edge,exhibit);
-  box([1.46,.008,.82],[0,.66,0],finishes.material("fabric", "#d4cbb8"),exhibit,.018);
+  box([1.46,.008,.82],[0,.66,0],finishes.material("wool", "#d4cbb8"),exhibit,.018);
   for(const z of [-.385,.385])box([1.38,.002,.008],[0,.665,z],finishes.material("fabric", "#8e9078"),exhibit,.002);
+  const deskTray=group([1.02,.675,1.21]);deskTray.rotation.y=.1;
+  box([.46,.016,.30],[0,.012,0],edge,deskTray,.018);
+  for(const x of [-.215,.215])box([.018,.035,.30],[x,.026,0],edge,deskTray,.005);
+  for(const z of [-.14,.14])box([.44,.035,.018],[0,.026,z],edge,deskTray,.005);
+  box([.29,.04,.22],[-.015,.042,0],finishes.material("wool","#718071"),deskTray,.006);
+  for(const x of [-.12,-.10])box([.006,.001,.21],[x,.063,0],paper,deskTray,.0002);
+  const pencilJar=group([1.07,.685,.72]);
+  turned([[.03,0],[.048,.008],[.047,.11],[.043,.115],[.037,.112],[.037,.02],[.03,.01]],[0,0,0],ceramic,pencilJar);
+  for(let i=0;i<3;i++){const x=(i-1)*.016;rod([x,.015,0],[x+(i-1)*.024,.195+i*.012,.01],.004,[edge,olive,brass][i],pencilJar);}
   const checklist=group([2.12,.694,1.12],"checklist");checklist.rotation.y=-.1;
   box([.36,.018,.46],[0,0,0],edge,checklist,.013);box([.323,.003,.405],[0,.012,.007],paper,checklist,.004);
   const checklistFace=surface(.309,.39,[0,.014,.007],texture(c=>{
@@ -254,7 +270,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const checks:THREE.Mesh[]=[];for(let i=0;i<3;i++)checks.push(box([.013,.003,.013],[-.120,.017,-.032+i*.066],blue,checklist,.004));
   // Framed print and a modest plant make the room feel inhabited, not a showroom.
   const art=group([-1.4,2.1,-2.445],"name");box([.69,.77,.037],[0,0,0],wood,art,.014);
-  const profileFace=surface(.61,.69,[0,0,.021],texture(c=>{c.fillStyle="#ede5d5";c.fillRect(0,0,1024,512);c.fillStyle="#bc7755";c.beginPath();c.arc(490,210,135,0,7);c.fill();c.fillStyle="#6c8872";c.fillRect(225,300,580,65);c.fillStyle="#eee6d6";c.font="24px monospace";c.fillText("SMALL STEPS, EVERY DAY.",305,343);}),art);
+  const profileFace=surface(.61,.69,[0,0,.021],texture(c=>{c.fillStyle="#ede5d5";c.fillRect(0,0,1024,512);c.fillStyle="#bc7755";c.beginPath();c.arc(490,210,135,0,7);c.fill();c.fillStyle="#6c8872";c.fillRect(225,300,580,65);c.fillStyle="#eee6d6";c.font="24px monospace";c.fillText("WANG BO / ABOUT ME",325,343);}),art);
   const leafTexture=texture(c=>{
     const gradient=c.createLinearGradient(0,0,256,0);gradient.addColorStop(0,"#416a35");gradient.addColorStop(.48,"#719152");gradient.addColorStop(.52,"#36572e");gradient.addColorStop(1,"#598344");c.fillStyle=gradient;c.fillRect(0,0,256,512);
     c.strokeStyle="#a6b777";c.lineWidth=2;c.beginPath();c.moveTo(128,0);c.lineTo(128,512);c.stroke();

@@ -4,6 +4,7 @@ import { chapters, objects, legacyTopics, sources, sourceChecked, type ObjectId,
 import ModelPresentation from "./ModelPresentation";
 import "./studio.css";
 import "./presentation.css";
+import "./chapters.css";
 const Canvas=lazy(()=>import("./StudioCanvas"));
 class SceneBoundary extends Component<{children:ReactNode;fallback:ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return {failed:true};}render(){return this.state.failed?<div className="scene-error-page"><p>3Dを準備できませんでした。内容はこのままご覧いただけます。</p>{this.props.fallback}</div>:this.props.children;}}
 const format=(seconds:number)=>`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`;
@@ -11,7 +12,7 @@ export default function Studio(){
   const [chapter,setChapter]=useState(0),[mode,setMode]=useState<"guide"|"explore">("guide"),[overview,setOverview]=useState(false);
   const [reference,setReference]=useState(false),[referencePage,setReferencePage]=useState<string|null>(null),[query,setQuery]=useState(""),[category,setCategory]=useState("すべて");
   const [index,setIndex]=useState(false),[notes,setNotes]=useState(false),[elapsed,setElapsed]=useState(0),[timer,setTimer]=useState(false);
-  const [step,setStep]=useState(0),[playing,setPlaying]=useState(false),[board,setBoard]=useState(0),[agentTab,setAgentTab]=useState<"parts"|"loop">("parts"),[part,setPart]=useState(0),[application,setApplication]=useState(2);
+  const [step,setStep]=useState(0),[playing,setPlaying]=useState(false),[board,setBoard]=useState(0),[agentTab,setAgentTab]=useState<"parts"|"loop">("parts"),[part,setPart]=useState(0),[application,setApplication]=useState(0);
   const [skip,setSkip]=useState(0),[ready,setReady]=useState(false);
   const [profile,setProfile]=useState({name:"王 博",romanName:"WANG BO"});
   const dialog=useRef<HTMLDialogElement>(null),notesDialog=useRef<HTMLDialogElement>(null),lastFocus=useRef<HTMLElement|null>(null);

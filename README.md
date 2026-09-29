@@ -1,4 +1,4 @@
-> 2026-09-29 模型展示版本：从个人介绍开始，五章内容直接显示在模型表面，约 2 秒连续运镜。已取消 Day Card，最后以本界面为应用实例。展示区域已检查 11 种窗口尺寸，资料页保留 20 页。新版截图与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，完整日语讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
+> 2026-09-29 庭院与内容精修：保留五章连续运镜，新增六个 LLM 发展节点、Agent 输入输出与设计要点、五步产品制作流程和竞争力讨论。自我介绍改为自然问候与履历，结尾移除截图。全景取消数字标记，地毯重新建模，新增白橡木、羊毛、树皮、砂岩和草地公开材质，以及花境、蝴蝶与水面动效。新版截图与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，日语讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
 >
 > 以下为历次版本说明；当前首页交互以本次模型展示版本为准。
 

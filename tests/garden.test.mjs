@@ -27,6 +27,17 @@ try {
     assert.equal(await page.locator('.studio-object:visible').count(), 6);
     await page.getByRole('button', { name: '昼の光', exact: true }).click();
   });
+  await check('overview has no numbered badges; hover and keyboard focus reveal object names',async()=>{
+    await page.mouse.move(0,0);await page.getByRole('button',{name:'昼の光',exact:true}).focus();
+    assert.equal(await page.locator('.studio-object>i,.garden-discovery em').count(),0);
+    for(const button of await page.locator('.studio-object').all()){
+      assert.equal(await button.evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)');
+      assert.equal(await button.locator('span').evaluate(e=>getComputedStyle(e).visibility),'hidden');
+    }
+    const name=page.locator('[data-object=name]');await name.focus();assert.equal(await name.locator('span').evaluate(e=>getComputedStyle(e).visibility),'visible');
+    await page.keyboard.press('Enter');await page.locator('.studio-scene[data-view=name][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();
+    await page.mouse.move(0,0);await page.getByRole('button',{name:'昼の光',exact:true}).focus();await page.screenshot({path:`${output}/unmarked-overview.png`});
+  });
   await check('little bird discovers all six objects, saves visits and starts a fresh tour', async () => {
     for (const [i, id] of ['notebook', 'board', 'monitor', 'checklist', 'library'].entries()) {
       await page.locator('.garden-discovery>button').click();

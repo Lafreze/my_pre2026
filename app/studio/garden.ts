@@ -32,23 +32,16 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
     const canvas = document.createElement("canvas"); canvas.width = canvas.height = size; draw(canvas.getContext("2d")!);
     const t = new THREE.CanvasTexture(canvas); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; textures.add(t); return t;
   }
-  const grassMap = painted(c => {
-    c.fillStyle = "#839873"; c.fillRect(0, 0, 512, 512);
-    for (let i = 0; i < 28000; i++) {
-      const x = random() * 512, y = random() * 512;
-      c.strokeStyle = ["#647e5840", "#ced4a342", "#456a4425"][i % 3]; c.lineWidth = .7;
-      c.beginPath(); c.moveTo(x, y); c.lineTo(x + random() * 2, y - 2 - random() * 5); c.stroke();
-    }
-  });
-  grassMap.wrapS = grassMap.wrapT = THREE.RepeatWrapping; grassMap.repeat.set(2, 2);
-  const lawn = material(new THREE.MeshStandardMaterial({ color: "#c0c6a4", map: grassMap, bumpMap: grassMap, bumpScale: .015, roughness: 1 }));
-  const earth = finishes.material("cork", "#8f8768"), stone = finishes.material("plaster", "#b8b5a0"), darkWood = finishes.material("wood", "#9a8d69");
+  const lawn=finishes.material("grass","#c7d1af");
+  const earth=finishes.material("cork","#736c50"),stone=finishes.material("stone","#dfd9c4"),darkWood=finishes.material("oak","#d3bf98"),bark=finishes.material("bark","#b4ab94");
   box([7.95, .26, 7.05], [.10, -.365, .16], earth, .12);
   box([7.92, .11, 7.02], [.10, -.20, .16], lawn, .05);
-  // A small arrival path, with irregular, softened limestone stepping stones.
-  for (let i = 0; i < 3; i++) {
-    const step = mesh(geometry(new THREE.CylinderGeometry(.21, .24, .06, 7)), stone, [.28 + i * .11, -.12, 2.79 + i * .32]);
-    step.scale.set(1.25, 1, .66); step.rotation.y = i * .45;
+  // A small arrival path, with irregular, softened sandstone stepping stones.
+  for (let i=0;i<5;i++) {
+    const shape=new THREE.Shape(),count=9;
+    for(let j=0;j<count;j++){const a=j*Math.PI*2/count,r=.18+random()*.04;const x=Math.cos(a)*r,z=Math.sin(a)*r*.55;if(j===0)shape.moveTo(x,z);else shape.lineTo(x,z);}shape.closePath();
+    const geo=geometry(metricUV(new THREE.ExtrudeGeometry(shape,{depth:.027,bevelEnabled:true,bevelSize:.009,bevelThickness:.009,bevelSegments:2,steps:1}),.65));
+    const step=mesh(geo,stone,[.24+Math.sin(i*.6)*.14,-.10,2.52+i*.25]);step.rotation.x=-Math.PI/2;step.rotation.z=i*.18;
   }
   for (let i = 0; i < 24; i++) {
     const z = -2.5 + random() * 5.85, x = 3.17 + random() * .48;
@@ -58,6 +51,17 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   for (let i = 0; i < 4; i++) box([1.25, .055, .095], [-1.47, .27, 2.87 + i * .115], darkWood, .012);
   for (const x of [-1.93, -1.01]) for (const z of [2.90, 3.18]) box([.075, .40, .075], [x, .055, z], darkWood, .01);
   box([1.25, .055, .075], [-1.47, .02, 3.07], darkWood, .01);
+  // Bench joinery, a book and a linen cushion, with no floating intersections.
+  const iron=finishes.material("metal","#4c6256"),linen=finishes.material("wool","#b5ba93");
+  for(const x of [-1.99,-.95])for(const z of [2.9,3.18])ellipsoid([x,.304,z],[.009,.003,.009],iron);
+  box([.4,.055,.30],[-1.12,.326,3.03],linen,.018);
+  box([.23,.025,.18],[-1.77,.315,2.99],finishes.material("paper","#e2dbc4"),.004);
+  box([.24,.007,.19],[-1.77,.332,2.99],finishes.material("fabric","#718571"),.004);
+  // Soft stone edging and ground-cover clusters frame the cutaway room.
+  for(let i=0;i<27;i++){
+    const z=-2.9+i*.229,x=3.81+Math.sin(i*.8)*.035;
+    const pebble=ellipsoid([x,-.105,z],[.065+(i%3)*.007,.035,.045+(i%4)*.006],stone);pebble.rotation.y=i*.76;
+  }
   // Native meadow: tapered blades, seed heads and small ivory / ochre blooms.
   const bladeGeo = geometry(new THREE.BufferGeometry());
   bladeGeo.setAttribute("position", new THREE.Float32BufferAttribute([-.012, 0, 0, .012, 0, 0, -.008, .13, .01, .008, .13, .01, .024, .25, .025], 3));
@@ -92,10 +96,10 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   });
   // A single airy tree, kept outside the cutaway so every indoor object stays visible.
   const treeX = 3.38, treeZ = -1.55;
-  branch([[treeX, -.16, treeZ], [treeX - .06, .7, treeZ], [treeX + .06, 1.5, treeZ + .08], [treeX - .03, 2.6, treeZ]], .062, darkWood);
+  branch([[treeX, -.16, treeZ], [treeX - .06, .7, treeZ], [treeX + .06, 1.5, treeZ + .08], [treeX - .03, 2.6, treeZ]], .067, bark);
   for (let i = 0; i < 7; i++) {
     const a = i * 2.399, h = 1.3 + i * .15;
-    branch([[treeX, h, treeZ], [treeX + Math.cos(a) * .25, h + .24, treeZ + Math.sin(a) * .25], [treeX + Math.cos(a) * .67, h + .44, treeZ + Math.sin(a) * .63]], .019, darkWood);
+    branch([[treeX, h, treeZ], [treeX + Math.cos(a) * .25, h + .24, treeZ + Math.sin(a) * .25], [treeX + Math.cos(a) * .67, h + .44, treeZ + Math.sin(a) * .63]], .019, bark);
   }
   canopy.position.set(treeX, 1.2, treeZ); root.add(canopy);
   const leafShape = new THREE.Shape(); leafShape.moveTo(0, -.5); leafShape.bezierCurveTo(-.45, -.15, -.36, .24, 0, .5); leafShape.bezierCurveTo(.36, .24, .45, -.15, 0, -.5);
@@ -113,12 +117,59 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   // ShapeGeometry UVs are in local coordinates, so normalize the leaf map once.
   const leafUV = leafGeo.getAttribute("uv"); for (let i = 0; i < leafUV.count; i++) leafUV.setXY(i, leafUV.getX(i) + .5, leafUV.getY(i) + .5);
   const leafMat = material(new THREE.MeshPhysicalMaterial({ color: "#9bb581", map: leafMap, roughness: .84, side: THREE.DoubleSide, sheen: .25, sheenColor: "#bdcc8c" }));
-  const leaves = new THREE.InstancedMesh(leafGeo, leafMat, 780); leaves.castShadow = true; leaves.receiveShadow = true; canopy.add(leaves);
-  for (let i = 0; i < 780; i++) {
+  const leaves = new THREE.InstancedMesh(leafGeo, leafMat, 980); leaves.castShadow = true; leaves.receiveShadow = true; canopy.add(leaves);
+  for (let i = 0; i < 980; i++) {
     const a = random() * Math.PI * 2, b = Math.acos(2 * random() - 1), r = Math.cbrt(random());
     dummy.position.set(Math.sin(b) * Math.cos(a) * r * 1.08, .95 + Math.cos(b) * r * .93, Math.sin(b) * Math.sin(a) * r * .85);
-    dummy.rotation.set((random() - .5) * 2.7, random() * Math.PI * 2, random() * Math.PI * 2); const s = .19 + random() * .21; dummy.scale.set(s, s, s); dummy.updateMatrix();
+    dummy.rotation.set((random() - .5) * 2.7, random() * Math.PI * 2, random() * Math.PI * 2); const s = .15 + random() * .19; dummy.scale.set(s, s, s); dummy.updateMatrix();
     leaves.setMatrixAt(i, dummy.matrix); leaves.setColorAt(i, color.setHSL(.20 + random() * .06, .30 + random() * .2, .40 + random() * .24));
+  }
+  // Layered leaves form the shrubs, with visible gaps and smaller tips.
+  const shrubs=new THREE.InstancedMesh(leafGeo,leafMat,420);shrubs.castShadow=true;shrubs.receiveShadow=true;root.add(shrubs);
+  const shrubCenters=[[-3.48,2.62],[3.45,.16],[3.62,-2.65],[-2.83,3.07]];
+  for(let i=0;i<420;i++){
+    const [x,z]=shrubCenters[i%4],a=i*2.399,r=Math.sqrt(random())*.27,h=.04+(1-r/.32)*.23+random()*.04;
+    dummy.position.set(x+Math.cos(a)*r,h-.13,z+Math.sin(a)*r);dummy.rotation.set(.4+random()*.7,a,(random()-.5)*.5);dummy.scale.set(.095+random()*.035,.15+random()*.09,.1);dummy.updateMatrix();shrubs.setMatrixAt(i,dummy.matrix);shrubs.setColorAt(i,color.setHSL(.23+random()*.05,.20+random()*.12,.45+random()*.13));
+  }
+  // Narrow lavender and perennial beds, planted in small irregular groups.
+  const lavender=material(new THREE.MeshStandardMaterial({color:"#9b8da7",roughness:.92})),flowerStem=material(new THREE.MeshStandardMaterial({color:"#607650",roughness:1}));
+  for(const [px,pz] of [[3.42,.67],[3.54,2.67],[-3.30,2.87],[-2.68,3.13]]){
+    for(let i=0;i<17;i++){
+      const a=i*2.399,r=.05+random()*.15,x=px+Math.cos(a)*r,z=pz+Math.sin(a)*r,h=.19+random()*.15;
+      branch([[x,-.14,z],[x+.01,h*.45-.14,z],[x+Math.cos(a)*.03,h-.14,z+Math.sin(a)*.035]],.003,flowerStem);
+      for(let j=0;j<4;j++)ellipsoid([x+Math.cos(a)*.03,h-.14+j*.015,z+Math.sin(a)*.035],[.011-j*.001,.018,.011-j*.001],lavender);
+    }
+  }
+  const clay=finishes.material("ceramic","#b68b65"),soil=finishes.material("cork","#504632");clay.roughness=.75;clay.clearcoat=.12;
+  for(const [px,pz,size] of [[3.29,2.28,1],[-2.66,2.63,.78]]){
+    const profile=[[.08,0],[.09,.015],[.14,.24],[.148,.25],[.15,.278],[.132,.278],[.129,.25],[.08,.02]].map(([x,y])=>new THREE.Vector2(x*size,y*size));
+    mesh(geometry(new THREE.LatheGeometry(profile,40)),clay,[px,-.13,pz]);
+    mesh(geometry(new THREE.CylinderGeometry(.127*size,.127*size,.014,24)),soil,[px,-.13+.247*size,pz]);
+    for(let i=0;i<9;i++){const a=i*2.399,h=.15+(i%3)*.05;branch([[px,.12*size-.13,pz],[px+Math.cos(a)*.055,.21*size,pz+Math.sin(a)*.055],[px+Math.cos(a)*.1,.12*size+h,pz+Math.sin(a)*.1]],.003,flowerStem);const leaf=mesh(leafGeo,leafMat,[px+Math.cos(a)*.1,.12*size+h,pz+Math.sin(a)*.1]);leaf.rotation.set(.55,a,-.7);leaf.scale.set(.13,.24,.13);}
+  }
+  // A shallow stone birdbath: turned rim, recessed water and fine ripples.
+  const bath=new THREE.Group();bath.position.set(3.37,-.14,1.54);root.add(bath);
+  const bowlProfile=[[0,0],[.17,.01],[.12,.07],[.065,.12],[.065,.25],[.19,.29],[.235,.335],[.24,.37],[.222,.382],[.202,.344],[.08,.315],[0,.315]];
+  mesh(geometry(new THREE.LatheGeometry(bowlProfile.map(v=>new THREE.Vector2(v[0],v[1])),48)),stone,[0,0,0],bath);
+  const waterMat=material(new THREE.MeshPhysicalMaterial({color:"#86b6ad",roughness:.13,metalness:.18,transparent:true,opacity:.8,clearcoat:1}));
+  const water=mesh(geometry(new THREE.CircleGeometry(.207,48)),waterMat,[0,.351,0],bath);water.rotation.x=-Math.PI/2;water.castShadow=false;
+  const rippleMat=material(new THREE.MeshBasicMaterial({color:"#dce7cd",transparent:true,opacity:.3,depthWrite:false}));
+  const ripples=[0,1].map(i=>{const ring=mesh(geometry(new THREE.TorusGeometry(.12,.0015,4,48)),rippleMat,[0,.353+i*.0003,0],bath);ring.rotation.x=Math.PI/2;ring.castShadow=false;return ring;});
+  // Two pale butterflies cross the planting slowly; reduced motion parks them.
+  const butterflies:{body:THREE.Group;left:THREE.Mesh;right:THREE.Mesh;phase:number}[]=[];
+  const wingShape=new THREE.Shape();wingShape.moveTo(0,0);wingShape.bezierCurveTo(-.06,.015,-.10,.12,-.037,.097);wingShape.bezierCurveTo(.008,.075,-.009,.05,0,0);
+  const wingGeo=geometry(new THREE.ShapeGeometry(wingShape,8));
+  const butterflyMat=material(new THREE.MeshStandardMaterial({color:"#efe2a6",side:THREE.DoubleSide,roughness:.8}));
+  for(let i=0;i<2;i++){const body=new THREE.Group();root.add(body);const left=mesh(wingGeo,butterflyMat,[0,0,0],body),right=mesh(wingGeo,butterflyMat,[0,0,0],body);right.scale.x=-1;ellipsoid([0,.04,0],[.004,.045,.004],iron,body);left.castShadow=right.castShadow=false;butterflies.push({body,left,right,phase:i*2.7});}
+  const wind={value:0};
+  // Shared wind uniform adds motion without rewriting thousands of instance matrices.
+  for(const m of [bladeMat,leafMat,flowerMat,lavender]){
+    m.onBeforeCompile=shader=>{shader.uniforms.gardenWind=wind;shader.vertexShader='uniform float gardenWind;\n'+shader.vertexShader;shader.vertexShader=shader.vertexShader.replace('#include <begin_vertex>',`#include <begin_vertex>
+      #ifdef USE_INSTANCING
+      float phase=instanceMatrix[3].x*2.3+instanceMatrix[3].z*1.7;
+      transformed.x+=sin(gardenWind*1.3+phase)*max(position.y,0.0)*0.045;
+      #endif`);};
+    m.customProgramCacheKey=()=>"garden-wind-v1";
   }
   // A hand-built robin: separate wings let the guide hop and fly between chapters.
   const feather = finishes.material("fabric", "#b6ae8c"), breast = finishes.material("fabric", "#d0a35e"), wing = finishes.material("fabric", "#67795d"), beak = finishes.material("ceramic", "#514936");
@@ -144,7 +195,7 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   const batches = new Map<THREE.Material, THREE.Mesh[]>();
   root.traverse(o => {
     if (!(o instanceof THREE.Mesh) || o instanceof THREE.InstancedMesh || Array.isArray(o.material)) return;
-    for (let p: THREE.Object3D | null = o; p; p = p.parent) if (p === canopy || p === bird) return;
+    for (let p: THREE.Object3D | null = o; p; p = p.parent) if (p === canopy || p === bird || p === bath || butterflies.some(b=>b.body===p)) return;
     const list = batches.get(o.material) || []; list.push(o); batches.set(o.material, list);
   });
   for (const [m, meshes] of batches) {
@@ -171,6 +222,14 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
       rightWing.rotation.z = -leftWing.rotation.z;
       if (breeze && flight === 1) bird.rotation.z = Math.sin(time * 1.5) * .018;
       else bird.rotation.z = 0;
+      if(breeze)wind.value=time;
+      ripples.forEach((ring,i)=>{const phase=breeze?(time*.3+i*.5)%1:.35+i*.3;ring.scale.setScalar(.25+phase*1.35);});
+      butterflies.forEach(({body,left,right,phase},i)=>{
+        const t=breeze?time:0;
+        body.position.set(i===0?3.4+Math.sin(t*.31+phase)*.28:-2.65+Math.sin(t*.26+phase)*.35,.33+Math.sin(t*.8+phase)*.1,i===0?.57+Math.cos(t*.25+phase)*.43:3.0+Math.cos(t*.32+phase)*.16);
+        body.rotation.set(-.4,Math.sin(t*.31+phase)*.65,Math.sin(t*.8+phase)*.15);
+        left.rotation.y=breeze?Math.sin(t*11+phase)*.75:.35;right.rotation.y=-left.rotation.y;
+      });
       canopy.rotation.z = breeze ? Math.sin(time * .7) * .009 : 0;
       canopy.rotation.x = breeze ? Math.sin(time * .45) * .006 : 0;
       glow.opacity = dusk * .85;

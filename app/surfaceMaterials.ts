@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export type SurfaceKind = "wood" | "floor" | "fabric" | "leather" | "plaster" | "metal" | "paper" | "ceramic" | "cork" | "rubber";
+export type SurfaceKind = "wood" | "floor" | "fabric" | "leather" | "plaster" | "metal" | "paper" | "ceramic" | "cork" | "rubber" | "oak" | "wool" | "bark" | "stone" | "grass";
 
 // Box-projected UVs measured in metres, so grain keeps its scale on thin edges,
 // shelves and long table tops. Call before static geometry is merged.
@@ -65,17 +65,17 @@ export function createSurfaceMaterials(invalidate: () => void = () => {}, anisot
     const m = new THREE.MeshPhysicalMaterial({ color, roughness: .65 });
     m.name = `${kind}-${new THREE.Color(color).getHexString()}`;
     m.userData.surface = kind;
-    if (["wood", "floor", "fabric", "leather", "plaster"].includes(kind)) {
-      const asset = { wood: "wood_table_001", floor: "wood_floor", fabric: "fabric_pattern_07", leather: "leather_white", plaster: "plastered_wall_04" }[kind as "wood" | "floor" | "fabric" | "leather" | "plaster"];
-      // Fabric is dyed by the material colour; its scanned weave remains intact.
-      if (kind !== "fabric" && kind !== "plaster") m.map = map(`${asset}_diffuse`, true, channel);
+    const assets: Partial<Record<SurfaceKind,string>> = { wood:"wood_table_001", oak:"white_oak_veneer", floor:"wood_floor", fabric:"fabric_pattern_07", wool:"poly_wool_herringbone", leather:"leather_white", plaster:"plastered_wall_04", bark:"bark_brown_02", stone:"sandstone_cracks", grass:"grass_ground" };
+    const asset = assets[kind];
+    if (asset) {
+      if (!["fabric","wool","plaster"].includes(kind)) m.map = map(`${asset}_diffuse`, true, channel);
       m.normalMap = map(`${asset}_nor_gl`, false, channel);
       m.roughnessMap = map(`${asset}_rough`, false, channel);
-      m.normalScale.setScalar(kind === "plaster" ? .16 : (kind === "wood" || kind === "floor") ? .28 : .38);
-      m.roughness = (kind === "wood" || kind === "floor") ? .9 : kind === "leather" ? .75 : 1;
-      if (kind === "wood" || kind === "floor") { m.clearcoat = .12; m.clearcoatRoughness = .4; }
-      if (kind === "leather") { m.clearcoat = .12; m.clearcoatRoughness = .55; }
-      if (kind === "fabric") { m.sheen = .55; m.sheenColor.set(color); m.sheenRoughness = .9; }
+      m.normalScale.setScalar(kind === "plaster" ? .16 : kind === "bark" ? .55 : kind === "stone" ? .3 : ["wood","oak","floor"].includes(kind) ? .18 : .35);
+      m.roughness = ["wood","oak","floor"].includes(kind) ? .92 : kind === "leather" ? .8 : 1;
+      if (["wood","oak","floor"].includes(kind)) { m.clearcoat = .07; m.clearcoatRoughness = .58; }
+      if (kind === "leather") { m.clearcoat = .1; m.clearcoatRoughness = .55; }
+      if (kind === "fabric" || kind === "wool") { m.sheen = .65; m.sheenColor.set(color); m.sheenRoughness = .9; }
     } else {
       m.bumpMap = micro(kind, channel);
       m.bumpScale = kind === "cork" ? .008 : kind === "paper" ? .00045 : .0008;
