@@ -1,3 +1,5 @@
+> 历史版本记录。2026-09-29 的六章模型展示、直接运镜和最新验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)。
+
 # AI Agent ワークスタジオ — 交付与检查记录
 
 2026-09-28 最新庭院版本：自然环境、小鸟导览、昼夕光照和手机探索交互见 [庭院交付记录](GARDEN_STUDIO.md)。

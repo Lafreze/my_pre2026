@@ -1,0 +1,63 @@
+{
+  "date": "2026-09-29T02:45:50.702Z",
+  "browser": "154.0.8037.58",
+  "mode": "Headless Chromium, default graphics backend; rAF includes idle callbacks and is not GPU frame timing",
+  "viewport": "1440×1000",
+  "measurements": [
+    {
+      "chapter": 2,
+      "model": "notebook",
+      "rafFps": 60.24096385814677,
+      "renderedFrames": 92,
+      "durationMs": 2108.1999999046325,
+      "quality": "standard",
+      "drawCalls": 52,
+      "triangles": 264174,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "chapter": 3,
+      "model": "board",
+      "rafFps": 60.135423077386484,
+      "renderedFrames": 92,
+      "durationMs": 2111.9000000476835,
+      "quality": "standard",
+      "drawCalls": 49,
+      "triangles": 260590,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "chapter": 4,
+      "model": "monitor",
+      "rafFps": 60.104117367313776,
+      "renderedFrames": 92,
+      "durationMs": 2113.000000047684,
+      "quality": "standard",
+      "drawCalls": 68,
+      "triangles": 266790,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "chapter": 5,
+      "model": "checklist",
+      "rafFps": 60.09558510793393,
+      "renderedFrames": 92,
+      "durationMs": 2113.2999998569485,
+      "quality": "standard",
+      "drawCalls": 45,
+      "triangles": 262088,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    },
+    {
+      "chapter": 6,
+      "model": "cards",
+      "rafFps": 60.101273013928214,
+      "renderedFrames": 91,
+      "durationMs": 2113.0999999046326,
+      "quality": "standard",
+      "drawCalls": 53,
+      "triangles": 262524,
+      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
+    }
+  ]
+}

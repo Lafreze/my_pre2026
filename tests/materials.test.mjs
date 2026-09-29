@@ -51,6 +51,7 @@ try {
     assert.equal(await page.locator('.studio-scene').getAttribute('data-frames'), before);
   });
   await check('all close-ups render without material or shader errors', async () => {
+    await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
     for (const [object, filename] of [['name','nameplate'],['notebook','notebook'],['board','research-board'],['monitor','workbench'],['cards','day-card'],['checklist','review']]) {
       await page.locator(`[data-object=${object}]`).click();
       await page.locator(`.studio-scene[data-view=${object}]`).waitFor();
@@ -60,7 +61,7 @@ try {
       }
       await page.waitForTimeout(150);
       await page.screenshot({ path: `${output}/${filename}.png` });
-      await page.getByRole('button', { name: '閉じて全景に戻る' }).click();
+      await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
     }
   });
   await check('Atlas loads all thirteen assets in both views', async () => {
@@ -78,7 +79,9 @@ try {
     await failed.route('**/materials/studio/*.jpg', route => route.abort());
     await failed.goto(base);
     await failed.locator('.studio-scene[data-status=ready]').waitFor();
+    await failed.getByRole('button', { name: '全景に戻る', exact: true }).click();
     await failed.locator('[data-object=monitor]').click();
+    await failed.getByRole('tab', { name: '動きをみる' }).click();
     await failed.getByRole('button', { name: '次のステップ →', exact: true }).click();
     assert.ok((await failed.locator('.studio-step-text').innerText()).includes('小さく分ける'));
     await failed.close();

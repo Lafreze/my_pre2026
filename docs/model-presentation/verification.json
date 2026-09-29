@@ -1,0 +1,552 @@
+{
+  "date": "2026-09-29",
+  "target": "Production static export at http://127.0.0.1:5180/",
+  "checks": 32,
+  "passed": 32,
+  "suites": {
+    "story": {
+      "results": [
+        {
+          "name": "starts directly with personal introduction on the real model, without a sidebar",
+          "pass": true
+        },
+        {
+          "name": "six chapters have a 600-second script and preserve the supplied personal history",
+          "pass": true
+        },
+        {
+          "name": "every next action moves straight to the next model and centers its presentation",
+          "pass": true
+        },
+        {
+          "name": "LLM, tools and agents have distinct explanations and personal transitions",
+          "pass": true
+        },
+        {
+          "name": "all five agent components are selectable inside the monitor",
+          "pass": true
+        },
+        {
+          "name": "agent execution shows a real width failure, repair, replay, pause and reset",
+          "pass": true
+        },
+        {
+          "name": "application examples and the actual Codex-made interface are visible",
+          "pass": true
+        },
+        {
+          "name": "card theme, drawing, reveal and repeat work on the physical card surface",
+          "pass": true
+        },
+        {
+          "name": "archive keeps 24 pages, searches and restores the exact current model",
+          "pass": true
+        },
+        {
+          "name": "keyboard, notes and optional timer follow the six-chapter story",
+          "pass": true
+        },
+        {
+          "name": "all six model surfaces fit and scroll within 1366×768",
+          "pass": true
+        },
+        {
+          "name": "all six model surfaces fit and scroll within 820×1180",
+          "pass": true
+        },
+        {
+          "name": "all six model surfaces fit and scroll within 390×844",
+          "pass": true
+        },
+        {
+          "name": "all six model surfaces fit and scroll within 320×720",
+          "pass": true
+        },
+        {
+          "name": "touch can navigate and reveal a card on the projected phone page",
+          "pass": true
+        },
+        {
+          "name": "text fallback keeps the same readable chapter, working controls and retry",
+          "pass": true
+        },
+        {
+          "name": "camera transitions are continuous, interruptible and never route through the overview",
+          "pass": true
+        },
+        {
+          "name": "settled close-up stops rendering and context loss recovers on the same model",
+          "pass": true
+        },
+        {
+          "name": "no browser exceptions or shader errors",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "layouts": [
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 0,
+          "x": 183.11085510253906,
+          "y": 99.97207641601562,
+          "width": 999.7701416015625,
+          "height": 568.0557861328125,
+          "body": 1366,
+          "overflow": false,
+          "bottom": 668.0278625488281,
+          "footerTop": 696,
+          "inert": false
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 1,
+          "x": 183.04100036621094,
+          "y": 99.93238830566406,
+          "width": 999.909912109375,
+          "height": 568.13525390625,
+          "body": 1366,
+          "overflow": false,
+          "bottom": 668.0676422119141,
+          "footerTop": 696,
+          "inert": false
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 2,
+          "x": 183.12574768066406,
+          "y": 99.98053741455078,
+          "width": 999.7403564453125,
+          "height": 568.0389404296875,
+          "body": 1366,
+          "overflow": false,
+          "bottom": 668.0194778442383,
+          "footerTop": 696,
+          "inert": false
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 3,
+          "x": 183.06227111816406,
+          "y": 99.94447326660156,
+          "width": 999.8673095703125,
+          "height": 568.111083984375,
+          "body": 1366,
+          "overflow": false,
+          "bottom": 668.0555572509766,
+          "footerTop": 696,
+          "inert": false
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 4,
+          "x": 183.0730438232422,
+          "y": 99.95059204101562,
+          "width": 999.8457641601562,
+          "height": 568.0987548828125,
+          "body": 1366,
+          "overflow": false,
+          "bottom": 668.0493469238281,
+          "footerTop": 696,
+          "inert": false
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 5,
+          "x": 183.08935546875,
+          "y": 99.9598617553711,
+          "width": 999.8131103515625,
+          "height": 568.0802612304688,
+          "body": 1366,
+          "overflow": false,
+          "bottom": 668.0401229858398,
+          "footerTop": 696,
+          "inert": false
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 0,
+          "x": 17.95627784729004,
+          "y": 94.94479370117188,
+          "width": 784.08740234375,
+          "height": 990.1103515625,
+          "body": 820,
+          "overflow": false,
+          "bottom": 1085.0551452636719,
+          "footerTop": 1111,
+          "inert": false
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 1,
+          "x": 17.89413070678711,
+          "y": 94.8663101196289,
+          "width": 784.2117919921875,
+          "height": 990.267333984375,
+          "body": 820,
+          "overflow": false,
+          "bottom": 1085.133644104004,
+          "footerTop": 1111,
+          "inert": false
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 2,
+          "x": 17.969528198242188,
+          "y": 94.9615249633789,
+          "width": 784.0609130859375,
+          "height": 990.076904296875,
+          "body": 820,
+          "overflow": false,
+          "bottom": 1085.038429260254,
+          "footerTop": 1111,
+          "inert": false
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 3,
+          "x": 17.913049697875977,
+          "y": 94.89020538330078,
+          "width": 784.1739501953125,
+          "height": 990.2195434570312,
+          "body": 820,
+          "overflow": false,
+          "bottom": 1085.109748840332,
+          "footerTop": 1111,
+          "inert": false
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 4,
+          "x": 17.922639846801758,
+          "y": 94.90231323242188,
+          "width": 784.1546630859375,
+          "height": 990.1953125,
+          "body": 820,
+          "overflow": false,
+          "bottom": 1085.0976257324219,
+          "footerTop": 1111,
+          "inert": false
+        },
+        {
+          "viewport": [
+            820,
+            1180
+          ],
+          "chapter": 5,
+          "x": 17.93714714050293,
+          "y": 94.9206314086914,
+          "width": 784.125732421875,
+          "height": 990.15869140625,
+          "body": 820,
+          "overflow": false,
+          "bottom": 1085.0793228149414,
+          "footerTop": 1111,
+          "inert": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 0,
+          "x": 17.981767654418945,
+          "y": 94.96631622314453,
+          "width": 354.03643798828125,
+          "height": 654.0673828125,
+          "body": 390,
+          "overflow": false,
+          "bottom": 749.0336990356445,
+          "footerTop": 775,
+          "inert": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 1,
+          "x": 17.95585060119629,
+          "y": 94.9184341430664,
+          "width": 354.08831787109375,
+          "height": 654.1630859375,
+          "body": 390,
+          "overflow": false,
+          "bottom": 749.0815200805664,
+          "footerTop": 763.46875,
+          "inert": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 2,
+          "x": 17.987293243408203,
+          "y": 94.97652435302734,
+          "width": 354.025390625,
+          "height": 654.0469970703125,
+          "body": 390,
+          "overflow": false,
+          "bottom": 749.0235214233398,
+          "footerTop": 775,
+          "inert": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 3,
+          "x": 17.9637393951416,
+          "y": 94.93301391601562,
+          "width": 354.072509765625,
+          "height": 654.134033203125,
+          "body": 390,
+          "overflow": false,
+          "bottom": 749.0670471191406,
+          "footerTop": 775,
+          "inert": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 4,
+          "x": 17.96773910522461,
+          "y": 94.94039916992188,
+          "width": 354.06451416015625,
+          "height": 654.1192626953125,
+          "body": 390,
+          "overflow": false,
+          "bottom": 749.0596618652344,
+          "footerTop": 775,
+          "inert": false
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "chapter": 5,
+          "x": 17.97378921508789,
+          "y": 94.95157623291016,
+          "width": 354.05242919921875,
+          "height": 654.0968017578125,
+          "body": 390,
+          "overflow": false,
+          "bottom": 749.0483779907227,
+          "footerTop": 775,
+          "inert": false
+        },
+        {
+          "viewport": [
+            320,
+            720
+          ],
+          "chapter": 0,
+          "x": 17.98610496520996,
+          "y": 94.97406768798828,
+          "width": 284.02777099609375,
+          "height": 530.0518798828125,
+          "body": 320,
+          "overflow": false,
+          "bottom": 625.0259475708008,
+          "footerTop": 651,
+          "inert": false
+        },
+        {
+          "viewport": [
+            320,
+            720
+          ],
+          "chapter": 1,
+          "x": 17.966352462768555,
+          "y": 94.93721008300781,
+          "width": 284.06732177734375,
+          "height": 530.1256103515625,
+          "body": 320,
+          "overflow": false,
+          "bottom": 625.0628204345703,
+          "footerTop": 644.4375,
+          "inert": false
+        },
+        {
+          "viewport": [
+            320,
+            720
+          ],
+          "chapter": 2,
+          "x": 17.990314483642578,
+          "y": 94.98192596435547,
+          "width": 284.01934814453125,
+          "height": 530.0361328125,
+          "body": 320,
+          "overflow": false,
+          "bottom": 625.0180587768555,
+          "footerTop": 644.4375,
+          "inert": false
+        },
+        {
+          "viewport": [
+            320,
+            720
+          ],
+          "chapter": 3,
+          "x": 17.972366333007812,
+          "y": 94.94843292236328,
+          "width": 284.0552978515625,
+          "height": 530.1031494140625,
+          "body": 320,
+          "overflow": false,
+          "bottom": 625.0515823364258,
+          "footerTop": 651,
+          "inert": false
+        },
+        {
+          "viewport": [
+            320,
+            720
+          ],
+          "chapter": 4,
+          "x": 17.975412368774414,
+          "y": 94.95411682128906,
+          "width": 284.0491943359375,
+          "height": 530.091796875,
+          "body": 320,
+          "overflow": false,
+          "bottom": 625.0459136962891,
+          "footerTop": 644.4375,
+          "inert": false
+        },
+        {
+          "viewport": [
+            320,
+            720
+          ],
+          "chapter": 5,
+          "x": 17.980024337768555,
+          "y": 94.96272277832031,
+          "width": 284.03997802734375,
+          "height": 530.0745849609375,
+          "body": 320,
+          "overflow": false,
+          "bottom": 625.0373077392578,
+          "footerTop": 644.4375,
+          "inert": false
+        }
+      ]
+    },
+    "garden": {
+      "results": [
+        {
+          "name": "reduced motion starts still; daylight and dusk keep every chapter reachable",
+          "pass": true
+        },
+        {
+          "name": "little bird discovers all seven objects, saves visits and starts a fresh tour",
+          "pass": true
+        },
+        {
+          "name": "drag, wheel, accessible zoom and reset preserve the selected chapter",
+          "pass": true
+        },
+        {
+          "name": "garden controls and separate 44px object targets fit phones and tablets",
+          "pass": true
+        },
+        {
+          "name": "two-finger pinch zooms the phone scene without opening a chapter",
+          "pass": true
+        },
+        {
+          "name": "ambient motion pauses completely and chapter transitions stay responsive",
+          "pass": true
+        },
+        {
+          "name": "no browser exceptions or WebGL shader errors",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "metrics": [
+        {
+          "mode": "ambient",
+          "renderedFrames": 33,
+          "milliseconds": 1100
+        },
+        {
+          "mode": "notebook",
+          "drawCalls": 52,
+          "triangles": 264174,
+          "quality": "standard"
+        }
+      ]
+    },
+    "materials": {
+      "results": [
+        {
+          "name": "late PBR textures repaint the idle scene",
+          "pass": true
+        },
+        {
+          "name": "textured scene becomes idle again",
+          "pass": true
+        },
+        {
+          "name": "all close-ups render without material or shader errors",
+          "pass": true
+        },
+        {
+          "name": "Atlas loads all thirteen assets in both views",
+          "pass": true
+        },
+        {
+          "name": "missing maps retain a usable scene and interactions",
+          "pass": true
+        },
+        {
+          "name": "no WebGL shader errors or browser exceptions",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "textureCount": 13,
+      "textureBytes": 6251854
+    }
+  }
+}

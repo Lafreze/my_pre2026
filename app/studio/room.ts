@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
-import type { ObjectId } from "./content";
+import type { ObjectId, ViewId } from "./content";
 import { createSurfaceMaterials, metricUV } from "../surfaceMaterials";
 import { buildGarden } from "./garden";
 
@@ -132,7 +132,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   box([.665,.4,.047],[0,.452,0],graphite,monitor,.022);
   box([.42,.2,.028],[0,.445,-.035],graphite,monitor);
   const screenTex = texture(c => { c.fillStyle="#243a38";c.fillRect(0,0,1024,512);c.fillStyle="#95c8be";c.font="24px monospace";c.fillText("WORKSPACE / 01",50,63);c.fillStyle="#edf0df";c.font="54px Georgia";c.fillText("Make something",50,154);c.fillText("worth trying.",50,218);const colors=["#82b3a6","#b7cfbb","#dab28b"];for(let i=0;i<5;i++){c.fillStyle=colors[i%3];c.fillRect(53,290+i*28,360+(i%3)*115,8);} c.strokeStyle="#93b7a6";c.lineWidth=3;c.strokeRect(731,259,173,195);c.font="65px Georgia";c.fillText("✦",787,377); });
-  surface(.616,.347,[0,.453,.025],screenTex,monitor,false,true);
+  const monitorFace=surface(.616,.347,[0,.453,.025],screenTex,monitor,false,true);
   for(let i=0;i<15;i++) box([.019,.002,.009],[-.21+i*.03,.59,-.052],metal,monitor,.001);
   sphere([.006,.006,.003],[0,.641,.026],graphite,monitor);
   box([.065,.004,.002],[0,.269,.026],metal,monitor,.001);
@@ -174,7 +174,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   for(let i=0;i<6;i++) box([.233,.0007,.298],[.003,.006+i*.004,0],mat("#c8bc9f"),notebook,.0001);
   box([.018,.002,.35],[.072,.03,.028],finishes.material("fabric", "#334f46"),notebook,.001);
   const noteTex=texture(c=>{c.fillStyle="#f5edda";c.fillRect(0,0,1024,512);c.fillStyle="#496d6b";c.font="58px Georgia";c.fillText("Small ideas",75,110);for(let i=0;i<4;i++){c.fillStyle="#bbb8a6";c.fillRect(75,180+i*65,750-i%2*130,3);}c.fillStyle="#cc916a";c.beginPath();c.arc(818,120,44,0,Math.PI*2);c.fill();});
-  surface(.225,.285,[.005,.032,0],noteTex,notebook,true);
+  const notebookFace=surface(.225,.285,[.005,.032,0],noteTex,notebook,true);
   const cover=new THREE.Group();cover.position.set(-.125,.033,0);notebook.add(cover);box([.25,.01,.32],[.125,0,0],terracotta,cover,.005);
   surface(.22,.285,[.125,.006,0],folioTexture("FIELD NOTES","IDEAS, IN PROGRESS","#a65336","#ead5ae"),cover,true);
   rod([-.12,.035,-.14],[-.12,.035,.14],.008,edge,notebook);
@@ -247,14 +247,14 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const lid=new THREE.Group();lid.position.set(0,.12,-.26);cards.add(lid);
   box([.408,.032,.536],[0,0,.26],blue,lid,.015);
   const cardBack=folioTexture("DAY CARD","A MOMENT, JUST FOR YOU","#294bb1","#e4ce93");
-  surface(.365,.48,[0,.017,.26],cardBack,lid,true);
+  const cardFace=surface(.365,.48,[0,.017,.26],cardBack,lid,true);
   const lining=surface(.355,.47,[0,-.017,.26],folioTexture("ONE SMALL MOMENT","MAKE ROOM FOR POSSIBILITY","#e9dfc6","#5a7359"),lid);lining.rotation.x=Math.PI/2;
   const sliding:THREE.Group[]=[];
   const cardFront=folioTexture("A SMALL STEP","MAKE / TRY / IMPROVE","#ede4ca","#54765f");
   for(let i=0;i<3;i++){const g=new THREE.Group();g.position.set(0,.14+i*.006,0);cards.add(g);box([.27,.005,.39],[0,0,0],paper,g,.012);surface(.255,.375,[0,.003,0],cardBack,g,true);const face=surface(.255,.375,[0,-.003,0],cardFront,g);face.rotation.x=Math.PI/2;sliding.push(g);}
   const checklist=group([2.12,.694,1.12],"checklist");checklist.rotation.y=-.1;
   box([.36,.018,.46],[0,0,0],edge,checklist,.013);box([.323,.003,.405],[0,.012,.007],paper,checklist,.004);
-  surface(.309,.39,[0,.014,.007],texture(c=>{
+  const checklistFace=surface(.309,.39,[0,.014,.007],texture(c=>{
     c.fillStyle="#f2eedf";c.fillRect(0,0,768,1024);c.fillStyle="#435e54";c.font="24px monospace";c.fillText("STUDIO / QUALITY CONTROL",65,110);c.font="77px Georgia";c.fillText("Review",65,228);
     ["Purpose","Quality","Trust"].forEach((title,i)=>{const y=425+i*173;c.strokeStyle="#7b8872";c.lineWidth=2;c.strokeRect(70,y-33,32,32);c.font="43px Georgia";c.fillStyle="#435e54";c.fillText(title,144,y);c.fillStyle="#bbbca9";c.fillRect(144,y+36,440,2);c.fillRect(144,y+59,320,2);});
     c.font="20px monospace";c.fillStyle="#435e54";c.fillText("CHECKED BY A HUMAN.",65,954);
@@ -265,8 +265,8 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   rod([.22,.02,.18],[.22,.02,.207],.004,graphite,checklist);
   const checks:THREE.Mesh[]=[];for(let i=0;i<3;i++)checks.push(box([.013,.003,.013],[-.120,.017,-.032+i*.066],blue,checklist,.004));
   // Framed print and a modest plant make the room feel inhabited, not a showroom.
-  const art=group([-1.4,2.1,-2.445]);box([.69,.77,.037],[0,0,0],wood,art,.014);
-  surface(.61,.69,[0,0,.02],texture(c=>{c.fillStyle="#ede5d5";c.fillRect(0,0,1024,512);c.fillStyle="#bc7755";c.beginPath();c.arc(490,210,135,0,7);c.fill();c.fillStyle="#6c8872";c.fillRect(225,300,580,65);c.fillStyle="#eee6d6";c.font="24px monospace";c.fillText("SMALL STEPS, EVERY DAY.",305,343);}),art);
+  const art=group([-1.4,2.1,-2.445],"name");box([.69,.77,.037],[0,0,0],wood,art,.014);
+  const profileFace=surface(.61,.69,[0,0,.021],texture(c=>{c.fillStyle="#ede5d5";c.fillRect(0,0,1024,512);c.fillStyle="#bc7755";c.beginPath();c.arc(490,210,135,0,7);c.fill();c.fillStyle="#6c8872";c.fillRect(225,300,580,65);c.fillStyle="#eee6d6";c.font="24px monospace";c.fillText("SMALL STEPS, EVERY DAY.",305,343);}),art);
   const leafTexture=texture(c=>{
     const gradient=c.createLinearGradient(0,0,256,0);gradient.addColorStop(0,"#416a35");gradient.addColorStop(.48,"#719152");gradient.addColorStop(.52,"#36572e");gradient.addColorStop(1,"#598344");c.fillStyle=gradient;c.fillRect(0,0,256,512);
     c.strokeStyle="#a6b777";c.lineWidth=2;c.beginPath();c.moveTo(128,0);c.lineTo(128,512);c.stroke();
@@ -319,8 +319,16 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const warm= new THREE.MeshStandardMaterial({color:"#ffdfae",emissive:"#ffc67d",emissiveIntensity:.6});
   sphere([.036,.045,.036],[-.34,1.65,0],warm,floorLamp);
   const readingLight=new THREE.PointLight("#ffdab0",.32,2.4,2);readingLight.position.set(-.34,1.59,0);floorLamp.add(readingLight);
-  // A large graphic print establishes the studio's own visual identity.
-  surface(.60,.68,[-1.4,2.1,-2.418],texture(c=>{c.fillStyle="#e8dfc6";c.fillRect(0,0,1024,512);c.fillStyle="#2d4cb6";c.font="bold 126px Arial";c.fillText("MAKE.",65,160);c.fillText("PLAY.",65,302);c.fillStyle="#b65a36";c.fillText("REPEAT.",65,444);}),root);
+  // The framed portfolio is also the opening presentation surface.
+  const boardFace=new THREE.Object3D();boardFace.position.set(0,0,.103);board.add(boardFace);
+  const surfaces: Partial<Record<ViewId,{face:THREE.Object3D;group:THREE.Group;width:number;height:number}>> = {
+    name:{face:profileFace,group:art,width:.61,height:.69},
+    notebook:{face:notebookFace,group:notebook,width:.225,height:.285},
+    board:{face:boardFace,group:board,width:2.04,height:.99},
+    monitor:{face:monitorFace,group:monitor,width:.616,height:.347},
+    checklist:{face:checklistFace,group:checklist,width:.309,height:.39},
+    cards:{face:cardFace,group:cards,width:.365,height:.48},
+  };
   // Subtle foundation shadow anchors the complete diorama to the page.
   const foundationTex=texture(c=>{const grad=c.createRadialGradient(256,256,30,256,256,255);grad.addColorStop(0,"rgba(44,52,35,.32)");grad.addColorStop(.55,"rgba(44,52,35,.16)");grad.addColorStop(1,"rgba(44,52,35,0)");c.fillStyle=grad;c.fillRect(0,0,512,512);},512,512);
   const foundationGeo=new THREE.PlaneGeometry(11.6,10.5);geometries.set("foundationShadow",foundationGeo);const foundation=mesh(foundationGeo,new THREE.MeshBasicMaterial({map:foundationTex,transparent:true,depthWrite:false}),[.25,-.51,.18]);foundation.rotation.x=-Math.PI/2;foundation.castShadow=false;
@@ -331,7 +339,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const sun=new THREE.DirectionalLight("#fff0d8",3.1);sun.position.set(-3.7,6.5,4.8);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-4.8;sun.shadow.camera.right=4.8;sun.shadow.camera.top=4.8;sun.shadow.camera.bottom=-4.8;sun.shadow.normalBias=.012;sun.shadow.bias=-.00015;sun.shadow.radius=4;root.add(sun);
   const fill=new THREE.DirectionalLight("#d7e2ed",1.1);fill.position.set(5,4,2);root.add(fill);
   // Batch static meshes by material and interaction owner. Animated joints stay separate.
-  const dynamic=new Set<THREE.Object3D>([cover,lid,name,...sliding,...boardPins,...checks]);
+  const dynamic=new Set<THREE.Object3D>([cover,lid,name,art,notebook,board,monitor,checklist,cards,...sliding,...boardPins,...checks]);
   const batches=new Map<string,{material:THREE.Material;id?:string;shadow:boolean;meshes:THREE.Mesh[]}>();
   root.updateMatrixWorld(true);
   root.traverse(o=>{if(!(o instanceof THREE.Mesh)||Array.isArray(o.material))return;let parent:THREE.Object3D|null=o,id:string|undefined;while(parent){if(dynamic.has(parent))return;if(parent.userData.objectId)id=parent.userData.objectId;parent=parent.parent;}const key=o.material.uuid+id+o.castShadow;let b=batches.get(key);if(!b){b={material:o.material,id,shadow:o.castShadow,meshes:[]};batches.set(key,b);}b.meshes.push(o);});
@@ -340,7 +348,16 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const daySun = new THREE.Color("#fff0d8"), duskSun = new THREE.Color("#ffb578");
   const daySky = new THREE.Color("#f6f0e5"), duskSky = new THREE.Color("#adb9ce");
   let screenStep=-2,frontTheme=-1;
-  return { root, sun, garden, setLight(dusk:number) {
+  return { root, sun, garden, surfaces, fitSurfaces(view:ViewId,aspect:number,dt:number,instant:boolean) {
+    let changing=false;
+    for(const [id,surface] of Object.entries(surfaces)) {
+      const goal=id===view?surface.height*aspect/surface.width:1;
+      const next=instant?goal:THREE.MathUtils.damp(surface.group.scale.x,goal,7,dt);
+      surface.group.scale.x=Math.abs(next-goal)<.0001?goal:next;
+      if(Math.abs(next-goal)>.0001)changing=true;
+    }
+    root.updateMatrixWorld(true);return changing;
+  }, setLight(dusk:number) {
     sun.color.lerpColors(daySun,duskSun,dusk); sun.intensity=3.1-dusk*1.5;
     hemi.color.lerpColors(daySky,duskSky,dusk); hemi.intensity=1.25-dusk*.48;
     fill.intensity=1.1-dusk*.64; readingLight.intensity=.32+dusk*1.8;

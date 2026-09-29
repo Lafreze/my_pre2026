@@ -17,6 +17,7 @@ try {
   await page.goto(base, { waitUntil: 'networkidle' });
   const scene = page.locator('.studio-scene');
   await page.locator('.studio-scene[data-status=ready]').waitFor();
+  await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
   await check('reduced motion starts still; daylight and dusk keep every chapter reachable', async () => {
     assert.equal(await scene.getAttribute('data-breeze'), 'false');
     await page.screenshot({ path: `${output}/day.png` });
@@ -27,7 +28,7 @@ try {
     await page.getByRole('button', { name: '昼の光', exact: true }).click();
   });
   await check('little bird discovers all seven objects, saves visits and starts a fresh tour', async () => {
-    for (const [i, id] of ['name', 'notebook', 'board', 'monitor', 'cards', 'checklist', 'library'].entries()) {
+    for (const [i, id] of ['notebook', 'board', 'monitor', 'checklist', 'cards', 'library'].entries()) {
       await page.locator('.garden-discovery>button').click();
       if (id === 'library') {
         await page.locator('.studio-library-dialog').waitFor();
@@ -35,16 +36,17 @@ try {
       } else {
         await page.locator(`.studio-scene[data-view=${id}]`).waitFor();
         if (id === 'notebook') await page.screenshot({ path: `${output}/notebook.png` });
-        await page.getByRole('button', { name: '閉じて全景に戻る', exact: true }).click();
+        await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
       }
-      assert.equal(await scene.getAttribute('data-visited'), String(i + 1));
+      assert.equal(await scene.getAttribute('data-visited'), String(i + 2));
     }
     assert.ok((await page.locator('.garden-discovery').innerText()).includes('THANK YOU'));
     await page.reload({ waitUntil: 'networkidle' });
     await page.locator('.studio-scene[data-status=ready][data-visited="7"]').waitFor();
+    await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
     await page.locator('.garden-discovery>button').click();
     await page.locator('.studio-scene[data-view=name][data-visited="1"]').waitFor();
-    await page.getByRole('button', { name: '閉じて全景に戻る' }).click();
+    await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
   });
   await check('drag, wheel, accessible zoom and reset preserve the selected chapter', async () => {
     const chapter = await page.locator('.work-studio').getAttribute('data-chapter');
@@ -80,7 +82,7 @@ try {
       for (const id of ['name','notebook','board','monitor','cards','checklist']) {
         await page.locator(`[data-object=${id}]`).click();
         await page.locator(`.studio-scene[data-view=${id}]`).waitFor();
-        await page.getByRole('button', { name: '閉じて全景に戻る' }).click();
+        await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
       }
     }
   });
@@ -88,6 +90,7 @@ try {
     const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, reducedMotion: 'reduce' });
     const mobile = await context.newPage(); await mobile.goto(base, { waitUntil:'networkidle' });
     await mobile.locator('.studio-scene[data-status=ready]').waitFor();
+    await mobile.getByRole('button', { name: '全景に戻る', exact: true }).click();
     const cdp = await context.newCDPSession(mobile);
     await cdp.send('Input.dispatchTouchEvent', { type:'touchStart', touchPoints:[{x:130,y:480,id:1},{x:250,y:480,id:2}] });
     await cdp.send('Input.dispatchTouchEvent', { type:'touchMove', touchPoints:[{x:100,y:480,id:1},{x:280,y:480,id:2}] });
@@ -102,6 +105,8 @@ try {
     await page.emulateMedia({ reducedMotion:'no-preference' });
     await page.getByRole('button', { name:'庭の動き',exact:true }).click();
     await page.waitForTimeout(200);
+    await page.locator('.studio-scene[data-transition=false][data-flying=false]').waitFor();
+    await page.waitForTimeout(400); // Measure the settled garden, after the viewport resize.
     const before = Number(await scene.getAttribute('data-frames'));
     await page.waitForTimeout(1100);
     const rendered = Number(await scene.getAttribute('data-frames')) - before;

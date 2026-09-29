@@ -1,16 +1,17 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { buildRoom } from "./room";
 import { cameras, objects, type ObjectId, type ViewId } from "./content";
+import { presentationSize, projectSurface } from "./projection";
 
-type Props = { overview: boolean; view: ViewId; chapter: number; paused: boolean; cardOpen: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; skipToken: number; agentStep: number; flipped: boolean; cardTheme: number };
+type Props = { children: ReactNode; overview: boolean; view: ViewId; chapter: number; paused: boolean; cardOpen: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; skipToken: number; agentStep: number; flipped: boolean; cardTheme: number };
 type SceneCommand = "closer" | "farther" | "reset";
 
 export default function StudioCanvas(props: Props) {
   const { view, chapter, onSelect, overview } = props;
-  const host = useRef<HTMLDivElement>(null), labels = useRef(new Map<ObjectId, HTMLButtonElement>());
+  const host = useRef<HTMLDivElement>(null), presentation = useRef<HTMLDivElement>(null), labels = useRef(new Map<ObjectId, HTMLButtonElement>());
   const trigger = useRef<() => void>(() => {}), control = useRef<(command: SceneCommand) => void>(() => {});
   const focusedObject = useRef<ObjectId | null>(null);
   const [status, setStatus] = useState("loading"), [retry, setRetry] = useState(0), [hover, setHover] = useState<ObjectId | null>(null);
@@ -36,6 +37,7 @@ export default function StudioCanvas(props: Props) {
     if (view === "room") return;
     const id = requestAnimationFrame(() => visit(view)); return () => cancelAnimationFrame(id);
   }, [view, visit]);
+  useLayoutEffect(() => { if(presentation.current){presentation.current.dataset.visible="false";presentation.current.inert=true;} }, [view]);
   useEffect(() => { latest.current = { ...props, timeOfDay, breeze, select, discover }; trigger.current(); }, [props, timeOfDay, breeze, select, discover]);
   useEffect(() => {
     const element = host.current!;
@@ -52,12 +54,13 @@ export default function StudioCanvas(props: Props) {
     const pmrem = new THREE.PMREMGenerator(renderer), environmentScene = new RoomEnvironment(), environment = pmrem.fromScene(environmentScene, .04);
     scene.environment = environment.texture; scene.environmentIntensity = .55; environmentScene.dispose(); pmrem.dispose();
     if (innerWidth < 700) room.sun.shadow.mapSize.set(1024, 1024);
-    const camera = new THREE.PerspectiveCamera(34, 1, .1, 80), target = new THREE.Vector3();
+    const camera = new THREE.PerspectiveCamera(34, 1, .01, 80);
     let previousView: ViewId = latest.current.view;
-    const start = cameras[previousView]; camera.position.set(...start.position); target.set(...start.target);
-    let span = start.span, raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 1100, animating = false, settling = false, disposed = false, contextLost = false;
-    let open = 0, card = 0, flip = 0, dusk = 0, focusBlend = latest.current.overview ? 0 : 1, orbit = 0, zoom = 1;
-    let sourcePosition = camera.position.clone(), sourceTarget = target.clone(), sourceSpan = span, skip = latest.current.skipToken, shadowOpen = -1, shadowCard = -1, slowFrames = 0, wasFlying = false;
+    let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 1500, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
+    let open = 0, card = 0, flip = 0, dusk = 0, orbit = 0, zoom = 1;
+    const sourcePosition = camera.position.clone(), sourceQuaternion = camera.quaternion.clone();
+    let skip = latest.current.skipToken, shadowOpen = -1, shadowCard = -1, slowFrames = 0, wasFlying = false, wasFitting = false;
+    const destination = new THREE.PerspectiveCamera(34, 1, .01, 80);
     const reduced = matchMedia("(prefers-reduced-motion: reduce)"), ray = new THREE.Raycaster(), pointer = new THREE.Vector2();
     let hoverId: ObjectId | null = null, down: { x: number; y: number; time: number; orbit: number } | null = null, dragged = false, pinch: { distance: number; zoom: number } | null = null;
     const pointers = new Map<number, THREE.Vector2>();
@@ -90,55 +93,76 @@ export default function StudioCanvas(props: Props) {
     function frame(t: number) {
       raf = 0; if (disposed || contextLost || document.hidden || latest.current.paused) return;
       const state = latest.current, ambient = state.breeze && state.overview;
-      // Idle ambient movement renders at 30 fps; direct manipulation and chapter
-      // transitions retain the display refresh rate. Reduced motion stays idle.
       if (!urgent && ambient && !animating && !settling && last && t - last < 32) { raf = requestAnimationFrame(frame); return; }
       urgent = false; const interval = last ? t - last : 16, dt = Math.min(100, interval); last = t; elapsed += dt / 1000;
       if (animating && interval > 55 && interval < 250) slowFrames++; else slowFrames = Math.max(0, slowFrames - 1);
       if (slowFrames === 18) { renderer.setPixelRatio(.85); element.dataset.quality = "economy"; renderer.shadowMap.enabled = false; }
-      if (previousView !== state.view) {
-        sourcePosition = camera.position.clone(); sourceTarget = target.clone(); sourceSpan = span; from = t;
-        duration = state.view === "room" && ["name", "notebook"].includes(previousView) ? 2000 : 1250;
-        previousView = state.view; orbit = 0; zoom = 1; animating = true;
-      }
-      const desired = cameras[state.view], finish = skip !== state.skipToken || reduced.matches; skip = state.skipToken;
-      if (animating) {
-        const progress = finish ? 1 : Math.min(1, (t - from) / duration), eased = progress * progress * (3 - 2 * progress);
-        camera.position.lerpVectors(sourcePosition, new THREE.Vector3(...desired.position), eased);
-        target.lerpVectors(sourceTarget, new THREE.Vector3(...desired.target), eased); span = THREE.MathUtils.lerp(sourceSpan, desired.span, eased);
-        if (progress === 1) animating = false;
+      const w = Math.max(1, element.clientWidth), h = Math.max(1, element.clientHeight), size = presentationSize(w, h);
+      const finish = skip !== state.skipToken || reduced.matches; skip = state.skipToken;
+      if (previousView !== state.view || resized) {
+        sourcePosition.copy(camera.position); sourceQuaternion.copy(camera.quaternion); from = t;
+        duration = resized ? 550 : state.view === "room" ? 1700 : 1500;
+        previousView = state.view; orbit = 0; zoom = 1; animating = !boot; resized = false;
       }
       const activeHover = focusedObject.current || hoverId;
-      const noteGoal = state.view === "notebook" ? 1 : activeHover === "notebook" ? .12 : 0, cardGoal = state.cardOpen ? 1 : activeHover === "cards" ? .08 : 0;
-      open = finish ? noteGoal : THREE.MathUtils.damp(open, noteGoal, 8, dt / 1000); card = finish ? cardGoal : THREE.MathUtils.damp(card, cardGoal, 8, dt / 1000);
+      const noteGoal = state.view === "notebook" ? 1 : activeHover === "notebook" ? .12 : 0;
+      // The selected lid is the interactive page itself; its HTML card performs
+      // the reveal, while the physical presentation plane remains steady.
+      const cardGoal = state.view === "cards" ? 0 : state.cardOpen ? 1 : activeHover === "cards" ? .08 : 0;
+      open = finish || boot ? noteGoal : THREE.MathUtils.damp(open, noteGoal, 8, dt / 1000);
+      card = finish || boot ? cardGoal : THREE.MathUtils.damp(card, cardGoal, 8, dt / 1000);
       const flipGoal = state.view === "cards" && state.flipped ? 1 : 0;
       flip = finish ? flipGoal : THREE.MathUtils.damp(flip, flipGoal, 7, dt / 1000);
       room.animate(open, card, state.boardStep, state.review, activeHover, state.view === "monitor" ? state.agentStep : -1, flip, state.cardTheme);
+      const fitting = room.fitSurfaces(state.view, size.width / size.height, dt / 1000, finish || boot);
       const lightGoal = state.timeOfDay === "dusk" ? 1 : 0; dusk = finish ? lightGoal : THREE.MathUtils.damp(dusk, lightGoal, 5, dt / 1000);
       room.setLight(dusk); scene.environmentIntensity = .55 - dusk * .18; renderer.toneMappingExposure = 1.02 - dusk * .07;
       const flying = room.garden.update(elapsed, dt / 1000, state.view, ambient, dusk, finish);
-      if (Math.abs(open - shadowOpen) > .3 || Math.abs(card - shadowCard) > .3 || wasFlying && !flying) { renderer.shadowMap.needsUpdate = true; shadowOpen = open; shadowCard = card; }
-      wasFlying = flying;
-      const w = Math.max(1, element.clientWidth), h = Math.max(1, element.clientHeight); camera.aspect = w / h;
-      // Horizontal coverage shrinks on narrow screens while the full garden fits vertically.
-      const coverage = w <= 1000 && state.view === "room" ? span * .78 : span;
-      const dist = coverage * zoom / (2 * Math.tan(THREE.MathUtils.degToRad(34 / 2)) * Math.min(camera.aspect, 1.4));
-      const direction = camera.position.clone().sub(target).normalize(), pos = target.clone().addScaledVector(direction, dist);
-      if (orbit) pos.sub(target).applyAxisAngle(new THREE.Vector3(0, 1, 0), orbit).add(target);
-      const saved = camera.position.clone(); camera.position.copy(pos); camera.lookAt(target);
-      const focusGoal = state.view === "room" ? 0 : 1; focusBlend = finish ? focusGoal : THREE.MathUtils.damp(focusBlend, focusGoal, 6, dt / 1000);
-      if (focusBlend > .001) { if (w > 1000) camera.setViewOffset(w, h, w * .19 * focusBlend, 0, w, h); else camera.setViewOffset(w, h, 0, h * .13 * focusBlend, w, h); }
-      else camera.clearViewOffset(); camera.updateProjectionMatrix(); camera.updateMatrixWorld();
-      renderer.render(scene, camera); project(); camera.position.copy(saved);
-      element.dataset.frames = String(++frames); element.dataset.drawCalls = String(renderer.info.render.calls); element.dataset.triangles = String(renderer.info.render.triangles);
-      element.dataset.transition = String(animating); element.dataset.orbit = orbit.toFixed(3); element.dataset.zoom = zoom.toFixed(3); element.dataset.flying = String(flying); element.dataset.ambient = String(ambient);
-      if (dirty) { dirty = false; setStatus("ready"); }
-      settling = flying || Math.abs(focusBlend - focusGoal) > .002 || Math.abs(open - noteGoal) > .002 || Math.abs(card - cardGoal) > .002 || Math.abs(flip - flipGoal) > .002 || Math.abs(dusk - lightGoal) > .002;
-      if (animating || settling || ambient) raf = requestAnimationFrame(frame);
+      room.garden.bird.visible = state.overview;
+      if (Math.abs(open - shadowOpen) > .3 || Math.abs(card - shadowCard) > .3 || wasFlying && !flying || wasFitting && !fitting) { renderer.shadowMap.needsUpdate = true; shadowOpen = open; shadowCard = card; }
+      wasFlying = flying; wasFitting = fitting;
+      const surface = room.surfaces[state.view];
+      destination.up.set(0,1,0);
+      if (surface) {
+        const center = surface.face.getWorldPosition(new THREE.Vector3());
+        const orientation = surface.face.getWorldQuaternion(new THREE.Quaternion());
+        const normal = new THREE.Vector3(0,0,1).applyQuaternion(orientation), up = new THREE.Vector3(0,1,0).applyQuaternion(orientation);
+        const physicalHeight = surface.height * surface.face.getWorldScale(new THREE.Vector3()).y;
+        const distance = physicalHeight * h / (2 * size.height * Math.tan(THREE.MathUtils.degToRad(17)));
+        destination.position.copy(center).addScaledVector(normal,distance); destination.up.copy(up); destination.lookAt(center);
+      } else {
+        const preset=cameras[state.view], target=new THREE.Vector3(...preset.target);
+        const coverage=w<=1000&&state.view==="room"?preset.span*.78:preset.span;
+        const distance=coverage*zoom/(2*Math.tan(THREE.MathUtils.degToRad(17))*Math.min(w/h,1.4));
+        const direction=new THREE.Vector3(...preset.position).sub(target).normalize().applyAxisAngle(new THREE.Vector3(0,1,0),orbit);
+        destination.position.copy(target).addScaledVector(direction,distance); destination.lookAt(target);
+      }
+      let progress=1;
+      if (animating) {
+        progress=finish?1:Math.min(1,(t-from)/duration);
+        const eased=progress*progress*(3-2*progress);
+        camera.position.lerpVectors(sourcePosition,destination.position,eased); camera.quaternion.slerpQuaternions(sourceQuaternion,destination.quaternion,eased);
+        if(progress===1)animating=false;
+      } else { camera.position.copy(destination.position); camera.quaternion.copy(destination.quaternion); }
+      camera.aspect=w/h; camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+      renderer.render(scene,camera); project();
+      const page=presentation.current;
+      if(page) {
+        const visible=!!surface&&!state.overview&&!animating;
+        if(surface)projectSurface(page,surface.face,surface.width,surface.height,camera,w,h,size.width,size.height);
+        page.dataset.visible=String(visible);page.inert=!visible;page.setAttribute("aria-hidden",String(!visible));
+        if(visible && (boot || element.dataset.transition==="true")) page.querySelector<HTMLElement>("h1")?.focus({preventScroll:true});
+      }
+      element.dataset.frames=String(++frames);element.dataset.drawCalls=String(renderer.info.render.calls);element.dataset.triangles=String(renderer.info.render.triangles);
+      element.dataset.transition=String(animating);element.dataset.orbit=orbit.toFixed(3);element.dataset.zoom=zoom.toFixed(3);element.dataset.flying=String(flying);element.dataset.ambient=String(ambient);
+      element.dataset.cameraPosition=camera.position.toArray().map(v=>v.toFixed(4)).join(",");
+      if(dirty){dirty=false;setStatus("ready");}boot=false;
+      settling=fitting||flying||Math.abs(open-noteGoal)>.002||Math.abs(card-cardGoal)>.002||Math.abs(flip-flipGoal)>.002||Math.abs(dusk-lightGoal)>.002;
+      if(animating||settling||ambient)raf=requestAnimationFrame(frame);
     }
     function wake() { urgent = true; if (!raf && !disposed && !contextLost) { last = 0; raf = requestAnimationFrame(frame); } }
     trigger.current = wake;
-    function resize() { renderer.setSize(element.clientWidth, element.clientHeight); wake(); }
+    function resize() { renderer.setSize(element.clientWidth, element.clientHeight); resized = !boot; wake(); }
     const ro = new ResizeObserver(resize); ro.observe(element);
     function hit(e: PointerEvent): ObjectId | "guide" | null {
       const r = element.getBoundingClientRect(); pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
@@ -189,10 +213,12 @@ export default function StudioCanvas(props: Props) {
       room.dispose(); environment.dispose(); renderer.dispose(); canvas.remove();
     };
   }, [retry]);
+  useEffect(() => { if(status==="fallback"&&presentation.current){presentation.current.inert=false;presentation.current.setAttribute("aria-hidden","false");} },[status,view]);
   const focusObject = (id: ObjectId | null) => { focusedObject.current = id; setHover(id); trigger.current(); };
   return <div className="studio-scene" ref={host} data-status={status} data-view={view} data-time={timeOfDay} data-breeze={breeze} data-visited={visited.length}>
+    <div className="studio-surface-host" ref={presentation} data-kind={view} data-visible="false">{!overview && props.children}</div>
     {status === "loading" && <div className="studio-loading" role="status"><span className="studio-loader" />庭のあるスタジオへ…</div>}
-    {status === "fallback" ? <div className="studio-fallback"><span>TEXT EDITION</span><h2>同じ物語を、ここから。</h2><p>3Dを表示できませんでした。全章と参考資料は、このままご覧いただけます。</p><button onClick={() => { const url = new URL(location.href); url.searchParams.delete("no3d"); history.replaceState(null, "", url); setStatus("loading"); setRetry(n => n + 1); }}>3Dを再読み込み</button><div>{objects.map(o => <button key={o.id} onClick={() => select(o.id)}>{o.title} ↗</button>)}</div></div> : <>
+    {status === "fallback" ? <div className={`studio-fallback ${overview?"":"studio-fallback-compact"}`}><span>TEXT EDITION</span>{overview&&<h2>同じ物語を、ここから。</h2>}<p>3Dを表示できませんでした。内容と操作は、このまま使えます。</p><button onClick={() => { const url = new URL(location.href); url.searchParams.delete("no3d"); history.replaceState(null, "", url); setStatus("loading"); setRetry(n => n + 1); }}>3Dを再読み込み</button><div hidden={!overview}>{objects.map(o => <button key={o.id} onClick={() => select(o.id)}>{o.title} ↗</button>)}</div></div> : <>
       <div className="studio-object-labels" aria-label="スタジオの物件">{objects.map((o, i) => <button ref={el => { if (el) labels.current.set(o.id, el); else labels.current.delete(o.id); }} key={o.id} data-object={o.id} data-selected={view === o.id} data-hovered={hover === o.id} data-next={o.chapter === chapter + 1} data-visited={visited.includes(o.id)} data-visible={view === "room" || view === o.id || hover === o.id} className="studio-object" onClick={() => select(o.id)} onFocus={() => focusObject(o.id)} onBlur={() => focusObject(null)} onPointerEnter={() => focusObject(o.id)} onPointerLeave={() => focusObject(null)} aria-label={`${o.title}を開く`}><i aria-hidden="true">{visited.includes(o.id) ? "✓" : String(i + 1).padStart(2, "0")}</i><span><small>{o.subtitle}</small>{o.title}<b>↗</b></span></button>)}</div>
       {overview && status === "ready" && <>
         <div className="garden-intro"><span>A PLACE FOR LITTLE IDEAS</span><h1>アイデアが育つ、<br />小さな場所。</h1><p>ものに触れて、私の制作をひとめぐり。</p></div>
