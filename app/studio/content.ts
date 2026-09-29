@@ -5,7 +5,7 @@ export type CameraPreset = { position: [number, number, number]; target: [number
 // The overview keeps its garden framing. Close-ups are calculated from the
 // actual presentation planes in room.ts, so HTML and model share one camera.
 export const cameras: Record<ViewId, CameraPreset> = {
-  room: { position: [8.2, 8.6, 11], target: [.15, .8, .2], span: 17 },
+  room: { position: [8.2, 8.6, 11], target: [.15, .55, .2], span: 15.9 },
   name: { position: [-1.4, 2.1, -.4], target: [-1.4, 2.1, -2.42], span: 1.5 },
   notebook: { position: [-1.79, 2, -1.58], target: [-1.79, .808, -1.58], span: .6 },
   board: { position: [.62, 1.81, 1], target: [.62, 1.81, -2.38], span: 2.4 },

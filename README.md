@@ -1,4 +1,4 @@
-> 2026-09-29 PC 版更新：花园首页把开始入口移到标题下方，五件物品对应五章；环境设置收进菜单。前三页依次讲个人经历、ViT模型实践、LLM使用方式的扩展。ViT使用明确标注的模拟缺陷图，展示全部Patch与位置编码；三种LLM使用方式共用活动报名网页示例，技术史另放补充窗口。保留Harness与Loop的分层架构、连续运镜和产品制作讨论。截图、事实边界与检查结果见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
+> 2026-09-29 PC 版更新：首页恢复为居中的完整花园工作室，移除左侧说明栏、数字标记和进度提示。只保留简短开始入口，物件名称在悬停或聚焦时出现；资料、环境和视角设置收在菜单里。五件物品对应五章，保留模型表面的内容、连续运镜，以及个人经历、ViT实践、LLM使用方式、Agent结构和产品制作的讲解。截图、事实边界与检查结果见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
 >
 > 以下为历次版本说明；当前首页交互以本次模型展示版本为准。
 

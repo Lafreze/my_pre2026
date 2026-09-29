@@ -1,9 +1,9 @@
 {
   "date": "2026-09-29",
   "target": "Production static export at http://127.0.0.1:5180/",
-  "scope": "PC only",
-  "checks": 42,
-  "passed": 42,
+  "scope": "PC only; immersive overview without labels or numeric markers",
+  "checks": 36,
+  "passed": 36,
   "layoutStates": 168,
   "suites": {
     "story": {
@@ -131,7 +131,7 @@
           "verticalOverflow": false,
           "bottom": 858.2347717285156,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.46876475667193,
@@ -161,7 +161,7 @@
           "verticalOverflow": false,
           "bottom": 858.2391510009766,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.46083829688644,
@@ -191,7 +191,7 @@
           "verticalOverflow": false,
           "bottom": 858.2391510009766,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.46083829688644,
@@ -221,7 +221,7 @@
           "verticalOverflow": false,
           "bottom": 858.2391510009766,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.46083829688644,
@@ -251,7 +251,7 @@
           "verticalOverflow": false,
           "bottom": 858.2391510009766,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.46083829688644,
@@ -281,7 +281,7 @@
           "verticalOverflow": false,
           "bottom": 858.1952362060547,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.53959636432313,
@@ -311,7 +311,7 @@
           "verticalOverflow": false,
           "bottom": 858.1952362060547,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.53959636432313,
@@ -341,7 +341,7 @@
           "verticalOverflow": false,
           "bottom": 858.1952362060547,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.53959636432313,
@@ -371,7 +371,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -401,7 +401,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -431,7 +431,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -461,7 +461,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -491,7 +491,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -521,7 +521,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -551,7 +551,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -581,7 +581,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -611,7 +611,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -641,7 +641,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -671,7 +671,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -701,7 +701,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -731,7 +731,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -761,7 +761,7 @@
           "verticalOverflow": false,
           "bottom": 858.2281799316406,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.4806010832399,
@@ -791,7 +791,7 @@
           "verticalOverflow": false,
           "bottom": 858.2225189208984,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.49061681226937,
@@ -821,7 +821,7 @@
           "verticalOverflow": false,
           "bottom": 858.2225189208984,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.49061681226937,
@@ -851,7 +851,7 @@
           "verticalOverflow": false,
           "bottom": 858.2225189208984,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.49061681226937,
@@ -881,7 +881,7 @@
           "verticalOverflow": false,
           "bottom": 858.2225189208984,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.49061681226937,
@@ -911,7 +911,7 @@
           "verticalOverflow": false,
           "bottom": 858.2225189208984,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.49061681226937,
@@ -941,7 +941,7 @@
           "verticalOverflow": false,
           "bottom": 858.2225189208984,
           "footerTop": 1002,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 388.49061681226937,
@@ -971,7 +971,7 @@
           "verticalOverflow": false,
           "bottom": 843.2363128662109,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.4658309627694,
@@ -1001,7 +1001,7 @@
           "verticalOverflow": false,
           "bottom": 843.2409210205078,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.45767794577034,
@@ -1031,7 +1031,7 @@
           "verticalOverflow": false,
           "bottom": 843.2409210205078,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.45767794577034,
@@ -1061,7 +1061,7 @@
           "verticalOverflow": false,
           "bottom": 843.2409210205078,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.45767794577034,
@@ -1091,7 +1091,7 @@
           "verticalOverflow": false,
           "bottom": 843.2409210205078,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.45767794577034,
@@ -1121,7 +1121,7 @@
           "verticalOverflow": false,
           "bottom": 843.1957092285156,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.5386868205794,
@@ -1151,7 +1151,7 @@
           "verticalOverflow": false,
           "bottom": 843.1958312988281,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.53868682057947,
@@ -1181,7 +1181,7 @@
           "verticalOverflow": false,
           "bottom": 843.1958312988281,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.53868682057947,
@@ -1211,7 +1211,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1241,7 +1241,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1271,7 +1271,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1301,7 +1301,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1331,7 +1331,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1361,7 +1361,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1391,7 +1391,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1421,7 +1421,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1451,7 +1451,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1481,7 +1481,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1511,7 +1511,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1541,7 +1541,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1571,7 +1571,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1601,7 +1601,7 @@
           "verticalOverflow": false,
           "bottom": 843.2295379638672,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.47800558788026,
@@ -1631,7 +1631,7 @@
           "verticalOverflow": false,
           "bottom": 843.2238006591797,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.48830756900793,
@@ -1661,7 +1661,7 @@
           "verticalOverflow": false,
           "bottom": 843.2238006591797,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.48830756900793,
@@ -1691,7 +1691,7 @@
           "verticalOverflow": false,
           "bottom": 843.2238006591797,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.48830756900793,
@@ -1721,7 +1721,7 @@
           "verticalOverflow": false,
           "bottom": 843.2238006591797,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.48830756900793,
@@ -1751,7 +1751,7 @@
           "verticalOverflow": false,
           "bottom": 843.2238006591797,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.48830756900793,
@@ -1781,7 +1781,7 @@
           "verticalOverflow": false,
           "bottom": 843.2238006591797,
           "footerTop": 972,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 268.48830756900793,
@@ -1811,7 +1811,7 @@
           "verticalOverflow": false,
           "bottom": 768.2461700439453,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.448227566821,
@@ -1841,7 +1841,7 @@
           "verticalOverflow": false,
           "bottom": 768.2514801025391,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.43871510509044,
@@ -1871,7 +1871,7 @@
           "verticalOverflow": false,
           "bottom": 768.2514801025391,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.43871510509044,
@@ -1901,7 +1901,7 @@
           "verticalOverflow": false,
           "bottom": 768.2514801025391,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.43871510509044,
@@ -1931,7 +1931,7 @@
           "verticalOverflow": false,
           "bottom": 768.2514801025391,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.43871510509044,
@@ -1961,7 +1961,7 @@
           "verticalOverflow": false,
           "bottom": 768.1988830566406,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.53322949731572,
@@ -1991,7 +1991,7 @@
           "verticalOverflow": false,
           "bottom": 768.1988830566406,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.5332294973158,
@@ -2021,7 +2021,7 @@
           "verticalOverflow": false,
           "bottom": 768.1988830566406,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.5332294973158,
@@ -2051,7 +2051,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2081,7 +2081,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2111,7 +2111,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2141,7 +2141,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2171,7 +2171,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2201,7 +2201,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2231,7 +2231,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2261,7 +2261,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2291,7 +2291,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2321,7 +2321,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2351,7 +2351,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2381,7 +2381,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2411,7 +2411,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2441,7 +2441,7 @@
           "verticalOverflow": false,
           "bottom": 768.2382049560547,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.4624321206465,
@@ -2471,7 +2471,7 @@
           "verticalOverflow": false,
           "bottom": 768.2315979003906,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.47445171753387,
@@ -2501,7 +2501,7 @@
           "verticalOverflow": false,
           "bottom": 768.2315979003906,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.47445171753387,
@@ -2531,7 +2531,7 @@
           "verticalOverflow": false,
           "bottom": 768.2315979003906,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.47445171753387,
@@ -2561,7 +2561,7 @@
           "verticalOverflow": false,
           "bottom": 768.2315979003906,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.47445171753387,
@@ -2591,7 +2591,7 @@
           "verticalOverflow": false,
           "bottom": 768.2315979003906,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.47445171753387,
@@ -2621,7 +2621,7 @@
           "verticalOverflow": false,
           "bottom": 768.2315979003906,
           "footerTop": 822,
-          "headerBottom": 92.59375,
+          "headerBottom": 69,
           "inert": false,
           "mesh": {
             "left": 148.47445171753387,
@@ -2651,7 +2651,7 @@
           "verticalOverflow": false,
           "bottom": 671.0654525756836,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.45396209172114,
@@ -2681,7 +2681,7 @@
           "verticalOverflow": false,
           "bottom": 671.0704116821289,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.44489227774568,
@@ -2711,7 +2711,7 @@
           "verticalOverflow": false,
           "bottom": 671.0704116821289,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.44489227774568,
@@ -2741,7 +2741,7 @@
           "verticalOverflow": false,
           "bottom": 671.0704116821289,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.44489227774568,
@@ -2771,7 +2771,7 @@
           "verticalOverflow": false,
           "bottom": 671.0704116821289,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.44489227774568,
@@ -2801,7 +2801,7 @@
           "verticalOverflow": false,
           "bottom": 671.0202484130859,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.53500782379368,
@@ -2831,7 +2831,7 @@
           "verticalOverflow": false,
           "bottom": 671.0202484130859,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.53500782379376,
@@ -2861,7 +2861,7 @@
           "verticalOverflow": false,
           "bottom": 671.0202484130859,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.53500782379376,
@@ -2891,7 +2891,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -2921,7 +2921,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -2951,7 +2951,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -2981,7 +2981,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3011,7 +3011,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3041,7 +3041,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3071,7 +3071,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3101,7 +3101,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3131,7 +3131,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3161,7 +3161,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3191,7 +3191,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3221,7 +3221,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3251,7 +3251,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3281,7 +3281,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.46750562645423,
@@ -3311,7 +3311,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.47896585279122,
@@ -3341,7 +3341,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.47896585279122,
@@ -3371,7 +3371,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.47896585279122,
@@ -3401,7 +3401,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.47896585279122,
@@ -3431,7 +3431,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.47896585279122,
@@ -3461,7 +3461,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.47896585279122,
@@ -3491,7 +3491,7 @@
           "verticalOverflow": false,
           "bottom": 623.0586013793945,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.56825184603997,
@@ -3521,7 +3521,7 @@
           "verticalOverflow": false,
           "bottom": 623.0631103515625,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.56012784118445,
@@ -3551,7 +3551,7 @@
           "verticalOverflow": false,
           "bottom": 623.0631103515625,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.56012784118445,
@@ -3581,7 +3581,7 @@
           "verticalOverflow": false,
           "bottom": 623.0631103515625,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.56012784118445,
@@ -3611,7 +3611,7 @@
           "verticalOverflow": false,
           "bottom": 623.0631103515625,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.56012784118445,
@@ -3641,7 +3641,7 @@
           "verticalOverflow": false,
           "bottom": 623.0182113647461,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.6408463354607,
@@ -3671,7 +3671,7 @@
           "verticalOverflow": false,
           "bottom": 623.0181503295898,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.6408463354607,
@@ -3701,7 +3701,7 @@
           "verticalOverflow": false,
           "bottom": 623.0181503295898,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.6408463354607,
@@ -3731,7 +3731,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -3761,7 +3761,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -3791,7 +3791,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -3821,7 +3821,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -3851,7 +3851,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -3881,7 +3881,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -3911,7 +3911,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -3941,7 +3941,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -3971,7 +3971,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -4001,7 +4001,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -4031,7 +4031,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -4061,7 +4061,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -4091,7 +4091,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -4121,7 +4121,7 @@
           "verticalOverflow": false,
           "bottom": 623.0518035888672,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.58038305964652,
@@ -4151,7 +4151,7 @@
           "verticalOverflow": false,
           "bottom": 623.0461654663086,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.59064822368046,
@@ -4181,7 +4181,7 @@
           "verticalOverflow": false,
           "bottom": 623.0461654663086,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.59064822368046,
@@ -4211,7 +4211,7 @@
           "verticalOverflow": false,
           "bottom": 623.0461654663086,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.59064822368046,
@@ -4241,7 +4241,7 @@
           "verticalOverflow": false,
           "bottom": 623.0461654663086,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.59064822368046,
@@ -4271,7 +4271,7 @@
           "verticalOverflow": false,
           "bottom": 623.0461654663086,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.59064822368046,
@@ -4301,7 +4301,7 @@
           "verticalOverflow": false,
           "bottom": 623.0461654663086,
           "footerTop": 648,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 167.59064822368046,
@@ -4331,7 +4331,7 @@
           "verticalOverflow": false,
           "bottom": 671.0654525756836,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.87680401595799,
@@ -4361,7 +4361,7 @@
           "verticalOverflow": false,
           "bottom": 671.0704116821289,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.86886756961445,
@@ -4391,7 +4391,7 @@
           "verticalOverflow": false,
           "bottom": 671.0704116821289,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.86886756961445,
@@ -4421,7 +4421,7 @@
           "verticalOverflow": false,
           "bottom": 671.0704116821289,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.86886756961445,
@@ -4451,7 +4451,7 @@
           "verticalOverflow": false,
           "bottom": 671.0704116821289,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.86886756961445,
@@ -4481,7 +4481,7 @@
           "verticalOverflow": false,
           "bottom": 671.0202484130859,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.947722240490975,
@@ -4511,7 +4511,7 @@
           "verticalOverflow": false,
           "bottom": 671.0202484130859,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.94772224049109,
@@ -4541,7 +4541,7 @@
           "verticalOverflow": false,
           "bottom": 671.0202484130859,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.94772224049109,
@@ -4571,7 +4571,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4601,7 +4601,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4631,7 +4631,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4661,7 +4661,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4691,7 +4691,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4721,7 +4721,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4751,7 +4751,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4781,7 +4781,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4811,7 +4811,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4841,7 +4841,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4871,7 +4871,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4901,7 +4901,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4931,7 +4931,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4961,7 +4961,7 @@
           "verticalOverflow": false,
           "bottom": 671.0578536987305,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.88865514509956,
@@ -4991,7 +4991,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.898683296907166,
@@ -5021,7 +5021,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.898683296907166,
@@ -5051,7 +5051,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.898683296907166,
@@ -5081,7 +5081,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.898683296907166,
@@ -5111,7 +5111,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.898683296907166,
@@ -5141,7 +5141,7 @@
           "verticalOverflow": false,
           "bottom": 671.0515441894531,
           "footerTop": 696,
-          "headerBottom": 86.59375,
+          "headerBottom": 63,
           "inert": false,
           "mesh": {
             "left": 60.898683296907166,
@@ -5164,7 +5164,7 @@
           "pass": true
         },
         {
-          "name": "small numbered markers identify five objects; hover and keyboard reveal their names",
+          "name": "overview has no explanatory panels or markers; only hovered objects reveal names",
           "pass": true
         },
         {
@@ -5176,7 +5176,7 @@
           "pass": true
         },
         {
-          "name": "five-chapter guide saves visits, excludes archive and offers a fresh tour after completion",
+          "name": "visits are preserved without on-screen counters or completion notices",
           "pass": true
         },
         {
@@ -5188,7 +5188,7 @@
           "pass": true
         },
         {
-          "name": "free exploration suppresses the guide highlight and the index exposes the same five chapters",
+          "name": "the compact index exposes five chapters and the archive without numbered badges",
           "pass": true
         },
         {
@@ -5204,7 +5204,7 @@
       "metrics": [
         {
           "mode": "ambient",
-          "renderedFrames": 33,
+          "renderedFrames": 34,
           "milliseconds": 1100
         },
         {
@@ -5214,37 +5214,6 @@
           "quality": "standard"
         }
       ]
-    },
-    "materials": {
-      "results": [
-        {
-          "name": "late PBR textures repaint the idle scene",
-          "pass": true
-        },
-        {
-          "name": "textured scene becomes idle again",
-          "pass": true
-        },
-        {
-          "name": "all close-ups render without material or shader errors",
-          "pass": true
-        },
-        {
-          "name": "Atlas loads all thirteen assets in both views",
-          "pass": true
-        },
-        {
-          "name": "missing maps retain a usable scene and interactions",
-          "pass": true
-        },
-        {
-          "name": "no WebGL shader errors or browser exceptions",
-          "pass": true
-        }
-      ],
-      "errors": [],
-      "textureCount": 27,
-      "textureBytes": 16779157
     }
   }
 }

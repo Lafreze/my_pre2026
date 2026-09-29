@@ -21,9 +21,9 @@ try{
  await p.goto(base,{waitUntil:'networkidle'});await p.locator('.studio-scene[data-status=ready]').waitFor();
  await check('overview starts still with a clickable primary entrance and five story destinations',async()=>{
   assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'true');assert.equal(await p.locator('.studio-scene').getAttribute('data-breeze'),'false');
-  assert.equal(await p.locator('.garden-progress button').count(),5);assert.equal(await p.locator('.environment-menu').getAttribute('open'),null);
-  assert.ok(!(await p.locator('.garden-discovery').innerText()).includes('THANK YOU'));
-  await p.getByRole('button',{name:'案内をはじめる →',exact:true}).click();await p.locator('.studio-surface-host[data-kind=name][data-interactive=true]').waitFor();
+  assert.equal(await p.locator('.garden-intro,.garden-progress,.object-marker,.garden-operation-hint').count(),0);assert.equal(await p.locator('.environment-menu').getAttribute('open'),null);
+  assert.equal(await p.locator('.garden-camera-tools:visible,.studio-footer').count(),0);
+  await p.getByRole('button',{name:'はじめる',exact:true}).click();await p.locator('.studio-surface-host[data-kind=name][data-interactive=true]').waitFor();
   assert.equal(await p.locator('.studio-copy').count(),0);assert.equal(await p.locator('canvas').count(),1);
   const text=await p.locator('.personal-introduction').innerText();for(const fact of ['KIOXIA','2023','日立ハイテク','次フレーム予測','Active Learning','Multi Beam','ADC'])assert.ok(text.includes(fact),fact);
   assert.equal(await p.locator('.personal-career li').count(),2);assert.equal((text.match(/ADC/g)||[]).length,1);assert.ok(!text.includes('2019'));assert.ok(!text.includes('VGG'));assert.ok(!(await p.locator('.personal-name').innerText()).includes('です'));
@@ -109,7 +109,7 @@ try{
  });
  await check('archive keeps 20 pages, searches and restores the exact current model',async()=>{
   await go(3);await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.getByRole('button',{name:'4 ボタンの幅超過を発見',exact:true}).click();
-  const camera=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.getByRole('button',{name:'参考資料',exact:true}).click();assert.equal(await p.locator('.studio-library-grid>button').count(),20);await p.getByRole('searchbox',{name:'資料を検索'}).fill('Evals');await p.locator('.studio-library-grid>button').click();await p.frameLocator('iframe').locator('#presentation[data-current-slide=trust]').waitFor({timeout:60000});await p.getByRole('button',{name:'資料を閉じて元の章に戻る'}).click();assert.equal(await p.locator('iframe').count(),0);assert.equal(await p.locator('.studio-scene').getAttribute('data-camera-position'),camera);assert.ok((await p.locator('.execution-detail').innerText()).includes('ボタンの幅超過を発見'));
+  const camera=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.locator('.studio-index-toggle').click();await p.getByRole('button',{name:'参考資料',exact:true}).click();assert.equal(await p.locator('.studio-library-grid>button').count(),20);await p.getByRole('searchbox',{name:'資料を検索'}).fill('Evals');await p.locator('.studio-library-grid>button').click();await p.frameLocator('iframe').locator('#presentation[data-current-slide=trust]').waitFor({timeout:60000});await p.getByRole('button',{name:'資料を閉じて元の章に戻る'}).click();assert.equal(await p.locator('iframe').count(),0);assert.equal(await p.locator('.studio-scene').getAttribute('data-camera-position'),camera);assert.ok((await p.locator('.execution-detail').innerText()).includes('ボタンの幅超過を発見'));
  });
  await check('reference deck ignores removed pages even with saved settings and old deep links',async()=>{
   const q=await browser.newPage({reducedMotion:'reduce'});await q.addInitScript(()=>localStorage.setItem('gen-ai-slide-settings-v2',JSON.stringify({hidden:[],order:['game-case','intro','game-process']})));await q.goto(new URL('reference/?slide=game-case',base).href,{waitUntil:'networkidle'});

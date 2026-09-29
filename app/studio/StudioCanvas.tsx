@@ -11,13 +11,13 @@ const storyObjects=objects.filter(o=>o.chapter>=0);
 type SceneCommand = "closer" | "farther" | "reset";
 
 export default function StudioCanvas(props: Props) {
-  const { view, chapter, onSelect, overview } = props;
+  const { view, onSelect, overview } = props;
   const host = useRef<HTMLDivElement>(null), presentations = useRef(new Map<ViewId, HTMLDivElement>()), labels = useRef(new Map<ObjectId, HTMLButtonElement>());
   const trigger = useRef<() => void>(() => {}), control = useRef<(command: SceneCommand) => void>(() => {});
   const focusedObject = useRef<ObjectId | null>(null);
   const [status, setStatus] = useState("loading"), [retry, setRetry] = useState(0), [hover, setHover] = useState<ObjectId | null>(null);
   const [timeOfDay, setTimeOfDay] = useState<"day" | "dusk">("day"), [breeze, setBreeze] = useState(false);
-  const [sunAngle,setSunAngle]=useState(0),[exploring,setExploring]=useState(false);
+  const [sunAngle,setSunAngle]=useState(0);
   const [visited, setVisited] = useState<ObjectId[]>([]), [stored, setStored] = useState(false);
   const visit = useCallback((id: ObjectId) => {if(id!=="library")setVisited(old => old.includes(id) ? old : [...old,id]);}, []);
   const select = useCallback((id: ObjectId) => { visit(id); onSelect(id); }, [onSelect, visit]);
@@ -59,7 +59,7 @@ export default function StudioCanvas(props: Props) {
     const camera = new THREE.PerspectiveCamera(34, 1, .01, 80);
     let previousView: ViewId = latest.current.view;
     let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 850, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
-    let open = 0, dusk = 0, orbit = 0, zoom = 1, lightAngle = 0, framing = latest.current.overview ? .135 : 0;
+    let open = 0, dusk = 0, orbit = 0, zoom = 1, lightAngle = 0;
     const overviewPose={orbit:0,zoom:1};
     const sourcePosition = camera.position.clone(), sourceQuaternion = camera.quaternion.clone();
     let skip = latest.current.skipToken, shadowOpen = -1, slowFrames = 0, wasFlying = false, wasFitting = false;
@@ -144,8 +144,7 @@ export default function StudioCanvas(props: Props) {
         camera.position.lerpVectors(sourcePosition,destination.position,eased); camera.quaternion.slerpQuaternions(sourceQuaternion,destination.quaternion,eased);
         if(progress===1)animating=false;
       } else { camera.position.copy(destination.position); camera.quaternion.copy(destination.quaternion); }
-      framing=finish||boot?(state.overview?.135:0):THREE.MathUtils.damp(framing,state.overview?.135:0,10,dt/1000);
-      camera.aspect=w/h;camera.setViewOffset(w,h,-w*framing,0,w,h);camera.updateProjectionMatrix();camera.updateMatrixWorld();
+      camera.aspect=w/h;camera.updateProjectionMatrix();camera.updateMatrixWorld();
       renderer.render(scene,camera); project();
       // Every page exists in the room before a camera move; no arrival-time swap.
       presentations.current.forEach((page,id)=>{
@@ -166,7 +165,7 @@ export default function StudioCanvas(props: Props) {
       element.dataset.transition=String(animating);element.dataset.orbit=orbit.toFixed(3);element.dataset.zoom=zoom.toFixed(3);element.dataset.flying=String(flying);element.dataset.ambient=String(ambient);
       element.dataset.cameraPosition=camera.position.toArray().map(v=>v.toFixed(4)).join(",");
       if(dirty){dirty=false;setStatus("ready");}boot=false;
-      settling=Math.abs(framing-(state.overview?.135:0))>.0001||fitting||flying||Math.abs(open-noteGoal)>.002||Math.abs(dusk-lightGoal)>.002;
+      settling=fitting||flying||Math.abs(open-noteGoal)>.002||Math.abs(dusk-lightGoal)>.002;
       if(animating||settling||ambient)raf=requestAnimationFrame(frame);
     }
     function wake() { urgent = true; if (!raf && !disposed && !contextLost) { last = 0; raf = requestAnimationFrame(frame); } }
@@ -224,16 +223,14 @@ export default function StudioCanvas(props: Props) {
   }, [retry]);
   useEffect(() => { if(status==="fallback"){if(host.current)host.current.dataset.transition="false";presentations.current.forEach((page,id)=>{const active=id===view;page.inert=!active;page.dataset.visible=String(active);page.dataset.interactive=String(active);page.setAttribute("aria-hidden",String(!active));});} },[status,view]);
   const focusObject = (id: ObjectId | null) => { focusedObject.current = id; setHover(id); trigger.current(); };
-  return <div className="studio-scene" ref={host} data-status={status} data-view={view} data-time={timeOfDay} data-breeze={breeze} data-visited={visited.length} data-guided={!exploring} data-sun-angle={sunAngle}>
+  return <div className="studio-scene" ref={host} data-status={status} data-view={view} data-time={timeOfDay} data-breeze={breeze} data-visited={visited.length} data-sun-angle={sunAngle}>
     {props.panels.map(panel=><div key={panel.id} className="studio-surface-host" ref={el=>{if(el)presentations.current.set(panel.id,el);else presentations.current.delete(panel.id);}} data-kind={panel.id} data-active={!overview&&view===panel.id} data-visible="false" data-interactive="false" aria-hidden={overview||view!==panel.id} inert={overview||view!==panel.id}>{panel.content}</div>)}
     {status === "loading" && <div className="studio-loading" role="status"><span className="studio-loader" />庭のあるスタジオへ…</div>}
     {status === "fallback" ? <div className={`studio-fallback ${overview?"":"studio-fallback-compact"}`}><span>TEXT EDITION</span>{overview&&<h2>同じ物語を、ここから。</h2>}<p>3Dを表示できませんでした。内容と操作は、このまま使えます。</p><button onClick={() => { const url = new URL(location.href); url.searchParams.delete("no3d"); history.replaceState(null, "", url); setStatus("loading"); setRetry(n => n + 1); }}>3Dを再読み込み</button><div hidden={!overview}>{objects.map(o => <button key={o.id} onClick={() => select(o.id)}>{o.title} ↗</button>)}</div></div> : <>
-      <div className="studio-object-labels" aria-label="スタジオの物件">{objects.map(o => <button ref={el => { if (el) labels.current.set(o.id, el); else labels.current.delete(o.id); }} key={o.id} data-object={o.id} data-selected={view === o.id} data-hovered={hover === o.id} data-next={!exploring&&o.id===nextObject.id} data-visited={visited.includes(o.id)} data-visible={view === "room" || view === o.id || hover === o.id} className="studio-object" onClick={() => select(o.id)} onFocus={() => focusObject(o.id)} onBlur={() => focusObject(null)} onPointerEnter={() => focusObject(o.id)} onPointerLeave={() => focusObject(null)} aria-label={`${o.title}を開く`}><i className="object-marker" aria-hidden="true">{visited.includes(o.id)?"✓":o.chapter>=0?String(o.chapter+1).padStart(2,"0"):"↗"}</i><span><small>{o.subtitle}</small>{o.title}<b>↗</b></span></button>)}</div>
+      <div className="studio-object-labels" aria-label="スタジオの物件">{objects.map(o => <button ref={el => { if (el) labels.current.set(o.id, el); else labels.current.delete(o.id); }} key={o.id} data-object={o.id} data-selected={view === o.id} data-hovered={hover === o.id} data-visited={visited.includes(o.id)} data-visible={view === "room" || view === o.id || hover === o.id} className="studio-object" onClick={() => select(o.id)} onFocus={() => focusObject(o.id)} onBlur={() => focusObject(null)} onPointerEnter={() => focusObject(o.id)} onPointerLeave={() => focusObject(null)} aria-label={`${o.title}を開く`}><span>{o.title}<b aria-hidden="true">↗</b></span></button>)}</div>
       {overview && status === "ready" && <>
-        <div className="garden-intro"><span>WANG BO / GARDEN WORK STUDIO</span><h1>小さなアイデアを、<br/>動くかたちに。</h1><small>庭のある、私の仕事部屋。</small><p>画像処理からAI Agentへ。<br/>私の仕事と、最近のものづくりを紹介します。</p><button className="garden-start" onClick={()=>{setExploring(false);setVisited([]);select("name");}}>{visited.length===5?"もう一度、案内を見る":"案内をはじめる"}<b>→</b></button><button className="garden-free" aria-pressed={exploring} onClick={()=>setExploring(v=>!v)}>{exploring?"気になる物件を選んでください":"自由に見て回る"} <span>↗</span></button><div className="garden-progress"><span>{visited.length===5?"すべての章をご覧いただきました":visited.length?"現在の章："+objects.find(o=>o.chapter===chapter)?.title:"最初は、テーブルの個人ノートから。"}</span><div role="group" aria-label="五つの内容入口">{storyObjects.map(o=><button key={o.id} aria-label={o.title+"へ"} data-visited={visited.includes(o.id)} onClick={()=>select(o.id)}><span>{visited.includes(o.id)?"✓":String(o.chapter+1).padStart(2,"0")}</span></button>)}</div><small>{visited.length} / 5 CHAPTERS VISITED</small></div></div>
-        <details className="environment-menu"><summary>環境 <span>☼</span></summary><div className="environment-panel"><span>SCENE SETTINGS</span><div className="environment-light" role="group" aria-label="時間帯"><button aria-label="昼の光" aria-pressed={timeOfDay==="day"} onClick={()=>setTimeOfDay("day")}>昼</button><button aria-label="夕暮れの光" aria-pressed={timeOfDay==="dusk"} onClick={()=>setTimeOfDay("dusk")}>夕暮れ</button></div><button className="environment-motion" aria-label="庭の動き" aria-pressed={breeze} onClick={()=>setBreeze(v=>!v)}>植物・小鳥の動き <b>{breeze?"ON":"OFF"}</b></button><label>光の方向 <output>{sunAngle}°</output><input type="range" min="-45" max="45" value={sunAngle} aria-label="光の方向" onChange={e=>setSunAngle(Number(e.target.value))}/></label></div></details>
-        <div className="garden-camera-tools" role="group" aria-label="全景のカメラ"><button aria-label="庭を縮小" onClick={()=>control.current("farther")}>−</button><button aria-label="庭の視点を戻す" onClick={()=>control.current("reset")}>視点を戻す</button><button aria-label="庭を拡大" onClick={()=>control.current("closer")}>＋</button></div>
-        <div className="garden-discovery"><button onClick={discover} aria-label={"小鳥と次の発見へ："+nextObject.title}><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 24c0-8 6-13 14-12 0-6 9-7 11-1l5 3-5 2c-1 10-7 16-16 14l-8 3 2-6-7-6z" fill="currentColor"/></svg><span><small>{visited.length===5?"THANK YOU FOR EXPLORING":"NEXT CHAPTER"}</small>{visited.length===5?"もう一度、ひとめぐり":nextObject.title}<b>↗</b></span></button></div>
+        <button className="garden-start" onClick={()=>{setVisited([]);select("name");}}>はじめる <span aria-hidden="true">↗</span></button>
+        <details className="environment-menu"><summary aria-label="環境設定"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/></svg></summary><div className="environment-panel"><span>SCENE SETTINGS</span><div className="environment-light" role="group" aria-label="時間帯"><button aria-label="昼の光" aria-pressed={timeOfDay==="day"} onClick={()=>setTimeOfDay("day")}>昼</button><button aria-label="夕暮れの光" aria-pressed={timeOfDay==="dusk"} onClick={()=>setTimeOfDay("dusk")}>夕暮れ</button></div><button className="environment-motion" aria-label="庭の動き" aria-pressed={breeze} onClick={()=>setBreeze(v=>!v)}>植物・小鳥の動き <b>{breeze?"ON":"OFF"}</b></button><label>光の方向 <output>{sunAngle}°</output><input type="range" min="-45" max="45" value={sunAngle} aria-label="光の方向" onChange={e=>setSunAngle(Number(e.target.value))}/></label><div className="garden-camera-tools" role="group" aria-label="全景のカメラ"><button aria-label="庭を縮小" onClick={()=>control.current("farther")}>−</button><button aria-label="庭の視点を戻す" onClick={()=>control.current("reset")}>視点を戻す</button><button aria-label="庭を拡大" onClick={()=>control.current("closer")}>＋</button></div></div></details>
 
       </>}
     </>}
