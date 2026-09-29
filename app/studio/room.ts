@@ -323,6 +323,20 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const warm= new THREE.MeshStandardMaterial({color:"#ffdfae",emissive:"#ffc67d",emissiveIntensity:.6});
   sphere([.036,.045,.036],[-.34,1.65,0],warm,floorLamp);
   const readingLight=new THREE.PointLight("#ffdab0",.32,2.4,2);readingLight.position.set(-.34,1.59,0);floorLamp.add(readingLight);
+  // Window shafts and illuminated particles use soft local gradients, not a fullscreen wash.
+  const lightStudy=new THREE.Group();lightStudy.position.set(-2.88,1.98,-.8);root.add(lightStudy);
+  const shaftMap=texture(c=>{const g=c.createLinearGradient(0,0,0,512);g.addColorStop(0,"rgba(255,235,178,.3)");g.addColorStop(.7,"rgba(255,240,202,.055)");g.addColorStop(1,"rgba(255,245,221,0)");c.fillStyle=g;c.fillRect(0,0,512,512);});
+  const shaftMat=new THREE.MeshBasicMaterial({map:shaftMap,color:"#ffe9b4",transparent:true,opacity:.34,depthWrite:false,side:THREE.DoubleSide,blending:THREE.AdditiveBlending});
+  for(let i=0;i<3;i++){
+    const geo=new THREE.BufferGeometry();geo.setAttribute("position",new THREE.Float32BufferAttribute([0,.2,i*.3,0,.2,i*.3+.12,2.4,-1.9,i*.3+.45,2.4,-1.9,i*.3-.15],3));geo.setAttribute("uv",new THREE.Float32BufferAttribute([0,1,1,1,1,0,0,0],2));geo.setIndex([0,1,2,0,2,3]);geometries.set(`light-shaft-${i}`,geo);
+    const beam=mesh(geo,shaftMat,[0,0,0],lightStudy);beam.castShadow=false;beam.receiveShadow=false;
+  }
+  const dustMap=texture(c=>{const g=c.createRadialGradient(256,256,0,256,256,256);g.addColorStop(0,"rgba(255,249,215,1)");g.addColorStop(.2,"rgba(255,249,215,.6)");g.addColorStop(1,"rgba(255,249,215,0)");c.fillStyle=g;c.fillRect(0,0,512,512);});
+  const dustGeo=new THREE.BufferGeometry(),dustPositions=[];
+  for(let i=0;i<64;i++){const u=((i*37)%67)/67;dustPositions.push(u*2.2,-u*1.75+Math.sin(i*2.3)*.1,((i*19)%61)/61*.8);}
+  dustGeo.setAttribute("position",new THREE.Float32BufferAttribute(dustPositions,3));geometries.set("window-dust",dustGeo);
+  const dustMat=new THREE.PointsMaterial({map:dustMap,color:"#fff3cd",size:.025,transparent:true,opacity:.5,depthWrite:false,blending:THREE.AdditiveBlending});
+  const dust=new THREE.Points(dustGeo,dustMat);lightStudy.add(dust);
   // The framed portfolio is also the opening presentation surface.
   const boardFace=new THREE.Object3D();boardFace.position.set(0,0,.103);board.add(boardFace);
   const surfaces: Partial<Record<ViewId,{face:THREE.Object3D;group:THREE.Group;width:number;height:number}>> = {
@@ -342,7 +356,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const sun=new THREE.DirectionalLight("#fff0d8",3.1);sun.position.set(-3.7,6.5,4.8);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-4.8;sun.shadow.camera.right=4.8;sun.shadow.camera.top=4.8;sun.shadow.camera.bottom=-4.8;sun.shadow.normalBias=.012;sun.shadow.bias=-.00015;sun.shadow.radius=4;root.add(sun);
   const fill=new THREE.DirectionalLight("#d7e2ed",1.1);fill.position.set(5,4,2);root.add(fill);
   // Batch static meshes by material and interaction owner. Animated joints stay separate.
-  const dynamic=new Set<THREE.Object3D>([cover,name,art,notebook,board,monitor,checklist,...boardPins,...checks]);
+  const dynamic=new Set<THREE.Object3D>([cover,name,art,notebook,board,monitor,checklist,lightStudy,...boardPins,...checks]);
   const batches=new Map<string,{material:THREE.Material;id?:string;shadow:boolean;meshes:THREE.Mesh[]}>();
   root.updateMatrixWorld(true);
   root.traverse(o=>{if(!(o instanceof THREE.Mesh)||Array.isArray(o.material))return;let parent:THREE.Object3D|null=o,id:string|undefined;while(parent){if(dynamic.has(parent))return;if(parent.userData.objectId)id=parent.userData.objectId;parent=parent.parent;}const key=o.material.uuid+id+o.castShadow;let b=batches.get(key);if(!b){b={material:o.material,id,shadow:o.castShadow,meshes:[]};batches.set(key,b);}b.meshes.push(o);});
@@ -360,7 +374,10 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
       if(Math.abs(next-goal)>.0001)changing=true;
     }
     root.updateMatrixWorld(true);return changing;
-  }, setLight(dusk:number) {
+  }, setLight(dusk:number,angle=0,time=0,motion=false) {
+    sun.position.set(-3.7,6.5,4.8).applyAxisAngle(new THREE.Vector3(0,1,0),angle*Math.PI/180);
+    lightStudy.rotation.y=angle*Math.PI/180;shaftMat.opacity=.34*(1-dusk*.8);dustMat.opacity=.5*(1-dusk*.7);
+    dust.position.y=motion?Math.sin(time*.25)*.06:0;dust.rotation.y=motion?Math.sin(time*.13)*.025:0;
     sun.color.lerpColors(daySun,duskSun,dusk); sun.intensity=3.1-dusk*1.5;
     hemi.color.lerpColors(daySky,duskSky,dusk); hemi.intensity=1.25-dusk*.48;
     fill.intensity=1.1-dusk*.64; readingLight.intensity=.32+dusk*1.8;
@@ -370,9 +387,10 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     boardPins.forEach((p,i)=>p.scale.set(.023,.023,.014).multiplyScalar(i===selected?1.6:1));
     checks.forEach((p,i)=>{p.material=review&(1<<i)?olive:blue;});
     name.rotation.y=hover==="name"?.14:0;
-    if(agentStep>=0&&agentStep!==screenStep){screenStep=agentStep;const c=(screenTex.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#243a38";c.fillRect(0,0,1024,512);c.fillStyle="#93bbaa";c.font="23px monospace";c.fillText("MECHANISM DEMO / NO LIVE AI",45,58);c.fillStyle="#f2edda";c.font="62px Georgia";c.fillText(["Goal","Plan","Act","Observe","Act / Repair","Verify","Deliver"][agentStep],45,152);c.fillStyle="#8daf9e";c.font="25px monospace";c.fillText("Build a small report page.",45,207);const fail=agentStep===2||agentStep===3;c.strokeStyle=fail?"#dba97e":"#8db6a0";c.lineWidth=3;c.strokeRect(50,245,440,202);c.fillStyle=fail?"#c88e6c":"#7ba78f";c.fillRect(75,349,fail?510:389,57);c.fillStyle="#f7f1d9";c.font="27px monospace";c.fillText(fail?"380px > 320px":"fits inside 320px",620,304);c.font="34px Georgia";c.fillText(fail?"Check, then repair.":agentStep>=5?"Ready for review.":"Make. Try. Improve.",595,391);screenTex.needsUpdate=true;}
+    if(agentStep>=0&&agentStep!==screenStep){screenStep=agentStep;const c=(screenTex.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#183731";c.fillRect(0,0,1024,512);c.fillStyle="#dbe8bc";c.font="32px monospace";c.fillText("LOG ANALYSIS / LOCAL DEMO",48,75);c.font="60px Georgia";c.fillText(["Goal","Plan","Read","Validate","Aggregate","Verify","Report"][agentStep],48,165);[12.4,9.8,14.1].forEach((v,i)=>{c.fillStyle="#9dc5a5";c.fillRect(48,220+i*65,v*35,32);c.fillStyle="#e2ebd1";c.font="24px monospace";c.fillText(v.toFixed(1)+" ms",570,245+i*65);});screenTex.needsUpdate=true;}
+
   }, dispose(){
-    garden.root.removeFromParent(); garden.dispose();
+    garden.root.removeFromParent(); garden.dispose();dustMat.dispose();
     const allMats=new Set<THREE.Material>();root.traverse(o=>{if(o instanceof THREE.Mesh){o.geometry.dispose();(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>allMats.add(m));}});geometries.forEach(g=>g.dispose());allMats.forEach(m=>m.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());finishes.dispose();
   } };
 }

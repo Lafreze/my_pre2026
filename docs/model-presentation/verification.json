@@ -1,8 +1,8 @@
 {
   "date": "2026-09-29",
   "target": "Production static export at http://127.0.0.1:5180/",
-  "checks": 43,
-  "passed": 43,
+  "checks": 46,
+  "passed": 46,
   "suites": {
     "story": {
       "results": [
@@ -27,7 +27,11 @@
           "pass": true
         },
         {
-          "name": "agent execution shows a real width failure, repair, replay, pause and reset",
+          "name": "agent summary is clickable, computes both datasets and supports step playback",
+          "pass": true
+        },
+        {
+          "name": "ViT patches separate and selected tokens update the explanation",
           "pass": true
         },
         {
@@ -2603,7 +2607,7 @@
           "height": 950.206298828125,
           "body": 820,
           "overflow": false,
-          "verticalOverflow": false,
+          "verticalOverflow": true,
           "bottom": 1065.1031341552734,
           "footerTop": 1111,
           "headerBottom": 70.09375,
@@ -4171,7 +4175,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 552.047004699707,
-          "footerTop": 586.46875,
+          "footerTop": 598,
           "headerBottom": 70.09375,
           "inert": false,
           "mesh": {
@@ -4838,7 +4842,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.0426330566406,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -4867,7 +4871,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -4896,7 +4900,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -4925,7 +4929,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -4954,7 +4958,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -4983,7 +4987,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -5012,7 +5016,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -5041,7 +5045,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -5070,7 +5074,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -5099,7 +5103,7 @@
           "overflow": false,
           "verticalOverflow": true,
           "bottom": 476.01226806640625,
-          "footerTop": 497.4375,
+          "footerTop": 504,
           "headerBottom": 58.296875,
           "inert": false,
           "mesh": {
@@ -7475,6 +7479,14 @@
           "pass": true
         },
         {
+          "name": "five live surfaces stay mounted from overview through the camera move",
+          "pass": true
+        },
+        {
+          "name": "light direction changes the illuminated room without moving the camera",
+          "pass": true
+        },
+        {
           "name": "little bird discovers all six objects, saves visits and starts a fresh tour",
           "pass": true
         },
@@ -7503,13 +7515,13 @@
       "metrics": [
         {
           "mode": "ambient",
-          "renderedFrames": 33,
+          "renderedFrames": 34,
           "milliseconds": 1100
         },
         {
           "mode": "notebook",
-          "drawCalls": 58,
-          "triangles": 395786,
+          "drawCalls": 65,
+          "triangles": 395798,
           "quality": "standard"
         }
       ]

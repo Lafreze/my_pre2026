@@ -6,22 +6,23 @@ import { buildRoom } from "./room";
 import { cameras, objects, type ObjectId, type ViewId } from "./content";
 import { presentationSize, projectSurface, SURFACE_SCALE } from "./projection";
 
-type Props = { children: ReactNode; overview: boolean; view: ViewId; chapter: number; paused: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; skipToken: number; agentStep: number; };
+type Props = { panels: {id:ViewId;content:ReactNode}[]; overview: boolean; view: ViewId; chapter: number; paused: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; skipToken: number; agentStep: number; };
 type SceneCommand = "closer" | "farther" | "reset";
 
 export default function StudioCanvas(props: Props) {
   const { view, chapter, onSelect, overview } = props;
-  const host = useRef<HTMLDivElement>(null), presentation = useRef<HTMLDivElement>(null), labels = useRef(new Map<ObjectId, HTMLButtonElement>());
+  const host = useRef<HTMLDivElement>(null), presentations = useRef(new Map<ViewId, HTMLDivElement>()), labels = useRef(new Map<ObjectId, HTMLButtonElement>());
   const trigger = useRef<() => void>(() => {}), control = useRef<(command: SceneCommand) => void>(() => {});
   const focusedObject = useRef<ObjectId | null>(null);
   const [status, setStatus] = useState("loading"), [retry, setRetry] = useState(0), [hover, setHover] = useState<ObjectId | null>(null);
   const [timeOfDay, setTimeOfDay] = useState<"day" | "dusk">("day"), [breeze, setBreeze] = useState(true);
+  const [sunAngle,setSunAngle]=useState(0);
   const [visited, setVisited] = useState<ObjectId[]>([]), [stored, setStored] = useState(false);
   const visit = useCallback((id: ObjectId) => setVisited(old => old.includes(id) ? old : [...old, id]), []);
   const select = useCallback((id: ObjectId) => { visit(id); onSelect(id); }, [onSelect, visit]);
   const nextObject = objects.find(o => !visited.includes(o.id)) || objects[0];
   const discover = useCallback(() => { if (visited.length === objects.length) setVisited([]); select(nextObject.id); }, [visited.length, select, nextObject.id]);
-  const latest = useRef({ ...props, timeOfDay, breeze, select, discover });
+  const latest = useRef({ ...props, timeOfDay, breeze, sunAngle, select, discover });
   useEffect(() => {
     const init = requestAnimationFrame(() => {
       try {
@@ -37,8 +38,8 @@ export default function StudioCanvas(props: Props) {
     if (view === "room") return;
     const id = requestAnimationFrame(() => visit(view)); return () => cancelAnimationFrame(id);
   }, [view, visit]);
-  useLayoutEffect(() => { if(presentation.current){presentation.current.dataset.visible="false";presentation.current.inert=true;} }, [view]);
-  useEffect(() => { latest.current = { ...props, timeOfDay, breeze, select, discover }; trigger.current(); }, [props, timeOfDay, breeze, select, discover]);
+  useLayoutEffect(() => { if(host.current)host.current.dataset.transition="true"; presentations.current.forEach(page=>{page.inert=true;page.dataset.interactive="false";}); }, [view]);
+  useLayoutEffect(() => { latest.current = { ...props, timeOfDay, breeze, sunAngle, select, discover }; trigger.current(); }, [props, timeOfDay, breeze, sunAngle, select, discover]);
   useEffect(() => {
     const element = host.current!;
     if (new URLSearchParams(location.search).has("no3d")) { const fallback = requestAnimationFrame(() => setStatus("fallback")); return () => cancelAnimationFrame(fallback); }
@@ -57,7 +58,7 @@ export default function StudioCanvas(props: Props) {
     const camera = new THREE.PerspectiveCamera(34, 1, .01, 80);
     let previousView: ViewId = latest.current.view;
     let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 2000, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
-    let open = 0, dusk = 0, orbit = 0, zoom = 1;
+    let open = 0, dusk = 0, orbit = 0, zoom = 1, lightAngle = 0;
     const sourcePosition = camera.position.clone(), sourceQuaternion = camera.quaternion.clone();
     let skip = latest.current.skipToken, shadowOpen = -1, slowFrames = 0, wasFlying = false, wasFitting = false;
     const destination = new THREE.PerspectiveCamera(34, 1, .01, 80);
@@ -105,12 +106,13 @@ export default function StudioCanvas(props: Props) {
         previousView = state.view; orbit = 0; zoom = 1; animating = !boot; resized = false;
       }
       const activeHover = focusedObject.current || hoverId;
-      const noteGoal = state.view === "notebook" ? 1 : activeHover === "notebook" ? .12 : 0;
+      const noteGoal = state.view === "notebook" ? 1 : .88;
       open = finish || boot ? noteGoal : THREE.MathUtils.damp(open, noteGoal, 6, dt / 1000);
       room.animate(open, state.boardStep, state.review, activeHover, state.view === "monitor" ? state.agentStep : -1);
       const fitting = room.fitSurfaces(state.view, size.width / size.height, dt / 1000, finish || boot);
       const lightGoal = state.timeOfDay === "dusk" ? 1 : 0; dusk = finish ? lightGoal : THREE.MathUtils.damp(dusk, lightGoal, 5, dt / 1000);
-      room.setLight(dusk); scene.environmentIntensity = .55 - dusk * .18; renderer.toneMappingExposure = 1.02 - dusk * .07;
+      if(lightAngle!==state.sunAngle){renderer.shadowMap.needsUpdate=true;lightAngle=state.sunAngle;}
+      room.setLight(dusk,state.sunAngle,elapsed,ambient); scene.environmentIntensity = .55 - dusk * .18; renderer.toneMappingExposure = 1.02 - dusk * .07;
       const flying = room.garden.update(elapsed, dt / 1000, state.view, ambient, dusk, finish);
       room.garden.bird.visible = state.overview;
       if (Math.abs(open - shadowOpen) > .3 || wasFlying && !flying || wasFitting && !fitting) { renderer.shadowMap.needsUpdate = true; shadowOpen = open; }
@@ -140,13 +142,19 @@ export default function StudioCanvas(props: Props) {
       } else { camera.position.copy(destination.position); camera.quaternion.copy(destination.quaternion); }
       camera.aspect=w/h; camera.updateProjectionMatrix(); camera.updateMatrixWorld();
       renderer.render(scene,camera); project();
-      const page=presentation.current;
-      if(page) {
-        const placed=surface?projectSurface(page,surface.face,surface.width,surface.height,camera,w,h,size.width,size.height):false;
-        const visible=placed&&!state.overview&&!animating;
-        page.dataset.visible=String(visible);page.inert=!visible;page.setAttribute("aria-hidden",String(!visible));
-        if(visible && (boot || element.dataset.transition==="true")) page.querySelector<HTMLElement>("h1")?.focus({preventScroll:true});
-      }
+      // Every page exists in the room before a camera move; no arrival-time swap.
+      presentations.current.forEach((page,id)=>{
+        const target=room.surfaces[id];
+        const normal=target?new THREE.Vector3(0,0,1).applyQuaternion(target.face.getWorldQuaternion(new THREE.Quaternion())):null;
+        const center=target?.face.getWorldPosition(new THREE.Vector3());
+        const facing=normal&&center&&normal.dot(camera.position.clone().sub(center))>0;
+        const placed=target&&facing?projectSurface(page,target.face,target.width,target.height,camera,w,h,size.width,size.height):false;
+        const active=id===state.view&&!state.overview,interactive=!!placed&&active&&!animating;
+        page.dataset.visible=String(!!placed);page.dataset.interactive=String(interactive);
+        page.inert=!interactive;page.setAttribute("aria-hidden",String(!interactive));
+        page.style.zIndex=active?"7":String(Math.max(2,6-Math.floor(camera.position.distanceTo(center||camera.position)/3)));
+        if(interactive&&(boot||element.dataset.transition==="true"))page.querySelector<HTMLElement>("h1")?.focus({preventScroll:true});
+      });
       element.dataset.frames=String(++frames);element.dataset.drawCalls=String(renderer.info.render.calls);element.dataset.triangles=String(renderer.info.render.triangles);
       element.dataset.transition=String(animating);element.dataset.orbit=orbit.toFixed(3);element.dataset.zoom=zoom.toFixed(3);element.dataset.flying=String(flying);element.dataset.ambient=String(ambient);
       element.dataset.cameraPosition=camera.position.toArray().map(v=>v.toFixed(4)).join(",");
@@ -207,10 +215,10 @@ export default function StudioCanvas(props: Props) {
       room.dispose(); environment.dispose(); renderer.dispose(); canvas.remove();
     };
   }, [retry]);
-  useEffect(() => { if(status==="fallback"&&presentation.current){presentation.current.inert=false;presentation.current.setAttribute("aria-hidden","false");} },[status,view]);
+  useEffect(() => { if(status==="fallback"){if(host.current)host.current.dataset.transition="false";presentations.current.forEach((page,id)=>{const active=id===view;page.inert=!active;page.setAttribute("aria-hidden",String(!active));});} },[status,view]);
   const focusObject = (id: ObjectId | null) => { focusedObject.current = id; setHover(id); trigger.current(); };
-  return <div className="studio-scene" ref={host} data-status={status} data-view={view} data-time={timeOfDay} data-breeze={breeze} data-visited={visited.length}>
-    <div className="studio-surface-host" ref={presentation} data-kind={view} data-visible="false">{!overview && props.children}</div>
+  return <div className="studio-scene" ref={host} data-status={status} data-view={view} data-time={timeOfDay} data-breeze={breeze} data-visited={visited.length} data-sun-angle={sunAngle}>
+    {props.panels.map(panel=><div key={panel.id} className="studio-surface-host" ref={el=>{if(el)presentations.current.set(panel.id,el);else presentations.current.delete(panel.id);}} data-kind={panel.id} data-active={!overview&&view===panel.id} data-visible="false" data-interactive="false" aria-hidden={overview||view!==panel.id} inert={overview||view!==panel.id}>{panel.content}</div>)}
     {status === "loading" && <div className="studio-loading" role="status"><span className="studio-loader" />庭のあるスタジオへ…</div>}
     {status === "fallback" ? <div className={`studio-fallback ${overview?"":"studio-fallback-compact"}`}><span>TEXT EDITION</span>{overview&&<h2>同じ物語を、ここから。</h2>}<p>3Dを表示できませんでした。内容と操作は、このまま使えます。</p><button onClick={() => { const url = new URL(location.href); url.searchParams.delete("no3d"); history.replaceState(null, "", url); setStatus("loading"); setRetry(n => n + 1); }}>3Dを再読み込み</button><div hidden={!overview}>{objects.map(o => <button key={o.id} onClick={() => select(o.id)}>{o.title} ↗</button>)}</div></div> : <>
       <div className="studio-object-labels" aria-label="スタジオの物件">{objects.map(o => <button ref={el => { if (el) labels.current.set(o.id, el); else labels.current.delete(o.id); }} key={o.id} data-object={o.id} data-selected={view === o.id} data-hovered={hover === o.id} data-next={o.chapter === chapter + 1} data-visited={visited.includes(o.id)} data-visible={view === "room" || view === o.id || hover === o.id} className="studio-object" onClick={() => select(o.id)} onFocus={() => focusObject(o.id)} onBlur={() => focusObject(null)} onPointerEnter={() => focusObject(o.id)} onPointerLeave={() => focusObject(null)} aria-label={`${o.title}を開く`}><span><small>{o.subtitle}</small>{o.title}<b>↗</b></span></button>)}</div>
@@ -221,6 +229,7 @@ export default function StudioCanvas(props: Props) {
           <button className="garden-breeze" aria-pressed={breeze} aria-label="庭の動き" onClick={() => setBreeze(v => !v)}><span aria-hidden="true">{breeze ? "Ⅱ" : "▷"}</span>{breeze ? "ひと休み" : "風を感じる"}</button>
           <div className="garden-camera" role="group" aria-label="全景のカメラ"><button aria-label="庭を縮小" onClick={() => control.current("farther")}>−</button><button aria-label="庭の視点を戻す" onClick={() => control.current("reset")}>⌖</button><button aria-label="庭を拡大" onClick={() => control.current("closer")}>＋</button></div>
         </div>
+        <label className="garden-light-study"><span>LIGHT STUDY <small>光の方向</small></span><input type="range" min="-45" max="45" value={sunAngle} aria-label="光の方向" onChange={e=>setSunAngle(Number(e.target.value))}/><output>{sunAngle}°</output></label>
         <div className="garden-discovery"><button onClick={discover} aria-label={`小鳥と次の発見へ：${nextObject.title}`}><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 24c0-8 6-13 14-12 0-6 9-7 11-1l5 3-5 2c-1 10-7 16-16 14l-8 3 2-6-7-6z" fill="currentColor" /><circle cx="29" cy="11" r="1.2" fill="#fff9df" /><path d="M13 19q3 8 12 3" fill="none" stroke="#fff9df" strokeWidth="1.5" /></svg><span><small>{visited.length === objects.length ? "THANK YOU FOR EXPLORING" : "FOLLOW THE LITTLE BIRD"}</small>{visited.length === objects.length ? "もう一度、ひとめぐり" : "次の発見へ"}<b>↗</b></span><span className="studio-sr" aria-live="polite">{visited.length} / {objects.length} 個を探索</span></button><p>ドラッグで回転 · スクロール / ピンチで拡大</p></div>
       </>}
     </>}

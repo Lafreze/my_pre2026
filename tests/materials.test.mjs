@@ -77,9 +77,9 @@ try {
     await failed.locator('.studio-scene[data-status=ready]').waitFor();
     await failed.getByRole('button', { name: '全景に戻る', exact: true }).click();
     await failed.locator('[data-object=monitor]').click();
-    await failed.getByRole('tab', { name: '動きをみる' }).click();
-    await failed.getByRole('button', { name: '次のステップ →', exact: true }).click();
-    assert.ok((await failed.locator('.studio-step-text').innerText()).includes('小さく分ける'));
+    await failed.getByRole('tab', { name: '実行例' }).click();
+    await failed.getByRole('button', { name: '次の工程 →', exact: true }).click();
+    assert.ok((await failed.locator('.execution-detail').innerText()).includes('処理手順を分解'));
     await failed.close();
   });
   await check('no WebGL shader errors or browser exceptions', async () => assert.deepEqual(errors, []));

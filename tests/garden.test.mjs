@@ -38,6 +38,22 @@ try {
     await page.keyboard.press('Enter');await page.locator('.studio-scene[data-view=name][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();
     await page.mouse.move(0,0);await page.getByRole('button',{name:'昼の光',exact:true}).focus();await page.screenshot({path:`${output}/unmarked-overview.png`});
   });
+  await check('five live surfaces stay mounted from overview through the camera move',async()=>{
+    assert.equal(await page.locator('.studio-surface-host').count(),5);
+    await page.waitForFunction(()=>[...document.querySelectorAll('.studio-surface-host')].every(e=>e.dataset.visible==='true'));
+    await page.evaluate(()=>window.surfaceNodes=[...document.querySelectorAll('.model-presentation')]);
+    await page.locator('[data-object=name]').click();await page.locator('.studio-surface-host[data-kind=name][data-interactive=true]').waitFor();
+    assert.ok(await page.evaluate(()=>window.surfaceNodes.every((e,i)=>e===document.querySelectorAll('.model-presentation')[i])));
+    await page.getByRole('button',{name:'全景に戻る',exact:true}).click();
+  });
+  await check('light direction changes the illuminated room without moving the camera',async()=>{
+    await page.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();
+    const camera=await scene.getAttribute('data-camera-position');
+    await page.getByRole('slider',{name:'光の方向',exact:true}).fill('-35');await page.waitForTimeout(100);
+    const first=await page.screenshot();await page.getByRole('slider',{name:'光の方向',exact:true}).fill('35');await page.waitForTimeout(100);
+    assert.equal(await scene.getAttribute('data-sun-angle'),'35');assert.equal(await scene.getAttribute('data-camera-position'),camera);assert.ok(!first.equals(await page.screenshot()));
+    await page.screenshot({path:`${output}/light-study.png`});await page.getByRole('slider',{name:'光の方向',exact:true}).fill('0');
+  });
   await check('little bird discovers all six objects, saves visits and starts a fresh tour', async () => {
     for (const [i, id] of ['notebook', 'board', 'monitor', 'checklist', 'library'].entries()) {
       await page.locator('.garden-discovery>button').click();
