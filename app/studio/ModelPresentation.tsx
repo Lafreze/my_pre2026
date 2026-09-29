@@ -1,13 +1,12 @@
 "use client";
 import { useLayoutEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
 import { LLMDevelopment, ProductJourney, ProductAdvantage } from "./StoryPanels";
-import { agentDetails } from "./storyDetails";
-import AgentExperiment from "./AgentExperiment";
+import AgentArchitecture from "./AgentArchitecture";
 import VisionExperiment from "./VisionExperiment";
-import { agentParts, chapters } from "./content";
+import { chapters } from "./content";
 type Set<T> = Dispatch<SetStateAction<T>>;
 type Props = {
-  chapter:number; profile:{name:string;romanName:string}; board:number;setBoard:Set<number>;
+  chapter:number; active:boolean; profile:{name:string;romanName:string}; board:number;setBoard:Set<number>;
   agentTab:"parts"|"loop";setAgentTab:Set<"parts"|"loop">;part:number;setPart:Set<number>;
   step:number;setStep:Set<number>;playing:boolean;setPlaying:Set<boolean>;
   application:number;setApplication:Set<number>;
@@ -19,7 +18,7 @@ const evolution = [
   {name:"Agent",label:"結果を見て、進める",date:"MY CODING AGENT JOURNEY",title:"Coding Agentによる実装と検証",text:"OpenClawでの個人Agentづくりを経て、Claude CodeやCodexを活用。自分の利用環境では、任せられる一連の作業が広がった。",flow:["目標と計画","実行と観察","修正・完了"],note:"私の利用体験の流れ。研究史や各製品の登場順を表すものではありません。"},
 ];
 export default function ModelPresentation(p:Props) {
-  const c=chapters[p.chapter], part=agentParts[p.part], detail=agentDetails[p.part];
+  const c=chapters[p.chapter];
   const [llmTab,setLLMTab]=useState<"history"|"personal">("history"),[era,setEra]=useState(0),[productTab,setProductTab]=useState<"process"|"value">("process");
   const scroll=useRef<HTMLDivElement>(null);
   useLayoutEffect(()=>{if(scroll.current)scroll.current.scrollTop=0;},[p.chapter,llmTab,productTab]);
@@ -44,11 +43,8 @@ export default function ModelPresentation(p:Props) {
         <p className="model-annotation">{evolution[p.board].note}</p><a className="model-source" href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noreferrer">仕組みの背景：Building effective agents ↗</a></>}
       </>}
       {p.chapter===3&&<>
-        <div className="screen-heading"><div><span className="model-eyebrow">ARCHITECTURE / EXECUTION</span><h1 tabIndex={-1}>Agentの構成と実行過程</h1></div><div className="screen-tabs" role="tablist" aria-label="Agentの説明"><button role="tab" aria-selected={p.agentTab==="parts"} onClick={()=>{p.setAgentTab("parts");p.setPlaying(false);}}>構成</button><button role="tab" aria-selected={p.agentTab==="loop"} onClick={()=>p.setAgentTab("loop")}>実行例</button></div></div>
-        {p.agentTab==="parts"?<>
-          <div className="agent-system" data-part={part.id}><svg className="agent-connections" viewBox="0 0 900 260" preserveAspectRatio="none" aria-hidden="true"><path d="M180 65H340Q365 65 365 90V130H450M720 65H560Q535 65 535 90V130H450M180 200H340Q365 200 365 175V130M720 200H560Q535 200 535 175V130"/><circle cx="450" cy="130" r="94"/></svg>{agentParts.map((item,i)=><button key={item.id} className={`agent-component agent-${item.id}`} aria-pressed={p.part===i} onClick={()=>p.setPart(i)}><i>{item.icon}</i><span><strong>{item.name}</strong><small>{item.ja}</small></span>{item.id==="model"&&<em>LLM</em>}</button>)}</div>
-          <div className="agent-part-detail" aria-live="polite"><div className="agent-part-summary"><span>{part.name}<small>{part.ja}</small></span><p>{part.detail}</p></div><div className="agent-part-io"><div><small>INPUT</small><p>{detail.input}</p></div><span aria-hidden="true">↓</span><div><small>OUTPUT</small><p>{detail.output}</p></div></div><div className="agent-part-design"><small>設計するときに</small><p>{detail.design}</p><code>{detail.example}</code></div></div><div className="agent-data-flow" aria-label="情報が流れる順序"><span>指示</span><b>→</b><span>文脈</span><b>→</b><span>モデル</span><b>→</b><span>ツール</span><b>→</b><span>観測・検証</span><b>↻</b></div><p className="screen-note">役割を理解するための整理。すべてのAgentに同じ構成や長期記憶が必須という意味ではありません。</p>
-        </>:<AgentExperiment step={p.step} setStep={p.setStep} playing={p.playing} setPlaying={p.setPlaying}/>}
+        <div className="screen-heading"><div><span className="model-eyebrow">ARCHITECTURE / EXECUTION</span><h1 tabIndex={-1}>Agentの構成と実行過程</h1></div><div className="screen-tabs" role="tablist" aria-label="Agentの説明"><button role="tab" aria-selected={p.agentTab==="parts"} onClick={()=>{p.setAgentTab("parts");p.setPlaying(false);}}>構成を見る</button><button role="tab" aria-selected={p.agentTab==="loop"} onClick={()=>p.setAgentTab("loop")}>動きを見る</button></div></div>
+        <AgentArchitecture mode={p.agentTab} part={p.part} setPart={p.setPart} step={p.step} setStep={p.setStep} playing={p.playing} setPlaying={p.setPlaying} active={p.active}/>
       </>}
       {p.chapter===4&&<>
         <div className="chapter-panel-heading"><div className="application-heading"><span className="model-eyebrow">FROM AN IDEA TO A USEFUL PRODUCT</span><h1 tabIndex={-1}>{productTab==="process"?"AIを活用した製品開発":"製品開発における競争力"}</h1></div><div className="paper-tabs" role="tablist" aria-label="製品づくりと競争力"><button role="tab" aria-selected={productTab==="process"} onClick={()=>setProductTab("process")}>開発プロセス</button><button role="tab" aria-selected={productTab==="value"} onClick={()=>setProductTab("value")}>競争力</button></div></div>

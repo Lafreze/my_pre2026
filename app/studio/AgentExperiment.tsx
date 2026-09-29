@@ -1,29 +1,25 @@
 "use client";
-import { useState, type Dispatch, type SetStateAction } from "react";
 import { agentSteps } from "./content";
-type Props={step:number;setStep:Dispatch<SetStateAction<number>>;playing:boolean;setPlaying:Dispatch<SetStateAction<boolean>>};
-const samples=[[12.4,9.8,14.1],[12.4,28.6,14.1]];
-export default function AgentExperiment({step,setStep,playing,setPlaying}:Props){
- const [sample,setSample]=useState(0);
- const values=samples[sample],mean=values.reduce((a,b)=>a+b,0)/values.length,min=Math.min(...values),max=Math.max(...values),complete=step===6;
- const select=(n:number)=>{setPlaying(false);setStep(n);};
- return <div className="agent-experiment">
-  <div className="log-analysis" data-complete={complete}>
-   <div className="log-title"><span><i/> LOG ANALYSIS</span><small>サンプルデータ</small></div>
-   <div className="sample-controls" role="group" aria-label="計測データ"><button aria-pressed={sample===0} onClick={()=>{setSample(0);select(0);}}>データ A</button><button aria-pressed={sample===1} onClick={()=>{setSample(1);select(0);}}>データ B</button><span>処理時間 / ms</span></div>
-   <div className="sample-chart" aria-label="3件の処理時間">{values.map((value,i)=><div key={i}><span>RUN {String(i+1).padStart(2,"0")}</span><div><i style={{width:`${value/30*100}%`}}/></div><strong>{value.toFixed(1)}</strong></div>)}</div>
-   <div className="analysis-result" aria-live="polite"><div><small>平均</small><strong>{complete?mean.toFixed(1):"—"}<span> ms</span></strong></div><div><small>最小 / 最大</small><strong>{complete?`${min.toFixed(1)} / ${max.toFixed(1)}`:"—"}<span> ms</span></strong></div></div>
-   <button className="summary-action" onClick={()=>select(6)}>{complete?"再計算する":"要約を計算"}<span aria-hidden="true">↗</span></button>
-   <p className="analysis-status">{complete?`3件を集計済み。合計 ${values.reduce((a,b)=>a+b,0).toFixed(1)} ms ÷ 3件。`:"データを選び、要約を計算できます。"}</p>
-   <small className="analysis-method">数値はブラウザー内で計算。生成AIの推論結果ではありません。</small>
+import type { Scenario } from "./AgentArchitecture";
+type Props={step:number;scenario:Scenario;handedOff:boolean};
+export default function AgentExperiment({step,scenario,handedOff}:Props){
+ const item=agentSteps[step],checked=step>=3,corrected=step>=4,verified=step>=5;
+ const title=handedOff?"実行を止め、人に確認":item.title;
+ const action=handedOff?(scenario==="limit"?"検査1回の上限に到達。未解決の不具合と検査記録を渡し、続行の判断を依頼する。":"ブラウザーの利用権限がなく検査できない。権限や代替手段を人に確認する。完了とは扱わない。"):item.action;
+ return <div className="execution-detail" data-outcome={handedOff?"human":step===6?"delivered":"running"} aria-live="polite">
+  <span className="inspector-label">{handedOff?"HUMAN CHECKPOINT":`EXECUTION / ${String(step+1).padStart(2,"0")} OF 07`}</span>
+  <h2>{title}</h2><p>{action}</p>
+  <div className="browser-specimen" data-state={handedOff?"stopped":verified?"verified":corrected?"revised":checked?"overflow":"draft"}>
+    <div className="specimen-topline"><span><i/><i/><i/></span><small>検査対象の模式図</small></div>
+    <svg viewBox="0 0 384 158" role="img" aria-label={corrected?"修正後：ボタンは画面幅の中に収まる":"初稿：ボタンの右端が画面幅を超える"}>
+      <defs><clipPath id="specimen-viewport"><rect width="320" height="158" rx="3"/></clipPath></defs>
+      <rect width="384" height="158" fill="#855d4930"/>
+      <g clipPath="url(#specimen-viewport)"><rect width="320" height="158" fill="#f1edda"/><text x="24" y="40" fill="#345447" fontSize="17">Research notes</text><rect x="24" y="56" width="160" height="5" rx="2" fill="#a0ac91"/><rect x="24" y="70" width="225" height="5" rx="2" fill="#c5ccb3"/><rect className="specimen-button" x="24" y="94" width={corrected?272:360} height="38" rx="5" fill={corrected?"#436752":"#a87352"}/><text x="40" y="118" fill="#fff8e4" fontSize="15">詳細を見る →</text></g>
+      {!corrected&&<rect x="320" y="94" width="64" height="38" fill="#cc927757" stroke="#d3a088" strokeDasharray="4 4"/>}
+      <path d="M320 5V153" stroke={corrected?"#8dab84":"#c98970"} strokeDasharray="3 4"/><text x="324" y="40" fill="#dce5cc" fontSize="13">320px</text>
+    </svg>
+    <p className="specimen-result">{handedOff?"停止中 · 完了の条件を満たしていない":verified?"PASS · 幅の超過なし / クリック応答 OK":corrected?"修正済み · ブラウザーで再確認する":checked?"FAIL · 右端384px > 画面幅320px":"初稿 · 検査前"}</p>
   </div>
-  <div className="execution-explanation">
-   <div className="experiment-caption"><span>実行例</span><small>固定工程のデモ · AI未接続</small></div>
-   <h2>計測ログを読み、統計を報告する</h2>
-   <p className="experiment-intro">入力の確認 → ツールで集計 → 結果の照合。実際のAgentは観測結果に応じて、次の操作を選びます。</p>
-   <div className="execution-track" aria-label="Agentの工程">{agentSteps.map((item,i)=><button key={item.phase+i} aria-label={`${i+1} ${item.title}`} aria-current={i===step?"step":undefined} onClick={()=>select(i)}><span>{i+1}</span><small>{item.phase}</small></button>)}</div>
-   <div className="execution-detail" aria-live="polite"><span>STEP {String(step+1).padStart(2,"0")}</span><h3>{agentSteps[step].title}</h3><p>{agentSteps[step].action}</p><code>{agentSteps[step].code}</code></div>
-   <div className="execution-controls"><button aria-label="前のステップ" disabled={step===0} onClick={()=>select(step-1)}>←</button><button disabled={complete&&!playing} onClick={()=>setPlaying(v=>!v)}>{playing?"一時停止":"工程を再生"}</button><button disabled={complete} onClick={()=>select(step+1)}>次の工程 →</button><button aria-label="Agentデモをリセット" onClick={()=>select(0)}>↺</button></div>
-  </div>
+  <div className="execution-evidence"><span>{handedOff?"人へ渡す情報":step===6?"渡すもの":"操作・観測の記録"}</span><code>{handedOff?scenario==="limit"?"未解決：右端 +64px / 検査 1 / 1":"browser.check → permission denied":item.code}</code></div>
  </div>;
 }

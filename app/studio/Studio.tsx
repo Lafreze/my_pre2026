@@ -6,6 +6,7 @@ import "./studio.css";
 import "./presentation.css";
 import "./chapters.css";
 import "./experiments.css";
+import "./agentArchitecture.css";
 const Canvas=lazy(()=>import("./StudioCanvas"));
 class SceneBoundary extends Component<{children:ReactNode;fallback:ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return {failed:true};}render(){return this.state.failed?<div className="scene-error-page"><p>3Dを準備できませんでした。内容はこのままご覧いただけます。</p>{this.props.fallback}</div>:this.props.children;}}
 const format=(seconds:number)=>`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`;
@@ -30,7 +31,6 @@ export default function Studio(){
   },[]);
   useEffect(()=>{if(!ready)return;try{sessionStorage.setItem("work-studio-v3",JSON.stringify({step}));}catch{/* Storage may be disabled. */}},[ready,step]);
   useEffect(()=>{if(!timer||reference)return;const id=setInterval(()=>setElapsed(s=>s+1),1000);return()=>clearInterval(id);},[timer,reference]);
-  useEffect(()=>{if(!playing||chapter!==3||reference||overview||agentTab!=="loop")return;const id=setInterval(()=>setStep(s=>{if(s>=6){setPlaying(false);return 6;}return s+1;}),2200);return()=>clearInterval(id);},[playing,chapter,reference,overview,agentTab]);
   useEffect(()=>{if(reference){lastFocus.current=document.activeElement as HTMLElement;dialog.current?.showModal();}else{dialog.current?.close();lastFocus.current?.focus();}},[reference]);
   useEffect(()=>{if(notes)notesDialog.current?.showModal();else notesDialog.current?.close();},[notes]);
   const go=useCallback((n:number)=>{setChapter(Math.max(0,Math.min(chapters.length-1,n)));setOverview(false);setIndex(false);setPlaying(false);setMode("guide");},[]);
@@ -38,9 +38,9 @@ export default function Studio(){
   const openReference=useCallback(()=>{setReference(true);setPlaying(false);},[]);
   const select=useCallback((id:ObjectId)=>{
     if(id==="library"){openReference();return;}
-    if(!overview&&id===c.view){if(id==="board")setBoard(b=>(b+1)%3);if(id==="monitor"&&agentTab==="loop"){setPlaying(false);setStep(s=>(s+1)%7);}return;}
+    if(!overview&&id===c.view){if(id==="board")setBoard(b=>(b+1)%3);return;}
     go(objects.find(o=>o.id===id)!.chapter);
-  },[go,openReference,overview,c.view,agentTab]);
+  },[go,openReference,overview,c.view]);
   const closeReference=()=>{setReference(false);setReferencePage(null);try{const person=JSON.parse(localStorage.getItem("gen-ai-profile-v1")||"null");if(person)setProfile(old=>({...old,...person}));}catch{/* Profile edits remain local to the archive. */}};
   useEffect(()=>{const key=(e:KeyboardEvent)=>{
     if(reference||notes||e.defaultPrevented||(e.target as HTMLElement).closest("input,textarea,select,[contenteditable=true]"))return;
@@ -50,7 +50,7 @@ export default function Studio(){
     if(e.key==="ArrowLeft"||e.key==="ArrowUp"){e.preventDefault();go(chapter-1);}
     if(e.key==="Enter"&&overview){e.preventDefault();go(chapter);}
   };window.addEventListener("keydown",key);return()=>window.removeEventListener("keydown",key);},[chapter,go,reference,notes,overview,explore]);
-  const presentation=(n:number)=><ModelPresentation chapter={n} profile={profile} board={board} setBoard={setBoard} agentTab={agentTab} setAgentTab={setAgentTab} part={part} setPart={setPart} step={step} setStep={setStep} playing={playing} setPlaying={setPlaying} application={application} setApplication={setApplication} onNext={()=>go(n+1)} onExplore={explore}/>;
+  const presentation=(n:number)=><ModelPresentation chapter={n} active={chapter===n&&!overview&&!reference&&!notes} profile={profile} board={board} setBoard={setBoard} agentTab={agentTab} setAgentTab={setAgentTab} part={part} setPart={setPart} step={step} setStep={setStep} playing={playing} setPlaying={setPlaying} application={application} setApplication={setApplication} onNext={()=>go(n+1)} onExplore={explore}/>;
   const content=presentation(chapter),panels=chapters.map((ch,n)=>({id:ch.view,content:presentation(n)}));
   return <main className="work-studio model-led-studio" data-chapter={chapter} data-mode={mode} data-ready={ready} data-overview={overview} data-view={view}>
     <div className="studio-app" inert={reference||notes}>

@@ -1,4 +1,4 @@
-> 2026-09-29 展示与交互调整：五个展示面常驻在模型上，全景与近景使用同一份内容，镜头移动时连续呈现。Agent 示例改为可操作的日志统计，支持切换数据、计算要约和逐步查看执行流程。五章文案改为简洁的发表用表述，增加 ViT 分块交互、光照方向调节、窗边光束与微尘。截图与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，日语讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
+> 2026-09-29 展示与交互调整：五个展示面常驻在模型上，全景与近景使用同一份内容，镜头移动时连续呈现。Agent 部分改为 Harness 外层框架、Context → Model → Tools → 反馈的有向回路和右侧说明。网页制作演示支持逐步播放、修正复验，以及上限 / 权限不足时转交人工判断。五章文案改为简洁的发表用表述，增加 ViT 分块交互、光照方向调节、窗边光束与微尘。截图与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，日语讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
 >
 > 以下为历次版本说明；当前首页交互以本次模型展示版本为准。
 

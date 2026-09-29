@@ -136,14 +136,14 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const monitor = group([-.98,.76,-1.82],"monitor");
   box([.34,.024,.22],[0,.013,.035],graphite,monitor);
   cyl(.037,.045,.23,[0,.135,-.01],metal,monitor);
-  box([.665,.4,.047],[0,.452,0],graphite,monitor,.022);
+  box([.639,.372,.047],[0,.452,0],graphite,monitor,.013);
   box([.42,.2,.028],[0,.445,-.035],graphite,monitor);
-  const screenTex = texture(c => { c.fillStyle="#243a38";c.fillRect(0,0,1024,512);c.fillStyle="#95c8be";c.font="24px monospace";c.fillText("WORKSPACE / 01",50,63);c.fillStyle="#edf0df";c.font="54px Georgia";c.fillText("Make something",50,154);c.fillText("worth trying.",50,218);const colors=["#82b3a6","#b7cfbb","#dab28b"];for(let i=0;i<5;i++){c.fillStyle=colors[i%3];c.fillRect(53,290+i*28,360+(i%3)*115,8);} c.strokeStyle="#93b7a6";c.lineWidth=3;c.strokeRect(731,259,173,195);c.font="65px Georgia";c.fillText("✦",787,377); });
+  const screenTex = texture(c => { c.fillStyle="#243a38";c.fillRect(0,0,1024,512);c.fillStyle="#95c8be";c.font="24px monospace";c.fillText("WORKSPACE / 01",50,63);c.fillStyle="#edf0df";c.font="48px Arial";c.fillText("Agent workbench",50,154);c.font="30px Arial";c.fillText("Context / Model / Tools",50,218);const colors=["#82b3a6","#b7cfbb","#dab28b"];for(let i=0;i<5;i++){c.fillStyle=colors[i%3];c.fillRect(53,290+i*28,360+(i%3)*115,8);} c.strokeStyle="#93b7a6";c.lineWidth=3;c.strokeRect(731,259,173,195);c.font="65px Georgia";c.fillText("✦",787,377); });
   const monitorFace=surface(.616,.347,[0,.453,.025],screenTex,monitor,false,true);
   for(let i=0;i<15;i++) box([.019,.002,.009],[-.21+i*.03,.59,-.052],metal,monitor,.001);
-  sphere([.006,.006,.003],[0,.641,.026],graphite,monitor);
+  sphere([.004,.004,.002],[0,.632,.026],graphite,monitor);
   box([.065,.004,.002],[0,.269,.026],metal,monitor,.001);
-  sphere([.005,.005,.005],[.276,.277,.026],mat("#9fd9b7"),monitor);
+  sphere([.004,.004,.003],[.276,.273,.026],mat("#9fd9b7"),monitor);
   const keyboard=group([-1.14,.784,-1.48]);
   box([.43,.019,.145],[0,0,0],mat("#cbd0c2"),keyboard,.012);
   const keyRows=["1234567890−+","QWERTYUIOP[]","ASDFGHJKL;↵·","⌘⌥          "];
@@ -387,7 +387,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     boardPins.forEach((p,i)=>p.scale.set(.023,.023,.014).multiplyScalar(i===selected?1.6:1));
     checks.forEach((p,i)=>{p.material=review&(1<<i)?olive:blue;});
     name.rotation.y=hover==="name"?.14:0;
-    if(agentStep>=0&&agentStep!==screenStep){screenStep=agentStep;const c=(screenTex.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#183731";c.fillRect(0,0,1024,512);c.fillStyle="#dbe8bc";c.font="32px monospace";c.fillText("LOG ANALYSIS / LOCAL DEMO",48,75);c.font="60px Georgia";c.fillText(["Goal","Plan","Read","Validate","Aggregate","Verify","Report"][agentStep],48,165);[12.4,9.8,14.1].forEach((v,i)=>{c.fillStyle="#9dc5a5";c.fillRect(48,220+i*65,v*35,32);c.fillStyle="#e2ebd1";c.font="24px monospace";c.fillText(v.toFixed(1)+" ms",570,245+i*65);});screenTex.needsUpdate=true;}
+    if(agentStep>=0&&agentStep!==screenStep){screenStep=agentStep;const c=(screenTex.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#183731";c.fillRect(0,0,1024,512);c.fillStyle="#dbe8bc";c.font="32px monospace";c.fillText("AGENT / EXECUTION LOOP",48,75);c.font="60px Georgia";c.fillText(["Goal","Generate","Inspect","Observe","Revise","Verify","Deliver"][agentStep],48,165);["Context","Model","Tools"].forEach((v,i)=>{c.strokeStyle="#a9c596";c.lineWidth=2;c.strokeRect(48+i*312,245,255,110);c.fillStyle="#e2ebd1";c.font="28px Arial";c.fillText(v,75+i*312,310);});c.strokeStyle="#d6c38f";c.beginPath();c.moveTo(855,368);c.lineTo(855,428);c.lineTo(165,428);c.lineTo(165,368);c.stroke();screenTex.needsUpdate=true;}
 
   }, dispose(){
     garden.root.removeFromParent(); garden.dispose();dustMat.dispose();

@@ -44,21 +44,36 @@ try{
   await go(2);await p.getByRole('tab',{name:'私の体験',exact:true}).click();for(const [i,phrase] of [[0,'2022'],[1,'API'],[2,'OpenClaw']]){await p.locator('.evolution-tabs button').nth(i).click();assert.ok((await p.locator('.evolution-detail').innerText()).includes(phrase));}
   assert.ok((await p.locator('.studio-surface-host[data-active=true] .model-annotation').innerText()).includes('利用体験'));
  });
- await check('all five agent components are selectable inside the monitor',async()=>{
-  await go(3);assert.equal(await p.locator('.agent-component').count(),5);
-  for(const name of ['Model','Context','Tools','Harness','Loop']){await p.locator('.agent-component').filter({has:p.getByText(name,{exact:true})}).click();assert.ok((await p.locator('.agent-part-detail').innerText()).includes(name));}
-  await p.screenshot({path:`${output}/monitor-components.png`});
+ await check('harness encloses the roles and loop selection highlights the directed feedback path',async()=>{
+  await go(3);assert.equal(await p.locator('.harness-frame .architecture-node').count(),3);
+  for(const element of ['model','context','tools','harness','loop']){await p.locator('.architecture-select[data-element='+element+']').click();assert.ok((await p.locator('.architecture-detail h2').innerText()).toLowerCase().includes(element));}
+  assert.equal(await p.locator('.agent-circuit').getAttribute('data-loop-selected'),'true');assert.equal(await p.locator('.agent-part-detail,.agent-data-flow').count(),0);
+  assert.equal(await p.locator('.circuit-wires g[marker-end] path').count(),4);
+  await p.locator('.node-model').click();const shape=await p.locator('.node-model').boundingBox();assert.ok(Math.abs(shape.width-shape.height)<1);
+  await p.getByRole('button',{name:'Loopの循環経路を選択',exact:true}).focus();await p.keyboard.press('Enter');assert.equal(await p.locator('.agent-circuit').getAttribute('data-loop-selected'),'true');
+  await p.screenshot({path:output+'/monitor-components.png'});
  });
- await check('agent summary is clickable, computes both datasets and supports step playback',async()=>{
-  await p.getByRole('tab',{name:'実行例',exact:true}).click();
-  await p.getByRole('button',{name:'データ A',exact:true}).click();await p.getByRole('button',{name:'要約を計算',exact:true}).click();
-  assert.ok((await p.locator('.analysis-result').innerText()).includes('12.1'));assert.ok((await p.locator('.analysis-result').innerText()).includes('9.8 / 14.1'));
-  await p.getByRole('button',{name:'データ B',exact:true}).click();assert.equal(await p.locator('.log-analysis').getAttribute('data-complete'),'false');await p.getByRole('button',{name:'要約を計算',exact:true}).click();
-  assert.ok((await p.locator('.analysis-result').innerText()).includes('18.4'));assert.ok((await p.locator('.analysis-result').innerText()).includes('12.4 / 28.6'));
-  const fit=await p.locator('.summary-action').evaluate(e=>{const a=e.getBoundingClientRect(),b=e.parentElement.getBoundingClientRect();return a.left>=b.left&&a.right<=b.right&&a.width>44;});assert.ok(fit);
-  await p.screenshot({path:`${output}/monitor-summary.png`});
-  await p.getByRole('button',{name:'Agentデモをリセット'}).click();await p.getByRole('button',{name:'工程を再生',exact:true}).click();await p.waitForTimeout(2350);await p.getByRole('button',{name:'一時停止',exact:true}).click();assert.equal(await p.locator('.execution-track [aria-current=step] span').innerText(),'2');
-  await p.getByRole('button',{name:'7 根拠を添えて報告',exact:true}).click();assert.ok(await p.getByRole('button',{name:'工程を再生',exact:true}).isDisabled());
+ await check('webpage execution updates context, corrects the specimen and finishes with evidence',async()=>{
+  await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.getByLabel('終了条件の例',{exact:true}).selectOption('complete');
+  await p.getByRole('button',{name:'Agentデモをリセット'}).click();
+  for(let i=0;i<7;i++){
+   if(i)await p.getByRole('button',{name:'次の工程 →',exact:true}).click();
+   assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),String(i));assert.equal(await p.locator('.harness-frame[data-highlight=true],.architecture-node[data-highlight=true]').count(),1);
+   if(i===3){assert.ok((await p.locator('.context-records').innerText()).includes('64px'));assert.ok((await p.locator('.specimen-result').innerText()).includes('FAIL'));await p.screenshot({path:output+'/monitor-failure.png'});}
+   if(i===5){assert.ok((await p.locator('.context-records').innerText()).includes('再検査'));assert.ok((await p.locator('.specimen-result').innerText()).includes('PASS'));}
+  }
+  assert.equal(await p.locator('.execution-detail').getAttribute('data-outcome'),'delivered');assert.ok(await p.getByRole('button',{name:'工程を再生',exact:true}).isDisabled());assert.ok(await p.getByRole('button',{name:'次の工程 →',exact:true}).isDisabled());
+  await p.screenshot({path:output+'/monitor-execution.png'});
+  await p.getByRole('button',{name:'Agentデモをリセット'}).click();await p.getByRole('button',{name:'工程を再生',exact:true}).click();await p.waitForTimeout(2350);await p.getByRole('button',{name:'一時停止',exact:true}).click();assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),'1');
+ });
+ await check('execution limits and permission blockers stop playback and request human judgment',async()=>{
+  for(const [scenario,end] of [['limit',3],['blocked',2]]){
+   await p.getByLabel('終了条件の例',{exact:true}).selectOption(scenario);await p.locator('.execution-track button').nth(end-1).click();await p.getByRole('button',{name:'工程を再生',exact:true}).click();
+   await p.locator('.agent-architecture[data-finished=true]').waitFor();assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),String(end));assert.equal(await p.locator('.execution-detail').getAttribute('data-outcome'),'human');assert.ok((await p.locator('.execution-detail').innerText()).includes('人に確認'));
+   assert.ok(await p.getByRole('button',{name:'次の工程 →',exact:true}).isDisabled());assert.ok(await p.getByRole('button',{name:'工程を再生',exact:true}).isDisabled());assert.equal(await p.locator('.execution-track button:disabled').count(),6-end);
+   await p.waitForTimeout(2400);assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),String(end));
+  }
+  await p.getByLabel('終了条件の例',{exact:true}).selectOption('complete');
  });
  await check('ViT patches separate and selected tokens update the explanation',async()=>{
   await go(1);await p.getByRole('slider',{name:'パッチの分離'}).fill('100');assert.equal(await p.getByRole('slider',{name:'パッチの分離'}).inputValue(),'100');await p.getByRole('button',{name:'パッチ 11',exact:true}).click();assert.ok((await p.locator('.patch-pipeline').innerText()).includes('11'));await p.screenshot({path:`${output}/vision-patches.png`});
@@ -67,9 +82,9 @@ try{
   await go(2);await p.getByRole('tab',{name:'技術の発展',exact:true}).click();assert.equal(await p.locator('.llm-era-rail button').count(),6);
   for(let i=0;i<6;i++){await p.locator('.llm-era-rail button').nth(i).click();assert.ok((await p.locator('.llm-era-detail').innerText()).length>100);assert.ok(await p.locator('.llm-source-row a').first().getAttribute('href'));}
  });
- await check('agent components expose input, output, design choices and context-memory-RAG distinctions',async()=>{
-  await go(3);await p.getByRole('tab',{name:'構成',exact:true}).click();for(let i=0;i<5;i++){await p.locator('.agent-component').nth(i).click();const text=await p.locator('.agent-part-detail').innerText();assert.ok(text.includes('INPUT')&&text.includes('OUTPUT'));assert.ok((await p.locator('.agent-part-design').innerText()).length>45);}
-  await p.locator('.agent-context').click();assert.ok((await p.locator('.agent-part-detail').innerText()).includes('RAG'));
+ await check('role explanations distinguish context, decisions, execution control and feedback',async()=>{
+  await go(3);await p.getByRole('tab',{name:'構成を見る',exact:true}).click();
+  for(const [element,phrase] of [['model','操作要求'],['context','RAG'],['tools','読み取り'],['harness','単一の配置場所'],['loop','独立した判断主体ではない']]){await p.locator('.architecture-select[data-element='+element+']').click();assert.ok((await p.locator('.architecture-detail').innerText()).includes(phrase));}
  });
  await check('product workflow replaces the screenshot with five stages and leads to four competitive advantages',async()=>{
   await go(4);assert.equal(await p.locator('.model-checklist img').count(),0);await p.getByRole('tab',{name:'開発プロセス',exact:true}).click();
@@ -82,8 +97,8 @@ try{
   await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();await p.waitForFunction(()=>[...document.querySelectorAll('.studio-object')].filter(e=>getComputedStyle(e).visibility==='visible').length===6);assert.equal(await p.locator('.studio-object:visible').count(),6);await go(0);
  });
  await check('archive keeps 20 pages, searches and restores the exact current model',async()=>{
-  await go(3);await p.getByRole('tab',{name:'実行例',exact:true}).click();await p.getByRole('button',{name:'4 入力の形式と単位を確認',exact:true}).click();
-  const camera=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.getByRole('button',{name:'参考資料',exact:true}).click();assert.equal(await p.locator('.studio-library-grid>button').count(),20);await p.getByRole('searchbox',{name:'資料を検索'}).fill('Evals');await p.locator('.studio-library-grid>button').click();await p.frameLocator('iframe').locator('#presentation[data-current-slide=trust]').waitFor({timeout:60000});await p.getByRole('button',{name:'資料を閉じて元の章に戻る'}).click();assert.equal(await p.locator('iframe').count(),0);assert.equal(await p.locator('.studio-scene').getAttribute('data-camera-position'),camera);assert.ok((await p.locator('.execution-detail').innerText()).includes('入力の形式と単位を確認'));
+  await go(3);await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.getByRole('button',{name:'4 ボタンの幅超過を発見',exact:true}).click();
+  const camera=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.getByRole('button',{name:'参考資料',exact:true}).click();assert.equal(await p.locator('.studio-library-grid>button').count(),20);await p.getByRole('searchbox',{name:'資料を検索'}).fill('Evals');await p.locator('.studio-library-grid>button').click();await p.frameLocator('iframe').locator('#presentation[data-current-slide=trust]').waitFor({timeout:60000});await p.getByRole('button',{name:'資料を閉じて元の章に戻る'}).click();assert.equal(await p.locator('iframe').count(),0);assert.equal(await p.locator('.studio-scene').getAttribute('data-camera-position'),camera);assert.ok((await p.locator('.execution-detail').innerText()).includes('ボタンの幅超過を発見'));
  });
  await check('reference deck ignores removed pages even with saved settings and old deep links',async()=>{
   const q=await browser.newPage({reducedMotion:'reduce'});await q.addInitScript(()=>localStorage.setItem('gen-ai-slide-settings-v2',JSON.stringify({hidden:[],order:['game-case','intro','game-process']})));await q.goto(new URL('reference/?slide=game-case',base).href,{waitUntil:'networkidle'});
@@ -98,29 +113,31 @@ try{
   await p.setViewportSize({width,height});
   for(let n=0;n<5;n++){
    await go(n);
-   const modes=n===2?['history-0','history-1','history-2','history-3','history-4','history-5','evolution-0','evolution-1','evolution-2']:n===3?['parts','context','tools','harness','loop-part','loop']:n===4?['product-0','product-1','product-2','product-3','product-4','value']:['page'];
+   const modes=n===2?['history-0','history-1','history-2','history-3','history-4','history-5','evolution-0','evolution-1','evolution-2']:n===3?['parts','context','tools','harness','loop-part',...Array.from({length:7},(_,i)=>'loop-'+i),'limit','blocked']:n===4?['product-0','product-1','product-2','product-3','product-4','value']:['page'];
    for(const mode of modes){
     if(n===2){const history=mode.startsWith('history');await p.getByRole('tab',{name:history?'技術の発展':'私の体験',exact:true}).click();await p.locator(history?'.llm-era-rail button':'.evolution-tabs button').nth(Number(mode.slice(-1))).click();}
     if(n===4){await p.getByRole('tab',{name:mode==='value'?'競争力':'開発プロセス',exact:true}).click();if(mode!=='value')await p.locator('.product-step-rail button').nth(Number(mode.slice(-1))).click();}
-    if(n===3){await p.getByRole('tab',{name:mode==='loop'?'実行例':'構成',exact:true}).click();if(mode!=='loop')await p.locator('.agent-component').nth(['parts','context','tools','harness','loop-part'].indexOf(mode)).click();}
+    if(n===3){const demo=/^loop-\d/.test(mode)||['limit','blocked'].includes(mode);await p.getByRole('tab',{name:demo?'動きを見る':'構成を見る',exact:true}).click();if(demo){const scenario=['limit','blocked'].includes(mode)?mode:'complete';await p.getByLabel('終了条件の例',{exact:true}).selectOption(scenario);await p.locator('.execution-track button').nth(scenario==='limit'?3:scenario==='blocked'?2:Number(mode.slice(-1))).click();}else await p.locator('.architecture-select[data-element='+({parts:'model',context:'context',tools:'tools',harness:'harness','loop-part':'loop'}[mode])+']').click();}
+
     const m=await p.evaluate(()=>{
      const el=document.querySelector('.studio-surface-host[data-active=true]'),scroll=el.querySelector('.studio-surface-host[data-active=true] .model-page-scroll'),r=el.getBoundingClientRect(),foot=document.querySelector('.studio-footer').getBoundingClientRect(),inside=el.querySelector('.model-page-footer').getBoundingClientRect(),header=document.querySelector('.studio-header').getBoundingClientRect();
      const mesh=JSON.parse(el.dataset.surfaceBounds);
+     const nodeOverflow=[...el.querySelectorAll('.architecture-node>strong,.architecture-node>span,.architecture-node>small,.context-records small')].filter(e=>{const a=e.getBoundingClientRect(),b=e.closest('.architecture-node').getBoundingClientRect();return a.width>0&&(a.top<b.top-1||a.bottom>b.bottom+1||a.left<b.left-1||a.right>b.right+1);}).map(e=>e.textContent);
      const outside=[...scroll.querySelectorAll('h1,h2,p,small,code,button,figure,.agent-system,.agent-part-detail,.demo-device-clip')].map(e=>({tag:e.tagName,name:e.textContent.slice(0,36),r:e.getBoundingClientRect().toJSON()})).filter(e=>e.r.width>0&&(e.r.left<r.left+1||e.r.right>r.right-1));
-     return {x:r.x,y:r.y,width:r.width,height:r.height,body:document.documentElement.scrollWidth,overflow:scroll.scrollWidth>scroll.clientWidth+2,verticalOverflow:scroll.scrollHeight>scroll.clientHeight+2,bottom:r.bottom,footerTop:foot.top,headerBottom:header.bottom,inert:el.inert,mesh,insideBottom:inside.bottom,scrollBottom:scroll.getBoundingClientRect().bottom,insideTop:inside.top,outside};
+     return {x:r.x,y:r.y,width:r.width,height:r.height,body:document.documentElement.scrollWidth,overflow:scroll.scrollWidth>scroll.clientWidth+2,verticalOverflow:scroll.scrollHeight>scroll.clientHeight+2,bottom:r.bottom,footerTop:foot.top,headerBottom:header.bottom,inert:el.inert,mesh,insideBottom:inside.bottom,scrollBottom:scroll.getBoundingClientRect().bottom,insideTop:inside.top,outside,nodeOverflow};
     });layouts.push({viewport:[width,height],chapter:n,mode,...m});
-    assert.ok(m.x>=0&&m.x+m.width<=width+2,JSON.stringify(m));assert.ok(Math.abs(m.x+m.width/2-width/2)<2);assert.ok(m.bottom<=m.footerTop+1,JSON.stringify(m));assert.ok(m.y>=m.headerBottom+2,JSON.stringify(m));assert.equal(m.body,width);assert.equal(m.overflow,false,JSON.stringify(m));assert.equal(m.inert,false);if(width>=1000&&height>=768)assert.equal(m.verticalOverflow,false,`Desktop content needs scrolling: ${width} ${views[n]} ${mode}`);
+    assert.ok(m.x>=0&&m.x+m.width<=width+2,JSON.stringify(m));assert.ok(Math.abs(m.x+m.width/2-width/2)<2);assert.ok(m.bottom<=m.footerTop+1,JSON.stringify(m));assert.ok(m.y>=m.headerBottom+2,JSON.stringify(m));assert.deepEqual(m.nodeOverflow,[],`Node text outside container: ${width} ${mode} ${JSON.stringify(m.nodeOverflow)}`);assert.equal(m.body,width);assert.equal(m.overflow,false,JSON.stringify(m));assert.equal(m.inert,false);if(width>=1000&&height>=768)assert.equal(m.verticalOverflow,false,`Desktop content needs scrolling: ${width} ${views[n]} ${mode}`);
     assert.ok(m.x>m.mesh.left&&m.x+m.width<m.mesh.right&&m.y>m.mesh.top&&m.bottom<m.mesh.bottom,JSON.stringify(m));assert.ok(m.insideBottom<=m.bottom+1&&m.scrollBottom<=m.insideTop+1,JSON.stringify(m));assert.deepEqual(m.outside,[],`${width}×${height} ${views[n]} ${mode}: ${JSON.stringify(m.outside)}`);
     await p.locator('.studio-surface-host[data-active=true] .model-page-scroll').evaluate(e=>e.scrollTop=e.scrollHeight);await p.locator('.studio-surface-host[data-active=true] .model-page-scroll').evaluate(e=>e.scrollTop=0);
-    if([1440,1366,390,320,844].includes(width)&&['page','parts','context','loop','history-0','history-5','product-2','value'].includes(mode))await p.screenshot({path:`${output}/${width}-${views[n]}-${mode}.png`});
+    if([1440,1366,390,320,844].includes(width)&&['page','parts','context','loop-5','history-0','history-5','product-2','value'].includes(mode))await p.screenshot({path:`${output}/${width}-${views[n]}-${mode}.png`});
    }
   }
  });
  await check('touch can select agent components and reach the ending without overflow',async()=>{
-  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'reduce'}),q=await context.newPage();await q.goto(base,{waitUntil:'networkidle'});await q.locator('.studio-scene[data-status=ready]').waitFor();await go(3,q);await q.locator('.agent-tools').tap();assert.ok((await q.locator('.agent-part-detail').innerText()).includes('Tools'));await q.getByRole('tab',{name:'実行例',exact:true}).tap();await q.getByRole('button',{name:'要約を計算',exact:true}).tap();assert.ok((await q.locator('.analysis-result').innerText()).includes('12.1'));await q.screenshot({path:`${output}/phone-summary-touch.png`});await q.locator('.studio-surface-host[data-active=true] .model-page-footer button').tap();await q.locator('.studio-scene[data-view=checklist][data-transition=false]').waitFor();await q.getByRole('tab',{name:'開発プロセス',exact:true}).tap();await q.locator('.product-step-rail button').nth(2).tap();assert.ok((await q.locator('.product-step-detail').innerText()).includes('試作'));await q.screenshot({path:`${output}/phone-application-touch.png`});await context.close();
+  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'reduce'}),q=await context.newPage();await q.goto(base,{waitUntil:'networkidle'});await q.locator('.studio-scene[data-status=ready]').waitFor();await go(3,q);await q.locator('.node-tools').tap();assert.ok((await q.locator('.architecture-detail').innerText()).includes('Tools'));await q.getByRole('tab',{name:'動きを見る',exact:true}).tap();await q.getByRole('button',{name:'4 ボタンの幅超過を発見',exact:true}).tap();assert.ok((await q.locator('.specimen-result').innerText()).includes('FAIL'));await q.getByRole('button',{name:'7 成果物と検査結果を渡す',exact:true}).tap();assert.equal(await q.locator('.execution-detail').getAttribute('data-outcome'),'delivered');await q.screenshot({path:`${output}/phone-execution-touch.png`});await q.locator('.studio-surface-host[data-active=true] .model-page-footer button').tap();await q.locator('.studio-scene[data-view=checklist][data-transition=false]').waitFor();await q.getByRole('tab',{name:'開発プロセス',exact:true}).tap();await q.locator('.product-step-rail button').nth(2).tap();assert.ok((await q.locator('.product-step-detail').innerText()).includes('試作'));await q.screenshot({path:`${output}/phone-application-touch.png`});await context.close();
  });
  await check('text fallback keeps the same readable chapter, working controls and retry',async()=>{
-  const q=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});await q.goto(base+'?no3d=1');await q.locator('.studio-scene[data-status=fallback]').waitFor();assert.equal(await q.locator('canvas').count(),0);assert.equal(await q.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),false);await q.locator('.journey-dots button').nth(3).click();await q.getByRole('tab',{name:'実行例',exact:true}).click();await q.getByRole('button',{name:'次の工程 →',exact:true}).click();assert.ok((await q.locator('.execution-detail').innerText()).includes('処理手順を分解'));await q.getByRole('button',{name:'3Dを再読み込み'}).click();await q.locator('.studio-scene[data-status=ready][data-view=monitor]').waitFor();await q.close();
+  const q=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});await q.goto(base+'?no3d=1');await q.locator('.studio-scene[data-status=fallback]').waitFor();assert.equal(await q.locator('canvas').count(),0);assert.equal(await q.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),false);await q.locator('.journey-dots button').nth(3).click();await q.getByRole('tab',{name:'動きを見る',exact:true}).click();await q.getByRole('button',{name:'次の工程 →',exact:true}).click();assert.ok((await q.locator('.execution-detail').innerText()).includes('コードを生成'));await q.getByRole('button',{name:'3Dを再読み込み'}).click();await q.locator('.studio-scene[data-status=ready][data-view=monitor]').waitFor();await q.close();
  });
  await p.setViewportSize({width:1440,height:1000});await p.emulateMedia({reducedMotion:'no-preference'});
  await check('camera transitions are continuous, interruptible and never route through the overview',async()=>{
