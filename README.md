@@ -1,4 +1,4 @@
-> 2026-09-29 展示与交互调整：五个展示面常驻在模型上，全景与近景使用同一份内容，镜头移动时连续呈现。Agent 部分改为 Harness 外层框架、Context → Model → Tools → 反馈的有向回路和右侧说明。网页制作演示支持逐步播放、修正复验，以及上限 / 权限不足时转交人工判断。五章文案改为简洁的发表用表述，增加 ViT 分块交互、光照方向调节、窗边光束与微尘。截图与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，日语讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
+> 2026-09-29 PC 版更新：花园首页把开始入口移到标题下方，五件物品对应五章；环境设置收进菜单。前三页依次讲个人经历、ViT模型实践、LLM使用方式的扩展。ViT使用明确标注的模拟缺陷图，展示全部Patch与位置编码；三种LLM使用方式共用活动报名网页示例，技术史另放补充窗口。保留Harness与Loop的分层架构、连续运镜和产品制作讨论。截图、事实边界与检查结果见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
 >
 > 以下为历次版本说明；当前首页交互以本次模型展示版本为准。
 

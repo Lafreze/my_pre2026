@@ -51,7 +51,6 @@ try {
     assert.equal(await page.locator('.studio-scene').getAttribute('data-frames'), before);
   });
   await check('all close-ups render without material or shader errors', async () => {
-    await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
     for (const [object, filename] of [['name','nameplate'],['notebook','notebook'],['board','research-board'],['monitor','workbench'],['checklist','review']]) {
       await page.locator(`[data-object=${object}]`).click();
       await page.locator(`.studio-scene[data-view=${object}]`).waitFor();
@@ -75,7 +74,6 @@ try {
     await failed.route('**/materials/studio/*.jpg', route => route.abort());
     await failed.goto(base);
     await failed.locator('.studio-scene[data-status=ready]').waitFor();
-    await failed.getByRole('button', { name: '全景に戻る', exact: true }).click();
     await failed.locator('[data-object=monitor]').click();
     await failed.getByRole('tab', { name: '動きを見る' }).click();
     await failed.getByRole('button', { name: '次の工程 →', exact: true }).click();

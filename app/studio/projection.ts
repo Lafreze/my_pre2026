@@ -4,7 +4,9 @@ import * as THREE from "three";
 export const SURFACE_SCALE = .98;
 export function presentationSize(width:number,height:number) {
   const usableWidth = Math.max(100, width - (width <= 900 ? 56 : 140));
-  const usableHeight = Math.max(90, height - (height < 620 ? 184 : 230));
+  // Desktop slides can use the space between the fixed header and navigation.
+  const reservedHeight = height < 620 ? 184 : width >= 1000 ? 194 : 230;
+  const usableHeight = Math.max(90, height - reservedHeight);
   if (width <= 900 || height < 620) return {width:Math.min(1120,usableWidth),height:usableHeight};
   const w = Math.min(1120, usableWidth, usableHeight * 1.76);
   return {width:w,height:width<=1200?usableHeight:w/1.76};

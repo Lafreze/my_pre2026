@@ -1,8 +1,9 @@
 "use client";
 import { useLayoutEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
-import { LLMDevelopment, ProductJourney, ProductAdvantage } from "./StoryPanels";
+import { ProductJourney, ProductAdvantage } from "./StoryPanels";
 import AgentArchitecture from "./AgentArchitecture";
 import VisionExperiment from "./VisionExperiment";
+import UsageExpansion from "./UsageExpansion";
 import { chapters } from "./content";
 type Set<T> = Dispatch<SetStateAction<T>>;
 type Props = {
@@ -12,36 +13,22 @@ type Props = {
   application:number;setApplication:Set<number>;
   onNext:()=>void;onExplore:()=>void;
 };
-const evolution = [
-  {name:"LLM",label:"言葉で、答える",date:"2022 / MY FIRST GPT",title:"GPTによる文章生成を体験",text:"初めてGPTを体験し、文章生成の力に驚いた。用途ごとに組んでいた言語処理を、自然な指示から試せるように。",flow:["問い","生成","回答"],note:"従来のNLPが一律に不要になったのではなく、私にとって選べる方法が大きく広がった。"},
-  {name:"Tool Use",label:"道具で、操作する",date:"MY OWN SMALL TOOLS",title:"APIで日常作業のツールを開発",text:"APIで簡単なツールを自作し、日常の作業に利用。モデルの操作要求をプログラムが実行し、その結果をモデルへ返す。",flow:["操作を選ぶ","ツール実行","結果を返す"],note:"実際にファイルや外部サービスを操作するのは、接続されたプログラム。"},
-  {name:"Agent",label:"結果を見て、進める",date:"MY CODING AGENT JOURNEY",title:"Coding Agentによる実装と検証",text:"OpenClawでの個人Agentづくりを経て、Claude CodeやCodexを活用。自分の利用環境では、任せられる一連の作業が広がった。",flow:["目標と計画","実行と観察","修正・完了"],note:"私の利用体験の流れ。研究史や各製品の登場順を表すものではありません。"},
-];
 export default function ModelPresentation(p:Props) {
   const c=chapters[p.chapter];
-  const [llmTab,setLLMTab]=useState<"history"|"personal">("history"),[era,setEra]=useState(0),[productTab,setProductTab]=useState<"process"|"value">("process");
+  const [productTab,setProductTab]=useState<"process"|"value">("process");
   const scroll=useRef<HTMLDivElement>(null);
-  useLayoutEffect(()=>{if(scroll.current)scroll.current.scrollTop=0;},[p.chapter,llmTab,productTab]);
+  useLayoutEffect(()=>{if(scroll.current)scroll.current.scrollTop=0;},[p.chapter,productTab]);
   return <section className={`model-presentation model-${c.view}`} aria-label="現在の章" data-chapter={p.chapter}>
+    <div className="surface-summary" aria-hidden="true" data-cover={c.view}><span>WANG BO / FIELD JOURNAL</span>{p.chapter===0?<><i className="cover-monogram">王</i><strong>WANG BO</strong><p>WORK & CURIOSITY</p></>:p.chapter===1?<><div className="cover-inspection"/><strong>VISION STUDY</strong><p>IMAGE → PATCHES → TOKENS</p></>:p.chapter===2?<><strong>WAYS TO WORK WITH AI</strong><div className="cover-ways"><span>答える<small>LLM RESPONSE</small></span><span>実行する<small>TOOL USE</small></span><span>進める<small>AGENT LOOP</small></span></div></>:p.chapter===3?<><strong>AGENT WORKBENCH</strong><div className="cover-runtime">Harness<div>Context <b>→</b> Model <b>→</b> Tools</div><small>↺ FEEDBACK LOOP</small></div></>:<><strong>IDEA TO PRODUCT</strong><div className="cover-product">DEFINE <b>→</b> BUILD <b>→</b> VERIFY</div><p>THIS STUDIO / MADE WITH CODEX</p></>}</div>
     <div className="model-topline"><span>{p.chapter===3?<><i className="screen-led"/> AGENT WORKBENCH</>:"WANG BO / FIELD JOURNAL"}</span><span>{String(p.chapter+1).padStart(2,"0")} <i>/</i> {String(chapters.length).padStart(2,"0")}</span></div>
     <div className="model-page-scroll" ref={scroll}>
-      {p.chapter===0&&<div className="profile-spread">
-        <div className="profile-opening"><span className="model-eyebrow">はじめまして / ABOUT ME</span><div className="profile-signature"><span className="profile-seal">王</span><div><h1 tabIndex={-1}>{p.profile.name}<small>です。</small></h1><span>{p.profile.romanName}</span></div></div><p className="profile-statement">これまで、画像処理の開発に携わってきました。<br/>現在はMulti Beamグループを兼任し、ADC関連の開発を中心に担当しています。</p><div className="profile-conversation"><span>今日お話しすること</span><p>画像処理での経験を起点に、LLMの発展、Agentの構成、製品開発への応用を紹介します。</p><small>どうぞよろしくお願いします。</small></div></div>
-        <ol className="career-journey"><li><span>BEFORE 2023</span><h2>KIOXIA</h2><p>画像処理・画像分類のモデル開発。</p><small>VGG → ViTの比較を通じて、<br/>モデルの特性と学習条件を検証。</small></li><li><span>2023 —</span><h2>ハイテク</h2><p>引き続き、画像処理に取り組む。</p><div className="career-tags"><span>次フレーム予測</span><span>画像分類</span><span>Active Learning</span></div></li><li><span>CURRENT FOCUS</span><h2>Multi Beam</h2><p>グループを兼任し、<strong>ADC関連の開発</strong>を中心に担当。</p></li></ol>
+      {p.chapter===0&&<div className="personal-introduction">
+        <div className="personal-identity"><span className="model-eyebrow">ABOUT ME / 自己紹介</span><div className="personal-name"><span className="personal-seal">王</span><div><h1 tabIndex={-1}>{p.profile.name}</h1><span>{p.profile.romanName}</span></div></div><h2>画像処理・機械学習エンジニア</h2><p>画像の特徴を捉え、モデルを選び、<br/>実際の課題に使う仕事をしてきました。</p><div className="personal-skills"><span>画像分類</span><span>次フレーム予測</span><span>Active Learning</span></div></div>
+        <ol className="personal-career"><li><span>2023年以前</span><h2>KIOXIA</h2><p>画像処理・画像分類モデルの開発</p></li><li><span>2023 — 現在</span><h2>日立ハイテク</h2><p>画像処理・機械学習の開発</p><small>現在はMulti Beamグループを兼任し、<br/>ADC関連の開発を中心に担当しています。</small></li></ol>
+        <div className="personal-topic"><span>今日のテーマ</span><p>画像を「判定するAI」から、アイデアを形にする「動くAI」へ。</p><small>私自身の関心の広がりを紹介します。</small></div>
       </div>}
-      {p.chapter===1&&<>
-        <div className="paper-heading"><span className="model-eyebrow">COMPUTER VISION / PERSONAL EXPERIENCE</span><h1 tabIndex={-1}>画像分類でのTransformer活用</h1><p>VGGからViTへの変更と、データ条件による違い。</p></div>
-        <VisionExperiment/>
-        <div className="field-observation"><span>実験から得た知見</span><p>性能は<em>データと学習条件</em>に依存。</p><div><p>データの少ない学習条件では、<b>ResNetの方が良い結果</b>になったことも。</p><small>私の実験での経験。事前学習の有無、データ量、評価条件によって結果は変わります。</small></div></div>
-        <a className="model-source" href="https://arxiv.org/abs/2010.11929" target="_blank" rel="noreferrer">背景を読む：ViT 原論文 ↗</a>
-      </>}
-      {p.chapter===2&&<>
-        <div className="chapter-panel-heading"><div className="board-heading"><span className="model-eyebrow">LANGUAGE MODELS / A SHORT HISTORY</span><h1 tabIndex={-1}>LLMの発展と利用経験</h1></div><div className="paper-tabs" role="tablist" aria-label="発展と個人の体験"><button role="tab" aria-selected={llmTab==="history"} onClick={()=>setLLMTab("history")}>技術の発展</button><button role="tab" aria-selected={llmTab==="personal"} onClick={()=>setLLMTab("personal")}>私の体験</button></div></div>
-        {llmTab==="history"?<LLMDevelopment selected={era} onSelect={setEra}/>:<>
-        <div className="evolution-tabs" role="tablist" aria-label="LLMからAgentへの発展">{evolution.map((item,i)=><button role="tab" aria-selected={p.board===i} aria-controls="evolution-detail" key={item.name} onClick={()=>p.setBoard(i)}><small>0{i+1}</small><strong>{item.name}</strong><span>{item.label}</span><b aria-hidden="true">{i<2?"→":"↻"}</b></button>)}</div>
-        <div id="evolution-detail" className="evolution-detail" role="tabpanel" aria-live="polite"><div><span className="model-eyebrow">{evolution[p.board].date}</span><h2>{evolution[p.board].title}</h2><p>{evolution[p.board].text}</p></div><div className="evolution-flow">{evolution[p.board].flow.map((text,i)=><div key={text}><i>{i===1?"✳":String(i+1).padStart(2,"0")}</i><span>{text}</span>{i<2&&<b>↓</b>}</div>)}</div></div>
-        <p className="model-annotation">{evolution[p.board].note}</p><a className="model-source" href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noreferrer">仕組みの背景：Building effective agents ↗</a></>}
-      </>}
+      {p.chapter===1&&<><div className="practice-heading"><span className="model-eyebrow">COMPUTER VISION / モデル選択の経験</span><h1 tabIndex={-1}>画像分類で学んだ、モデル選択の難しさ</h1><p>VGG・ViT・ResNetを比較して見えたこと</p></div><VisionExperiment/></>}
+      {p.chapter===2&&<UsageExpansion selected={p.board} onSelect={p.setBoard}/>}
       {p.chapter===3&&<>
         <div className="screen-heading"><div><span className="model-eyebrow">ARCHITECTURE / EXECUTION</span><h1 tabIndex={-1}>Agentの構成と実行過程</h1></div><div className="screen-tabs" role="tablist" aria-label="Agentの説明"><button role="tab" aria-selected={p.agentTab==="parts"} onClick={()=>{p.setAgentTab("parts");p.setPlaying(false);}}>構成を見る</button><button role="tab" aria-selected={p.agentTab==="loop"} onClick={()=>p.setAgentTab("loop")}>動きを見る</button></div></div>
         <AgentArchitecture mode={p.agentTab} part={p.part} setPart={p.setPart} step={p.step} setStep={p.setStep} playing={p.playing} setPlaying={p.setPlaying} active={p.active}/>
@@ -51,6 +38,6 @@ export default function ModelPresentation(p:Props) {
         {productTab==="process"?<ProductJourney selected={p.application} onSelect={p.setApplication}/>:<ProductAdvantage/>}
       </>}
     </div>
-    <footer className="model-page-footer"><span>{p.chapter===0?"IMAGE PROCESSING / MULTI BEAM / ADC":p.chapter===chapters.length-1?"IDEA → PRODUCT → VALUE":c.en}</span><button onClick={p.chapter===4?(productTab==="process"?()=>{setProductTab("value");}:p.onExplore):p.onNext}>{p.chapter===4?(productTab==="process"?"競争力の論点へ":"庭を自由に探索する"):["画像処理の経験へ","LLMの発展へ","Agentの構成へ","製品開発への応用へ"][p.chapter]} <b>→</b></button></footer>
+    <footer className="model-page-footer">{p.chapter===1?<a className="vit-source" href="https://arxiv.org/html/2010.11929v2" target="_blank" rel="noreferrer">ViT 原論文 ↗</a>:<span>{p.chapter===0?"IMAGE PROCESSING / MACHINE LEARNING":p.chapter===chapters.length-1?"IDEA → PRODUCT → VALUE":c.en}</span>}<button onClick={p.chapter===4?(productTab==="process"?()=>{setProductTab("value");}:p.onExplore):p.onNext}>{p.chapter===4?(productTab==="process"?"競争力の論点へ":"庭を自由に探索する"):["画像処理の経験へ","LLMの使い方へ","Agentの構成へ","製品開発への応用へ"][p.chapter]} <b>→</b></button></footer>
   </section>;
 }

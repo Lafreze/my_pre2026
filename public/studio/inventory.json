@@ -1,5 +1,5 @@
 {
-  "checked": "2026-09-28",
+  "checked": "2026-09-29",
   "legacyPages": [
     [
       "intro",
@@ -62,26 +62,6 @@
       "仕組み"
     ],
     [
-      "game-process",
-      "ゲーム制作プロセス",
-      "制作"
-    ],
-    [
-      "game-agents",
-      "Multi-Agent制作",
-      "制作"
-    ],
-    [
-      "game-sprint",
-      "90分制作ループ（旧版の仮定）",
-      "制作"
-    ],
-    [
-      "game-case",
-      "Webゲーム制作 / Day Card",
-      "制作"
-    ],
-    [
       "reasoning",
       "Reasoning",
       "背景"
@@ -118,7 +98,7 @@
     ],
     [
       "sources",
-      "出典（原文51件）",
+      "出典",
       "出典"
     ]
   ],
@@ -390,19 +370,143 @@
     },
     {
       "path": "public/favicon.svg",
-      "bytes": 718
+      "bytes": 712
     },
     {
       "path": "public/file.svg",
-      "bytes": 393
+      "bytes": 392
     },
     {
       "path": "public/globe.svg",
-      "bytes": 1037
+      "bytes": 1036
+    },
+    {
+      "path": "public/materials/studio/CREDITS.md",
+      "bytes": 2549
+    },
+    {
+      "path": "public/materials/studio/bark_brown_02_diffuse.jpg",
+      "bytes": 659592
+    },
+    {
+      "path": "public/materials/studio/bark_brown_02_nor_gl.jpg",
+      "bytes": 1015623
+    },
+    {
+      "path": "public/materials/studio/bark_brown_02_rough.jpg",
+      "bytes": 337946
+    },
+    {
+      "path": "public/materials/studio/fabric_pattern_07_nor_gl.jpg",
+      "bytes": 828071
+    },
+    {
+      "path": "public/materials/studio/fabric_pattern_07_rough.jpg",
+      "bytes": 488744
+    },
+    {
+      "path": "public/materials/studio/grass_ground_diffuse.jpg",
+      "bytes": 876584
+    },
+    {
+      "path": "public/materials/studio/grass_ground_nor_gl.jpg",
+      "bytes": 1310516
+    },
+    {
+      "path": "public/materials/studio/grass_ground_rough.jpg",
+      "bytes": 328190
+    },
+    {
+      "path": "public/materials/studio/leather_white_diffuse.jpg",
+      "bytes": 728363
+    },
+    {
+      "path": "public/materials/studio/leather_white_nor_gl.jpg",
+      "bytes": 670610
+    },
+    {
+      "path": "public/materials/studio/leather_white_rough.jpg",
+      "bytes": 675426
+    },
+    {
+      "path": "public/materials/studio/manifest.json",
+      "bytes": 6339
+    },
+    {
+      "path": "public/materials/studio/plastered_wall_04_nor_gl.jpg",
+      "bytes": 427268
+    },
+    {
+      "path": "public/materials/studio/plastered_wall_04_rough.jpg",
+      "bytes": 243061
+    },
+    {
+      "path": "public/materials/studio/poly_wool_herringbone_nor_gl.jpg",
+      "bytes": 1045151
+    },
+    {
+      "path": "public/materials/studio/poly_wool_herringbone_rough.jpg",
+      "bytes": 857426
+    },
+    {
+      "path": "public/materials/studio/sandstone_cracks_diffuse.jpg",
+      "bytes": 696657
+    },
+    {
+      "path": "public/materials/studio/sandstone_cracks_nor_gl.jpg",
+      "bytes": 1307622
+    },
+    {
+      "path": "public/materials/studio/sandstone_cracks_rough.jpg",
+      "bytes": 352483
+    },
+    {
+      "path": "public/materials/studio/white_oak_veneer_diffuse.jpg",
+      "bytes": 595257
+    },
+    {
+      "path": "public/materials/studio/white_oak_veneer_nor_gl.jpg",
+      "bytes": 623607
+    },
+    {
+      "path": "public/materials/studio/white_oak_veneer_rough.jpg",
+      "bytes": 520649
+    },
+    {
+      "path": "public/materials/studio/wood_floor_diffuse.jpg",
+      "bytes": 734493
+    },
+    {
+      "path": "public/materials/studio/wood_floor_nor_gl.jpg",
+      "bytes": 423303
+    },
+    {
+      "path": "public/materials/studio/wood_floor_rough.jpg",
+      "bytes": 527754
+    },
+    {
+      "path": "public/materials/studio/wood_table_001_diffuse.jpg",
+      "bytes": 215573
+    },
+    {
+      "path": "public/materials/studio/wood_table_001_nor_gl.jpg",
+      "bytes": 51927
+    },
+    {
+      "path": "public/materials/studio/wood_table_001_rough.jpg",
+      "bytes": 237261
     },
     {
       "path": "public/models/atlas/CREDITS.md",
-      "bytes": 979
+      "bytes": 1261
+    },
+    {
+      "path": "public/models/atlas/factory/License.txt",
+      "bytes": 673
+    },
+    {
+      "path": "public/models/atlas/factory/Textures/colormap.png",
+      "bytes": 11813
     },
     {
       "path": "public/models/atlas/factory/cog-a.glb",
@@ -411,10 +515,6 @@
     {
       "path": "public/models/atlas/factory/conveyor.glb",
       "bytes": 18676
-    },
-    {
-      "path": "public/models/atlas/factory/License.txt",
-      "bytes": 700
     },
     {
       "path": "public/models/atlas/factory/oopi.glb",
@@ -433,8 +533,8 @@
       "bytes": 13904
     },
     {
-      "path": "public/models/atlas/factory/Textures/colormap.png",
-      "bytes": 11813
+      "path": "public/models/atlas/furniture/License.txt",
+      "bytes": 614
     },
     {
       "path": "public/models/atlas/furniture/bookcaseOpen.glb",
@@ -465,16 +565,12 @@
       "bytes": 15048
     },
     {
-      "path": "public/models/atlas/furniture/License.txt",
-      "bytes": 614
-    },
-    {
       "path": "public/og.png",
       "bytes": 1802154
     },
     {
       "path": "public/window.svg",
-      "bytes": 387
+      "bytes": 386
     }
   ],
   "manuscripts": [
@@ -482,13 +578,13 @@
     "発表原稿_日本語.md"
   ],
   "preservedFeatures": [
-    "24 pages / 19 default-visible",
+    "20 pages / 18 default-visible",
     "profile editing: gen-ai-profile-v1",
     "page editing, hide, reorder: gen-ai-slide-settings-v2",
     "topic labels: gen-ai-topic-labels-v1",
     "topic grouping: gen-ai-slide-topics-v1",
     "fullscreen, keyboard, touch, laser pointer",
-    "all original simulations, Mermaid diagrams and DaycardShowcase",
+    "retained reference simulations and Mermaid diagrams",
     "standalone /atlas/",
     "app/chatgpt-auth.ts and .openai/project.json unchanged"
   ]

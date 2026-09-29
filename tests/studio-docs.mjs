@@ -1,12 +1,14 @@
 import {readFile,writeFile,readdir,stat} from 'node:fs/promises';
 import ts from 'typescript';
-const source=await readFile('app/studio/content.ts','utf8');
+const details=ts.transpileModule(await readFile('app/studio/storyDetails.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const detailsUrl='data:text/javascript;base64,'+Buffer.from(details).toString('base64');
+const source=(await readFile('app/studio/content.ts','utf8')).replace('"./storyDetails"',JSON.stringify(detailsUrl));
 const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
 const {chapters,cameras,objects,sources,legacyTopics}=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
-await writeFile('public/studio/guide.json',JSON.stringify({version:'2026-09-28',chapters,cameras,objects,sources},null,2));
-await writeFile('STUDIO_SCRIPT_JA.md',`# 小さなアイデアを、動くものに。\n\nAI Agentとつくる、私のワークスタジオ。王博 / WANG BO。\n\n${chapters.reduce((n,c)=>n+c.time,0)}秒（操作と移動を含む）。本文${chapters.reduce((n,c)=>n+c.script.length,0)}字。約9分の読み上げ＋約1分の操作を想定した配分です。実話者による音読リハーサルは未実施。話す速度に合わせて配分を調整してください。\n\n${chapters.map((c,i)=>`## ${String(i+1).padStart(2,'0')}｜${c.title} — ${c.range}\n\n${c.script}\n\n[操作] ${c.next}\n\n[対応] 物件 / 鏡頭: ${c.view}。旧版: ${c.old.join(', ')}。\n`).join('\n')}`);
+await writeFile('public/studio/guide.json',JSON.stringify({version:'2026-09-29',chapters,cameras,objects,sources},null,2));
+await writeFile('STUDIO_SCRIPT_JA.md',`# 小さなアイデアを、動くかたちに。\n\nAI Agentとつくる、私のワークスタジオ。王博 / WANG BO。\n\n${chapters.reduce((n,c)=>n+c.time,0)}秒（操作と移動を含む）。本文${chapters.reduce((n,c)=>n+c.script.length,0)}字。前半三章は40秒・75秒・90秒、全体は8分25秒を目安にしています。実話者による音読リハーサルは未実施。話す速度に合わせて配分を調整してください。\n\n${chapters.map((c,i)=>`## ${String(i+1).padStart(2,'0')}｜${c.title} — ${c.range}\n\n${c.script}\n\n[操作] ${c.next}\n\n[対応] 物件 / 鏡頭: ${c.view}。旧版: ${c.old.join(', ')}。\n`).join('\n')}`);
 const old=await readFile('app/LegacyDeck.tsx','utf8');
 const links=[...old.matchAll(/\{ n: (\d+), label: "([^"]+)", url: "([^"]+)" \}/g)].map(m=>({number:+m[1],label:m[2],url:m[3]}));
 const assets=[];async function scan(dir){for(const e of await readdir(dir,{withFileTypes:true})){const path=dir+'/'+e.name;if(path==='public/studio')continue;if(e.isDirectory())await scan(path);else assets.push({path,bytes:(await stat(path)).size});}}await scan('public');
-await writeFile('public/studio/inventory.json',JSON.stringify({checked:'2026-09-28',legacyPages:legacyTopics,legacySources:links,legacyAssets:assets,manuscripts:['原稿.md','発表原稿_日本語.md'],preservedFeatures:['24 pages / 19 default-visible','profile editing: gen-ai-profile-v1','page editing, hide, reorder: gen-ai-slide-settings-v2','topic labels: gen-ai-topic-labels-v1','topic grouping: gen-ai-slide-topics-v1','fullscreen, keyboard, touch, laser pointer','all original simulations, Mermaid diagrams and DaycardShowcase','standalone /atlas/','app/chatgpt-auth.ts and .openai/project.json unchanged']},null,2));
+await writeFile('public/studio/inventory.json',JSON.stringify({checked:'2026-09-29',legacyPages:legacyTopics,legacySources:links,legacyAssets:assets,manuscripts:['原稿.md','発表原稿_日本語.md'],preservedFeatures:['20 pages / 18 default-visible','profile editing: gen-ai-profile-v1','page editing, hide, reorder: gen-ai-slide-settings-v2','topic labels: gen-ai-topic-labels-v1','topic grouping: gen-ai-slide-topics-v1','fullscreen, keyboard, touch, laser pointer','retained reference simulations and Mermaid diagrams','standalone /atlas/','app/chatgpt-auth.ts and .openai/project.json unchanged']},null,2));
 console.log('guide, manuscript and inventory generated');

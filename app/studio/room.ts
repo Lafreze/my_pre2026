@@ -17,7 +17,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     if (!materials.has(key)) { const m = finishes.material(metalness > .1 ? "metal" : "rubber", color).clone(); m.roughness = roughness; m.metalness = metalness; materials.set(key, m); }
     return materials.get(key)!;
   };
-  const cream = finishes.material("plaster", "#f0ece1"), wood = finishes.material("oak", "#ebd9b9"), edge = finishes.material("oak", "#c7ad86"), graphite = finishes.material("rubber", "#202c2b"), metal = finishes.material("metal", "#a3adaa"), paper = finishes.material("paper", "#faf5e8"), blue = finishes.material("fabric", "#2c49a5"), terracotta = finishes.material("leather", "#ae5539"), olive = mat("#486140");
+  const cream = finishes.material("plaster", "#fffaf0"), wood = finishes.material("oak", "#ebd9b9"), edge = finishes.material("oak", "#c7ad86"), graphite = finishes.material("rubber", "#202c2b"), metal = finishes.material("metal", "#a3adaa"), paper = finishes.material("paper", "#faf5e8"), blue = finishes.material("fabric", "#2c49a5"), terracotta = finishes.material("leather", "#ae5539"), olive = mat("#486140");
   const brass = finishes.material("metal", "#ad8850"), ceramic = finishes.material("ceramic", "#e4ddcc"), upholstery = finishes.material("leather", "#a85435");
   function mesh(geometry: THREE.BufferGeometry, material: THREE.Material, p: number[], parent: THREE.Object3D = root) {
     const m = new THREE.Mesh(geometry, material); m.position.set(p[0], p[1], p[2]); m.castShadow = true; m.receiveShadow = true; parent.add(m); return m;
@@ -66,7 +66,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     return texture(c => {
       c.fillStyle=bg;c.fillRect(0,0,512,512);c.strokeStyle=fg;c.lineWidth=1;c.strokeRect(20,20,472,472);
       c.fillStyle=fg;c.font="20px monospace";c.fillText(sub.split(" / ")[0],45,95);c.fillRect(45,128,40,3);
-      c.font="62px Georgia";c.fillText(title,45,270);c.font="18px sans-serif";c.fillText(sub.split(" / ")[1],45,332);
+      c.font="62px Georgia";c.fillText(title,45,270);c.font="18px sans-serif";c.fillText((sub.split(" / ")[1]||""),45,332);
       c.globalAlpha=.35;c.fillRect(45,390,280,2);c.fillRect(45,412,210,2);
     },512,512);
   }
@@ -81,7 +81,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   }
   // Architectural section: rear and left walls; clean solid floor edge.
   box([6.12,.2,5.12], [0,-.11,0], mat("#3b4f44"), root, .07);
-  const floorColors = ["#eee9df", "#e9dfcb", "#f4e9d7", "#e0d4bf", "#f1e6d1"];
+  const floorColors = ["#fff7e6", "#f7edda", "#fff8e8", "#f3e6cd", "#faf1dd"];
   for (let i = 0; i < 15; i++) {
     const cuts = [-2.5, -2.5 + .55 + (i % 3) * .43, -.1 + (i % 3) * .43, 1.4 + (i % 2) * .3, 2.5];
     for (let j = 0; j < cuts.length - 1; j++) {
@@ -175,7 +175,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     const hub=cyl(.013,.013,.056,[x,.052,z],metal,chair);hub.rotation.x=Math.PI/2;
   }
   // Notebook: paper block and hinged cover pivot at the binding.
-  const notebook=group([-1.79,.776,-1.58],"notebook");notebook.rotation.y=-.15;
+  const notebook=group([-2.43,1.20,.40],"notebook");notebook.rotation.set(.90,Math.PI/2,0,"YXZ");
   box([.25,.013,.32],[0,0,0],terracotta,notebook,.006);
   box([.235,.024,.3],[.003,.017,0],paper,notebook,.005);
   for(let i=0;i<6;i++) box([.233,.0007,.298],[.003,.006+i*.004,0],mat("#c8bc9f"),notebook,.0001);
@@ -186,7 +186,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   surface(.22,.285,[.125,.006,0],folioTexture("FIELD NOTES","IDEAS, IN PROGRESS","#a65336","#ead5ae"),cover,true);
   rod([-.12,.035,-.14],[-.12,.035,.14],.008,edge,notebook);
   // Nameplate at the desk front, backed and supported by a wooden wedge.
-  const name=group([-1.63,.786,-1.31],"name");
+  const name=group([-1.63,.786,-1.31]);
   const plate=box([.28,.08,.037],[0,.026,0],wood,name,.007);plate.rotation.x=-.22;
   const nameFace=surface(.26,.066,[0,.027,.021],texture(c=>{c.fillStyle="#d1ba87";c.fillRect(0,0,1024,256);c.fillStyle="#283e33";c.textAlign="center";c.font="90px Georgia";c.fillText("WANG BO",512,129);c.font="23px sans-serif";c.fillText("IMAGE PROCESSING / ADC",512,198);},1024,256),name);nameFace.rotation.x=-.22;
   for(const x of [-.12,.12])sphere([.003,.003,.002],[x,.027,.023],brass,name);
@@ -212,9 +212,9 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   box([1.95,.27,.004],[0,.32,.054],paper,board,.001);
   surface(1.92,.25,[0,.32,.057],boardTex,board);
   for(let i=0;i<3;i++) {
-    const card = new THREE.Group(); card.position.set(-.66+i*.66,-.17,.063); card.rotation.z=[-.025,.015,-.018][i]; board.add(card);
+    const card = new THREE.Group(); card.position.set(-.66+i*.66,-.17,.063); card.rotation.z=0; board.add(card);
     box([.59,.59,.006],[0,0,0],paper,card,.003);
-    surface(.57,.57,[0,0,.004],labelTexture(["LLM","Tool Use","Agent"][i],["01 / GENERATE","02 / USE TOOLS","03 / ITERATE"][i],["#f7eed9","#dae7df","#a8c8c2"][i]),card);
+    surface(.57,.57,[0,0,.004],labelTexture(["RESPOND","EXECUTE","ITERATE"][i],["LLM RESPONSE","TOOL USE","AGENT LOOP"][i],["#f7eed9","#dae7df","#a8c8c2"][i]),card);
   }
   for(const x of [-1,1])for(const y of [-.48,.48])sphere([.014,.014,.009],[x,y,.066],metal,board);
   const boardPins:THREE.Mesh[]=[];for(let i=0;i<3;i++)boardPins.push(sphere([.023,.023,.014],[-.66+i*.66,.085,.088],brass,board));
@@ -229,7 +229,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   for(const x of [-.55,.55])box([.065,2,.43],[x,1.03,0],wood,library);
   for(const y of [.11,.57,1.04,1.51,2.02])box([1.17,.055,.44],[0,y,0],wood,library);
   const bookColors=[blue,terracotta,olive,mat("#d5bd88"),paper];
-  for(let row=0;row<4;row++){const count=row===3?5:8;for(let i=0;i<count;i++){
+  for(let row=0;row<4;row++){const count=row===2?3:row===3?4:5;for(let i=0;i<count;i++){
     const h=.27+(i%3)*.037,x=-.45+i*.11,y=[.14,.6,1.07,1.54][row]+h/2;
     const binding=bookColors[(i+row)%5];
     box([.066,h-.012,.217],[x,y,.03],paper,library,.002);
@@ -241,22 +241,22 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   }}
   for(const x of [-.45,.45])box([.07,.1,.32],[x,.04,0],edge,library);
   // Low exhibition table for the application clipboard.
-  const exhibit=group([1.63,0,1.02]);
+  const exhibit=group([.05,0,.75]);
   box([1.72,.075,1.05],[0,.617,0],wood,exhibit,.04);
   for(const x of [-.71,.71])for(const z of [-.37,.37]){const leg=box([.09,.56,.09],[x,.303,z],edge,exhibit);leg.rotation.z=x>0?-.055:.055;}
   box([1.44,.05,.04],[0,.22,-.34],edge,exhibit);
   box([1.46,.008,.82],[0,.66,0],finishes.material("wool", "#d4cbb8"),exhibit,.018);
   for(const z of [-.385,.385])box([1.38,.002,.008],[0,.665,z],finishes.material("fabric", "#8e9078"),exhibit,.002);
-  const deskTray=group([1.02,.675,1.21]);deskTray.rotation.y=.1;
+  const deskTray=group([-.50,.675,.90]);deskTray.rotation.y=.1;
   box([.46,.016,.30],[0,.012,0],edge,deskTray,.018);
   for(const x of [-.215,.215])box([.018,.035,.30],[x,.026,0],edge,deskTray,.005);
   for(const z of [-.14,.14])box([.44,.035,.018],[0,.026,z],edge,deskTray,.005);
   box([.29,.04,.22],[-.015,.042,0],finishes.material("wool","#718071"),deskTray,.006);
   for(const x of [-.12,-.10])box([.006,.001,.21],[x,.063,0],paper,deskTray,.0002);
-  const pencilJar=group([1.07,.685,.72]);
+  const pencilJar=group([-.55,.685,.47]);
   turned([[.03,0],[.048,.008],[.047,.11],[.043,.115],[.037,.112],[.037,.02],[.03,.01]],[0,0,0],ceramic,pencilJar);
   for(let i=0;i<3;i++){const x=(i-1)*.016;rod([x,.015,0],[x+(i-1)*.024,.195+i*.012,.01],.004,[edge,olive,brass][i],pencilJar);}
-  const checklist=group([2.12,.694,1.12],"checklist");checklist.rotation.y=-.1;
+  const checklist=group([1.35,.914,-1.99],"checklist");checklist.rotation.set(.85,-.1,0);
   box([.36,.018,.46],[0,0,0],edge,checklist,.013);box([.323,.003,.405],[0,.012,.007],paper,checklist,.004);
   const checklistFace=surface(.309,.39,[0,.014,.007],texture(c=>{
     c.fillStyle="#f2eedf";c.fillRect(0,0,768,1024);c.fillStyle="#435e54";c.font="24px monospace";c.fillText("STUDIO / QUALITY CONTROL",65,110);c.font="77px Georgia";c.fillText("Review",65,228);
@@ -269,8 +269,8 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   rod([.22,.02,.18],[.22,.02,.207],.004,graphite,checklist);
   const checks:THREE.Mesh[]=[];for(let i=0;i<3;i++)checks.push(box([.013,.003,.013],[-.120,.017,-.032+i*.066],blue,checklist,.004));
   // Framed print and a modest plant make the room feel inhabited, not a showroom.
-  const art=group([-1.4,2.1,-2.445],"name");box([.69,.77,.037],[0,0,0],wood,art,.014);
-  const profileFace=surface(.61,.69,[0,0,.021],texture(c=>{c.fillStyle="#ede5d5";c.fillRect(0,0,1024,512);c.fillStyle="#bc7755";c.beginPath();c.arc(490,210,135,0,7);c.fill();c.fillStyle="#6c8872";c.fillRect(225,300,580,65);c.fillStyle="#eee6d6";c.font="24px monospace";c.fillText("WANG BO / ABOUT ME",325,343);}),art);
+  const art=group([-1.4,2.1,-2.445]);box([.69,.77,.037],[0,0,0],wood,art,.014);
+  surface(.61,.69,[0,0,.021],texture(c=>{c.fillStyle="#ede5d5";c.fillRect(0,0,1024,512);c.fillStyle="#bc7755";c.beginPath();c.arc(490,210,135,0,7);c.fill();c.fillStyle="#6c8872";c.fillRect(225,300,580,65);c.fillStyle="#eee6d6";c.font="24px monospace";c.fillText("WANG BO / ABOUT ME",325,343);}),art);
   const leafTexture=texture(c=>{
     const gradient=c.createLinearGradient(0,0,256,0);gradient.addColorStop(0,"#416a35");gradient.addColorStop(.48,"#719152");gradient.addColorStop(.52,"#36572e");gradient.addColorStop(1,"#598344");c.fillStyle=gradient;c.fillRect(0,0,256,512);
     c.strokeStyle="#a6b777";c.lineWidth=2;c.beginPath();c.moveTo(128,0);c.lineTo(128,512);c.stroke();
@@ -308,10 +308,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   for(let i=0;i<26;i++)box([.037,.44,.012],[-.92+i*.073,.39,.228],edge,storage,.006);
   box([.009,.44,.012],[0,.39,.236],graphite,storage,.001);
   for(const x of [-.48,.48])sphere([.019,.019,.016],[x,.48,.248],brass,storage);
-  for(let i=0;i<3;i++)box([.34,.035,.24],[-.59+i*.015,.724+i*.037,.0],[paper,blue,terracotta][i],storage,.006);
-  turned([[.055,0],[.09,.012],[.11,.085],[.08,.155],[.047,.205],[.047,.23],[.036,.23],[.035,.204],[.065,.15],[.08,.08],[.055,.015]],[.52,.705,0],ceramic,storage);
-  rod([.52,.92,0],[.48,1.17,0],.004,olive,storage);
-  const sprig=mesh(leafGeometry,leafMaterials[1],[.48,1.06,0],storage);sprig.rotation.z=.6;sprig.scale.setScalar(.5);
+
   // Slender floor lamp, held by a weighted disc and a curved steel neck.
   const floorLamp=group([2.5,0,-.78]);
   cyl(.18,.2,.045,[0,.05,0],graphite,floorLamp);
@@ -337,10 +334,37 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   dustGeo.setAttribute("position",new THREE.Float32BufferAttribute(dustPositions,3));geometries.set("window-dust",dustGeo);
   const dustMat=new THREE.PointsMaterial({map:dustMap,color:"#fff3cd",size:.025,transparent:true,opacity:.5,depthWrite:false,blending:THREE.AdditiveBlending});
   const dust=new THREE.Points(dustGeo,dustMat);lightStudy.add(dust);
-  // The framed portfolio is also the opening presentation surface.
+  // A personal journal starts the route, on the central coffee table.
+  const journal=group([.10,.684,.78],"name");journal.rotation.y=-.08;
+  box([.49,.012,.35],[0,0,0],finishes.material("leather","#476a51"),journal,.007);
+  box([.46,.020,.325],[.005,.014,0],paper,journal,.004);
+  for(let i=0;i<5;i++)box([.456,.0006,.322],[.005,.008+i*.004,0],mat("#c7bfa9"),journal,.0001);
+  const journalFace=surface(.442,.307,[.005,.025,0],folioTexture("WANG BO","PERSONAL JOURNAL","#f6eedb","#3d5c44"),journal,true);
+  const journalCover=group([-.245,.025,0]);journal.add(journalCover);box([.49,.012,.35],[.245,0,0],finishes.material("leather","#476a51"),journalCover,.005);
+  surface(.46,.32,[.245,.007,0],folioTexture("ABOUT ME","WORK & CURIOSITY","#35583f","#ede3bf"),journalCover,true);
+  rod([-.238,.025,-.155],[-.238,.025,.155],.008,brass,journal);
+  // Tilted research volume, file boxes and horizontal reading stacks.
+  for(const z of [.27,.53])rod([-2.48,1.069,z],[-2.42,1.18,z],.008,brass);
+  for(let i=0;i<3;i++){box([.26,.027,.21],[.32,.62+i*.031,.035],[paper,olive,terracotta][i],library,.004);}
+  box([.26,.32,.24],[.31,1.25,.01],finishes.material("fabric","#d7d2b9"),library,.005);box([.12,.055,.003],[.31,1.26,.133],paper,library,.001);
+  // Work-in-progress notes on the desk, with recognisable image patches.
+  const researchSheet=group([-1.72,.773,-1.73]);researchSheet.rotation.y=-.13;
+  box([.28,.002,.24],[0,0,0],paper,researchSheet,.001);
+  surface(.26,.22,[0,.002,0],texture(c=>{c.fillStyle="#f4eeda";c.fillRect(0,0,512,512);c.fillStyle="#345640";c.font="25px Arial";c.fillText("IMAGE STUDY",35,60);for(let i=0;i<16;i++){c.fillStyle=i===5?"#bc9a55":i%3?"#46745e":"#789278";c.fillRect(40+i%4*105,110+Math.floor(i/4)*85,98,78);}c.fillStyle="#647552";c.font="18px Arial";c.fillText("VGG / ViT / ResNet",35,490);},512,512),researchSheet,true);
+  surface(.20,.14,[-1.73,.774,-1.38],texture(c=>{c.fillStyle="#eaddb2";c.fillRect(0,0,512,512);c.fillStyle="#486247";c.font="48px Arial";c.fillText("TO CHECK",35,95);["data split","pre-training","evaluation"].forEach((v,i)=>{c.strokeStyle="#82794c";c.strokeRect(35,155+i*90,30,30);c.font="29px Arial";c.fillText(v,92,184+i*90);});},512,512),root,true);
+  // Models refer to this website and the patch concept, not unverified products.
+  const miniStudio=group([.05,.725,-2.15],"checklist");
+  box([.46,.025,.30],[0,0,0],edge,miniStudio,.009);box([.46,.21,.014],[0,.112,-.144],olive,miniStudio,.004);box([.014,.21,.30],[-.224,.112,0],cream,miniStudio,.004);
+  box([.18,.016,.10],[-.04,.085,-.045],wood,miniStudio,.004);for(const x of [-.115,.035])for(const z of [-.08,-.005])box([.009,.077,.009],[x,.042,z],edge,miniStudio);
+  box([.066,.049,.007],[-.03,.116,-.073],graphite,miniStudio,.003);box([.061,.042,.002],[-.03,.117,-.068],mat("#819d80"),miniStudio,.001);
+  box([.10,.007,.07],[.10,.019,.065],finishes.material("wool","#ddd6bb"),miniStudio,.002);
+  surface(.38,.042,[0,.017,.155],labelTexture("STUDIO WEB","THIS PRESENTATION","#f5ecd6"),miniStudio);
+  const patchStudy=group([.67,.742,-2.13],"notebook");patchStudy.rotation.x=.2;box([.28,.018,.26],[0,0,0],edge,patchStudy,.006);
+  for(let i=0;i<16;i++)box([.056,.008,.052],[-.096+i%4*.064,.017,-.09+Math.floor(i/4)*.059],i===5?brass:mat(i%3?"#456c50":"#8c9e79"),patchStudy,.003);
+  for(const x of [1.23,1.46])rod([x,.707,-2.1],[x,.87,-2.13],.009,metal);
   const boardFace=new THREE.Object3D();boardFace.position.set(0,0,.103);board.add(boardFace);
   const surfaces: Partial<Record<ViewId,{face:THREE.Object3D;group:THREE.Group;width:number;height:number}>> = {
-    name:{face:profileFace,group:art,width:.61,height:.69},
+    name:{face:journalFace,group:journal,width:.442,height:.307},
     notebook:{face:notebookFace,group:notebook,width:.225,height:.285},
     board:{face:boardFace,group:board,width:2.04,height:.99},
     monitor:{face:monitorFace,group:monitor,width:.616,height:.347},
@@ -350,13 +374,13 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const foundationTex=texture(c=>{const grad=c.createRadialGradient(256,256,30,256,256,255);grad.addColorStop(0,"rgba(44,52,35,.32)");grad.addColorStop(.55,"rgba(44,52,35,.16)");grad.addColorStop(1,"rgba(44,52,35,0)");c.fillStyle=grad;c.fillRect(0,0,512,512);},512,512);
   const foundationGeo=new THREE.PlaneGeometry(11.6,10.5);geometries.set("foundationShadow",foundationGeo);const foundation=mesh(foundationGeo,new THREE.MeshBasicMaterial({map:foundationTex,transparent:true,depthWrite:false}),[.25,-.51,.18]);foundation.rotation.x=-Math.PI/2;foundation.castShadow=false;
   // Soft contact pools augment the directional shadows without full-screen effects.
-  const shadowTex=texture(c=>{const g=c.createRadialGradient(256,256,0,256,256,250);g.addColorStop(0,"rgba(52,44,33,.20)");g.addColorStop(1,"rgba(52,44,33,0)");c.fillStyle=g;c.fillRect(0,0,512,512);},512,512);
-  for(const [x,z,w,h] of [[-1.35,-1.65,2,1.3],[-1.32,-.6,.8,.8],[1.63,1.02,2.3,1.6],[-2.7,.58,.8,1.8],[2.51,-1.96,.85,.85]]){const geo=new THREE.PlaneGeometry(w,h);geometries.set(`shadow${x}`,geo);const m=mesh(geo,new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}),[x,.032,z]);m.rotation.x=-Math.PI/2;m.castShadow=false;}
+  const shadowTex=texture(c=>{const g=c.createRadialGradient(256,256,0,256,256,250);g.addColorStop(0,"rgba(52,44,33,.28)");g.addColorStop(1,"rgba(52,44,33,0)");c.fillStyle=g;c.fillRect(0,0,512,512);},512,512);
+  for(const [x,z,w,h] of [[-1.35,-1.65,2,1.3],[-1.32,-.6,.8,.8],[.05,.75,2.3,1.6],[-2.7,.58,.8,1.8],[2.51,-1.96,.85,.85]]){const geo=new THREE.PlaneGeometry(w,h);geometries.set(`shadow${x}`,geo);const m=mesh(geo,new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}),[x,.032,z]);m.rotation.x=-Math.PI/2;m.castShadow=false;}
   const hemi=new THREE.HemisphereLight("#f6f0e5","#7a8070",1.25);root.add(hemi);
   const sun=new THREE.DirectionalLight("#fff0d8",3.1);sun.position.set(-3.7,6.5,4.8);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-4.8;sun.shadow.camera.right=4.8;sun.shadow.camera.top=4.8;sun.shadow.camera.bottom=-4.8;sun.shadow.normalBias=.012;sun.shadow.bias=-.00015;sun.shadow.radius=4;root.add(sun);
-  const fill=new THREE.DirectionalLight("#d7e2ed",1.1);fill.position.set(5,4,2);root.add(fill);
+  const fill=new THREE.DirectionalLight("#fff3dc",.6);fill.position.set(5,4,2);root.add(fill);
   // Batch static meshes by material and interaction owner. Animated joints stay separate.
-  const dynamic=new Set<THREE.Object3D>([cover,name,art,notebook,board,monitor,checklist,lightStudy,...boardPins,...checks]);
+  const dynamic=new Set<THREE.Object3D>([cover,journalCover,journal,name,art,notebook,board,monitor,checklist,lightStudy,...boardPins,...checks]);
   const batches=new Map<string,{material:THREE.Material;id?:string;shadow:boolean;meshes:THREE.Mesh[]}>();
   root.updateMatrixWorld(true);
   root.traverse(o=>{if(!(o instanceof THREE.Mesh)||Array.isArray(o.material))return;let parent:THREE.Object3D|null=o,id:string|undefined;while(parent){if(dynamic.has(parent))return;if(parent.userData.objectId)id=parent.userData.objectId;parent=parent.parent;}const key=o.material.uuid+id+o.castShadow;let b=batches.get(key);if(!b){b={material:o.material,id,shadow:o.castShadow,meshes:[]};batches.set(key,b);}b.meshes.push(o);});
@@ -378,15 +402,15 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     sun.position.set(-3.7,6.5,4.8).applyAxisAngle(new THREE.Vector3(0,1,0),angle*Math.PI/180);
     lightStudy.rotation.y=angle*Math.PI/180;shaftMat.opacity=.34*(1-dusk*.8);dustMat.opacity=.5*(1-dusk*.7);
     dust.position.y=motion?Math.sin(time*.25)*.06:0;dust.rotation.y=motion?Math.sin(time*.13)*.025:0;
-    sun.color.lerpColors(daySun,duskSun,dusk); sun.intensity=3.1-dusk*1.5;
-    hemi.color.lerpColors(daySky,duskSky,dusk); hemi.intensity=1.25-dusk*.48;
-    fill.intensity=1.1-dusk*.64; readingLight.intensity=.32+dusk*1.8;
+    sun.color.lerpColors(daySun,duskSun,dusk); sun.intensity=3.4-dusk*1.8;
+    hemi.color.lerpColors(daySky,duskSky,dusk); hemi.intensity=1.10-dusk*.33;
+    fill.intensity=.6-dusk*.2; readingLight.intensity=.32+dusk*1.8;
     warm.emissiveIntensity=.6+dusk*1.2;
   }, animate(open:number,selected:number,review:number,hover:ObjectId|null,agentStep:number) {
-    cover.rotation.z=open*2.5;
+    cover.rotation.z=open*2.7;
+    journalCover.rotation.z=open*2.8+(hover==="name"?.025:0);
     boardPins.forEach((p,i)=>p.scale.set(.023,.023,.014).multiplyScalar(i===selected?1.6:1));
     checks.forEach((p,i)=>{p.material=review&(1<<i)?olive:blue;});
-    name.rotation.y=hover==="name"?.14:0;
     if(agentStep>=0&&agentStep!==screenStep){screenStep=agentStep;const c=(screenTex.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#183731";c.fillRect(0,0,1024,512);c.fillStyle="#dbe8bc";c.font="32px monospace";c.fillText("AGENT / EXECUTION LOOP",48,75);c.font="60px Georgia";c.fillText(["Goal","Generate","Inspect","Observe","Revise","Verify","Deliver"][agentStep],48,165);["Context","Model","Tools"].forEach((v,i)=>{c.strokeStyle="#a9c596";c.lineWidth=2;c.strokeRect(48+i*312,245,255,110);c.fillStyle="#e2ebd1";c.font="28px Arial";c.fillText(v,75+i*312,310);});c.strokeStyle="#d6c38f";c.beginPath();c.moveTo(855,368);c.lineTo(855,428);c.lineTo(165,428);c.lineTo(165,368);c.stroke();screenTex.needsUpdate=true;}
 
   }, dispose(){

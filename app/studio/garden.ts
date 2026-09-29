@@ -67,16 +67,15 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   bladeGeo.setAttribute("position", new THREE.Float32BufferAttribute([-.012, 0, 0, .012, 0, 0, -.008, .13, .01, .008, .13, .01, .024, .25, .025], 3));
   bladeGeo.setIndex([0, 1, 2, 1, 3, 2, 2, 3, 4]); bladeGeo.computeVertexNormals();
   const bladeMat = material(new THREE.MeshStandardMaterial({ color: "#7c9460", side: THREE.DoubleSide, roughness: .95 }));
-  const blades = new THREE.InstancedMesh(bladeGeo, bladeMat, 1150); blades.receiveShadow = true; root.add(blades);
+  const blades = new THREE.InstancedMesh(bladeGeo, bladeMat, 720); blades.receiveShadow = true; root.add(blades);
   const dummy = new THREE.Object3D(), color = new THREE.Color();
   const meadow: [number, number][] = [];
-  for (let i = 0; i < 1150; i++) {
-    let x: number, z: number;
-    do { x = -3.78 + random() * 7.65; z = -3.18 + random() * 6.6; }
-    while (Math.abs(x) < 3.17 && z < 2.63 && z > -2.72 || z > 2.6 && x > -.1 && x < .95 || z > 2.65 && x > -2.2 && x < -.75);
+  for (let i = 0; i < 720; i++) {
+    const [cx,cz,rx,rz]=[[-3.48,1.95,.24,.77],[3.56,-2.1,.25,.75],[3.22,2.79,.58,.30]][i%3];
+    const angle=random()*Math.PI*2,r=Math.sqrt(random()),x=cx+Math.cos(angle)*r*rx,z=cz+Math.sin(angle)*r*rz;
     const s = .3 + random() * .72;
     dummy.position.set(x, -.155, z); dummy.rotation.set(0, random() * Math.PI * 2, (random() - .5) * .3); dummy.scale.set(s, s, s); dummy.updateMatrix();
-    blades.setMatrixAt(i, dummy.matrix); blades.setColorAt(i, color.setHSL(.21 + random() * .045, .23 + random() * .15, .31 + random() * .2));
+    blades.setMatrixAt(i, dummy.matrix); blades.setColorAt(i, color.setHSL(.22 + random() * .025, .22 + random() * .08, .39 + random() * .12));
     if (i % 14 === 0) meadow.push([x, z]);
   }
   const flowerMat = material(new THREE.MeshStandardMaterial({ color: "#f3ecd1", roughness: .82, side: THREE.DoubleSide }));
@@ -95,13 +94,13 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
     }
   });
   // A single airy tree, kept outside the cutaway so every indoor object stays visible.
-  const treeX = 3.38, treeZ = -1.55;
+  const treeX = 3.86, treeZ = -2.7;
   branch([[treeX, -.16, treeZ], [treeX - .06, .7, treeZ], [treeX + .06, 1.5, treeZ + .08], [treeX - .03, 2.6, treeZ]], .067, bark);
   for (let i = 0; i < 7; i++) {
     const a = i * 2.399, h = 1.3 + i * .15;
     branch([[treeX, h, treeZ], [treeX + Math.cos(a) * .25, h + .24, treeZ + Math.sin(a) * .25], [treeX + Math.cos(a) * .67, h + .44, treeZ + Math.sin(a) * .63]], .019, bark);
   }
-  canopy.position.set(treeX, 1.2, treeZ); root.add(canopy);
+  canopy.position.set(treeX, 1.2, treeZ);canopy.scale.setScalar(.82); root.add(canopy);
   const leafShape = new THREE.Shape(); leafShape.moveTo(0, -.5); leafShape.bezierCurveTo(-.45, -.15, -.36, .24, 0, .5); leafShape.bezierCurveTo(.36, .24, .45, -.15, 0, -.5);
   const leafGeo = geometry(new THREE.ShapeGeometry(leafShape, 6));
   const leafPosition = leafGeo.getAttribute("position");
@@ -122,7 +121,7 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
     const a = random() * Math.PI * 2, b = Math.acos(2 * random() - 1), r = Math.cbrt(random());
     dummy.position.set(Math.sin(b) * Math.cos(a) * r * 1.08, .95 + Math.cos(b) * r * .93, Math.sin(b) * Math.sin(a) * r * .85);
     dummy.rotation.set((random() - .5) * 2.7, random() * Math.PI * 2, random() * Math.PI * 2); const s = .15 + random() * .19; dummy.scale.set(s, s, s); dummy.updateMatrix();
-    leaves.setMatrixAt(i, dummy.matrix); leaves.setColorAt(i, color.setHSL(.20 + random() * .06, .30 + random() * .2, .40 + random() * .24));
+    leaves.setMatrixAt(i, dummy.matrix); leaves.setColorAt(i, color.setHSL(.22 + random() * .025, .23 + random() * .08, .43 + random() * .13));
   }
   // Layered leaves form the shrubs, with visible gaps and smaller tips.
   const shrubs=new THREE.InstancedMesh(leafGeo,leafMat,420);shrubs.castShadow=true;shrubs.receiveShadow=true;root.add(shrubs);
@@ -205,8 +204,8 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
     if (merged) { mesh(geometry(merged), m, [0, 0, 0]); meshes.forEach(o => o.removeFromParent()); }
   }
   const perches: Record<ViewId, number[]> = {
-    room: [-1.45, .315, 3.03], name: [-1.1, .8, -1.18], notebook: [-2.01, .8, -1.45], board: [1.61, .71, -2.1],
-    monitor: [-.62, .8, -1.7], checklist: [2.39, .71, 1.39], library: [-2.46, 2.1, .58],
+    room: [-1.45, .315, 3.03], name: [.1, .74, .9], notebook: [-2.20, 1.12, .5], board: [1.61, .71, -2.1],
+    monitor: [-.62, .8, -1.7], checklist: [1.55, 1.02, -1.72], library: [-2.46, 2.1, .58],
   };
   let view: ViewId = "room", flight = 1;
   const from = bird.position.clone(), to = bird.position.clone();

@@ -9,6 +9,7 @@ try {
   await page.goto(base, { waitUntil:'networkidle' });
   await page.locator('.studio-scene[data-status=ready]').waitFor();
   await page.waitForTimeout(600);
+  await page.locator('.garden-start').click();await page.locator('.studio-surface-host[data-active=true][data-interactive=true]').waitFor();
   const measurements = [];
   for (const chapter of [1, 2, 3, 4]) {
     measurements.push(await page.evaluate(async chapter => {
