@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-29T02:45:50.702Z",
+  "date": "2026-09-29T05:04:26.863Z",
   "browser": "154.0.8037.58",
   "mode": "Headless Chromium, default graphics backend; rAF includes idle callbacks and is not GPU frame timing",
   "viewport": "1440×1000",
@@ -7,9 +7,9 @@
     {
       "chapter": 2,
       "model": "notebook",
-      "rafFps": 60.24096385814677,
-      "renderedFrames": 92,
-      "durationMs": 2108.1999999046325,
+      "rafFps": 60.11640373387972,
+      "renderedFrames": 122,
+      "durationMs": 2611.600000143051,
       "quality": "standard",
       "drawCalls": 52,
       "triangles": 264174,
@@ -18,9 +18,9 @@
     {
       "chapter": 3,
       "model": "board",
-      "rafFps": 60.135423077386484,
-      "renderedFrames": 92,
-      "durationMs": 2111.9000000476835,
+      "rafFps": 60.1118002865972,
+      "renderedFrames": 122,
+      "durationMs": 2611.800000190735,
       "quality": "standard",
       "drawCalls": 49,
       "triangles": 260590,
@@ -29,9 +29,9 @@
     {
       "chapter": 4,
       "model": "monitor",
-      "rafFps": 60.104117367313776,
-      "renderedFrames": 92,
-      "durationMs": 2113.000000047684,
+      "rafFps": 60.13021830496572,
+      "renderedFrames": 122,
+      "durationMs": 2611.000000095368,
       "quality": "standard",
       "drawCalls": 68,
       "triangles": 266790,
@@ -40,23 +40,12 @@
     {
       "chapter": 5,
       "model": "checklist",
-      "rafFps": 60.09558510793393,
-      "renderedFrames": 92,
-      "durationMs": 2113.2999998569485,
+      "rafFps": 60.072699440804286,
+      "renderedFrames": 122,
+      "durationMs": 2613.5000001907356,
       "quality": "standard",
       "drawCalls": 45,
       "triangles": 262088,
-      "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
-    },
-    {
-      "chapter": 6,
-      "model": "cards",
-      "rafFps": 60.101273013928214,
-      "renderedFrames": 91,
-      "durationMs": 2113.0999999046326,
-      "quality": "standard",
-      "drawCalls": 53,
-      "triangles": 262524,
       "renderer": "ANGLE (Apple, ANGLE Metal Renderer: Apple M4, Unspecified Version)"
     }
   ]

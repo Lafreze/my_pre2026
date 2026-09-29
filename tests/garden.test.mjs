@@ -24,11 +24,11 @@ try {
     await page.getByRole('button', { name: '夕暮れの光', exact: true }).click();
     assert.equal(await scene.getAttribute('data-time'), 'dusk');
     await page.screenshot({ path: `${output}/dusk.png` });
-    assert.equal(await page.locator('.studio-object:visible').count(), 7);
+    assert.equal(await page.locator('.studio-object:visible').count(), 6);
     await page.getByRole('button', { name: '昼の光', exact: true }).click();
   });
-  await check('little bird discovers all seven objects, saves visits and starts a fresh tour', async () => {
-    for (const [i, id] of ['notebook', 'board', 'monitor', 'checklist', 'cards', 'library'].entries()) {
+  await check('little bird discovers all six objects, saves visits and starts a fresh tour', async () => {
+    for (const [i, id] of ['notebook', 'board', 'monitor', 'checklist', 'library'].entries()) {
       await page.locator('.garden-discovery>button').click();
       if (id === 'library') {
         await page.locator('.studio-library-dialog').waitFor();
@@ -42,7 +42,7 @@ try {
     }
     assert.ok((await page.locator('.garden-discovery').innerText()).includes('THANK YOU'));
     await page.reload({ waitUntil: 'networkidle' });
-    await page.locator('.studio-scene[data-status=ready][data-visited="7"]').waitFor();
+    await page.locator('.studio-scene[data-status=ready][data-visited="6"]').waitFor();
     await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
     await page.locator('.garden-discovery>button').click();
     await page.locator('.studio-scene[data-view=name][data-visited="1"]').waitFor();
@@ -79,7 +79,7 @@ try {
       for (const b of [...layout.boxes, ...layout.controls]) { assert.ok(b.left >= 0 && b.right <= width, JSON.stringify(b)); assert.ok(b.height >= 44); }
       for (const [i, a] of layout.boxes.entries()) for (const b of layout.boxes.slice(i + 1)) assert.ok(Math.min(a.right,b.right)-Math.max(a.left,b.left)<1 || Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)<1, `Overlapping ${a.id}/${b.id} at ${width}`);
       await page.screenshot({ path: `${output}/${width}-garden.png` });
-      for (const id of ['name','notebook','board','monitor','cards','checklist']) {
+      for (const id of ['name','notebook','board','monitor','checklist']) {
         await page.locator(`[data-object=${id}]`).click();
         await page.locator(`.studio-scene[data-view=${id}]`).waitFor();
         await page.getByRole('button', { name: '全景に戻る', exact: true }).click();

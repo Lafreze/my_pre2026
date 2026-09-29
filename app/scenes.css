@@ -26,7 +26,7 @@
 #presentation .scene-tabs { display: flex; flex-wrap: wrap; gap: 7px; }
 #presentation .scene-tabs button { padding: 8px 14px; min-height: 35px; font-size: 11px; }
 #presentation .scene-demo { color: #79909f; font: 9px var(--slide-meta); letter-spacing: .17em; margin-left: auto; }
-#presentation .scene-counter { color: #5c7b95; font: 12px var(--slide-meta); letter-spacing: .07em; }
+#presentation .scene-counter { flex-shrink: 0; color: #5c7b95; font: 12px var(--slide-meta); letter-spacing: .07em; }
 #presentation .scene-playback { display: flex; align-items: center; gap: 10px; padding: 15px 0 0; }
 #presentation .scene-playback button { width: 38px; height: 38px; padding: 6px; }
 #presentation .scene-playback input, #presentation .cost-dial input { flex: 1; accent-color: #248b91; min-height: 30px; padding: 0; border: 0; background: transparent; }

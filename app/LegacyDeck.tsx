@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore
 import { flushSync } from "react-dom";
 import { CapabilityLab, ReasoningLab, VibeLab } from "./NarrativeLabs";
 import { HarnessLab } from "./SystemLabs";
-import { GameProcessLab, GameAgentsLab } from "./GameLabs";
 import { TrustLab, AdoptionLab, TakeawayLab } from "./DecisionLabs";
 import { AgentAtlas } from "./AgentAtlas";
 import { ChronologyScene } from "./ChronologyScene";
@@ -12,11 +11,10 @@ import { MediaScene } from "./MediaScene";
 import { CloudLocalScene, ProtocolScene, ConceptScene } from "./ConnectionScenes";
 import { AgentScene } from "./AgentScene";
 import { ArchitectureScene, SystemLayersScene } from "./ArchitectureScenes";
-import { CostScene, SprintScene } from "./ProductionScenes";
+import { CostScene } from "./ProductionScenes";
 import { CapabilityMap } from "./CapabilityMap";
 import { usePresentationMotion } from "./usePresentationMotion";
 import { MermaidDiagram } from "./MermaidDiagram";
-import { DaycardShowcase } from "./DaycardShowcase";
 import { InsightDialog, type InsightContent } from "./InsightDialog";
 
 const timeline = [
@@ -230,45 +228,7 @@ flowchart LR
   class CTX,MODEL,TOOL,OBS,MEMORY active;
   class GUARD,VERIFY,HUMAN control;`;
 
-const gameProductionChart = String.raw`%%{init: {"themeVariables":{"fontSize":"15px"},"flowchart":{"nodeSpacing":26,"rankSpacing":32}}}%%
-flowchart LR
-  VISION["01 GAME BRIEF<br/><small>体験・対象・制約</small>"] --> CORE["02 CORE LOOP<br/><small>30秒〜3分の遊び</small>"]
-  CORE --> GRAY["03 GRAYBOX<br/><small>仮素材で操作検証</small>"]
-  GRAY --> SLICE["04 VERTICAL SLICE<br/><small>短いが完成品質</small>"]
-  SLICE --> SCALE["05 CONTENT SCALE<br/><small>面・敵・報酬を増やす</small>"]
-  SCALE --> RELEASE["06 RELEASE<br/><small>品質・配布・運用</small>"]
-  TEST{{"PLAYER TEST<br/>触る・測る・観察"}}
-  GRAY --> TEST
-  SLICE --> TEST
-  SCALE --> TEST
-  TEST -. "違和感を戻す" .-> CORE
-  classDef plan fill:#e7eff6,stroke:#55728c,color:#10233f;
-  classDef make fill:#8ed8f8,stroke:#10233f,color:#10233f,stroke-width:2px;
-  classDef gate fill:#c5b9f3,stroke:#10233f,color:#10233f;
-  class VISION,CORE plan;
-  class GRAY,SLICE,SCALE,RELEASE make;
-  class TEST gate;`;
 
-const gameSprintChart = String.raw`%%{init: {"themeVariables":{"fontSize":"14px"},"flowchart":{"nodeSpacing":22,"rankSpacing":30}}}%%
-flowchart LR
-  SPEC["0–15 min<br/><b>SPEC LOCK</b><br/><small>遊び・担当・完了条件</small>"] --> PARALLEL
-  subgraph PARALLEL["15–55 min / PARALLEL WORK"]
-    direction TB
-    CODE["Engineering Agent<br/><small>操作・ルール・UI</small>"]
-    ART["Art Agent<br/><small>Sprite・背景・FX</small>"]
-    LEVEL["Content Agent<br/><small>Level・敵・報酬</small>"]
-  end
-  PARALLEL --> INTEGRATE["55–75 min<br/><b>INTEGRATE</b><br/><small>契約確認・Build</small>"]
-  INTEGRATE --> QA["QA Agent<br/><small>自動テスト・画面確認</small>"]
-  QA --> HUMAN{"75–90 min<br/>人が遊んで判断"}
-  HUMAN -- "KEEP" --> NEXT["次の小さなSlice"]
-  HUMAN -- "CHANGE" --> SPEC
-  classDef plan fill:#e7eff6,stroke:#55728c,color:#10233f;
-  classDef work fill:#8ed8f8,stroke:#10233f,color:#10233f;
-  classDef review fill:#c5b9f3,stroke:#10233f,color:#10233f;
-  class SPEC,NEXT plan;
-  class CODE,ART,LEVEL,INTEGRATE work;
-  class QA,HUMAN review;`;
 
 const reasoningChart = String.raw`flowchart LR
   Q["問題 / 指示"] --> PLAN["分解・方針"]
@@ -615,10 +575,6 @@ const slideCatalog = [
   { id: "commodity", label: "Product価値" },
   { id: "engineering", label: "Engineering Stack" },
   { id: "harness", label: "Harness / Loop" },
-  { id: "game-process", label: "ゲーム制作プロセス", defaultHidden: true },
-  { id: "game-agents", label: "Multi-Agent制作", defaultHidden: true },
-  { id: "game-sprint", label: "90分制作ループ", defaultHidden: true },
-  { id: "game-case", label: "Webゲーム制作" },
   { id: "reasoning", label: "Reasoning" },
   { id: "media", label: "画像・音声・動画" },
   { id: "open-local", label: "Open / Local" },
@@ -649,10 +605,6 @@ const slideThemes: Record<SlideId, SlideTheme> = {
   commodity: { accent: "#efb84e", secondary: "#ff7f72", surface: "#271b09" },
   engineering: { accent: "#a36dff", secondary: "#5fd6e8", surface: "#18112b" },
   harness: { accent: "#6878ff", secondary: "#70e0cd", surface: "#10152c" },
-  "game-process": { accent: "#eab94e", secondary: "#70d6b6", surface: "#251b09" },
-  "game-agents": { accent: "#a06df5", secondary: "#ff8d9a", surface: "#1b1029" },
-  "game-sprint": { accent: "#57d6a4", secondary: "#f0ca63", surface: "#0c241b" },
-  "game-case": { accent: "#f2b84c", secondary: "#d977db", surface: "#28180c" },
   trust: { accent: "#ff687b", secondary: "#ffb35c", surface: "#2a0d17" },
   adoption: { accent: "#3fd0b5", secondary: "#70a8ff", surface: "#08231f" },
   synthesis: { accent: "#5b8dff", secondary: "#a67aff", surface: "#0d1730" },
@@ -761,34 +713,6 @@ const slideInsights: Record<SlideId, InsightContent> = {
     points: ["Model / Policy：文脈と観測結果から計画や行動を選ぶ。", "Agent Loop：実行結果に応じて継続・再計画・停止・人への移譲を制御する。", "Harness / Runtime：情報、ツール実行、状態、権限、隔離、評価、ログ、エラー処理を提供する。"],
     source: { label: "OpenAI · Harness engineering", url: "https://openai.com/index/harness-engineering/" },
   },
-  "game-process": {
-    kicker: "PAGE 16 · GAME PROCESS",
-    title: "完成より先に、遊びを検証する",
-    summary: "ゲーム制作ではコアループ、Graybox、Vertical Sliceの順に、体験の仮説を早く検証します。ビルド成功と面白さは別の判定です。",
-    points: ["仮素材で操作とフィードバックを検証する。", "短い完成品質のVertical Sliceで制作リスクを測る。", "プレイヤーテストの観察を次の設計へ戻す。"],
-    source: { label: "Unity + USC Games · Milestones", url: "https://learn.unity.com/course/design-and-publish-your-original-game-unity-usc-games-unlocked/unit/milestones" },
-  },
-  "game-agents": {
-    kicker: "PAGE 17 · MULTI-AGENT",
-    title: "並列化できるのは独立した仕事",
-    summary: "専門Agentはコード、アート、コンテンツ、QAを分担できますが、契約、共有状態、統合責任が曖昧だと衝突と手戻りが増えます。",
-    points: ["依存関係が少ないタスクだけを並列化する。", "入出力、ファイル所有、完了条件を先に固定する。", "最後の統合と体験判断は一つの責任線に戻す。"],
-    source: { label: "OpenAI · Subagents in ChatGPT and Codex", url: "https://learn.chatgpt.com/docs/agent-configuration/subagents" },
-  },
-  "game-sprint": {
-    kicker: "PAGE 18 · 90 MIN LOOP",
-    title: "短時間では契約を先に固定する",
-    summary: "90分という例は標準工程ではなく、短い制作実験の設計例です。作業分離、早期統合、人のプレイ判断を一つのループにします。",
-    points: ["最初の15分で体験、担当、完了条件を固定する。", "分離した作業環境で衝突範囲を小さくする。", "最後は自動QAに加えて、人が実際に遊んで判断する。"],
-    source: { label: "OpenAI · Git worktrees in Codex", url: "https://learn.chatgpt.com/docs/environments/git-worktrees" },
-  },
-  "game-case": {
-    kicker: "PAGE 19 · LIVE CASE",
-    title: "一つのアイデアを、数時間で遊べるWebゲームへ",
-    summary: "ゲームのコア体験を決め、ルール・画面・操作を設計し、最小限の流れを実装する。実際に遊んで修正し、URLで遊べる形として公開する制作例です。",
-    points: ["CONCEPT / DESIGN：何をして遊ぶか、ルールと操作を具体化する。", "BUILD / ITERATE：動くゲームを実装し、プレイで気づいた問題を修正する。", "SHIP：URLとして公開する。遊べることと、安全性や継続的な面白さの確認は分けて考える。"],
-    source: { label: "Day Card · live site", url: "https://www.daycard.site/" },
-  },
   trust: {
     kicker: "PAGE 20 · EVALS & SECURITY",
     title: "評価と安全は実行前から設計する",
@@ -828,7 +752,6 @@ const topicCatalog = [
   { id: "big-picture", label: "全体像", slides: ["manifesto", "overview", "timeline"] },
   { id: "agent-system", label: "Agent / MCP", slides: ["agent", "mcp", "concepts", "vibe", "commodity"] },
   { id: "engineering", label: "Harness / Loop", slides: ["engineering", "harness"] },
-  { id: "game", label: "制作例", slides: ["game-process", "game-agents", "game-sprint", "game-case"] },
   { id: "capability", label: "能力拡張", slides: ["reasoning", "media", "open-local"] },
   { id: "adoption", label: "社内活用", slides: ["trust", "adoption"] },
   { id: "conclusion", label: "まとめ", slides: ["synthesis", "takeaway", "sources"] },
@@ -846,16 +769,12 @@ const defaultSlideOrder: SlideId[] = [
   "reasoning", "media", "open-local",
   "agent", "mcp", "concepts", "vibe", "commodity",
   "engineering", "harness",
-  "game-process", "game-agents", "game-sprint", "game-case",
   "trust", "adoption", "synthesis",
   "sources", "takeaway",
 ];
 const defaultHiddenSlides = slideCatalog.filter((slide) => "defaultHidden" in slide && slide.defaultHidden).map((slide) => slide.id);
 const optionalSourceNumbers = new Set([17, 18, 36, 37, 40, 41, 42, 43, 44, 45, 46, 47, 48]);
 const optionalSourcesBySlide: Partial<Record<SlideId, number[]>> = {
-  "game-process": [42, 46, 47],
-  "game-agents": [43, 44, 45],
-  "game-sprint": [44, 47, 48],
   trust: [36, 37, 40, 41],
   adoption: [17, 18, 41],
 };
@@ -1699,86 +1618,6 @@ export default function Home() {
           <a href={sources[24].url} target="_blank" rel="noreferrer"><time>2026.04.27</time><b>OpenAI</b><span>Symphony</span></a>
           <a href={sources[23].url} target="_blank" rel="noreferrer"><time>2026.07.17</time><b>IBM</b><span>Loop Engineering</span></a>
         </div>
-      </section>
-
-      <section {...slideProps("game-process")} className="game-process-section section-pad" id="game-studio">
-        <div className="section-head game-process-head">
-          <div><div className="section-no">06C / AGENTIC GAME DEVELOPMENT</div><h2>Agentを使った<br />ゲーム制作の進め方。</h2></div>
-          <p><b>Agentは制作を加速し、Playtestは価値を判定する。</b><br />Core Loop → Graybox → Vertical Slice → Scale。</p>
-        </div>
-        <GameProcessLab />
-
-
-        <div className="game-process-map" aria-label="ゲーム制作の6段階とPlayer Testの反復">
-          <div className="game-flow-track">
-            {[
-              ["01", "GAME BRIEF", "体験を定義"],
-              ["02", "CORE LOOP", "遊びを証明"],
-              ["03", "GRAYBOX", "最小実装"],
-              ["04", "VERTICAL SLICE", "品質の基準"],
-              ["05", "CONTENT SCALE", "量を増やす"],
-              ["06", "RELEASE", "届けて運用"],
-            ].map(([number, title, copy], index) => <article className={index === 1 ? "is-active" : ""} key={title}><span>{number}</span><b>{title}</b><small>{copy}</small>{index < 5 && <i>→</i>}</article>)}
-          </div>
-          <div className="player-feedback"><strong>PLAYER TEST</strong><span>CORE LOOP</span><span>GRAYBOX</span><span>VERTICAL SLICE</span><i>Feedback ↺</i></div>
-          <p><span>QUALITY SIGNAL</span>Build成功は技術的成立の証拠。面白さは、行動・離脱・再挑戦・主観フィードバックを観察して初めて判定できる。</p>
-        </div>
-
-        <div className="game-agentic-split" aria-label="ゲーム制作における人とAgentの役割分担">
-          <article><span>HUMAN DECIDES</span><b>Fun · Taste · Direction · Priority · Final quality</b><p>何が面白いか、何を残すか、どこまで磨くかを決める。</p></article>
-          <article><span>AGENT ACCELERATES</span><b>Prototype · Code · Assets · Variations · Tests · Instrumentation</b><p>複数案の制作と検証材料の生成を高速化する。</p></article>
-          <strong>Agentは制作速度を上げる。面白さを決めるのはPlaytest。</strong>
-        </div>
-
-        <div className="game-design-rules">
-          <article><span>01 / EXPERIENCE FIRST</span><h3>「何を作るか」より、<br />「何を感じてほしいか」</h3><p>MDAでは、MechanicsがDynamicsを生み、Aesthetics＝プレイヤー体験につながる。Agentへ機能一覧だけでなく、狙う感情を渡す。</p><a href={sources[45].url} target="_blank" rel="noreferrer">MDA [46] ↗</a></article>
-          <article><span>02 / ONE COMPLETE LOOP</span><h3>面を増やす前に、<br />1ループを完成させる</h3><p>移動 → 判断 → リスク → 報酬 → 再挑戦。仮素材でも、この循環が面白いかを先に検証する。</p><a href={sources[46].url} target="_blank" rel="noreferrer">UNITY / VERTICAL SLICE [47] ↗</a></article>
-          <article><span>03 / PLAY, NOT JUST BUILD</span><h3>Build成功は、<br />面白さの証明ではない</h3><p>操作感、テンポ、難易度、可読性は実際のプレイでしか分からない。画面・入力・ログを観察し、短く反復する。</p><a href={sources[41].url} target="_blank" rel="noreferrer">OPENAI / GAME WORKFLOW [42] ↗</a></article>
-        </div>
-      </section>
-
-      <section {...slideProps("game-agents")} className="game-agents-section dark section-pad">
-        <div className="section-head light-head">
-          <div><div className="section-no">06D / MULTI-AGENT STUDIO</div><h2>ゲーム制作における<br />Agentの役割分担。</h2></div>
-          <p>依存の少ない仕事だけを並列化し、成果物の契約と統合責任を一つに戻す。<br />人はCreative Directorとして、体験・優先順位・採否を決める。</p>
-        </div>
-        <GameAgentsLab active={currentSlide?.id === "game-agents"} />
-
-        <div className="studio-director">
-          <span>HUMAN / CREATIVE DIRECTOR</span>
-          <b>Player Fantasy・対象ユーザー・優先順位・最終判断</b>
-          <small>Agentは候補と実装を高速化する。面白さの責任と「何を捨てるか」は人が持つ。</small>
-        </div>
-        <div className="agent-role-grid">
-          <article><div><span>01</span><b>DESIGN AGENT</b></div><h3>遊びを設計</h3><p>Core Loop、ルール、難易度曲線、勝敗条件、バックログを具体化。</p><small>OUTPUT / GAME BRIEF・BALANCE TABLE</small></article>
-          <article><div><span>02</span><b>ENGINEERING AGENT</b></div><h3>仕組みを実装</h3><p>入力、状態管理、ゲームロジック、UI、保存、パフォーマンスを担当。</p><small>OUTPUT / CODE・TEST・BUILD</small></article>
-          <article className="art-agent"><div><span>03</span><b>ART AGENT</b></div><h3>素材を制作</h3><p>コンセプト、Sprite、背景、UI、FXをStyle Bibleと再利用可能なPromptに沿って生成。</p><small>OUTPUT / ASSET MANIFEST・PROMPT LIBRARY</small></article>
-          <article><div><span>04</span><b>CONTENT AGENT</b></div><h3>玩法を豊かに</h3><p>Level、敵、アイテム、イベント、報酬の組合せを増やし、重複を整理。</p><small>OUTPUT / LEVEL DATA・ENCOUNTER SET</small></article>
-          <article><div><span>05</span><b>QA / PLAYTEST AGENT</b></div><h3>壊して確かめる</h3><p>自動テスト、実機プレイ、導線、アクセシビリティ、回帰を検証し証拠を返す。</p><small>OUTPUT / BUG・VIDEO・METRICS</small></article>
-        </div>
-        <div className="studio-contract"><b>SHARED CONTRACT</b><span>PLAN.md</span><span>STYLE BIBLE</span><span>ASSET SPEC</span><span>MODULE OWNER</span><span>ACCEPTANCE TEST</span><i>全Agentが同じ「完成条件」を読む</i></div>
-        <div className="game-agent-sources"><a href={sources[42].url} target="_blank" rel="noreferrer">CODEX SUBAGENTS [43] ↗</a><a href={sources[44].url} target="_blank" rel="noreferrer">CLAUDE CODE SUBAGENTS [45] ↗</a></div>
-      </section>
-
-      <section {...slideProps("game-sprint")} className="game-sprint-section section-pad">
-        <div className="section-head">
-          <div><div className="section-no">06E / SMALL-BATCH LOOP</div><h2>短い制作サイクルの<br />実行例。</h2></div>
-          <p><b>90分は速度目標ではなく、フィードバックを得る単位。</b><br />並列化するのは独立作業、統合するのは仕様と判断。</p>
-        </div>
-        <SprintScene active={currentSlide?.id === "game-sprint"} />
-        <details className="scene-notes"><summary aria-label="関連資料と詳細">＋</summary><div className="scene-notes-content">
-<MermaidDiagram className="game-sprint-diagram" chart={gameSprintChart} label="複数のAI Agentでゲーム機能を作る90分スプリント" caption="図8｜最初に仕様と担当範囲を固定し、独立作業だけを並列化。統合・自動検証の後、人が遊んで次の変更を決める。" />
-        <div className="sprint-rules">
-          <article><span>BOUNDARY</span><b>同じファイルを同時に触らせない</b><p>Module ownerかGit Worktreeで分離し、共有APIとデータ形式だけ先に固定する。</p></article>
-          <article><span>ASSET PIPELINE</span><b>素材はStyle Bibleで揃える</b><p>色、線、視点、サイズ、透過、命名、Promptを固定し、stagingから採用素材だけを統合。</p></article>
-          <article><span>QUALITY GATE</span><b>「できた」をテストで定義する</b><p>Build、操作、FPS、主要導線、勝敗、回帰、アクセシビリティを完了条件にする。</p></article>
-          <article><span>HUMAN PLAY</span><b>最後は人が触り、捨てる</b><p>Agentは量を増やせる。人は体験を選び、面白くない機能を削る。</p></article>
-        </div>
-        <p className="game-recommendation"><b>おすすめの開始点：</b>ブラウザ2Dゲームなら、1画面・1操作・1敵・1報酬から。Codex / Claude Codeに「ゲーム全体」ではなく、次のVertical Sliceと検証条件を渡す。<a href={sources[43].url} target="_blank" rel="noreferrer">Worktree [44] ↗</a> <a href={sources[47].url} target="_blank" rel="noreferrer">Accessibility [48] ↗</a></p>
-        </div></details>
-      </section>
-      <section {...slideProps("game-case")} className="daycard-case section-pad" id="game-case">
-        <DaycardShowcase active={currentSlide?.id === "game-case"} />
       </section>
 
       <section {...slideProps("reasoning")} className="frontier-section dark section-pad" id="frontier">

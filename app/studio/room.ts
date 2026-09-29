@@ -233,25 +233,13 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     for(let page=0;page<4;page++)box([.0008,.001,.2],[x-.024+page*.016,y+h/2-.005,.035],mat("#bcb6a6"),library,.0001);
   }}
   for(const x of [-.45,.45])box([.07,.1,.32],[x,.04,0],edge,library);
-  // Low exhibition table. Card box, stack, sliding cards and checklist all rest on it.
+  // Low exhibition table for the application clipboard.
   const exhibit=group([1.63,0,1.02]);
   box([1.72,.075,1.05],[0,.617,0],wood,exhibit,.04);
   for(const x of [-.71,.71])for(const z of [-.37,.37]){const leg=box([.09,.56,.09],[x,.303,z],edge,exhibit);leg.rotation.z=x>0?-.055:.055;}
   box([1.44,.05,.04],[0,.22,-.34],edge,exhibit);
   box([1.46,.008,.82],[0,.66,0],finishes.material("fabric", "#d4cbb8"),exhibit,.018);
   for(const z of [-.385,.385])box([1.38,.002,.008],[0,.665,z],finishes.material("fabric", "#8e9078"),exhibit,.002);
-  const cards=group([1.29,.687,.78],"cards");
-  box([.39,.095,.52],[0,.05,0],finishes.material("fabric", "#243d94"),cards,.018);
-  box([.37,.003,.50],[0,.094,0],brass,cards,.006);
-  box([.337,.026,.46],[0,.108,0],paper,cards,.013);
-  const lid=new THREE.Group();lid.position.set(0,.12,-.26);cards.add(lid);
-  box([.408,.032,.536],[0,0,.26],blue,lid,.015);
-  const cardBack=folioTexture("DAY CARD","A MOMENT, JUST FOR YOU","#294bb1","#e4ce93");
-  const cardFace=surface(.365,.48,[0,.017,.26],cardBack,lid,true);
-  const lining=surface(.355,.47,[0,-.017,.26],folioTexture("ONE SMALL MOMENT","MAKE ROOM FOR POSSIBILITY","#e9dfc6","#5a7359"),lid);lining.rotation.x=Math.PI/2;
-  const sliding:THREE.Group[]=[];
-  const cardFront=folioTexture("A SMALL STEP","MAKE / TRY / IMPROVE","#ede4ca","#54765f");
-  for(let i=0;i<3;i++){const g=new THREE.Group();g.position.set(0,.14+i*.006,0);cards.add(g);box([.27,.005,.39],[0,0,0],paper,g,.012);surface(.255,.375,[0,.003,0],cardBack,g,true);const face=surface(.255,.375,[0,-.003,0],cardFront,g);face.rotation.x=Math.PI/2;sliding.push(g);}
   const checklist=group([2.12,.694,1.12],"checklist");checklist.rotation.y=-.1;
   box([.36,.018,.46],[0,0,0],edge,checklist,.013);box([.323,.003,.405],[0,.012,.007],paper,checklist,.004);
   const checklistFace=surface(.309,.39,[0,.014,.007],texture(c=>{
@@ -327,7 +315,6 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     board:{face:boardFace,group:board,width:2.04,height:.99},
     monitor:{face:monitorFace,group:monitor,width:.616,height:.347},
     checklist:{face:checklistFace,group:checklist,width:.309,height:.39},
-    cards:{face:cardFace,group:cards,width:.365,height:.48},
   };
   // Subtle foundation shadow anchors the complete diorama to the page.
   const foundationTex=texture(c=>{const grad=c.createRadialGradient(256,256,30,256,256,255);grad.addColorStop(0,"rgba(44,52,35,.32)");grad.addColorStop(.55,"rgba(44,52,35,.16)");grad.addColorStop(1,"rgba(44,52,35,0)");c.fillStyle=grad;c.fillRect(0,0,512,512);},512,512);
@@ -339,7 +326,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const sun=new THREE.DirectionalLight("#fff0d8",3.1);sun.position.set(-3.7,6.5,4.8);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-4.8;sun.shadow.camera.right=4.8;sun.shadow.camera.top=4.8;sun.shadow.camera.bottom=-4.8;sun.shadow.normalBias=.012;sun.shadow.bias=-.00015;sun.shadow.radius=4;root.add(sun);
   const fill=new THREE.DirectionalLight("#d7e2ed",1.1);fill.position.set(5,4,2);root.add(fill);
   // Batch static meshes by material and interaction owner. Animated joints stay separate.
-  const dynamic=new Set<THREE.Object3D>([cover,lid,name,art,notebook,board,monitor,checklist,cards,...sliding,...boardPins,...checks]);
+  const dynamic=new Set<THREE.Object3D>([cover,name,art,notebook,board,monitor,checklist,...boardPins,...checks]);
   const batches=new Map<string,{material:THREE.Material;id?:string;shadow:boolean;meshes:THREE.Mesh[]}>();
   root.updateMatrixWorld(true);
   root.traverse(o=>{if(!(o instanceof THREE.Mesh)||Array.isArray(o.material))return;let parent:THREE.Object3D|null=o,id:string|undefined;while(parent){if(dynamic.has(parent))return;if(parent.userData.objectId)id=parent.userData.objectId;parent=parent.parent;}const key=o.material.uuid+id+o.castShadow;let b=batches.get(key);if(!b){b={material:o.material,id,shadow:o.castShadow,meshes:[]};batches.set(key,b);}b.meshes.push(o);});
@@ -347,7 +334,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const garden = buildGarden(finishes); root.add(garden.root);
   const daySun = new THREE.Color("#fff0d8"), duskSun = new THREE.Color("#ffb578");
   const daySky = new THREE.Color("#f6f0e5"), duskSky = new THREE.Color("#adb9ce");
-  let screenStep=-2,frontTheme=-1;
+  let screenStep=-2;
   return { root, sun, garden, surfaces, fitSurfaces(view:ViewId,aspect:number,dt:number,instant:boolean) {
     let changing=false;
     for(const [id,surface] of Object.entries(surfaces)) {
@@ -362,16 +349,12 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     hemi.color.lerpColors(daySky,duskSky,dusk); hemi.intensity=1.25-dusk*.48;
     fill.intensity=1.1-dusk*.64; readingLight.intensity=.32+dusk*1.8;
     warm.emissiveIntensity=.6+dusk*1.2;
-  }, animate(open:number,cardOpen:number,selected:number,review:number,hover:ObjectId|null,agentStep:number,cardFlip:number,cardTheme:number) {
-    if(frontTheme!==cardTheme){frontTheme=cardTheme;const c=(cardFront.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#f3e8c8";c.fillRect(0,0,768,1024);c.strokeStyle="#657d61";c.lineWidth=2;c.strokeRect(35,35,698,954);c.textAlign="center";c.fillStyle="#657d61";c.font="21px sans-serif";c.fillText("A MOMENT, JUST FOR YOU",384,127);c.font="110px Georgia";c.fillText("✦",384,360);c.fillStyle="#284aa4";c.font="48px Georgia";c.fillText(["A LITTLE PAUSE","A SMALL STEP","ANOTHER ANGLE"][cardTheme],384,560);c.font="36px sans-serif";c.fillText(["余白を、一つ。","小さな一歩。","違う角度から。"][cardTheme],384,659);c.font="19px sans-serif";c.fillText("MAKE / TRY / IMPROVE",384,900);cardFront.needsUpdate=true;}
+  }, animate(open:number,selected:number,review:number,hover:ObjectId|null,agentStep:number) {
     cover.rotation.z=open*2.5;
-    lid.rotation.x=-cardOpen*1.85;
-    const spread=Math.max(0,(cardOpen-.25)/.75),lower=Math.max(0,(spread-.9)/.1);
-    sliding.forEach((g,i)=>{g.position.set(spread*((i-1)*.22),.14+i*.006-lower*.13+(i===1?.16*Math.sin(cardFlip*Math.PI):0),spread*(.52+(i-1)*.02));g.rotation.y=spread*(i-1)*.15;g.rotation.z=i===1?cardFlip*Math.PI:0;});
     boardPins.forEach((p,i)=>p.scale.set(.023,.023,.014).multiplyScalar(i===selected?1.6:1));
     checks.forEach((p,i)=>{p.material=review&(1<<i)?olive:blue;});
     name.rotation.y=hover==="name"?.14:0;
-    if(agentStep>=0&&agentStep!==screenStep){screenStep=agentStep;const c=(screenTex.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#243a38";c.fillRect(0,0,1024,512);c.fillStyle="#93bbaa";c.font="23px monospace";c.fillText("MECHANISM DEMO / NO LIVE AI",45,58);c.fillStyle="#f2edda";c.font="62px Georgia";c.fillText(["Goal","Plan","Act","Observe","Act / Repair","Verify","Deliver"][agentStep],45,152);c.fillStyle="#8daf9e";c.font="25px monospace";c.fillText("Build a small card page.",45,207);const fail=agentStep===2||agentStep===3;c.strokeStyle=fail?"#dba97e":"#8db6a0";c.lineWidth=3;c.strokeRect(50,245,440,202);c.fillStyle=fail?"#c88e6c":"#7ba78f";c.fillRect(75,349,fail?510:389,57);c.fillStyle="#f7f1d9";c.font="27px monospace";c.fillText(fail?"380px > 320px":"fits inside 320px",620,304);c.font="34px Georgia";c.fillText(fail?"Check, then repair.":agentStep>=5?"Ready for review.":"Make. Try. Improve.",595,391);screenTex.needsUpdate=true;}
+    if(agentStep>=0&&agentStep!==screenStep){screenStep=agentStep;const c=(screenTex.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#243a38";c.fillRect(0,0,1024,512);c.fillStyle="#93bbaa";c.font="23px monospace";c.fillText("MECHANISM DEMO / NO LIVE AI",45,58);c.fillStyle="#f2edda";c.font="62px Georgia";c.fillText(["Goal","Plan","Act","Observe","Act / Repair","Verify","Deliver"][agentStep],45,152);c.fillStyle="#8daf9e";c.font="25px monospace";c.fillText("Build a small report page.",45,207);const fail=agentStep===2||agentStep===3;c.strokeStyle=fail?"#dba97e":"#8db6a0";c.lineWidth=3;c.strokeRect(50,245,440,202);c.fillStyle=fail?"#c88e6c":"#7ba78f";c.fillRect(75,349,fail?510:389,57);c.fillStyle="#f7f1d9";c.font="27px monospace";c.fillText(fail?"380px > 320px":"fits inside 320px",620,304);c.font="34px Georgia";c.fillText(fail?"Check, then repair.":agentStep>=5?"Ready for review.":"Make. Try. Improve.",595,391);screenTex.needsUpdate=true;}
   }, dispose(){
     garden.root.removeFromParent(); garden.dispose();
     const allMats=new Set<THREE.Material>();root.traverse(o=>{if(o instanceof THREE.Mesh){o.geometry.dispose();(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>allMats.add(m));}});geometries.forEach(g=>g.dispose());allMats.forEach(m=>m.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());finishes.dispose();

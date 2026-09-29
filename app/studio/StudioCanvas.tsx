@@ -4,9 +4,9 @@ import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { buildRoom } from "./room";
 import { cameras, objects, type ObjectId, type ViewId } from "./content";
-import { presentationSize, projectSurface } from "./projection";
+import { presentationSize, projectSurface, SURFACE_SCALE } from "./projection";
 
-type Props = { children: ReactNode; overview: boolean; view: ViewId; chapter: number; paused: boolean; cardOpen: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; skipToken: number; agentStep: number; flipped: boolean; cardTheme: number };
+type Props = { children: ReactNode; overview: boolean; view: ViewId; chapter: number; paused: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; skipToken: number; agentStep: number; };
 type SceneCommand = "closer" | "farther" | "reset";
 
 export default function StudioCanvas(props: Props) {
@@ -56,10 +56,10 @@ export default function StudioCanvas(props: Props) {
     if (innerWidth < 700) room.sun.shadow.mapSize.set(1024, 1024);
     const camera = new THREE.PerspectiveCamera(34, 1, .01, 80);
     let previousView: ViewId = latest.current.view;
-    let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 1500, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
-    let open = 0, card = 0, flip = 0, dusk = 0, orbit = 0, zoom = 1;
+    let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 2000, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
+    let open = 0, dusk = 0, orbit = 0, zoom = 1;
     const sourcePosition = camera.position.clone(), sourceQuaternion = camera.quaternion.clone();
-    let skip = latest.current.skipToken, shadowOpen = -1, shadowCard = -1, slowFrames = 0, wasFlying = false, wasFitting = false;
+    let skip = latest.current.skipToken, shadowOpen = -1, slowFrames = 0, wasFlying = false, wasFitting = false;
     const destination = new THREE.PerspectiveCamera(34, 1, .01, 80);
     const reduced = matchMedia("(prefers-reduced-motion: reduce)"), ray = new THREE.Raycaster(), pointer = new THREE.Vector2();
     let hoverId: ObjectId | null = null, down: { x: number; y: number; time: number; orbit: number } | null = null, dragged = false, pinch: { distance: number; zoom: number } | null = null;
@@ -101,25 +101,19 @@ export default function StudioCanvas(props: Props) {
       const finish = skip !== state.skipToken || reduced.matches; skip = state.skipToken;
       if (previousView !== state.view || resized) {
         sourcePosition.copy(camera.position); sourceQuaternion.copy(camera.quaternion); from = t;
-        duration = resized ? 550 : state.view === "room" ? 1700 : 1500;
+        duration = resized ? 650 : state.view === "room" ? 2200 : 2000;
         previousView = state.view; orbit = 0; zoom = 1; animating = !boot; resized = false;
       }
       const activeHover = focusedObject.current || hoverId;
       const noteGoal = state.view === "notebook" ? 1 : activeHover === "notebook" ? .12 : 0;
-      // The selected lid is the interactive page itself; its HTML card performs
-      // the reveal, while the physical presentation plane remains steady.
-      const cardGoal = state.view === "cards" ? 0 : state.cardOpen ? 1 : activeHover === "cards" ? .08 : 0;
-      open = finish || boot ? noteGoal : THREE.MathUtils.damp(open, noteGoal, 8, dt / 1000);
-      card = finish || boot ? cardGoal : THREE.MathUtils.damp(card, cardGoal, 8, dt / 1000);
-      const flipGoal = state.view === "cards" && state.flipped ? 1 : 0;
-      flip = finish ? flipGoal : THREE.MathUtils.damp(flip, flipGoal, 7, dt / 1000);
-      room.animate(open, card, state.boardStep, state.review, activeHover, state.view === "monitor" ? state.agentStep : -1, flip, state.cardTheme);
+      open = finish || boot ? noteGoal : THREE.MathUtils.damp(open, noteGoal, 6, dt / 1000);
+      room.animate(open, state.boardStep, state.review, activeHover, state.view === "monitor" ? state.agentStep : -1);
       const fitting = room.fitSurfaces(state.view, size.width / size.height, dt / 1000, finish || boot);
       const lightGoal = state.timeOfDay === "dusk" ? 1 : 0; dusk = finish ? lightGoal : THREE.MathUtils.damp(dusk, lightGoal, 5, dt / 1000);
       room.setLight(dusk); scene.environmentIntensity = .55 - dusk * .18; renderer.toneMappingExposure = 1.02 - dusk * .07;
       const flying = room.garden.update(elapsed, dt / 1000, state.view, ambient, dusk, finish);
       room.garden.bird.visible = state.overview;
-      if (Math.abs(open - shadowOpen) > .3 || Math.abs(card - shadowCard) > .3 || wasFlying && !flying || wasFitting && !fitting) { renderer.shadowMap.needsUpdate = true; shadowOpen = open; shadowCard = card; }
+      if (Math.abs(open - shadowOpen) > .3 || wasFlying && !flying || wasFitting && !fitting) { renderer.shadowMap.needsUpdate = true; shadowOpen = open; }
       wasFlying = flying; wasFitting = fitting;
       const surface = room.surfaces[state.view];
       destination.up.set(0,1,0);
@@ -128,7 +122,7 @@ export default function StudioCanvas(props: Props) {
         const orientation = surface.face.getWorldQuaternion(new THREE.Quaternion());
         const normal = new THREE.Vector3(0,0,1).applyQuaternion(orientation), up = new THREE.Vector3(0,1,0).applyQuaternion(orientation);
         const physicalHeight = surface.height * surface.face.getWorldScale(new THREE.Vector3()).y;
-        const distance = physicalHeight * h / (2 * size.height * Math.tan(THREE.MathUtils.degToRad(17)));
+        const distance = physicalHeight * h / (2 * (size.height / SURFACE_SCALE) * Math.tan(THREE.MathUtils.degToRad(17)));
         destination.position.copy(center).addScaledVector(normal,distance); destination.up.copy(up); destination.lookAt(center);
       } else {
         const preset=cameras[state.view], target=new THREE.Vector3(...preset.target);
@@ -140,7 +134,7 @@ export default function StudioCanvas(props: Props) {
       let progress=1;
       if (animating) {
         progress=finish?1:Math.min(1,(t-from)/duration);
-        const eased=progress*progress*(3-2*progress);
+        const eased=progress*progress*progress*(progress*(progress*6-15)+10);
         camera.position.lerpVectors(sourcePosition,destination.position,eased); camera.quaternion.slerpQuaternions(sourceQuaternion,destination.quaternion,eased);
         if(progress===1)animating=false;
       } else { camera.position.copy(destination.position); camera.quaternion.copy(destination.quaternion); }
@@ -148,8 +142,8 @@ export default function StudioCanvas(props: Props) {
       renderer.render(scene,camera); project();
       const page=presentation.current;
       if(page) {
-        const visible=!!surface&&!state.overview&&!animating;
-        if(surface)projectSurface(page,surface.face,surface.width,surface.height,camera,w,h,size.width,size.height);
+        const placed=surface?projectSurface(page,surface.face,surface.width,surface.height,camera,w,h,size.width,size.height):false;
+        const visible=placed&&!state.overview&&!animating;
         page.dataset.visible=String(visible);page.inert=!visible;page.setAttribute("aria-hidden",String(!visible));
         if(visible && (boot || element.dataset.transition==="true")) page.querySelector<HTMLElement>("h1")?.focus({preventScroll:true});
       }
@@ -157,7 +151,7 @@ export default function StudioCanvas(props: Props) {
       element.dataset.transition=String(animating);element.dataset.orbit=orbit.toFixed(3);element.dataset.zoom=zoom.toFixed(3);element.dataset.flying=String(flying);element.dataset.ambient=String(ambient);
       element.dataset.cameraPosition=camera.position.toArray().map(v=>v.toFixed(4)).join(",");
       if(dirty){dirty=false;setStatus("ready");}boot=false;
-      settling=fitting||flying||Math.abs(open-noteGoal)>.002||Math.abs(card-cardGoal)>.002||Math.abs(flip-flipGoal)>.002||Math.abs(dusk-lightGoal)>.002;
+      settling=fitting||flying||Math.abs(open-noteGoal)>.002||Math.abs(dusk-lightGoal)>.002;
       if(animating||settling||ambient)raf=requestAnimationFrame(frame);
     }
     function wake() { urgent = true; if (!raf && !disposed && !contextLost) { last = 0; raf = requestAnimationFrame(frame); } }
@@ -227,7 +221,7 @@ export default function StudioCanvas(props: Props) {
           <button className="garden-breeze" aria-pressed={breeze} aria-label="庭の動き" onClick={() => setBreeze(v => !v)}><span aria-hidden="true">{breeze ? "Ⅱ" : "▷"}</span>{breeze ? "ひと休み" : "風を感じる"}</button>
           <div className="garden-camera" role="group" aria-label="全景のカメラ"><button aria-label="庭を縮小" onClick={() => control.current("farther")}>−</button><button aria-label="庭の視点を戻す" onClick={() => control.current("reset")}>⌖</button><button aria-label="庭を拡大" onClick={() => control.current("closer")}>＋</button></div>
         </div>
-        <div className="garden-discovery"><button onClick={discover} aria-label={`小鳥と次の発見へ：${nextObject.title}`}><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 24c0-8 6-13 14-12 0-6 9-7 11-1l5 3-5 2c-1 10-7 16-16 14l-8 3 2-6-7-6z" fill="currentColor" /><circle cx="29" cy="11" r="1.2" fill="#fff9df" /><path d="M13 19q3 8 12 3" fill="none" stroke="#fff9df" strokeWidth="1.5" /></svg><span><small>{visited.length === 7 ? "THANK YOU FOR EXPLORING" : "FOLLOW THE LITTLE BIRD"}</small>{visited.length === 7 ? "もう一度、ひとめぐり" : "次の発見へ"}<b>↗</b></span><em aria-live="polite" aria-label={`${visited.length} / 7 個を探索`}>{String(visited.length).padStart(2, "0")}<i>/ 07</i></em></button><p>ドラッグで回転 · スクロール / ピンチで拡大</p></div>
+        <div className="garden-discovery"><button onClick={discover} aria-label={`小鳥と次の発見へ：${nextObject.title}`}><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M8 24c0-8 6-13 14-12 0-6 9-7 11-1l5 3-5 2c-1 10-7 16-16 14l-8 3 2-6-7-6z" fill="currentColor" /><circle cx="29" cy="11" r="1.2" fill="#fff9df" /><path d="M13 19q3 8 12 3" fill="none" stroke="#fff9df" strokeWidth="1.5" /></svg><span><small>{visited.length === objects.length ? "THANK YOU FOR EXPLORING" : "FOLLOW THE LITTLE BIRD"}</small>{visited.length === objects.length ? "もう一度、ひとめぐり" : "次の発見へ"}<b>↗</b></span><em aria-live="polite" aria-label={`${visited.length} / ${objects.length} 個を探索`}>{String(visited.length).padStart(2, "0")}<i>/ {String(objects.length).padStart(2,"0")}</i></em></button><p>ドラッグで回転 · スクロール / ピンチで拡大</p></div>
       </>}
     </>}
   </div>;

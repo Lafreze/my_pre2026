@@ -1,19 +1,14 @@
 // Run against the local preview: node tests/interactions.test.mjs
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { pathToFileURL } from 'node:url';
-import { join } from 'node:path';
-const bundled = join(process.env.USERPROFILE ?? '', '.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs');
-const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || pathToFileURL(bundled).href);
-const browser = await chromium.launch({headless:true,channel:'msedge',args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
+const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
+const browser = await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_CHANNEL?{channel:process.env.PLAYWRIGHT_CHANNEL}:{})});
 const context = await browser.newContext({viewport:{width:1600,height:1000},reducedMotion:'no-preference'});
-// Keep third-party network availability out of the local deck regression.
-await context.route('https://www.daycard.site/**',route=>route.fulfill({body:'<!doctype html><html lang="ja"><body>Live preview fixture</body></html>',contentType:'text/html'}));
 const page = await context.newPage();
 const errors=[], results=[], layouts=[];
 page.on('pageerror',error=>errors.push(error.message));
 await mkdir('outputs/direct-review',{recursive:true});
-const base = process.env.DECK_URL || 'http://localhost:3000/';
+const base = process.env.DECK_URL || 'http://127.0.0.1:5173/reference/';
 await page.goto(base,{waitUntil:'networkidle',timeout:60000});
 await page.waitForFunction(()=>document.querySelector('#presentation').dataset.ready==='true');
 const section=id=>page.locator(`section[data-slide-id="${id}"]`);
@@ -25,8 +20,8 @@ async function check(name,fn) { try { await fn(); results.push({name,pass:true})
 const has=async (locator,text)=>{await locator.filter({hasText:text}).waitFor({state:'attached'});assert.ok((await locator.textContent()).includes(text),`Expected ${text}`);};
 const pressed=async locator=>assert.equal(await locator.getAttribute('aria-pressed'),'true');
 const click=async (id,name)=>section(id).getByRole('button',{name,exact:true}).click();
-await check('default 19 pages, visible native pointer, optional laser',async()=>{
- assert.equal(await page.locator('section[data-slide-id]:not([hidden])').count(),19);
+await check('default 18 pages, visible native pointer, optional laser',async()=>{
+ assert.equal(await page.locator('section[data-slide-id]:not([hidden])').count(),18);
  assert.notEqual(await section('intro').evaluate(e=>getComputedStyle(e).cursor),'none');
  assert.equal(await page.getByRole('button',{name:'次のページ',exact:true}).evaluate(e=>getComputedStyle(e).cursor),'pointer');
  await page.getByRole('button',{name:'レーザーポインター',exact:true}).click(); await page.mouse.move(600,300);
@@ -37,7 +32,7 @@ await check('default 19 pages, visible native pointer, optional laser',async()=>
 });
 await page.evaluate(()=>localStorage.setItem('gen-ai-slide-settings-v2',JSON.stringify({hidden:[]})));
 await page.reload({waitUntil:'networkidle'});
-await page.waitForFunction(()=>document.querySelectorAll('section[data-slide-id]:not([hidden])').length===24);
+await page.waitForFunction(()=>document.querySelectorAll('section[data-slide-id]:not([hidden])').length===20);
 await check('01 career selection',async()=>{await go('intro'); await section('intro').locator('.career-year').nth(1).click(); await has(section('intro').locator('.career-focus'),'ハイテク'); assert.equal(await section('intro').locator('.profile-identity').getAttribute('data-career-focus'),'1');});
 await check('02 cover layers and replay',async()=>{await go('cover');await click('cover','SYSTEM');await has(section('cover').locator('figcaption'),'Context');await click('cover','三層の組み立てを再生');});
 await check('03 cumulative capabilities',async()=>{await go('manifesto');await click('manifesto','＋タスク実行');await has(section('manifesto').locator('.lab-result'),'人の確認');});
@@ -53,15 +48,11 @@ await check('12 precise prompt, loading and duplicate handling',async()=>{await 
 await check('13 cost reduction and reinvestment balance',async()=>{await go('commodity');await section('commodity').getByRole('slider').fill('50');const values=await section('commodity').locator('.cost-equation > div > b').allTextContents();assert.deepEqual(values,['100','70']);await section('commodity').locator('.investment-targets button').nth(2).click();await has(section('commodity').locator('.investment-targets button').nth(2),'＋30');const work=(await section('commodity').locator('.cost-factory').nth(1).locator('.cost-block b').allTextContents()).reduce((a,v)=>a+Number(v),0);assert.equal(work+30,100);});
 await check('14 architecture rotates, separates and selects layers',async()=>{await go('engineering');await click('engineering','2D');assert.equal(await section('engineering').locator('.architecture-viewport').getAttribute('data-flat'),'true');await section('engineering').locator('.architecture-board').nth(3).click();await has(section('engineering').locator('.architecture-inspector'),'LOOP');await click('engineering','3D');const viewport=section('engineering').getByRole('button',{name:'設計層の視点',exact:true});await viewport.focus();await viewport.press('ArrowRight');assert.equal(await section('engineering').locator('.architecture-assembly').evaluate(e=>e.style.getPropertyValue('--rz')),'-23deg');assert.equal(await page.locator('#presentation').getAttribute('data-current-slide'),'engineering');});
 await check('15 permission failure stops, retry branch recovers',async()=>{await go('harness');await click('harness','権限がない');for(let i=0;i<5;i++)await click('harness','1ステップ →');await has(section('harness').locator('.lab-log'),'自動で迂回しない');await click('harness','ツールが失敗');for(let i=0;i<5;i++)await click('harness','1ステップ →');await has(section('harness').locator('.lab-log'),'1回再試行');});
-await check('16 playable card prototype stages',async()=>{await go('game-process');await click('game-process','グレーボックス');await section('game-process').getByPlaceholder('何から始めよう？').fill('今日は何を試す？');await click('game-process','試作カードをめくる');await pressed(section('game-process').getByRole('button',{name:'試作カードを伏せる'}));await click('game-process','仕上げ');assert.equal(await section('game-process').locator('.card-prototype').getAttribute('data-stage'),'3');});
-await check('17 dependency-aware scheduling and contracts',async()=>{await go('game-agents');await click('game-agents','直列');await has(section('game-agents').locator('.gantt-time'),'145');await click('game-agents','独立作業を並列');await has(section('game-agents').locator('.gantt-time'),'90');await section('game-agents').locator('.studio-gantt button').nth(2).click();await has(section('game-agents').locator('.role-contract'),'ASSET MANIFEST');});
-await check('18 sprint builds a playable artifact and handles QA failure',async()=>{await go('game-sprint');await click('game-sprint','QAエラーを切り替え');await section('game-sprint').getByRole('slider',{name:'制作時間'}).fill('80');await has(section('game-sprint').locator('.sprint-test-result'),'FAIL');await section('game-sprint').getByRole('slider',{name:'制作時間'}).fill('88');await has(section('game-sprint').locator('.sprint-test-result'),'RETEST');await click('game-sprint','制作中のカードをめくる');await pressed(section('game-sprint').locator('.sprint-playing-card'));});
-await check('19 build steps drive preview, live stays available',async()=>{await go('game-case');await section('game-case').locator('.daycard-step-list button').nth(0).click();assert.equal(await section('game-case').locator('.daycard-viewport').getAttribute('class'),'daycard-viewport mode-concept');assert.equal(await section('game-case').locator('.daycard-concept').getAttribute('data-build-stage'),'0');await section('game-case').locator('.daycard-step-list button').nth(3).click();await click('game-case','カードをめくる');await click('game-case','LIVE SITE');assert.equal(await section('game-case').locator('iframe').count(),1);});
 await check('20 controls change risk outcome',async()=>{await go('trust');await click('trust','許可のない送信');await click('trust','この構成で検証');await has(section('trust').locator('.lab-result'),'不足');await section('trust').getByLabel('最小権限・承認点').check();await click('trust','この構成で検証');await has(section('trust').locator('.lab-result'),'拒否');});
 await check('21 adoption branches, backtracking and reset',async()=>{await go('adoption');for(const name of ['固定手順で解ける','データ境界が未整理','送信や更新を伴う','まだ定義していない'])await click('adoption',name);await has(section('adoption').locator('.lab-result'),'実データへの接続は保留');await click('adoption','← 一つ戻る');await click('adoption','合否と失敗例を定義済み');await has(section('adoption').locator('.lab-result'),'既存の基準');await click('adoption','↺ 最初から');await has(section('adoption').locator('.adoption-question'),'業務');});
 await check('22 layer diagnosis repairs the actual artifact',async()=>{await go('synthesis');await click('synthesis','重複実行');await section('synthesis').locator('.system-shell').nth(0).click();assert.equal(await section('synthesis').locator('.system-terminal > button').isDisabled(),true);await section('synthesis').locator('.system-shell').nth(2).click();await click('synthesis','冪等キーを適用');await has(section('synthesis').locator('.terminal-diff'),'ALREADY_SAVED');await has(section('synthesis').locator('.system-terminal header'),'PASS');});
-await check('23 sources are a compact ordered list',async()=>{await go('sources');assert.equal(await section('sources').locator('ol.source-list > li').count(),51);assert.equal(await section('sources').locator('.reference-grid,.source-filter').count(),0);assert.equal(await section('sources').locator('.source-list a').first().getAttribute('target'),'_blank');const rows=await section('sources').locator('.source-list li').evaluateAll(es=>es.slice(0,4).map(e=>({x:e.getBoundingClientRect().x,y:e.getBoundingClientRect().y})));assert.ok(rows.every(row=>row.x===rows[0].x));assert.ok(rows[1].y>rows[0].y);});
-await check('24 choose action and return to case',async()=>{await go('takeaway');await click('takeaway','小さく始める');await has(section('takeaway').locator('.slide-lab .takeaway-action'),'短い試作');await click('takeaway','制作例へ ↗');await page.waitForFunction(()=>document.querySelector('#presentation').dataset.currentSlide==='game-case');});
+await check('23 sources are a compact ordered list',async()=>{await go('sources');assert.equal(await section('sources').locator('ol.source-list > li').count(),44);assert.equal(await section('sources').locator('.reference-grid,.source-filter').count(),0);assert.equal(await section('sources').locator('.source-list a').first().getAttribute('target'),'_blank');const rows=await section('sources').locator('.source-list li').evaluateAll(es=>es.slice(0,4).map(e=>({x:e.getBoundingClientRect().x,y:e.getBoundingClientRect().y})));assert.ok(rows.every(row=>row.x===rows[0].x));assert.ok(rows[1].y>rows[0].y);});
+await check('20 choose action and return to prototyping',async()=>{await go('takeaway');await click('takeaway','小さく始める');await has(section('takeaway').locator('.slide-lab .takeaway-action'),'短い試作');await click('takeaway','試作の考え方へ ↗');await page.waitForFunction(()=>document.querySelector('#presentation').dataset.currentSlide==='vibe');});
 await check('fullscreen, modal focus and navigation guard',async()=>{await go('manifesto');await page.getByRole('button',{name:'全画面表示',exact:true}).click();await page.waitForFunction(()=>Boolean(document.fullscreenElement));await section('manifesto').locator('.card-reveal-trigger').first().click();await page.keyboard.press('ArrowRight');assert.equal(await page.locator('#presentation').getAttribute('data-current-slide'),'manifesto');await page.keyboard.press('Escape');await page.waitForFunction(()=>!document.querySelector('dialog[open]'));await page.evaluate(()=>document.exitFullscreen());});
 const ids=await page.locator('section[data-slide-id]:not([hidden])').evaluateAll(es=>es.sort((a,b)=>Number(a.style.order)-Number(b.style.order)).map(e=>e.dataset.slideId));
 for (const [index,id] of ids.entries()) {
@@ -69,10 +60,9 @@ for (const [index,id] of ids.entries()) {
  layouts.push(await section(id).evaluate(e=>({id:e.dataset.slideId,width:e.clientWidth,scrollWidth:e.scrollWidth,height:e.clientHeight,scrollHeight:e.scrollHeight})));
  await page.screenshot({path:`outputs/direct-review/${String(index+1).padStart(2,'0')}-${id}.png`});
 }
-await check('all 24 desktop widths fit',async()=>{assert.equal(ids.length,24);assert.deepEqual(layouts.filter(x=>x.scrollWidth>x.width+2),[]);});
+await check('all 20 desktop widths fit',async()=>{assert.equal(ids.length,20);assert.deepEqual(layouts.filter(x=>x.scrollWidth>x.width+2),[]);});
 const mobile=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,reducedMotion:'reduce'});
 await mobile.addInitScript(()=>localStorage.setItem('gen-ai-slide-settings-v2',JSON.stringify({hidden:[]})));
-await mobile.route('https://www.daycard.site/**',route=>route.fulfill({body:'Live preview fixture',contentType:'text/html'}));
 const touch=await mobile.newPage();touch.on('pageerror',e=>errors.push(e.message));
 await touch.goto(base,{waitUntil:'networkidle',timeout:60000});
 const mobileLayouts=[];
@@ -81,10 +71,10 @@ for(const id of ids) {
  await touch.waitForFunction(id=>document.querySelector('#presentation').dataset.currentSlide===id,id);
  const target=touch.locator(`section[data-slide-id="${id}"]`);
  mobileLayouts.push(await target.evaluate(e=>({id:e.dataset.slideId,width:e.clientWidth,scrollWidth:e.scrollWidth,panels:[...e.querySelectorAll('.slide-lab,.direct-scene')].map(p=>({width:p.clientWidth,scroll:p.scrollWidth}))})));
- if(['cover','timeline','media','open-local','agent','mcp','concepts','commodity','engineering','game-sprint','synthesis','sources','game-process'].includes(id)) await touch.screenshot({path:`outputs/direct-review/mobile-${id}.png`});
+ if(['cover','timeline','media','open-local','agent','mcp','concepts','commodity','engineering','synthesis','sources'].includes(id)) await touch.screenshot({path:`outputs/direct-review/mobile-${id}.png`});
  if(id==='mcp') await check('touch MCP uses click alternative',async()=>{await target.locator('.protocol-servers button').nth(2).tap();await pressed(target.locator('.protocol-servers button').nth(2));});
 }
-await check('all 24 mobile widths and panel widths fit',async()=>assert.deepEqual(mobileLayouts.filter(x=>x.scrollWidth>x.width+2||x.panels.some(p=>p.scroll>p.width+2)),[]));
+await check('all 20 mobile widths and panel widths fit',async()=>assert.deepEqual(mobileLayouts.filter(x=>x.scrollWidth>x.width+2||x.panels.some(p=>p.scroll>p.width+2)),[]));
 await check('reduced motion retains keyboard and native cursor',async()=>{
  await touch.evaluate(()=>{const s=document.querySelector('[data-slide-id="reasoning"]');document.querySelector('#presentation').scrollTop=s.offsetTop;});await touch.waitForFunction(()=>document.querySelector('#presentation').dataset.currentSlide==='reasoning');
  await touch.locator('[data-slide-id="reasoning"]').getByRole('button',{name:'1ステップ →',exact:true}).tap();await has(touch.locator('[data-slide-id="reasoning"] .lab-result'),'32,000');

@@ -52,13 +52,9 @@ try {
   });
   await check('all close-ups render without material or shader errors', async () => {
     await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
-    for (const [object, filename] of [['name','nameplate'],['notebook','notebook'],['board','research-board'],['monitor','workbench'],['cards','day-card'],['checklist','review']]) {
+    for (const [object, filename] of [['name','nameplate'],['notebook','notebook'],['board','research-board'],['monitor','workbench'],['checklist','review']]) {
       await page.locator(`[data-object=${object}]`).click();
       await page.locator(`.studio-scene[data-view=${object}]`).waitFor();
-      if (object === 'cards') {
-        await page.getByRole('button', { name: '一枚、ひいてみる' }).click();
-        await page.getByRole('button', { name: 'カードを裏返す', exact: true }).click();
-      }
       await page.waitForTimeout(150);
       await page.screenshot({ path: `${output}/${filename}.png` });
       await page.getByRole('button', { name: '全景に戻る', exact: true }).click();

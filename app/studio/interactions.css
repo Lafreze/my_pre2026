@@ -26,9 +26,9 @@
 .studio-note small{font:9px Consolas,monospace;letter-spacing:.2em;color:#93977f}
 .studio-note p{font-family:"Yu Mincho",serif;font-size:16px;line-height:1.9;margin:15px 0!important}
 .studio-note>span{font-size:10px;color:#738575}
-.studio-board-tabs,.studio-process,.studio-theme{display:flex;border-bottom:1px solid var(--s-line);gap:5px}
-.studio-board-tabs button,.studio-process button,.studio-theme button{flex:1;padding:8px 3px;font-size:11px;white-space:nowrap;color:#819080;border-bottom:2px solid transparent}
-.studio-board-tabs button[aria-pressed=true],.studio-process button[aria-pressed=true],.studio-theme button[aria-pressed=true]{color:#355f53;border-bottom-color:#4d887f;font-weight:600}
+.studio-board-tabs{display:flex;border-bottom:1px solid var(--s-line);gap:5px}
+.studio-board-tabs button{flex:1;padding:8px 3px;font-size:11px;white-space:nowrap;color:#819080;border-bottom:2px solid transparent}
+.studio-board-tabs button[aria-pressed=true]{color:#355f53;border-bottom-color:#4d887f;font-weight:600}
 .studio-board-explanation{font-size:12px;min-height:75px;line-height:1.9;margin:18px 0!important}
 .studio-details{border-top:1px solid var(--s-line);padding:12px 0;margin-top:16px;font-size:11px;line-height:1.9}
 .studio-details summary{cursor:pointer;min-height:36px;padding:5px 0;font-size:11px;color:#597b6a}
@@ -60,30 +60,6 @@
 .studio-demo-controls{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .studio-demo-controls button{border:1px solid #c5d1c2;border-radius:4px;padding:9px 11px;font-size:11px;min-height:40px}
 .studio-demo-controls button:nth-child(3){flex:1;background:#dfe9dc}
-.studio-daycard{margin-top:5px}
-.studio-theme{margin:8px 0 16px}
-.studio-theme button{font-size:10px}
-.studio-play-card{display:block;position:relative!important;height:219px;width:151px;margin:13px auto 16px;border:0!important;perspective:700px;border-radius:9px;opacity:1!important;padding:0!important;transition:transform .45s}
-.studio-play-card[data-drawn=false]{transform:rotate(-5deg);filter:saturate(.65)}
-.studio-card-back,.studio-card-front{position:absolute;inset:0;border-radius:8px;backface-visibility:hidden;transition:transform .7s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 10px 23px #24453a22;border:1px solid #487970;padding:15px}
-.studio-card-back{background:#497d77;color:#f1eed9;transform:rotateY(0)}
-.studio-card-back:after{content:"";position:absolute;inset:8px;border:1px solid #9fbb9b;border-radius:4px}
-.studio-card-back small{font:7px Consolas,monospace;letter-spacing:.13em}
-.studio-card-back b{font:62px Georgia,serif;font-weight:400;margin:17px 0 7px}
-.studio-card-back em{font:18px Georgia,serif}
-.studio-card-back>span{font-size:8px;margin-top:20px;opacity:.8}
-.studio-card-front{background:#efe7d0;transform:rotateY(180deg);color:#486455;gap:12px}
-.studio-card-front b{font:38px Georgia;color:#7d9c77}
-.studio-card-front strong{font:15px "Yu Mincho",serif}
-.studio-card-front>span{font-size:10px;line-height:1.8}
-.is-flipped .studio-card-back{transform:rotateY(-180deg)}
-.is-flipped .studio-card-front{transform:rotateY(0)}
-.studio-card-actions{display:flex;align-items:center;gap:23px}
-.studio-card-actions .studio-primary{flex:1;min-height:44px;padding:12px 17px}
-.studio-card-actions>a{font-size:10px;white-space:nowrap;color:#6e8b77}
-.studio-process{margin-top:18px}
-.studio-process button{font:10px Consolas,monospace}
-.studio-process-text{font-size:11px;color:#7d897a;line-height:1.8;min-height:40px;margin-top:10px!important}
 .studio-checklist{margin-top:25px;display:grid;gap:10px}
 .studio-checklist label{display:flex;align-items:center;gap:12px;background:#edeee3;padding:12px;border:1px solid #dce1d3;font-size:12px;cursor:pointer;min-height:48px}
 .studio-checklist input{accent-color:#568474;width:18px;height:18px}
@@ -153,11 +129,6 @@
 @media(max-height:820px) and (min-width:901px){.studio-profile{padding-top:18px}
 .studio-career{margin:15px 0}
 .studio-intro-line{margin-bottom:18px!important}
-.studio-play-card{height:180px;width:128px}
-.studio-card-back b{font-size:48px;margin:12px 0 6px}
-.studio-card-back>span{margin-top:12px}
-.studio-card-front{gap:6px;padding:12px}
-.studio-card-front>span{font-size:9px}
 }
 @media(max-width:900px){.studio-profile{padding-top:17px;max-width:none}
 .studio-profile-mark{width:39px;height:39px;font-size:21px}
@@ -170,10 +141,6 @@
 .studio-points{margin:20px 0}
 .studio-points li{font-size:11px}
 .studio-board-explanation{min-height:50px}
-.studio-play-card{height:195px;width:140px}
-.studio-card-front>span{font-size:10px}
-.studio-card-actions{gap:17px}
-.studio-card-actions .studio-primary{max-width:none}
 .studio-source-list a{gap:6px}
 .studio-dialog-top{padding:16px;min-height:89px;gap:12px}
 .studio-dialog-top h2{font-size:17px}
@@ -203,7 +170,7 @@
 @media(prefers-reduced-motion:reduce){.work-studio *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
 .studio-archive-thumb{display:block;width:100%;height:auto;margin-top:12px;border:1px solid #cbd6c1;border-radius:5px}
-@media(max-width:900px){.studio-card-actions>a{font-size:9px}
+@media(max-width:900px){
 }
 @media(max-width:900px){.studio-step-track{overflow-x:auto;scrollbar-width:thin}
 .studio-step-track button{flex:1 0 44px}

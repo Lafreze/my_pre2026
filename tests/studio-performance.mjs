@@ -10,7 +10,7 @@ try {
   await page.locator('.studio-scene[data-status=ready]').waitFor();
   await page.waitForTimeout(600);
   const measurements = [];
-  for (const chapter of [1, 2, 3, 4, 5]) {
+  for (const chapter of [1, 2, 3, 4]) {
     measurements.push(await page.evaluate(async chapter => {
       const scene = document.querySelector('.studio-scene');
       const before = +scene.dataset.frames, start = performance.now(), times = [];
@@ -19,7 +19,7 @@ try {
       return new Promise(resolve => {
         function tick(t) {
           times.push(t - last); last = t;
-          if (t - start < 2100) { requestAnimationFrame(tick); return; }
+          if (t - start < 2600) { requestAnimationFrame(tick); return; }
           const gl = document.querySelector('canvas').getContext('webgl2'), ext = gl.getExtension('WEBGL_debug_renderer_info');
           resolve({chapter:chapter+1,model:scene.dataset.view,rafFps:1000/(times.reduce((sum,n)=>sum+n,0)/times.length),renderedFrames:+scene.dataset.frames-before,durationMs:t-start,quality:scene.dataset.quality||'standard',drawCalls:Number(scene.dataset.drawCalls),triangles:Number(scene.dataset.triangles),renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):gl.getParameter(gl.RENDERER)});
         }

@@ -25,7 +25,7 @@ export function TakeawayLab({ onJump }: { onJump: (id: string) => void }) {
   const cards = [
     { title: "AIの能力を、仕事の形に組み立てる", body: "生成・推論に、文脈、ツール、制御、評価を組み合わせる。", action: "一つの仕事を、計画→実行→観察→検証に分解する。", target: "agent", label: "Agentの例へ" },
     { title: "任せても、採否と責任は人が持つ", body: "価値、優先順位、高影響な操作、最終判断を明確にする。", action: "次のタスクに、完了条件と人が確認する地点を書く。", target: "harness", label: "Harnessの例へ" },
-    { title: "小さく作り、実際に触って確かめる", body: "一つの操作と一つの結果から、検証できる成果物を作る。", action: "短い試作→プレイ→修正の一周を、限定範囲で試す。", target: "game-case", label: "制作例へ" },
+    { title: "小さく作り、実際に触って確かめる", body: "一つの操作と一つの結果から、検証できる成果物を作る。", action: "短い試作→確認→修正の一周を、限定範囲で試す。", target: "vibe", label: "試作の考え方へ" },
   ];
   const card = cards[choice];
   return <Lab title="今日持ち帰る、一つの行動を選ぶ" note="選んだ観点から、関連する実例へ戻れます"><Choices label="持ち帰る観点" items={["AIにできること", "人が担うこと", "小さく始める"]} value={choice} onChange={setChoice} /><div className="takeaway-action" aria-live="polite"><span>MY NEXT STEP / 0{choice + 1}</span><h4>{card.title}</h4><p>{card.body}</p><strong>{card.action}</strong><button type="button" onClick={() => onJump(card.target)}>{card.label} ↗</button></div></Lab>;

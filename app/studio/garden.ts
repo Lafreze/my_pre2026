@@ -155,7 +155,7 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   }
   const perches: Record<ViewId, number[]> = {
     room: [-1.45, .315, 3.03], name: [-1.1, .8, -1.18], notebook: [-2.01, .8, -1.45], board: [1.61, .71, -2.1],
-    monitor: [-.62, .8, -1.7], cards: [2.12, .71, .61], checklist: [2.39, .71, 1.39], library: [-2.46, 2.1, .58],
+    monitor: [-.62, .8, -1.7], checklist: [2.39, .71, 1.39], library: [-2.46, 2.1, .58],
   };
   let view: ViewId = "room", flight = 1;
   const from = bird.position.clone(), to = bird.position.clone();
