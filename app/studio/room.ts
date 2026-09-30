@@ -175,7 +175,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     const hub=cyl(.013,.013,.056,[x,.052,z],metal,chair);hub.rotation.x=Math.PI/2;
   }
   // Notebook: paper block and hinged cover pivot at the binding.
-  const notebook=group([-2.43,1.20,.40],"notebook");notebook.rotation.set(.90,Math.PI/2,0,"YXZ");
+  const notebook=group([-2.64,1.082,.24],"notebook");notebook.rotation.y=Math.PI/2;
   box([.25,.013,.32],[0,0,0],terracotta,notebook,.006);
   box([.235,.024,.3],[.003,.017,0],paper,notebook,.005);
   for(let i=0;i<6;i++) box([.233,.0007,.298],[.003,.006+i*.004,0],mat("#c8bc9f"),notebook,.0001);
@@ -183,7 +183,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const noteTex=texture(c=>{c.fillStyle="#f5edda";c.fillRect(0,0,1024,512);c.fillStyle="#496d6b";c.font="58px Georgia";c.fillText("Small ideas",75,110);for(let i=0;i<4;i++){c.fillStyle="#bbb8a6";c.fillRect(75,180+i*65,750-i%2*130,3);}c.fillStyle="#cc916a";c.beginPath();c.arc(818,120,44,0,Math.PI*2);c.fill();});
   const notebookFace=surface(.225,.285,[.005,.032,0],noteTex,notebook,true);
   const cover=new THREE.Group();cover.position.set(-.125,.033,0);notebook.add(cover);box([.25,.01,.32],[.125,0,0],terracotta,cover,.005);
-  surface(.22,.285,[.125,.006,0],folioTexture("FIELD NOTES","IDEAS, IN PROGRESS","#a65336","#ead5ae"),cover,true);
+  surface(.22,.285,[.125,.006,0],folioTexture("AI & US","TRANSFORMER TO AGENT","#a65336","#ead5ae"),cover,true);
   rod([-.12,.035,-.14],[-.12,.035,.14],.008,edge,notebook);
   // Nameplate at the desk front, backed and supported by a wooden wedge.
   const name=group([-1.63,.786,-1.31]);
@@ -370,6 +370,20 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     monitor:{face:monitorFace,group:monitor,width:.616,height:.347},
     checklist:{face:checklistFace,group:checklist,width:.309,height:.39},
   };
+  const shelfPosition=notebook.position.clone(), shelfOrientation=notebook.quaternion.clone();
+  const readingPosition=new THREE.Vector3(-2.20,1.25,.30);
+  const readingOrientation=new THREE.Quaternion().setFromEuler(new THREE.Euler(.90,Math.PI/2,0,"YXZ"));
+  // Compute the final reading plane independently of the moving book, so the
+  // camera approaches one stable destination instead of chasing its cover.
+  function readingFrame(view:ViewId,aspect:number) {
+    const s=surfaces[view];if(!s)return null;
+    const position=view==="notebook"?readingPosition:s.group.position;
+    const orientation=view==="notebook"?readingOrientation:s.group.quaternion;
+    const matrix=new THREE.Matrix4().compose(position,orientation,new THREE.Vector3(s.height*aspect/s.width,1,1));
+    s.face.updateMatrix();matrix.multiply(s.face.matrix);
+    const center=new THREE.Vector3(),rotation=new THREE.Quaternion(),scale=new THREE.Vector3();matrix.decompose(center,rotation,scale);
+    return {center,normal:new THREE.Vector3(0,0,1).applyQuaternion(rotation),up:new THREE.Vector3(0,1,0).applyQuaternion(rotation),height:s.height*scale.y};
+  }
   // Subtle foundation shadow anchors the complete diorama to the page.
   const foundationTex=texture(c=>{const grad=c.createRadialGradient(256,256,30,256,256,255);grad.addColorStop(0,"rgba(44,52,35,.32)");grad.addColorStop(.55,"rgba(44,52,35,.16)");grad.addColorStop(1,"rgba(44,52,35,0)");c.fillStyle=grad;c.fillRect(0,0,512,512);},512,512);
   const foundationGeo=new THREE.PlaneGeometry(11.6,10.5);geometries.set("foundationShadow",foundationGeo);const foundation=mesh(foundationGeo,new THREE.MeshBasicMaterial({map:foundationTex,transparent:true,depthWrite:false}),[.25,-.51,.18]);foundation.rotation.x=-Math.PI/2;foundation.castShadow=false;
@@ -389,7 +403,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const daySun = new THREE.Color("#fff0d8"), duskSun = new THREE.Color("#ffb578");
   const daySky = new THREE.Color("#f6f0e5"), duskSky = new THREE.Color("#adb9ce");
   let screenStep=-2;
-  return { root, sun, garden, surfaces, fitSurfaces(view:ViewId,aspect:number,dt:number,instant:boolean) {
+  return { root, sun, garden, surfaces, readingFrame, fitSurfaces(view:ViewId,aspect:number,dt:number,instant:boolean) {
     let changing=false;
     for(const [id,surface] of Object.entries(surfaces)) {
       const goal=id===view?surface.height*aspect/surface.width:1;
@@ -406,9 +420,12 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
     hemi.color.lerpColors(daySky,duskSky,dusk); hemi.intensity=1.10-dusk*.33;
     fill.intensity=.6-dusk*.2; readingLight.intensity=.32+dusk*1.8;
     warm.emissiveIntensity=.6+dusk*1.2;
-  }, animate(open:number,selected:number,review:number,hover:ObjectId|null,agentStep:number) {
-    cover.rotation.z=open*2.7;
-    journalCover.rotation.z=open*2.8+(hover==="name"?.025:0);
+  }, animate(journalOpen:number,notebookOpen:number,selected:number,review:number,hover:ObjectId|null,agentStep:number) {
+    const smooth=(a:number,b:number,v:number)=>{const t=THREE.MathUtils.clamp((v-a)/(b-a),0,1);return t*t*(3-2*t);};
+    notebook.position.lerpVectors(shelfPosition,readingPosition,smooth(0,.5,notebookOpen));
+    notebook.quaternion.slerpQuaternions(shelfOrientation,readingOrientation,smooth(.22,.72,notebookOpen));
+    cover.rotation.z=smooth(.42,1,notebookOpen)*3.02;
+    journalCover.rotation.z=journalOpen*3.02;
     boardPins.forEach((p,i)=>p.scale.set(.023,.023,.014).multiplyScalar(i===selected?1.6:1));
     checks.forEach((p,i)=>{p.material=review&(1<<i)?olive:blue;});
     if(agentStep>=0&&agentStep!==screenStep){screenStep=agentStep;const c=(screenTex.image as HTMLCanvasElement).getContext("2d")!;c.fillStyle="#183731";c.fillRect(0,0,1024,512);c.fillStyle="#dbe8bc";c.font="32px monospace";c.fillText("AGENT / EXECUTION LOOP",48,75);c.font="60px Georgia";c.fillText(["Goal","Generate","Inspect","Observe","Revise","Verify","Deliver"][agentStep],48,165);["Context","Model","Tools"].forEach((v,i)=>{c.strokeStyle="#a9c596";c.lineWidth=2;c.strokeRect(48+i*312,245,255,110);c.fillStyle="#e2ebd1";c.font="28px Arial";c.fillText(v,75+i*312,310);});c.strokeStyle="#d6c38f";c.beginPath();c.moveTo(855,368);c.lineTo(855,428);c.lineTo(165,428);c.lineTo(165,368);c.stroke();screenTex.needsUpdate=true;}

@@ -39,7 +39,7 @@ try {
   });
   await check('five live surfaces stay mounted from overview through the camera move',async()=>{
     assert.equal(await page.locator('.studio-surface-host').count(),5);
-    await page.waitForFunction(()=>[...document.querySelectorAll('.studio-surface-host')].every(e=>e.dataset.visible==='true'));
+    assert.deepEqual(JSON.parse(await scene.getAttribute('data-book-open')),{name:0,notebook:0});for(const id of ['name','notebook'])assert.equal(await page.locator('.studio-surface-host[data-kind='+id+']').getAttribute('data-visible'),'false');
     await page.evaluate(()=>window.surfaceNodes=[...document.querySelectorAll('.model-presentation')]);
     await page.locator('[data-object=name]').click();await page.locator('.studio-surface-host[data-kind=name][data-interactive=true]').waitFor();
     assert.ok(await page.evaluate(()=>window.surfaceNodes.every((e,i)=>e===document.querySelectorAll('.model-presentation')[i])));

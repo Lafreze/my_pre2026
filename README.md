@@ -1,4 +1,4 @@
-> 2026-09-29 PC 版更新：首页恢复为居中的完整花园工作室，移除左侧说明栏、数字标记和进度提示。只保留简短开始入口，物件名称在悬停或聚焦时出现；资料、环境和视角设置收在菜单里。五件物品对应五章，保留模型表面的内容、连续运镜，以及个人经历、ViT实践、LLM使用方式、Agent结构和产品制作的讲解。截图、事实边界与检查结果见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
+> 2026-09-30 PC 版更新：个人介绍去掉印章与技能标签；第二章改为从 Transformer、ViT、GPT 到日常使用 AI 的叙事导入。两本书默认合上，靠近时再展开，书架书先移出；运镜约1.8秒，持续看向物件，避免先俯冲再抬起。保持居中沉浸式房间、无全景编号及连续章节运镜。截图与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
 >
 > 以下为历次版本说明；当前首页交互以本次模型展示版本为准。
 

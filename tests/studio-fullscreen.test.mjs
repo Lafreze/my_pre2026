@@ -26,13 +26,13 @@ try{
   await p.getByRole('button',{name:'はじめる',exact:true}).click();await p.locator('.studio-surface-host[data-kind=name][data-interactive=true]').waitFor();
   assert.equal(await p.locator('.studio-copy').count(),0);assert.equal(await p.locator('canvas').count(),1);
   const text=await p.locator('.personal-introduction').innerText();for(const fact of ['KIOXIA','2023','日立ハイテク','次フレーム予測','Active Learning','Multi Beam','ADC'])assert.ok(text.includes(fact),fact);
-  assert.equal(await p.locator('.personal-career li').count(),2);assert.equal((text.match(/ADC/g)||[]).length,1);assert.ok(!text.includes('2019'));assert.ok(!text.includes('VGG'));assert.ok(!(await p.locator('.personal-name').innerText()).includes('です'));
+  assert.equal(await p.locator('.personal-seal,.personal-skills,.cover-monogram').count(),0);assert.equal(await p.locator('.personal-career li').count(),2);assert.equal((text.match(/ADC/g)||[]).length,1);assert.ok(!text.includes('2019'));assert.ok(!text.includes('VGG'));assert.ok(!(await p.locator('.personal-name').innerText()).includes('です'));
   await p.screenshot({path:output+'/profile.png'});
  });
  await check('five chapters have a 505-second script and preserve the supplied personal history',async()=>{
   const data=await readFile('app/studio/content.ts','utf8');assert.equal([...data.matchAll(/time: (\d+)/g)].reduce((sum,m)=>sum+Number(m[1]),0),505);
   const scripts=[...data.matchAll(/script: "([^"]+)"/g)];assert.equal(scripts.length,5);
-  for(const name of ['KIOXIA','ResNet','OpenClaw','Claude Code','Codex','ADC'])assert.ok(scripts.map(m=>m[1]).join('').includes(name));
+  for(const name of ['KIOXIA','ViT','OpenClaw','Claude Code','Codex','ADC'])assert.ok(scripts.map(m=>m[1]).join('').includes(name));
  });
  await check('every next action moves straight to the next model and centers its presentation',async()=>{
   await p.evaluate(()=>{window.observedViews=[];new MutationObserver(()=>window.observedViews.push(document.querySelector('.studio-scene').dataset.view)).observe(document.querySelector('.studio-scene'),{attributes:true,attributeFilter:['data-view']});});
@@ -80,13 +80,11 @@ try{
   }
   await p.getByLabel('終了条件の例',{exact:true}).selectOption('complete');
  });
- await check('ViT shows a recognizable image, every patch, positional embeddings and the classifier',async()=>{
-  await go(1);await p.locator('.vit-stage-tabs button').nth(0).click();assert.equal(await p.locator('.vit-image-patch').count(),16);
-  assert.ok((await p.locator('.vit-image-patch').first().evaluate(e=>getComputedStyle(e).backgroundImage)).includes('inspection-sample.svg'));
-  await p.locator('.vit-stage-tabs button').nth(1).click();await p.getByRole('button',{name:'パッチ 11',exact:true}).click();assert.equal(await p.getByRole('button',{name:'パッチ 11',exact:true}).getAttribute('aria-pressed'),'true');
-  await p.locator('.vit-stage-tabs button').nth(2).click();assert.equal(await p.locator('.vit-token').count(),16);assert.equal(await p.getByRole('button',{name:'トークン 11',exact:true}).getAttribute('aria-pressed'),'true');assert.ok((await p.locator('.vit-sequence').innerText()).includes('[CLS]'));assert.ok((await p.locator('.vit-pipeline').innerText()).includes('位置情報'));
-  await p.getByRole('button',{name:'ViTの詳しい説明'}).click();assert.ok((await p.locator('.vit-info').innerText()).includes('分類ヘッド'));await p.getByRole('button',{name:'ViTの説明を閉じる'}).click();
-  await p.screenshot({path:output+'/vision-patches.png'});
+ await check('the introduction connects Transformer, ViT and GPT to everyday AI without a classification lesson',async()=>{
+  await go(1);assert.equal(await p.locator('.vit-stage-tabs,.vision-practice,.vit-pipeline').count(),0);
+  const text=await p.locator('.agent-prelude').innerText();for(const phrase of ['2017','2020','2022','機械翻訳','事前学習','賢い対話ボット','仕事を進めるAI'])assert.ok(text.includes(phrase),phrase);
+  assert.equal(await p.locator('.prelude-chapters article').count(),3);assert.equal(await p.locator('.prelude-sources a').count(),2);assert.ok(!(await p.locator('body').innerText()).includes('私の体験'));
+  await p.screenshot({path:output+'/agent-prelude.png'});
  });
  await check('optional background opens six primary-sourced milestones and Escape preserves the chapter',async()=>{
   await go(2);await p.getByRole('button',{name:'背景を見る ↗'}).click();assert.equal(await p.locator('.llm-background[open]').count(),1);assert.equal(await p.locator('.llm-era-rail button').count(),6);
@@ -124,9 +122,8 @@ try{
   await p.setViewportSize({width,height});
   for(let n=0;n<5;n++){
    await go(n);
-   const modes=n===1?['vision-0','vision-1','vision-2','vision-info']:n===2?['usage-0','usage-1','usage-2']:n===3?['parts','context','tools','harness','loop-part',...Array.from({length:7},(_,i)=>'loop-'+i),'limit','blocked']:n===4?['product-0','product-1','product-2','product-3','product-4','value']:['page'];
+   const modes=n===2?['usage-0','usage-1','usage-2']:n===3?['parts','context','tools','harness','loop-part',...Array.from({length:7},(_,i)=>'loop-'+i),'limit','blocked']:n===4?['product-0','product-1','product-2','product-3','product-4','value']:['page'];
    for(const mode of modes){
-    if(n===1){if(mode==='vision-info')await p.getByRole('button',{name:'ViTの詳しい説明'}).click();else{if(await p.locator('.vit-info').count())await p.getByRole('button',{name:'ViTの説明を閉じる'}).click();await p.locator('.vit-stage-tabs button').nth(Number(mode.slice(-1))).click();}}
     if(n===2)await p.locator('.usage-tabs button').nth(Number(mode.slice(-1))).click();
     if(n===4){await p.getByRole('tab',{name:mode==='value'?'競争力':'開発プロセス',exact:true}).click();if(mode!=='value')await p.locator('.product-step-rail button').nth(Number(mode.slice(-1))).click();}
     if(n===3){const demo=/^loop-\d/.test(mode)||['limit','blocked'].includes(mode);await p.getByRole('tab',{name:demo?'動きを見る':'構成を見る',exact:true}).click();if(demo){const scenario=['limit','blocked'].includes(mode)?mode:'complete';await p.getByLabel('終了条件の例',{exact:true}).selectOption(scenario);await p.locator('.execution-track button').nth(scenario==='limit'?3:scenario==='blocked'?2:Number(mode.slice(-1))).click();}else await p.locator('.architecture-select[data-element='+({parts:'model',context:'context',tools:'tools',harness:'harness','loop-part':'loop'}[mode])+']').click();}
@@ -159,7 +156,7 @@ try{
   await go(0);const before=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.locator('.journey-dots button').nth(3).click();await p.locator('.studio-scene[data-transition=true]').waitFor();
   assert.equal(await p.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),true);await p.waitForTimeout(180);assert.equal(await p.locator('.studio-surface-host[data-active=true]').getAttribute('data-visible'),'true');assert.equal(await p.locator('.studio-surface-host').count(),5);const midway=await p.locator('.studio-scene').getAttribute('data-camera-position');assert.notEqual(midway,before);assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');
   const skip=await p.locator('.studio-skip').boundingBox();assert.ok(skip.x>0&&skip.y>0&&skip.x+skip.width<=1440&&skip.y+skip.height<=1000&&skip.height>=44,JSON.stringify(skip));
-  await p.locator('.journey-dots button').nth(1).click();await p.locator('.studio-skip').click();await p.locator('.studio-scene[data-view=notebook][data-transition=false]').waitFor();assert.equal(await p.locator('.studio-copy').count(),0);assert.ok((await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').innerText()).includes('画像分類'));
+  await p.locator('.journey-dots button').nth(1).click();await p.locator('.studio-skip').click();await p.locator('.studio-scene[data-view=notebook][data-transition=false]').waitFor();assert.equal(await p.locator('.studio-copy').count(),0);assert.ok((await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').innerText()).includes('AIとの距離'));
  });
  await check('settled close-up stops rendering and context loss recovers on the same model',async()=>{
   await p.mouse.move(0,0);await p.waitForTimeout(900);const frames=await p.locator('.studio-scene').getAttribute('data-frames');await p.waitForTimeout(450);assert.equal(await p.locator('.studio-scene').getAttribute('data-frames'),frames);

@@ -58,10 +58,11 @@ export default function StudioCanvas(props: Props) {
     if (innerWidth < 700) room.sun.shadow.mapSize.set(1024, 1024);
     const camera = new THREE.PerspectiveCamera(34, 1, .01, 80);
     let previousView: ViewId = latest.current.view;
-    let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 850, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
-    let open = 0, dusk = 0, orbit = 0, zoom = 1, lightAngle = 0;
+    let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 1800, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
+    let dusk = 0, orbit = 0, zoom = 1, lightAngle = 0;
+    const books={name:0,notebook:0},sourceBooks={...books};
     const overviewPose={orbit:0,zoom:1};
-    const sourcePosition = camera.position.clone(), sourceQuaternion = camera.quaternion.clone();
+    const sourcePosition = camera.position.clone(), focus=new THREE.Vector3(),sourceFocus=new THREE.Vector3(),sourceUp=new THREE.Vector3(0,1,0),destinationFocus=new THREE.Vector3();
     let skip = latest.current.skipToken, shadowOpen = -1, slowFrames = 0, wasFlying = false, wasFitting = false;
     const destination = new THREE.PerspectiveCamera(34, 1, .01, 80);
     const reduced = matchMedia("(prefers-reduced-motion: reduce)"), ray = new THREE.Raycaster(), pointer = new THREE.Vector2();
@@ -103,47 +104,51 @@ export default function StudioCanvas(props: Props) {
       const w = Math.max(1, element.clientWidth), h = Math.max(1, element.clientHeight), size = presentationSize(w, h);
       const finish = skip !== state.skipToken || reduced.matches; skip = state.skipToken;
       if (previousView !== state.view || resized) {
-        sourcePosition.copy(camera.position); sourceQuaternion.copy(camera.quaternion); from = t;
-        duration = resized ? 450 : 850;
+        sourcePosition.copy(camera.position); sourceFocus.copy(focus);sourceUp.copy(camera.up);Object.assign(sourceBooks,books);from = t;
+        duration = resized ? 600 : 1800;
         if(previousView==="room"){overviewPose.orbit=orbit;overviewPose.zoom=zoom;}
         orbit=state.view==="room"?overviewPose.orbit:0;zoom=state.view==="room"?overviewPose.zoom:1;
         previousView = state.view; animating = !boot; resized = false;
       }
       const activeHover = focusedObject.current || hoverId;
-      const noteGoal = state.view === "notebook" || state.view === "name" ? 1 : .88;
-      open = finish || boot ? noteGoal : THREE.MathUtils.damp(open, noteGoal, 6, dt / 1000);
-      room.animate(open, state.boardStep, state.review, activeHover, state.view === "monitor" ? state.agentStep : -1);
+      const progress=finish||boot||!animating?1:Math.min(1,(t-from)/duration);
+      const smooth=(v:number)=>{const x=THREE.MathUtils.clamp(v,0,1);return x*x*x*(x*(x*6-15)+10);};
+      const bookProgress=smooth((progress-.12)/.80);
+      for(const id of ["name","notebook"] as const)books[id]=THREE.MathUtils.lerp(sourceBooks[id],state.view===id?1:0,bookProgress);
+      room.animate(books.name, books.notebook, state.boardStep, state.review, activeHover, state.view === "monitor" ? state.agentStep : -1);
       const fitting = room.fitSurfaces(state.view, size.width / size.height, dt / 1000, finish || boot);
       const lightGoal = state.timeOfDay === "dusk" ? 1 : 0; dusk = finish ? lightGoal : THREE.MathUtils.damp(dusk, lightGoal, 5, dt / 1000);
       if(lightAngle!==state.sunAngle){renderer.shadowMap.needsUpdate=true;lightAngle=state.sunAngle;}
       room.setLight(dusk,state.sunAngle,elapsed,ambient); scene.environmentIntensity = .55 - dusk * .18; renderer.toneMappingExposure = 1.13 - dusk * .14;
       const flying = room.garden.update(elapsed, dt / 1000, state.view, ambient, dusk, finish);
       room.garden.bird.visible = state.overview;
-      if (Math.abs(open - shadowOpen) > .3 || wasFlying && !flying || wasFitting && !fitting) { renderer.shadowMap.needsUpdate = true; shadowOpen = open; }
+      const opening=books.name+books.notebook;
+      if (animating || Math.abs(opening - shadowOpen) > .05 || wasFlying && !flying || wasFitting && !fitting) { renderer.shadowMap.needsUpdate = true; shadowOpen = opening; }
       wasFlying = flying; wasFitting = fitting;
-      const surface = room.surfaces[state.view];
+      const surface = room.readingFrame(state.view,size.width/size.height);
       destination.up.set(0,1,0);
       if (surface) {
-        const center = surface.face.getWorldPosition(new THREE.Vector3());
-        const orientation = surface.face.getWorldQuaternion(new THREE.Quaternion());
-        const normal = new THREE.Vector3(0,0,1).applyQuaternion(orientation), up = new THREE.Vector3(0,1,0).applyQuaternion(orientation);
-        const physicalHeight = surface.height * surface.face.getWorldScale(new THREE.Vector3()).y;
+        const {center,normal,up}=surface;
+        const physicalHeight = surface.height;
         const distance = physicalHeight * h / (2 * (size.height / SURFACE_SCALE) * Math.tan(THREE.MathUtils.degToRad(17)));
-        destination.position.copy(center).addScaledVector(normal,distance); destination.up.copy(up); destination.lookAt(center);
+        destination.position.copy(center).addScaledVector(normal,distance); destination.up.copy(up);destinationFocus.copy(center);
       } else {
         const preset=cameras[state.view], target=new THREE.Vector3(...preset.target);
         const coverage=w<=1000&&state.view==="room"?preset.span*.78:preset.span;
         const distance=coverage*zoom/(2*Math.tan(THREE.MathUtils.degToRad(17))*Math.min(w/h,1.4));
         const direction=new THREE.Vector3(...preset.position).sub(target).normalize().applyAxisAngle(new THREE.Vector3(0,1,0),orbit);
-        destination.position.copy(target).addScaledVector(direction,distance); destination.lookAt(target);
+        destination.position.copy(target).addScaledVector(direction,distance);destinationFocus.copy(target);
       }
-      let progress=1;
       if (animating) {
-        progress=finish?1:Math.min(1,(t-from)/duration);
-        const eased=progress*progress*progress*(progress*(progress*6-15)+10);
-        camera.position.lerpVectors(sourcePosition,destination.position,eased); camera.quaternion.slerpQuaternions(sourceQuaternion,destination.quaternion,eased);
+        const eased=smooth(progress);
+        camera.position.lerpVectors(sourcePosition,destination.position,eased);
+        // Eyes settle on the object while approaching it; interpolating camera
+        // rotations alone looks below a horizontal page before tilting back up.
+        focus.lerpVectors(sourceFocus,destinationFocus,smooth(progress*1.35));
+        camera.up.lerpVectors(sourceUp,destination.up,eased).normalize();
         if(progress===1)animating=false;
-      } else { camera.position.copy(destination.position); camera.quaternion.copy(destination.quaternion); }
+      } else { camera.position.copy(destination.position);focus.copy(destinationFocus);camera.up.copy(destination.up); }
+      camera.lookAt(focus);
       camera.aspect=w/h;camera.updateProjectionMatrix();camera.updateMatrixWorld();
       renderer.render(scene,camera); project();
       // Every page exists in the room before a camera move; no arrival-time swap.
@@ -152,7 +157,10 @@ export default function StudioCanvas(props: Props) {
         const normal=target?new THREE.Vector3(0,0,1).applyQuaternion(target.face.getWorldQuaternion(new THREE.Quaternion())):null;
         const center=target?.face.getWorldPosition(new THREE.Vector3());
         const facing=normal&&center&&normal.dot(camera.position.clone().sub(center))>0;
-        const placed=target&&facing?projectSurface(page,target.face,target.width,target.height,camera,w,h,size.width,size.height):false;
+        const bookOpen=id==="name"?books.name:id==="notebook"?books.notebook:1;
+        const reveal=id==="notebook"?smooth((bookOpen-.76)/.20):smooth((bookOpen-.55)/.35);
+        const placed=target&&facing&&reveal>0?projectSurface(page,target.face,target.width,target.height,camera,w,h,size.width,size.height):false;
+        page.style.opacity=String(reveal);
         const active=id===state.view&&!state.overview,interactive=!!placed&&active&&!animating;
         const detail=finish||boot?(active?1:0):THREE.MathUtils.damp(Number(page.dataset.detail||0),active?1:0,9,dt/1000);
         page.dataset.detail=String(detail);page.style.setProperty("--surface-detail",String(detail>.998?1:detail<.002?0:detail));
@@ -164,8 +172,10 @@ export default function StudioCanvas(props: Props) {
       element.dataset.frames=String(++frames);element.dataset.drawCalls=String(renderer.info.render.calls);element.dataset.triangles=String(renderer.info.render.triangles);
       element.dataset.transition=String(animating);element.dataset.orbit=orbit.toFixed(3);element.dataset.zoom=zoom.toFixed(3);element.dataset.flying=String(flying);element.dataset.ambient=String(ambient);
       element.dataset.cameraPosition=camera.position.toArray().map(v=>v.toFixed(4)).join(",");
+      element.dataset.cameraFocus=focus.toArray().map(v=>v.toFixed(4)).join(",");element.dataset.bookOpen=JSON.stringify(books);element.dataset.flightProgress=String(progress);
+      element.dataset.gazeOffset=destinationFocus.clone().project(camera).toArray().slice(0,2).map(v=>v.toFixed(5)).join(",");
       if(dirty){dirty=false;setStatus("ready");}boot=false;
-      settling=fitting||flying||Math.abs(open-noteGoal)>.002||Math.abs(dusk-lightGoal)>.002;
+      settling=fitting||flying||Math.abs(dusk-lightGoal)>.002;
       if(animating||settling||ambient)raf=requestAnimationFrame(frame);
     }
     function wake() { urgent = true; if (!raf && !disposed && !contextLost) { last = 0; raf = requestAnimationFrame(frame); } }
@@ -221,7 +231,7 @@ export default function StudioCanvas(props: Props) {
       room.dispose(); environment.dispose(); renderer.dispose(); canvas.remove();
     };
   }, [retry]);
-  useEffect(() => { if(status==="fallback"){if(host.current)host.current.dataset.transition="false";presentations.current.forEach((page,id)=>{const active=id===view;page.inert=!active;page.dataset.visible=String(active);page.dataset.interactive=String(active);page.setAttribute("aria-hidden",String(!active));});} },[status,view]);
+  useEffect(() => { if(status==="fallback"){if(host.current)host.current.dataset.transition="false";presentations.current.forEach((page,id)=>{const active=id===view;page.style.opacity="1";page.inert=!active;page.dataset.visible=String(active);page.dataset.interactive=String(active);page.setAttribute("aria-hidden",String(!active));});} },[status,view]);
   const focusObject = (id: ObjectId | null) => { focusedObject.current = id; setHover(id); trigger.current(); };
   return <div className="studio-scene" ref={host} data-status={status} data-view={view} data-time={timeOfDay} data-breeze={breeze} data-visited={visited.length} data-sun-angle={sunAngle}>
     {props.panels.map(panel=><div key={panel.id} className="studio-surface-host" ref={el=>{if(el)presentations.current.set(panel.id,el);else presentations.current.delete(panel.id);}} data-kind={panel.id} data-active={!overview&&view===panel.id} data-visible="false" data-interactive="false" aria-hidden={overview||view!==panel.id} inert={overview||view!==panel.id}>{panel.content}</div>)}

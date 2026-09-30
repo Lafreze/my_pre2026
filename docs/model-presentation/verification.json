@@ -1,10 +1,10 @@
 {
-  "date": "2026-09-29",
+  "date": "2026-09-30",
   "target": "Production static export at http://127.0.0.1:5180/",
-  "scope": "PC only; immersive overview without labels or numeric markers",
+  "scope": "PC introduction, narrative and book/camera transitions",
   "checks": 36,
   "passed": 36,
-  "layoutStates": 168,
+  "layoutStates": 150,
   "suites": {
     "story": {
       "results": [
@@ -37,7 +37,7 @@
           "pass": true
         },
         {
-          "name": "ViT shows a recognizable image, every patch, positional embeddings and the classifier",
+          "name": "the introduction connects Transformer, ViT and GPT to everyday AI without a classification lesson",
           "pass": true
         },
         {
@@ -136,8 +136,8 @@
           "mesh": {
             "left": 388.46876475667193,
             "right": 1531.5312352433282,
-            "top": 215.26634361174564,
-            "bottom": 864.7336563882544
+            "top": 215.26634361174516,
+            "bottom": 864.7336563882542
           },
           "insideBottom": 858.2347412109375,
           "scrollBottom": 801.2244873046875,
@@ -151,7 +151,7 @@
             1080
           ],
           "chapter": 1,
-          "mode": "vision-0",
+          "mode": "page",
           "x": 399.8916320800781,
           "y": 221.75660705566406,
           "width": 1120.216796875,
@@ -164,100 +164,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 388.46083829688644,
-            "right": 1531.5391617031146,
-            "top": 215.26183994141226,
-            "bottom": 864.7381600585878
-          },
-          "insideBottom": 858.2391357421875,
-          "scrollBottom": 801.2280578613281,
-          "insideTop": 801.2280883789062,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1920,
-            1080
-          ],
-          "chapter": 1,
-          "mode": "vision-1",
-          "x": 399.8916320800781,
-          "y": 221.75660705566406,
-          "width": 1120.216796875,
-          "height": 636.4825439453125,
-          "body": 1920,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 858.2391510009766,
-          "footerTop": 1002,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 388.46083829688644,
-            "right": 1531.5391617031146,
-            "top": 215.26183994141226,
-            "bottom": 864.7381600585878
-          },
-          "insideBottom": 858.2391357421875,
-          "scrollBottom": 801.2280578613281,
-          "insideTop": 801.2280883789062,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1920,
-            1080
-          ],
-          "chapter": 1,
-          "mode": "vision-2",
-          "x": 399.8916320800781,
-          "y": 221.75660705566406,
-          "width": 1120.216796875,
-          "height": 636.4825439453125,
-          "body": 1920,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 858.2391510009766,
-          "footerTop": 1002,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 388.46083829688644,
-            "right": 1531.5391617031146,
-            "top": 215.26183994141226,
-            "bottom": 864.7381600585878
-          },
-          "insideBottom": 858.2391357421875,
-          "scrollBottom": 801.2280578613281,
-          "insideTop": 801.2280883789062,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1920,
-            1080
-          ],
-          "chapter": 1,
-          "mode": "vision-info",
-          "x": 399.8916320800781,
-          "y": 221.75660705566406,
-          "width": 1120.216796875,
-          "height": 636.4825439453125,
-          "body": 1920,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 858.2391510009766,
-          "footerTop": 1002,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 388.46083829688644,
-            "right": 1531.5391617031146,
-            "top": 215.26183994141226,
-            "bottom": 864.7381600585878
+            "left": 388.46083829688604,
+            "right": 1531.5391617031144,
+            "top": 215.26183994141329,
+            "bottom": 864.7381600585888
           },
           "insideBottom": 858.2391357421875,
           "scrollBottom": 801.2280578613281,
@@ -974,7 +884,7 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 268.4658309627694,
+            "left": 268.46583096276953,
             "right": 1411.5341690372306,
             "top": 200.26467668339188,
             "bottom": 849.7353233166082
@@ -991,7 +901,7 @@
             1050
           ],
           "chapter": 1,
-          "mode": "vision-0",
+          "mode": "page",
           "x": 279.8885192871094,
           "y": 206.7548370361328,
           "width": 1120.222900390625,
@@ -1004,99 +914,9 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 268.45767794577034,
+            "left": 268.4576779457708,
             "right": 1411.5423220542295,
-            "top": 200.26004428737048,
-            "bottom": 849.7399557126306
-          },
-          "insideBottom": 843.2409057617188,
-          "scrollBottom": 786.2295837402344,
-          "insideTop": 786.2295532226562,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1680,
-            1050
-          ],
-          "chapter": 1,
-          "mode": "vision-1",
-          "x": 279.8885192871094,
-          "y": 206.7548370361328,
-          "width": 1120.222900390625,
-          "height": 636.486083984375,
-          "body": 1680,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 843.2409210205078,
-          "footerTop": 972,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 268.45767794577034,
-            "right": 1411.5423220542295,
-            "top": 200.26004428737048,
-            "bottom": 849.7399557126306
-          },
-          "insideBottom": 843.2409057617188,
-          "scrollBottom": 786.2295837402344,
-          "insideTop": 786.2295532226562,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1680,
-            1050
-          ],
-          "chapter": 1,
-          "mode": "vision-2",
-          "x": 279.8885192871094,
-          "y": 206.7548370361328,
-          "width": 1120.222900390625,
-          "height": 636.486083984375,
-          "body": 1680,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 843.2409210205078,
-          "footerTop": 972,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 268.45767794577034,
-            "right": 1411.5423220542295,
-            "top": 200.26004428737048,
-            "bottom": 849.7399557126306
-          },
-          "insideBottom": 843.2409057617188,
-          "scrollBottom": 786.2295837402344,
-          "insideTop": 786.2295532226562,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1680,
-            1050
-          ],
-          "chapter": 1,
-          "mode": "vision-info",
-          "x": 279.8885192871094,
-          "y": 206.7548370361328,
-          "width": 1120.222900390625,
-          "height": 636.486083984375,
-          "body": 1680,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 843.2409210205078,
-          "footerTop": 972,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 268.45767794577034,
-            "right": 1411.5423220542295,
-            "top": 200.26004428737048,
+            "top": 200.26004428737053,
             "bottom": 849.7399557126306
           },
           "insideBottom": 843.2409057617188,
@@ -1814,7 +1634,7 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 148.448227566821,
+            "left": 148.44822756682115,
             "right": 1291.5517724331792,
             "top": 125.25467475387569,
             "bottom": 774.7453252461244
@@ -1831,7 +1651,7 @@
             900
           ],
           "chapter": 1,
-          "mode": "vision-0",
+          "mode": "page",
           "x": 159.86993408203125,
           "y": 131.74427795410156,
           "width": 1120.260009765625,
@@ -1844,100 +1664,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 148.43871510509044,
-            "right": 1291.5612848949088,
-            "top": 125.24926994607519,
-            "bottom": 774.7507300539257
-          },
-          "insideBottom": 768.25146484375,
-          "scrollBottom": 711.2382202148438,
-          "insideTop": 711.2382202148438,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1440,
-            900
-          ],
-          "chapter": 1,
-          "mode": "vision-1",
-          "x": 159.86993408203125,
-          "y": 131.74427795410156,
-          "width": 1120.260009765625,
-          "height": 636.5072021484375,
-          "body": 1440,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 768.2514801025391,
-          "footerTop": 822,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 148.43871510509044,
-            "right": 1291.5612848949088,
-            "top": 125.24926994607519,
-            "bottom": 774.7507300539257
-          },
-          "insideBottom": 768.25146484375,
-          "scrollBottom": 711.2382202148438,
-          "insideTop": 711.2382202148438,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1440,
-            900
-          ],
-          "chapter": 1,
-          "mode": "vision-2",
-          "x": 159.86993408203125,
-          "y": 131.74427795410156,
-          "width": 1120.260009765625,
-          "height": 636.5072021484375,
-          "body": 1440,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 768.2514801025391,
-          "footerTop": 822,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 148.43871510509044,
-            "right": 1291.5612848949088,
-            "top": 125.24926994607519,
-            "bottom": 774.7507300539257
-          },
-          "insideBottom": 768.25146484375,
-          "scrollBottom": 711.2382202148438,
-          "insideTop": 711.2382202148438,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1440,
-            900
-          ],
-          "chapter": 1,
-          "mode": "vision-info",
-          "x": 159.86993408203125,
-          "y": 131.74427795410156,
-          "width": 1120.260009765625,
-          "height": 636.5072021484375,
-          "body": 1440,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 768.2514801025391,
-          "footerTop": 822,
-          "headerBottom": 69,
-          "inert": false,
-          "mesh": {
-            "left": 148.43871510509044,
-            "right": 1291.5612848949088,
-            "top": 125.24926994607519,
-            "bottom": 774.7507300539257
+            "left": 148.43871510509166,
+            "right": 1291.5612848949102,
+            "top": 125.24926994607513,
+            "bottom": 774.750730053926
           },
           "insideBottom": 768.25146484375,
           "scrollBottom": 711.2382202148438,
@@ -2654,7 +2384,7 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.45396209172114,
+            "left": 167.45396209172122,
             "right": 1198.546037908279,
             "top": 91.07611482484168,
             "bottom": 676.9238851751584
@@ -2671,7 +2401,7 @@
             768
           ],
           "chapter": 1,
-          "mode": "vision-0",
+          "mode": "page",
           "x": 177.75599670410156,
           "y": 96.9295425415039,
           "width": 1010.482421875,
@@ -2684,99 +2414,9 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.44489227774568,
-            "right": 1198.555107722254,
-            "top": 91.07096152144739,
-            "bottom": 676.9290384785536
-          },
-          "insideBottom": 671.0704345703125,
-          "scrollBottom": 622.0584106445312,
-          "insideTop": 622.0584106445312,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1366,
-            768
-          ],
-          "chapter": 1,
-          "mode": "vision-1",
-          "x": 177.75599670410156,
-          "y": 96.9295425415039,
-          "width": 1010.482421875,
-          "height": 574.140869140625,
-          "body": 1366,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 671.0704116821289,
-          "footerTop": 696,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 167.44489227774568,
-            "right": 1198.555107722254,
-            "top": 91.07096152144739,
-            "bottom": 676.9290384785536
-          },
-          "insideBottom": 671.0704345703125,
-          "scrollBottom": 622.0584106445312,
-          "insideTop": 622.0584106445312,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1366,
-            768
-          ],
-          "chapter": 1,
-          "mode": "vision-2",
-          "x": 177.75599670410156,
-          "y": 96.9295425415039,
-          "width": 1010.482421875,
-          "height": 574.140869140625,
-          "body": 1366,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 671.0704116821289,
-          "footerTop": 696,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 167.44489227774568,
-            "right": 1198.555107722254,
-            "top": 91.07096152144739,
-            "bottom": 676.9290384785536
-          },
-          "insideBottom": 671.0704345703125,
-          "scrollBottom": 622.0584106445312,
-          "insideTop": 622.0584106445312,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1366,
-            768
-          ],
-          "chapter": 1,
-          "mode": "vision-info",
-          "x": 177.75599670410156,
-          "y": 96.9295425415039,
-          "width": 1010.482421875,
-          "height": 574.140869140625,
-          "body": 1366,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 671.0704116821289,
-          "footerTop": 696,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 167.44489227774568,
-            "right": 1198.555107722254,
-            "top": 91.07096152144739,
+            "left": 167.44489227774545,
+            "right": 1198.5551077222538,
+            "top": 91.07096152144734,
             "bottom": 676.9290384785536
           },
           "insideBottom": 671.0704345703125,
@@ -3496,8 +3136,8 @@
           "mesh": {
             "left": 167.56825184603997,
             "right": 1112.4317481539601,
-            "top": 91.57287036706876,
-            "bottom": 628.4271296329321
+            "top": 91.57287036706829,
+            "bottom": 628.427129632932
           },
           "insideBottom": 623.05859375,
           "scrollBottom": 574.0476684570312,
@@ -3511,7 +3151,7 @@
             720
           ],
           "chapter": 1,
-          "mode": "vision-0",
+          "mode": "page",
           "x": 177.00892639160156,
           "y": 96.9368896484375,
           "width": 925.97216796875,
@@ -3524,97 +3164,7 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.56012784118445,
-            "right": 1112.4398721588168,
-            "top": 91.56825445521882,
-            "bottom": 628.4317455447821
-          },
-          "insideBottom": 623.0631103515625,
-          "scrollBottom": 574.0513305664062,
-          "insideTop": 574.0513305664062,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1280,
-            720
-          ],
-          "chapter": 1,
-          "mode": "vision-1",
-          "x": 177.00892639160156,
-          "y": 96.9368896484375,
-          "width": 925.97216796875,
-          "height": 526.126220703125,
-          "body": 1280,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 623.0631103515625,
-          "footerTop": 648,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 167.56012784118445,
-            "right": 1112.4398721588168,
-            "top": 91.56825445521882,
-            "bottom": 628.4317455447821
-          },
-          "insideBottom": 623.0631103515625,
-          "scrollBottom": 574.0513305664062,
-          "insideTop": 574.0513305664062,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1280,
-            720
-          ],
-          "chapter": 1,
-          "mode": "vision-2",
-          "x": 177.00892639160156,
-          "y": 96.9368896484375,
-          "width": 925.97216796875,
-          "height": 526.126220703125,
-          "body": 1280,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 623.0631103515625,
-          "footerTop": 648,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 167.56012784118445,
-            "right": 1112.4398721588168,
-            "top": 91.56825445521882,
-            "bottom": 628.4317455447821
-          },
-          "insideBottom": 623.0631103515625,
-          "scrollBottom": 574.0513305664062,
-          "insideTop": 574.0513305664062,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1280,
-            720
-          ],
-          "chapter": 1,
-          "mode": "vision-info",
-          "x": 177.00892639160156,
-          "y": 96.9368896484375,
-          "width": 925.97216796875,
-          "height": 526.126220703125,
-          "body": 1280,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 623.0631103515625,
-          "footerTop": 648,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 167.56012784118445,
+            "left": 167.56012784118454,
             "right": 1112.4398721588168,
             "top": 91.56825445521882,
             "bottom": 628.4317455447821
@@ -4335,9 +3885,9 @@
           "inert": false,
           "mesh": {
             "left": 60.87680401595799,
-            "right": 963.1231959840419,
-            "top": 91.07611482484168,
-            "bottom": 676.9238851751586
+            "right": 963.123195984042,
+            "top": 91.07611482484147,
+            "bottom": 676.9238851751584
           },
           "insideBottom": 671.0654296875,
           "scrollBottom": 622.0542449951172,
@@ -4351,7 +3901,7 @@
             768
           ],
           "chapter": 1,
-          "mode": "vision-0",
+          "mode": "page",
           "x": 69.89148712158203,
           "y": 96.9295425415039,
           "width": 884.217041015625,
@@ -4364,99 +3914,9 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 60.86886756961445,
-            "right": 963.1311324303852,
-            "top": 91.07096152144739,
-            "bottom": 676.9290384785536
-          },
-          "insideBottom": 671.0704345703125,
-          "scrollBottom": 622.0584106445312,
-          "insideTop": 622.0584106445312,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1024,
-            768
-          ],
-          "chapter": 1,
-          "mode": "vision-1",
-          "x": 69.89148712158203,
-          "y": 96.9295425415039,
-          "width": 884.217041015625,
-          "height": 574.140869140625,
-          "body": 1024,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 671.0704116821289,
-          "footerTop": 696,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 60.86886756961445,
-            "right": 963.1311324303852,
-            "top": 91.07096152144739,
-            "bottom": 676.9290384785536
-          },
-          "insideBottom": 671.0704345703125,
-          "scrollBottom": 622.0584106445312,
-          "insideTop": 622.0584106445312,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1024,
-            768
-          ],
-          "chapter": 1,
-          "mode": "vision-2",
-          "x": 69.89148712158203,
-          "y": 96.9295425415039,
-          "width": 884.217041015625,
-          "height": 574.140869140625,
-          "body": 1024,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 671.0704116821289,
-          "footerTop": 696,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 60.86886756961445,
-            "right": 963.1311324303852,
-            "top": 91.07096152144739,
-            "bottom": 676.9290384785536
-          },
-          "insideBottom": 671.0704345703125,
-          "scrollBottom": 622.0584106445312,
-          "insideTop": 622.0584106445312,
-          "outside": [],
-          "nodeOverflow": []
-        },
-        {
-          "viewport": [
-            1024,
-            768
-          ],
-          "chapter": 1,
-          "mode": "vision-info",
-          "x": 69.89148712158203,
-          "y": 96.9295425415039,
-          "width": 884.217041015625,
-          "height": 574.140869140625,
-          "body": 1024,
-          "overflow": false,
-          "verticalOverflow": false,
-          "bottom": 671.0704116821289,
-          "footerTop": 696,
-          "headerBottom": 63,
-          "inert": false,
-          "mesh": {
-            "left": 60.86886756961445,
-            "right": 963.1311324303852,
-            "top": 91.07096152144739,
+            "left": 60.86886756961411,
+            "right": 963.1311324303849,
+            "top": 91.07096152144734,
             "bottom": 676.9290384785536
           },
           "insideBottom": 671.0704345703125,
@@ -5204,16 +4664,32 @@
       "metrics": [
         {
           "mode": "ambient",
-          "renderedFrames": 34,
+          "renderedFrames": 33,
           "milliseconds": 1100
         },
         {
           "mode": "notebook",
-          "drawCalls": 215,
-          "triangles": 704800,
+          "drawCalls": 218,
+          "triangles": 705104,
           "quality": "standard"
         }
       ]
     }
+  },
+  "motion": {
+    "flights": [
+      {
+        "id": "name",
+        "milliseconds": 1834,
+        "sampledFrames": 111
+      },
+      {
+        "id": "notebook",
+        "milliseconds": 1801,
+        "sampledFrames": 109
+      }
+    ],
+    "closedOnReturn": true,
+    "visibleFallbackDuringOpening": true
   }
 }
