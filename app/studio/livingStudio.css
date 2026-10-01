@@ -11,21 +11,21 @@
 .personal-identity .personal-work{font-size:17px;line-height:1.85;margin-bottom:16px;color:#314f3f}
 .model-checklist .advantage-closing{display:block;border-color:#76d5d455;padding:14px 16px}
 .model-checklist .advantage-closing p{font-size:19px;line-height:1.8;color:#e0f6ed;margin:0;max-width:none}
-/* Both chapters inhabit the same calibrated, dark monitor screen. */
+/* The unified chapter inhabits one calibrated, dark monitor screen. */
 .model-presentation:is(.model-board,.model-monitor){--page-ink:#e2eee6;--page-muted:#b2c7ba;--page-line:#c0d8c32b;background:#142a29;color:var(--page-ink);border:1px solid #9cbcb53b;box-shadow:inset 0 0 28px #051b2266,inset 0 1px 0 #d6f3e326;border-radius:3px}
 .model-presentation:is(.model-board,.model-monitor) .model-topline{background:linear-gradient(110deg,#22403a,#192f2e);border-color:var(--page-line);color:var(--page-muted)}
 .model-presentation:is(.model-board,.model-monitor) .model-page-footer{background:#102625;border-color:var(--page-line);color:#dfedc7}
 .model-presentation:is(.model-board,.model-monitor) .model-page-scroll{background:radial-gradient(ellipse at 48% 0,#385e4a28,transparent 70%)}
-.model-board .model-eyebrow,.model-board .usage-tabs small,.model-board .usage-memory p,.model-board .usage-scope{color:#b7cbba}
-.model-board .background-trigger{color:#c9d9b6!important;border-color:#a1b58e}
-.model-board .usage-tabs button{background:#1d3732;border-color:#7e9e8055;color:#e2eee6}
-.model-board .usage-tabs [aria-selected=true]{background:#43513b;border-color:#cbbb80;box-shadow:inset 0 2px #d7c48d}
-.model-board .usage-tabs span,.model-board .usage-task p,.model-board .usage-flow span,.model-board .usage-memory h3{color:#dce9d9}
-.model-board .usage-task>span,.model-board .usage-flow small,.model-board .usage-flow b{color:#dbca94}
-.model-board .usage-task>small{color:#aec2b2}
-.model-board .usage-output{background:#102421;border:1px solid #819b7850}
-.model-board .usage-memory{border-color:#91b79b3d}
-.model-board .model-page-footer button{color:#dce6bd}
+.model-monitor .model-eyebrow,.model-monitor .usage-tabs small,.model-monitor .usage-memory p,.model-monitor .usage-scope{color:#b7cbba}
+.model-monitor .background-trigger{color:#c9d9b6!important;border-color:#a1b58e}
+.model-monitor .usage-tabs button{background:#1d3732;border-color:#7e9e8055;color:#e2eee6}
+.model-monitor .usage-tabs [aria-selected=true]{background:#43513b;border-color:#cbbb80;box-shadow:inset 0 2px #d7c48d}
+.model-monitor .usage-tabs span,.model-monitor .usage-task p,.model-monitor .usage-flow span,.model-monitor .usage-memory h3{color:#dce9d9}
+.model-monitor .usage-task>span,.model-monitor .usage-flow small,.model-monitor .usage-flow b{color:#dbca94}
+.model-monitor .usage-task>small{color:#aec2b2}
+.model-monitor .usage-output{background:#102421;border:1px solid #819b7850}
+.model-monitor .usage-memory{border-color:#91b79b3d}
+.model-monitor .model-page-footer button{color:#dce6bd}
 .screen-refresh{animation:screen-refresh .28s ease-out both}
 @keyframes screen-refresh{from{opacity:.25;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.screen-refresh{animation:none}.studio-prop span{transition:none}}

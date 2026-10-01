@@ -40,8 +40,8 @@ try {
     await page.keyboard.press('Enter');await page.locator('.studio-scene[data-view=name][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();
     await page.mouse.move(0,0);await page.locator('.garden-start').focus();await page.screenshot({path:output+'/overview.png'});
   });
-  await check('five live surfaces stay mounted from overview through the camera move',async()=>{
-    assert.equal(await page.locator('.studio-surface-host').count(),5);
+  await check('four live surfaces stay mounted from overview through the camera move',async()=>{
+    assert.equal(await page.locator('.studio-surface-host').count(),4);
     assert.deepEqual(JSON.parse(await scene.getAttribute('data-book-open')),{name:0,notebook:0});for(const id of ['name','notebook'])assert.equal(await page.locator('.studio-surface-host[data-kind='+id+']').getAttribute('data-visible'),'false');
     await page.evaluate(()=>window.surfaceNodes=[...document.querySelectorAll('.model-presentation')]);
     await page.locator('[data-object=name]').click();await page.locator('.studio-surface-host[data-kind=name][data-interactive=true]').waitFor();
@@ -59,7 +59,7 @@ try {
   });
   await check('visits are preserved without on-screen counters or completion notices', async () => {
     for (const [i,id] of ['monitor','checklist'].entries()){
-      await page.locator('[data-object='+id+']').click();await page.locator('.studio-scene[data-view='+(id==='monitor'?'board':id)+'][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();assert.equal(await scene.getAttribute('data-visited'),String(i+2));
+      await page.locator('[data-object='+id+']').click();await page.locator('.studio-scene[data-view='+(id)+'][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();assert.equal(await scene.getAttribute('data-visited'),String(i+2));
     }
     assert.equal(await page.locator('.garden-discovery,.garden-progress').count(),0);
     await page.locator('.studio-index-toggle').click();await page.getByRole('button',{name:'参考資料',exact:true}).click();await page.getByRole('button',{name:'資料を閉じて元の章に戻る'}).click();assert.equal(await scene.getAttribute('data-visited'),'3');
@@ -73,7 +73,7 @@ try {
     assert.ok(Number(await scene.getAttribute('data-zoom')) < .9);
     assert.equal(await page.locator('.work-studio').getAttribute('data-chapter'), chapter);
     assert.equal(await page.locator('.studio-copy').count(), 0);
-    const orbit=await scene.getAttribute('data-orbit'),zoom=await scene.getAttribute('data-zoom');await page.locator('[data-object=monitor]').click();await page.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();await page.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();assert.equal(await scene.getAttribute('data-orbit'),orbit);assert.equal(await scene.getAttribute('data-zoom'),zoom);
+    const orbit=await scene.getAttribute('data-orbit'),zoom=await scene.getAttribute('data-zoom');await page.locator('[data-object=monitor]').click();await page.locator('.studio-scene[data-view=monitor][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();await page.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();assert.equal(await scene.getAttribute('data-orbit'),orbit);assert.equal(await scene.getAttribute('data-zoom'),zoom);
     await page.locator('.environment-menu>summary').click();
     await page.getByRole('button', { name: '庭の視点を戻す' }).click();
     await page.locator('.studio-scene[data-orbit="0.000"][data-zoom="1.000"]').waitFor();
@@ -100,13 +100,13 @@ try {
       await page.screenshot({ path: `${output}/${width}-garden.png` });
       for (const id of ['name','monitor','checklist']) {
         await page.locator(`[data-object=${id}]`).click();
-        await page.locator(`.studio-scene[data-view=${id==='monitor'?'board':id}]`).waitFor();
+        await page.locator(`.studio-scene[data-view=${id}]`).waitFor();
         await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
       }
     }
   });
-  await check('the compact index exposes five chapters and the archive without numbered badges',async()=>{
-    assert.equal(await page.locator('.studio-object[data-next=true]').count(),0);await page.locator('.studio-index-toggle').click();assert.equal(await page.locator('.studio-index-chapter').count(),5);assert.equal(await page.locator('.studio-index-chapter small').count(),0);assert.ok(await page.getByRole('button',{name:'参考資料',exact:true}).isVisible());await page.locator('.studio-index-chapter').nth(2).click();await page.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();
+  await check('the compact index exposes four chapters and the archive without numbered badges',async()=>{
+    assert.equal(await page.locator('.studio-object[data-next=true]').count(),0);await page.locator('.studio-index-toggle').click();assert.equal(await page.locator('.studio-index-chapter').count(),4);assert.equal(await page.locator('.studio-index-chapter small').count(),0);assert.ok(await page.getByRole('button',{name:'参考資料',exact:true}).isVisible());await page.locator('.studio-index-chapter').nth(2).click();await page.locator('.studio-scene[data-view=monitor][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();
   });
   await page.setViewportSize({ width:1440,height:1000 });
   await check('ambient motion pauses completely and chapter transitions stay responsive', async () => {

@@ -53,8 +53,8 @@ try {
     assert.ok(Number(await page.locator('.studio-scene').getAttribute('data-frames'))-Number(before)<=1);
   });
   await check('all close-ups render without material or shader errors', async () => {
-    for (const [object, filename] of [['name','nameplate'],['notebook','notebook'],['board','research-board'],['monitor','workbench'],['checklist','review']]) {
-      await page.locator('.studio-index-toggle').click();await page.locator('.studio-index-chapter').nth(['name','notebook','board','monitor','checklist'].indexOf(object)).click();
+    for (const [object, filename] of [['name','nameplate'],['notebook','notebook'],['monitor','workbench'],['checklist','review']]) {
+      await page.locator('.studio-index-toggle').click();await page.locator('.studio-index-chapter').nth(['name','notebook','monitor','checklist'].indexOf(object)).click();
       await page.locator(`.studio-scene[data-view=${object}]`).waitFor();
       await page.waitForTimeout(150);
       await page.screenshot({ path: `${output}/${filename}.png` });
@@ -77,7 +77,7 @@ try {
     await failed.route('**/materials/studio/*.jpg', route => route.abort());
     await failed.goto(base);
     await failed.locator('.studio-scene[data-status=ready]').waitFor();
-    await failed.locator('[data-object=monitor]').click();await failed.locator('.journey-dots button').nth(3).click();
+    await failed.locator('[data-object=monitor]').click();await failed.getByRole('tab',{name:'構成を見る',exact:true}).click();
     await failed.getByRole('tab', { name: '動きを見る' }).click();
     await failed.getByRole('button', { name: '次の工程 →', exact: true }).click();
     assert.ok((await failed.locator('.execution-detail').innerText()).includes('コードを生成'));

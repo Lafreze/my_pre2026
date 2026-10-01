@@ -1,6 +1,4 @@
-> 2026-10-01 沉浸式场景更新：自我介绍与 AI 经历共用本子，LLM 与 Agent 共用显示器，第四章顺序为构成 → 执行 → 发展。书架仅供参考资料，墙上是 Transformer 装饰黑板与真实时钟。重做四季窗景、羽翼与全息投影器，新增先注视仪器再展开光幕的运镜，升级公共 PBR 材质并移除跳过按钮。详情与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)。
-
-> 2026-10-01 PC 版更新：第四章构成与执行演示之后，增加 Agent 发展介绍（2021–2026、并行产品路线、支撑技术），在同一电脑屏幕里逐页衔接到产品制作。架构图明确工具调用请求由 Harness 控制、Agent Loop 指整个闭环，并区分执行结果与按需验证。内容与出典见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)。
+> 2026-10-01 内容结构更新：全篇合并为四章，显示器内按利用方式 → 构成 → 执行 → 发展讲解。发展区分年表、产品用途与支撑技术；产品开发页改为 Agent 辅助开发的一般流程。首页补充发表主题与技术边界。详情与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)。
 
 > 2026-09-30 PC 版更新：个人介绍去掉印章与技能标签；第二章改为从 Transformer、ViT、GPT 到日常使用 AI 的叙事导入。两本书默认合上，靠近时再展开，书架书先移出；运镜约1.8秒，持续看向物件，避免先俯冲再抬起。保持居中沉浸式房间、无全景编号及连续章节运镜。截图与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
 >

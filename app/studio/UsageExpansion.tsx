@@ -9,7 +9,7 @@ const modes=[
 export default function UsageExpansion({selected,onSelect}:{selected:number;onSelect:(n:number)=>void}){
  const [era,setEra]=useState(0);const dialog=useRef<HTMLDialogElement>(null);const item=modes[selected];
  return <>
-  <div className="usage-heading"><div><span className="model-eyebrow">LLMを使う仕組みの広がり</span><h1 tabIndex={-1}>LLMの応答生成・ツール利用・タスク遂行</h1></div><button className="background-trigger" onClick={()=>dialog.current?.showModal()}>背景を見る ↗</button></div>
+  <div className="usage-heading"><p>同じ課題で比較する、LLMの三つの利用形態。</p><button className="background-trigger" onClick={()=>dialog.current?.showModal()}>背景を見る ↗</button></div>
   <div className="usage-tabs" role="tablist" aria-label="LLMの三つの使い方">{modes.map((m,i)=><button key={m.title} role="tab" aria-selected={selected===i} aria-controls="usage-example" onClick={()=>onSelect(i)}><small>{m.tag}</small><strong>{m.title}</strong><span>{m.summary}</span></button>)}</div>
   <div key={selected} className="usage-example screen-refresh" id="usage-example" role="tabpanel" data-mode={selected}>
    <div className="usage-mechanism"><div className="usage-task"><span>共通の課題</span><p>イベント参加登録ページの制作</p><small>説明用の例</small></div><h2>{item.heading}</h2><ol className="usage-flow">{item.steps.map((s,i)=><li key={s}><small>{String(i+1).padStart(2,"0")}</small><span>{s}</span>{i<item.steps.length-1&&<b aria-hidden="true">→</b>}</li>)}</ol>

@@ -38,11 +38,12 @@ export const developmentEras = [
     note:"OpenClawの前身は2025年11月。常駐はモデルの連続稼働や無制限の行動を意味しない。",
   },
 ];
+// Product categories describe uses, not chronological stages or performance ranks.
 export const developmentRoutes = [
-  {name:"プログラミング",label:"COPILOT / AI IDE / CODING AGENT",early:"コードの補完",middle:"プロジェクトで協働",now:"工程・タスクを委任",examples:"Copilot · Cursor · Claude Code · Codex",url:"https://openai.com/ja-JP/index/introducing-codex/"},
-  {name:"アプリの生成",label:"APP BUILDER",early:"要件を記述",middle:"アプリを実装",now:"配布と改善へ",examples:"Replit Agent",url:"https://replit.com/blog/introducing-replit-agent"},
-  {name:"汎用業務",label:"COMPUTER / WORK AGENT",early:"ツールで情報を取得",middle:"画面・ファイルを操作",now:"文書・分析などへ拡張",examples:"Computer Use · Cowork（2026.01）",url:"https://support.claude.com/en/articles/12138966-release-notes"},
-  {name:"継続的な協働",label:"PERSISTENT / PERSONAL AGENT",early:"状態・記録を保持",middle:"予定・イベントで再開",now:"目標を継続して追う",examples:"OpenClaw · Muse · Dots",url:"https://learn.chatgpt.com/docs/dots/getting-started"},
+  {name:"プログラミング支援",label:"AI IDE / CODING AGENT",purpose:"コードの理解・編集・テストを、既存の開発工程に組み込む。",examples:"Copilot · Cursor · Claude Code · Codex",url:"https://openai.com/ja-JP/index/introducing-codex/"},
+  {name:"アプリ開発支援",label:"APP BUILDER",purpose:"要件からアプリを実装し、実行・配布までを一つの環境で支援する。",examples:"Replit Agent",url:"https://replit.com/blog/introducing-replit-agent"},
+  {name:"汎用業務支援",label:"COMPUTER / WORK AGENT",purpose:"画面・ファイル・外部ツールを操作し、文書作成や分析を進める。",examples:"Computer Use · Cowork",url:"https://support.claude.com/en/articles/12138966-release-notes"},
+  {name:"継続的な業務支援",label:"PERSISTENT / PERSONAL AGENT",purpose:"記録や起動条件を保持し、会話をまたいで目標やタスクを追う。",examples:"OpenClaw · Muse · Dots",url:"https://learn.chatgpt.com/docs/dots/getting-started"},
 ];
 export const developmentFoundations = [
   {date:"2022–23",name:"Tool Use",purpose:"行動を選び、結果を使う",text:"構造化した操作要求をシステムが実行し、観測を次の判断へ。",source:"ReAct",url:"https://arxiv.org/abs/2210.03629"},

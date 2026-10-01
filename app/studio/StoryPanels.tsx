@@ -15,11 +15,12 @@ export function LLMDevelopment({ selected, onSelect }: { selected:number; onSele
 export function ProductJourney({ selected,onSelect }: { selected:number;onSelect:(n:number)=>void }) {
   const step=productSteps[selected];
   return <div className="product-journey">
-    <div className="product-brief"><span>企画例</span><p>実験ログの差分確認を支援するツール</p><small>説明用の企画例 / 実際の業務データは不使用</small></div>
-    <div className="product-step-rail" role="tablist" aria-label="アイデアから製品への工程">{productSteps.map((s,i)=><button key={s.en} role="tab" aria-selected={i===selected} aria-controls="product-step-detail" onClick={()=>onSelect(i)}><small>{s.en}</small><strong>{s.name}</strong><span aria-hidden="true">{i===4?'↻':'→'}</span></button>)}</div>
-    <div className="product-step-detail" id="product-step-detail" role="tabpanel" aria-live="polite"><div className="product-deliverable"><span className="model-eyebrow">{step.en} / 成果物</span><h2>{step.title}</h2><p>{step.artifact}</p><div className="product-artifact" aria-hidden="true"><i/><i/><i/><span>{['課題整理','仕様書','試作','検証記録','運用計画'][selected]}</span><b>↗</b></div></div><div className="product-collaboration"><div><span>人による判断</span><p>{step.human}</p></div><div><span>AIによる支援</span><p>{step.ai}</p></div><p className="product-check"><b>評価項目</b>{step.criterion}</p></div></div>
-    <p className="product-footnote">本発表画面もCodexで実装し、操作確認と修正を反復して制作。</p>
+    <p className="product-intro">Agentを活用したソフトウェア開発の基本的な進め方。検証結果に応じて、前の工程を見直す。</p>
+    <div className="product-step-rail" role="tablist" aria-label="Agentを活用した製品開発の工程">{productSteps.map((s,i)=><button key={s.en} id={`product-step-${i}`} role="tab" aria-selected={i===selected} aria-controls="product-step-detail" onClick={()=>onSelect(i)}><small>{s.en}</small><strong>{s.name}</strong></button>)}</div>
+    <section className="product-step-detail" id="product-step-detail" role="tabpanel" aria-labelledby={`product-step-${selected}`} aria-live="polite"><header><span className="model-eyebrow">{step.en}</span><h2>{step.title}</h2></header><div className="product-responsibilities"><article><h3>人による判断</h3><p>{step.human}</p></article><article><h3>Agentによる処理</h3><p>{step.ai}</p></article><article><h3>確認する成果</h3><p>{step.artifact}</p></article></div><p className="product-check"><b>確認事項</b>{step.criterion}</p></section>
+    <p className="product-footnote">自動化できる範囲は、製品・実行環境・権限により異なる。本発表画面も、Codexによる実装と操作確認を反復して制作。</p>
   </div>;
+
 }
 
 export function ProductAdvantage() {
