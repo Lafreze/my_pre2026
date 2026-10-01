@@ -22,15 +22,15 @@
 .model-monitor .architecture-node{position:absolute;top:24%;height:39%;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;text-align:left;border:1px solid #8cae994d;border-radius:8px;background:#1a3030;padding:11px 12px;color:var(--circuit-ink);transition:background .25s,border-color .25s,box-shadow .25s}
 .architecture-node strong{font:500 18px/1.3 Arial,sans-serif;letter-spacing:.01em}.architecture-node>span{font-size:11px;line-height:1.5;color:#d5dfcb}.architecture-node small{font-size:10px;line-height:1.65;color:var(--circuit-muted);white-space:pre-line}
 .model-monitor .architecture-node[data-highlight=true]{border-color:var(--circuit-gold);background:#344a3b;box-shadow:0 0 16px #d8dd9620}
-.model-monitor .architecture-node:disabled,.model-monitor .harness-label:disabled,.model-monitor .loop-route:disabled{opacity:1;cursor:default}
+.model-monitor .architecture-node:disabled,.model-monitor .harness-label:disabled{opacity:1;cursor:default}
 .model-monitor .node-context{left:2%;width:28%}
 .model-monitor .node-tools{left:72%;width:26%}
 .model-monitor .node-model{left:40%;top:21%;width:20%;height:47%;align-items:center;text-align:center;border-radius:50%;padding:0 5px;background:radial-gradient(circle at 35% 25%,#3b5345,#203737);gap:5px;box-shadow:0 0 0 4px #bad69908}
 .node-model>small{font-size:8px;letter-spacing:.16em;color:#c8d2b1}.node-model>span{font-size:10px}.node-model strong{font-size:22px}
 .circuit-feedback{position:absolute;left:45%;top:78%;width:52%;height:17%;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:4px 9px;border:1px solid #9bb99d38;border-radius:5px;background:#142b2b}
 .circuit-feedback>span{font-size:10px;line-height:1.5;color:#d5e1ce}.circuit-feedback small{font-size:9px;line-height:1.5;color:#b5c9b8}
-.model-monitor .loop-route{position:absolute;left:3%;top:74%;width:36%;height:22%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:var(--circuit-gold);background:#1c3030;line-height:1.5;border-radius:4px}
-.loop-route strong{font-size:13px;font-weight:500}.loop-route span{font-size:9px;color:#c9d5ba}.loop-route[aria-pressed=true]{text-shadow:0 0 13px #efd68888}.loop-route[aria-pressed=true] strong{border-bottom:1px solid var(--circuit-gold)}
+
+
 .harness-termination{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #adc59f26;padding:9px 0;font-size:9px;color:#bdcebc;line-height:1.5}
 .harness-termination>span:first-child{font-size:8px;color:#a8c3b4}.harness-termination b{font-weight:500;color:#d3dbbc}.harness-termination[data-outcome=delivered]>span:nth-child(2),.harness-termination[data-outcome=human]>span:last-child{color:#ebdfb1}.harness-termination[data-outcome=delivered]>span:nth-child(2) b,.harness-termination[data-outcome=human]>span:last-child b{color:#ebdfb1}
 .architecture-inspector{min-width:0;border-left:1px solid #adc59f2e;padding:8px 0 0 22px}
@@ -76,9 +76,9 @@
  .agent-architecture[data-mode=loop] .node-context{top:3%;height:22%}.agent-architecture[data-mode=loop] .architecture-node{padding:10px 13px}
  .architecture-node:after{position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 4px);font-size:10px;line-height:1.5;color:#dbcda0;white-space:pre;text-align:center;pointer-events:none}.node-context:after{content:"文脈\A ↓"}.node-model:after{content:"呼び出し\A ↓"}.node-tools:after{content:"結果 ↓"}
  .circuit-feedback{left:6%;width:70%;top:87%;height:12%;padding:6px 9px}.circuit-feedback>span{font-size:10px}.circuit-feedback small{font-size:9px}
- .model-monitor .loop-route{left:81%;top:14%;width:19%;height:79%;justify-content:center;gap:10px;background:transparent;border:0;border-right:1px solid #ccbc856e;border-bottom:1px solid #ccbc856e;border-top:1px solid #ccbc856e;border-radius:0 9px 9px 0;padding:0 4px}
- .loop-route:after{content:"◀";position:absolute;left:-2px;top:-9px;color:var(--circuit-gold);font-size:11px}.loop-route strong{font-size:11px;writing-mode:vertical-rl}.loop-route span{font-size:10px;writing-mode:vertical-rl;letter-spacing:.2em;line-height:1.4}
- .loop-route[aria-pressed=true]{border-color:var(--circuit-gold);border-right-width:2px}.loop-route[aria-pressed=true] strong{border:0}.harness-termination{align-items:flex-start;flex-direction:column;gap:4px;font-size:10px;padding:10px 0}.harness-termination>span:first-child{font-size:9px}
+
+
+ .harness-termination{align-items:flex-start;flex-direction:column;gap:4px;font-size:10px;padding:10px 0}.harness-termination>span:first-child{font-size:9px}
  .agent-demo-toolbar{align-items:flex-start;gap:7px;flex-direction:column}.agent-demo-toolbar label{font-size:10px}.agent-demo-toolbar select{min-height:38px;font-size:11px}.agent-demo-toolbar>small{font-size:9px}
  .agent-architecture .execution-track{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;margin:10px 0}.agent-architecture .execution-track button{min-height:44px}.agent-architecture .execution-track small{font-size:11px}.agent-architecture .execution-controls{flex-wrap:wrap}.agent-architecture .execution-controls button{min-height:44px;font-size:11px;padding:6px 9px}
  .architecture-detail dl{grid-template-columns:1fr;gap:13px}.model-monitor .architecture-detail>p{font-size:14px}.architecture-detail dd{font-size:13px}.architecture-detail dt{font-size:10px}.model-monitor .architecture-detail .architecture-design{font-size:12px}.model-monitor .architecture-reading,.model-monitor .architecture-principle{font-size:11px}.model-monitor .agent-architecture .execution-detail>p{font-size:13px}.model-monitor .specimen-result{font-size:11px}.specimen-topline small{font-size:10px}.execution-evidence>span{font-size:10px}.model-monitor .execution-evidence code{font-size:12px}
@@ -87,15 +87,15 @@
 @media(min-width:1000px) and (max-height:820px) and (min-height:700px){
  .model-monitor .model-page-scroll{padding:14px 30px}.model-monitor .screen-heading h1{font-size:22px}.model-monitor .screen-heading .model-eyebrow{font-size:7px;margin-bottom:3px}.model-monitor .screen-tabs button{min-height:31px;font-size:10px}
  .agent-architecture{grid-template-columns:minmax(0,2.3fr) minmax(0,1fr);gap:9px 20px;margin-top:12px}.harness-frame{padding:9px 10px 0}.harness-label strong{font-size:14px}.harness-label span{font-size:9px}.model-monitor .harness-label{min-height:25px;gap:8px}.agent-circuit{height:204px}.agent-architecture[data-mode=loop] .agent-circuit{height:169px}.harness-termination{padding:7px 0;font-size:8px;gap:5px}
- .model-monitor .architecture-node{padding:8px}.architecture-node strong{font-size:16px}.architecture-node>span{font-size:10px}.architecture-node small{font-size:9px}.node-model strong{font-size:19px}.node-model>span{font-size:9px}.architecture-node .context-records small{font-size:8px}.context-records{gap:2px}.wire-label{font-size:8px}.circuit-feedback>span{font-size:9px}.circuit-feedback small{font-size:8px}.loop-route strong{font-size:12px}.loop-route span{font-size:8px}
+ .model-monitor .architecture-node{padding:8px}.architecture-node strong{font-size:16px}.architecture-node>span{font-size:10px}.architecture-node small{font-size:9px}.node-model strong{font-size:19px}.node-model>span{font-size:9px}.architecture-node .context-records small{font-size:8px}.context-records{gap:2px}.wire-label{font-size:8px}.circuit-feedback>span{font-size:9px}.circuit-feedback small{font-size:8px}
  .architecture-inspector{border-left:1px solid #adc59f2e;border-top:0;padding:5px 0 0 18px}.model-monitor .architecture-detail h2{font-size:24px;margin:8px 0 9px}.model-monitor .architecture-detail>p{font-size:12px}.architecture-detail dl{grid-template-columns:1fr;gap:10px;margin:12px 0}.architecture-detail dd{font-size:11px}.model-monitor .architecture-detail .architecture-design{font-size:10px;padding-top:9px}.model-monitor .architecture-reading{font-size:9px;margin-top:8px}.model-monitor .architecture-principle{font-size:10px;padding-top:8px}
  .agent-demo-toolbar{margin-top:6px}.agent-demo-toolbar label{font-size:8px}.agent-demo-toolbar>small{font-size:7px}.agent-demo-toolbar select{min-height:27px;font-size:9px}.agent-architecture .execution-track{margin:6px 0;gap:4px}.agent-architecture .execution-track button{min-height:36px;gap:2px}.agent-architecture .execution-track small{font-size:9px}.agent-architecture .execution-controls button{min-height:31px;font-size:9px}
  .model-monitor .agent-architecture .execution-detail h2{font-size:17px;margin:7px 0}.model-monitor .agent-architecture .execution-detail>p{font-size:11px;min-height:58px;line-height:1.75}.browser-specimen{margin-top:10px}.specimen-topline{padding:6px 8px}.browser-specimen svg{padding:6px}.model-monitor .specimen-result{font-size:8px;padding:6px 8px}.execution-evidence{margin-top:9px}.execution-evidence>span{font-size:8px}.model-monitor .execution-evidence code{font-size:9px}
 }
-/* A circle marks the model; the loop label stays off the actual return wire. */
+/* A circle distinguishes the model from the execution tools and context. */
 @container(min-width:541px){
  .model-monitor .node-model{left:50%;top:44%;width:20%;max-width:122px;height:auto;aspect-ratio:1;transform:translate(-50%,-50%)}
- .model-monitor .loop-route{left:2%;top:70%;width:36%;height:13%;background:transparent;gap:0}
+
 }
 @media(prefers-reduced-motion:no-preference){
  .agent-architecture[data-mode=loop]:is([data-step="3"],[data-step="5"]) .circuit-return{stroke-dasharray:7 5;animation:circuit-flow 2s linear 1}
@@ -116,3 +116,12 @@
  .agent-architecture[data-mode=loop] .agent-circuit{height:565px}.agent-architecture[data-mode=loop] .node-context{top:3%;height:25%}
  .model-monitor .node-model{left:41%;top:35%;width:44%;max-width:112px;height:auto;aspect-ratio:1;transform:translateX(-50%)}
 }
+/* Loop names the whole cycle; the lower wire only labels the context update. */
+.model-monitor .agent-loop-label{position:absolute;left:2%;top:5%;z-index:1;display:flex;align-items:center;gap:9px;min-height:25px;color:#cbd3b6;font:11px/1.4 Arial,sans-serif;letter-spacing:.04em}
+.agent-loop-label span{font-size:17px;color:#e4d5a0}.model-monitor .agent-loop-label[aria-pressed=true]{color:#f0dfae}.model-monitor .agent-loop-label:disabled{opacity:1;cursor:default}
+.wire-call{left:73%;top:3%;width:46%;font-size:10px;line-height:1.6;text-align:center;white-space:normal;background:transparent;padding:0}
+.wire-call small{display:block;font-size:9px;line-height:1.7;color:#c2d2bd}.wire-call:after{content:"";position:absolute;left:35%;top:calc(100% + 2px);height:29px;border-left:1px solid #bace9755}
+.loop-return-label{position:absolute;left:2%;top:74%;width:36%;text-align:center;font-size:10px;line-height:1.5;color:#e0d09c}
+.node-model:before{display:none}.circuit-feedback{left:42%;width:56%}.circuit-feedback small{font-size:9px}
+@media(prefers-reduced-motion:no-preference){.agent-circuit[data-loop-selected=true] .circuit-forward{stroke-dasharray:7 5;animation:circuit-flow 2s linear infinite}}
+@media(min-width:1000px) and (max-height:820px){.wire-call{font-size:9px;top:0}.wire-call small{font-size:8px}.wire-call:after{height:16px}.model-monitor .agent-loop-label{top:2%;font-size:10px}.loop-return-label{font-size:9px}.circuit-feedback>span{font-size:9px}.circuit-feedback small{font-size:8px}}

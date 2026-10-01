@@ -1,3 +1,5 @@
+> 2026-10-01 PC 版更新：第四章构成与执行演示之后，增加 Agent 发展介绍（2021–2026、并行产品路线、支撑技术），在同一电脑屏幕里逐页衔接到产品制作。架构图明确工具调用请求由 Harness 控制、Agent Loop 指整个闭环，并区分执行结果与按需验证。内容与出典见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)。
+
 > 2026-09-30 PC 版更新：个人介绍去掉印章与技能标签；第二章改为从 Transformer、ViT、GPT 到日常使用 AI 的叙事导入。两本书默认合上，靠近时再展开，书架书先移出；运镜约1.8秒，持续看向物件，避免先俯冲再抬起。保持居中沉浸式房间、无全景编号及连续章节运镜。截图与验证见 [MODEL_PRESENTATION.md](./MODEL_PRESENTATION.md)，讲稿见 [STUDIO_SCRIPT_JA.md](./STUDIO_SCRIPT_JA.md)。
 >
 > 以下为历次版本说明；当前首页交互以本次模型展示版本为准。

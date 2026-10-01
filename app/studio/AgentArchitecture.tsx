@@ -40,7 +40,8 @@ export default function AgentArchitecture({mode,part,setPart,step,setStep,playin
           <strong>Harness</strong><span>モデル呼び出し・ツール実行・状態と制限の管理</span>
         </button>
         <div className="agent-circuit" data-loop-selected={!demo&&part===4}>
-          <svg className="circuit-wires" viewBox="0 0 640 250" preserveAspectRatio="none" aria-label="文脈を渡す、ツールを呼び出す、結果を返す、文脈を更新する有向回路">
+          <button className="agent-loop-label architecture-select" data-element="loop" aria-pressed={!demo&&part===4} disabled={demo} onClick={()=>choose(4)}>Agent Loop <span>↻</span></button>
+          <svg className="circuit-wires" viewBox="0 0 640 250" preserveAspectRatio="none" aria-label="Agent Loop：ContextからModelへ、Harnessによるツール実行、結果・観測をContextへ反映する全体の循環">
             <defs><marker id={`${id}-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M1 1 8 5 1 9"/></marker></defs>
             <g markerEnd={`url(#${id}-arrow)`}>
               <path className="circuit-forward" d="M190 110H251"/>
@@ -50,15 +51,15 @@ export default function AgentArchitecture({mode,part,setPart,step,setStep,playin
             </g>
             {!demo&&<path className="circuit-hit" d="M190 110H251 M389 110H456 M539 156V212H110Q102 212 102 204V157" role="button" tabIndex={0} aria-label="Loopの循環経路を選択" aria-pressed={part===4} onClick={()=>setPart(4)} onKeyDown={e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();setPart(4);}}}/>}
           </svg>
-          <span className="wire-label wire-context">文脈</span><span className="wire-label wire-call">呼び出し</span><span className="wire-label wire-result">結果</span>
+          <span className="wire-label wire-context">文脈</span><span className="wire-label wire-call">ツール呼び出し要求<small>Harness が権限を確認して実行</small></span><span className="wire-label wire-result">結果</span>
           <button className="architecture-node node-context architecture-select" data-element="context" data-highlight={activeNode==="context"} aria-pressed={!demo&&part===1} disabled={demo} onClick={()=>choose(1)}>
             <strong>Context</strong><span>毎回の判断に使う情報</span>
             {demo?<div className="context-records" aria-live="polite"><small>目標：320px幅・操作可能</small>{records.length?records.slice(-2).map(record=><small className="context-record" key={record}>{record}</small>):<small>制作物：紹介用Webページ</small>}</div>:<small>指示・関連資料<br/>ツール結果・履歴の要約</small>}
           </button>
           <button className="architecture-node node-model architecture-select" data-element="model" data-highlight={activeNode==="model"} aria-pressed={!demo&&part===0} disabled={demo} onClick={()=>choose(0)}><small>LLM</small><strong>Model</strong><span>次の一手を判断</span></button>
           <button className="architecture-node node-tools architecture-select" data-element="tools" data-highlight={activeNode==="tools"} aria-pressed={!demo&&part===2} disabled={demo} onClick={()=>choose(2)}><strong>Tools</strong><span>情報取得・操作</span><small>{demo?current<2?"ファイル編集 / ブラウザー":scenario==="blocked"&&finished?"ブラウザー：アクセス不可":current<4?"browser.check()":current===4?"edit_file()":"browser.check()":"検索・読取・計算\n編集・実行"}</small></button>
-          <div className="circuit-feedback" data-highlight={false}><span>実行結果・検証のフィードバック</span><small>{demo?handedOff?"実行を停止し、人に確認":current>=5?"再検査 OK → 文脈へ":current>=3?"画面幅の超過 → 文脈へ":current>=2?"編集結果 → 文脈へ":"結果を待機":"テスト・ルール・モデル・人による確認"}</small></div>
-          <button className="loop-route architecture-select" data-element="loop" aria-pressed={!demo&&part===4} disabled={demo} onClick={()=>choose(4)}><strong>↺ Loop</strong><span>結果で文脈を更新</span></button>
+          <div className="circuit-feedback" data-highlight={false}><span>実行結果・環境からの観測</span><small>{demo?handedOff?"実行を停止し、人に確認":current>=5?"再検査 OK → 文脈へ":current>=3?"画面幅の超過 → 文脈へ":current>=2?"編集結果 → 文脈へ":"結果を待機":"必要に応じた検証：テスト・ルール・モデル・人"}</small></div>
+          <span className="loop-return-label">結果を文脈に反映</span>
         </div>
         <div className="harness-termination" data-outcome={demo&&finished?handedOff?"human":"delivered":"pending"}><span>終了制御</span><span>受入条件を満たす <b>→ 引き渡し</b></span><span>上限・障害 <b>→ 人へ確認</b></span></div>
       </div>
@@ -69,8 +70,8 @@ export default function AgentArchitecture({mode,part,setPart,step,setStep,playin
       </>:<p className="architecture-reading">枠は実行上の責任範囲を表し、同じ場所への配置を意味しません。</p>}
     </div>
     <aside className="architecture-inspector" aria-label={demo?"現在の実行工程":"選択した要素の説明"}>
-      {demo?<AgentExperiment step={current} scenario={scenario} handedOff={handedOff}/>:<div className="architecture-detail" aria-live="polite"><span className="inspector-label">{part===3?"RUNTIME FRAMEWORK":part===4?"FEEDBACK PATH":"SELECTED ELEMENT"}</span><h2>{selected.name}<span>{selected.ja}</span></h2><p>{selected.detail}</p><dl><div><dt>{part===3?"管理するもの":part===4?"循環する情報":"受け取るもの"}</dt><dd>{detail.input}</dd></div><div><dt>{part===3?"制御の結果":part===4?"次のラウンドへ":"返すもの"}</dt><dd>{detail.output}</dd></div></dl><p className="architecture-design">{detail.design}</p></div>}
+      {demo?<AgentExperiment step={current} scenario={scenario} handedOff={handedOff}/>:<div className="architecture-detail" aria-live="polite"><span className="inspector-label">{part===3?"RUNTIME FRAMEWORK":part===4?"AGENT LOOP":"SELECTED ELEMENT"}</span><h2>{selected.name}<span>{selected.ja}</span></h2><p>{selected.detail}</p><dl><div><dt>{part===3?"管理するもの":part===4?"循環する情報":"受け取るもの"}</dt><dd>{detail.input}</dd></div><div><dt>{part===3?"制御の結果":part===4?"次のラウンドへ":"返すもの"}</dt><dd>{detail.output}</dd></div></dl><p className="architecture-design">{detail.design}</p></div>}
     </aside>
-    <p className="architecture-principle">{demo?"「できた」という回答だけでは完了にしない。受入条件で確認し、上限や障害では人に判断を戻す。":"Modelが次の一手を判断し、Harnessが実行を管理。Loopが結果を次の文脈へ戻す。"}</p>
+    <p className="architecture-principle">{demo?"「できた」という回答だけでは完了にしない。受入条件で確認し、上限や障害では人に判断を戻す。":"ツールの実行成功と、タスクの目標達成は別の判断。検証の要否と方法は、タスクに応じて選ぶ。"}</p>
   </div>;
 }

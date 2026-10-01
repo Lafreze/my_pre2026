@@ -1,0 +1,295 @@
+{
+  "cutoff": "2026.09.30",
+  "reviewed": "2026-10-01",
+  "eras": [
+    {
+      "year": "2021",
+      "label": "補完",
+      "title": "コードの補完が、開発環境の中へ",
+      "description": "書きかけのコードやコメントから候補を提案。採用・実行・修正は、人が進める。",
+      "flow": [
+        {
+          "role": "人",
+          "text": "意図・コードを入力"
+        },
+        {
+          "role": "AI",
+          "text": "続きを提案"
+        },
+        {
+          "role": "人",
+          "text": "候補を選択"
+        },
+        {
+          "role": "人",
+          "text": "実行して確認"
+        }
+      ],
+      "events": [
+        {
+          "date": "2021.06",
+          "name": "GitHub Copilot",
+          "text": "技術プレビュー。エディター内で行や関数を提案。",
+          "url": "https://github.blog/news-insights/product-news/introducing-github-copilot-ai-pair-programmer/"
+        }
+      ],
+      "note": "当時のCodexはコード生成モデル。2025年のCodex Agent製品とは区別する。"
+    },
+    {
+      "year": "2022–23",
+      "label": "対話",
+      "title": "対話から、プロジェクトでの協働へ",
+      "description": "自然言語で要求やエラーを伝える使い方が広がる。同時に、推論と行動を往復させる研究も進む。",
+      "flow": [
+        {
+          "role": "人",
+          "text": "要件・エラーを伝える"
+        },
+        {
+          "role": "AI",
+          "text": "説明・修正案"
+        },
+        {
+          "role": "人",
+          "text": "プロジェクトで試す"
+        },
+        {
+          "role": "対話",
+          "text": "結果を伝えて見直す"
+        }
+      ],
+      "events": [
+        {
+          "date": "2022.10",
+          "name": "ReAct",
+          "text": "推論と行動を交互に行い、環境からの観測を次に活かす研究。",
+          "url": "https://arxiv.org/abs/2210.03629"
+        },
+        {
+          "date": "2023.04",
+          "name": "Cursor",
+          "text": "公開版の記録。AIとの協働を、コードエディターの中へ。",
+          "url": "https://cursor.com/changelog/0-2-0"
+        }
+      ],
+      "note": "対話型の支援と、ツールを使う実行ループは並行して発展した。"
+    },
+    {
+      "year": "2024",
+      "label": "実行",
+      "title": "実行環境に入り、結果を読み取る",
+      "description": "ファイル、ターミナル、ブラウザーへ。コードを提案するだけでなく、環境を操作する製品が広がる。",
+      "flow": [
+        {
+          "role": "Context",
+          "text": "目標・プロジェクト"
+        },
+        {
+          "role": "Model",
+          "text": "操作を要求"
+        },
+        {
+          "role": "Harness / Tools",
+          "text": "編集・実行"
+        },
+        {
+          "role": "観測 → Context",
+          "text": "結果・エラーを反映"
+        }
+      ],
+      "events": [
+        {
+          "date": "2024.03",
+          "name": "Devin",
+          "text": "専用の開発環境で、編集・実行・確認を進める。",
+          "url": "https://cognition.com/blog/introducing-devin"
+        },
+        {
+          "date": "2024.09",
+          "name": "Replit Agent",
+          "text": "自然言語の要求からアプリを作成し、実行・配布へ。",
+          "url": "https://replit.com/blog/introducing-replit-agent"
+        },
+        {
+          "date": "2024.10",
+          "name": "Computer Use",
+          "text": "画面を読み、マウスやキーボードで操作する公開テスト。",
+          "url": "https://www.anthropic.com/news/3-5-models-and-computer-use"
+        }
+      ],
+      "note": "工程の自動化が進んでも、実行できたことと目的を満たしたことは別。"
+    },
+    {
+      "year": "2025",
+      "label": "委任",
+      "title": "工程をまとめて任せ、成果を確認する",
+      "description": "実装・テスト・修正をひとまとまりの仕事として依頼。手元での協働と、バックグラウンドでの委任が広がる。",
+      "flow": [
+        {
+          "role": "人",
+          "text": "目標・受入条件"
+        },
+        {
+          "role": "Agent",
+          "text": "実装・検証・修正"
+        },
+        {
+          "role": "成果物",
+          "text": "変更差分・検査記録"
+        },
+        {
+          "role": "人",
+          "text": "確認して採用"
+        }
+      ],
+      "events": [
+        {
+          "date": "2025.02",
+          "name": "Claude Code",
+          "text": "ターミナルから、プロジェクトの読取・編集・テストを委ねる。",
+          "url": "https://www.anthropic.com/news/claude-3-7-sonnet"
+        },
+        {
+          "date": "2025.05",
+          "name": "Codex cloud",
+          "text": "隔離した環境で複数の開発タスクを並行実行。結果をレビューする。",
+          "url": "https://openai.com/ja-JP/index/introducing-codex/"
+        }
+      ],
+      "note": "リアルタイムの協働と非同期の委任は、製品内でも併存する。全自動での成功を意味しない。"
+    },
+    {
+      "year": "2026",
+      "label": "継続",
+      "title": "一度の依頼から、継続する仕事へ",
+      "description": "記録、イベント、スケジュールを組み合わせ、アプリや会話をまたいで目標を追う。必要な仕事を別のAgentへ委ねる形もある。",
+      "flow": [
+        {
+          "role": "人",
+          "text": "継続する目標を設定"
+        },
+        {
+          "role": "状態 / 記録",
+          "text": "前回までを引き継ぐ"
+        },
+        {
+          "role": "イベント / 予定",
+          "text": "調査・実行・委任"
+        },
+        {
+          "role": "人へ",
+          "text": "成果・判断事項を返す"
+        }
+      ],
+      "events": [
+        {
+          "date": "2026.01",
+          "name": "OpenClaw",
+          "text": "チャットアプリから使う個人Agent基盤。1月29日に現名称へ。",
+          "url": "https://openclaw.ai/blog/introducing-openclaw"
+        },
+        {
+          "date": "2026.09",
+          "name": "Meta Muse",
+          "text": "クラウドの環境で、個人の目標を継続して支援。",
+          "url": "https://about.fb.com/news/2026/09/introducing-muse-personal-ai-agent/"
+        },
+        {
+          "date": "2026.09",
+          "name": "OpenAI Dots",
+          "text": "会話の間も仕事を追い、WorkやCodexのタスクを組織する。",
+          "url": "https://learn.chatgpt.com/docs/whats-new/september-28-october-2-2026#delegate-ongoing-work-to-your-dot"
+        }
+      ],
+      "note": "OpenClawの前身は2025年11月。常駐はモデルの連続稼働や無制限の行動を意味しない。"
+    }
+  ],
+  "routes": [
+    {
+      "name": "プログラミング",
+      "label": "COPILOT / AI IDE / CODING AGENT",
+      "early": "コードの補完",
+      "middle": "プロジェクトで協働",
+      "now": "工程・タスクを委任",
+      "examples": "Copilot · Cursor · Claude Code · Codex",
+      "url": "https://openai.com/ja-JP/index/introducing-codex/"
+    },
+    {
+      "name": "アプリの生成",
+      "label": "APP BUILDER",
+      "early": "要求を言葉にする",
+      "middle": "動くアプリを作成",
+      "now": "配布と改善へ",
+      "examples": "Replit Agent",
+      "url": "https://replit.com/blog/introducing-replit-agent"
+    },
+    {
+      "name": "汎用の仕事",
+      "label": "COMPUTER / WORK AGENT",
+      "early": "ツールで情報を取得",
+      "middle": "画面・ファイルを操作",
+      "now": "文書・分析などへ拡張",
+      "examples": "Computer Use · Cowork（2026.01）",
+      "url": "https://support.claude.com/en/articles/12138966-release-notes"
+    },
+    {
+      "name": "継続的な協働",
+      "label": "PERSISTENT / PERSONAL AGENT",
+      "early": "状態・記録を保持",
+      "middle": "予定・イベントで再開",
+      "now": "目標を継続して追う",
+      "examples": "OpenClaw · Muse · Dots",
+      "url": "https://learn.chatgpt.com/docs/dots/getting-started"
+    }
+  ],
+  "foundations": [
+    {
+      "date": "2022–23",
+      "name": "Tool Use",
+      "purpose": "行動を選び、結果を使う",
+      "text": "構造化した操作要求をシステムが実行し、観測を次の判断へ。",
+      "source": "ReAct",
+      "url": "https://arxiv.org/abs/2210.03629"
+    },
+    {
+      "date": "2024–",
+      "name": "State / Harness",
+      "purpose": "実行を管理する",
+      "text": "状態、再開、失敗、停止条件を管理。LangGraphなどは構築のための枠組み。",
+      "source": "LangGraph",
+      "url": "https://www.langchain.com/blog/langgraph"
+    },
+    {
+      "date": "2024.11",
+      "name": "MCP",
+      "purpose": "ツール・データと接続",
+      "text": "モデルを使うアプリと外部のツール・情報をつなぐ共通の方式。",
+      "source": "MCP発表",
+      "url": "https://www.anthropic.com/news/model-context-protocol"
+    },
+    {
+      "date": "2025.04",
+      "name": "A2A",
+      "purpose": "Agent同士で連携",
+      "text": "異なるシステムのAgent間で、能力の発見やタスクの受け渡しを支援。",
+      "source": "A2A発表",
+      "url": "https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/"
+    },
+    {
+      "date": "2025.10",
+      "name": "Agent Skills",
+      "purpose": "仕事の方法を再利用",
+      "text": "手順、スクリプト、資料をまとめ、必要な仕事で読み込む。",
+      "source": "Skills発表",
+      "url": "https://claude.com/blog/skills"
+    },
+    {
+      "date": "継続実行の基盤",
+      "name": "Memory / Scheduling",
+      "purpose": "文脈を保ち、再び動く",
+      "text": "記録と起動条件を組み合わせる。行動には権限と承認のルールを適用。",
+      "source": "Dotsの制御",
+      "url": "https://learn.chatgpt.com/docs/dots/controls"
+    }
+  ]
+}
