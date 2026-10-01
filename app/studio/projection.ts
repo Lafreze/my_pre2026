@@ -9,7 +9,7 @@ export function presentationSize(width:number,height:number) {
   const usableHeight = Math.max(90, height - reservedHeight);
   if (width <= 900 || height < 620) return {width:Math.min(1120,usableWidth),height:usableHeight};
   const w = Math.min(1120, usableWidth, usableHeight * 1.76);
-  return {width:w,height:width<=1200?usableHeight:w/1.76};
+  return {width:w,height:w/1.76};
 }
 
 // Map the HTML rectangle to the four screen-space corners of the real mesh.

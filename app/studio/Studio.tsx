@@ -9,6 +9,7 @@ import "./experiments.css";
 import "./agentArchitecture.css";
 import "./desktopStory.css";
 import "./agentDevelopment.css";
+import "./environment.css";
 const Canvas=lazy(()=>import("./StudioCanvas"));
 class SceneBoundary extends Component<{children:ReactNode;fallback:ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return {failed:true};}render(){return this.state.failed?<div className="scene-error-page"><p>3Dを準備できませんでした。内容はこのままご覧いただけます。</p>{this.props.fallback}</div>:this.props.children;}}
 const format=(seconds:number)=>`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`;
@@ -16,7 +17,7 @@ export default function Studio(){
   const [chapter,setChapter]=useState(0),[mode,setMode]=useState<"guide"|"explore">("guide"),[overview,setOverview]=useState(true);
   const [reference,setReference]=useState(false),[referencePage,setReferencePage]=useState<string|null>(null),[query,setQuery]=useState(""),[category,setCategory]=useState("すべて");
   const [index,setIndex]=useState(false),[notes,setNotes]=useState(false),[elapsed,setElapsed]=useState(0),[timer,setTimer]=useState(false);
-  const [step,setStep]=useState(0),[playing,setPlaying]=useState(false),[board,setBoard]=useState(0),[agentTab,setAgentTab]=useState<"parts"|"loop"|"development">("parts"),[development,setDevelopment]=useState(0),[part,setPart]=useState(0),[application,setApplication]=useState(0);
+  const [step,setStep]=useState(0),[playing,setPlaying]=useState(false),[board,setBoard]=useState(0),[agentTab,setAgentTab]=useState<"parts"|"loop"|"development">("development"),[development,setDevelopment]=useState(0),[part,setPart]=useState(0),[application,setApplication]=useState(0);
   const [skip,setSkip]=useState(0),[ready,setReady]=useState(false);
   const [profile,setProfile]=useState({name:"王 博",romanName:"WANG BO"});
   const dialog=useRef<HTMLDialogElement>(null),notesDialog=useRef<HTMLDialogElement>(null),lastFocus=useRef<HTMLElement|null>(null);
@@ -35,9 +36,9 @@ export default function Studio(){
   useEffect(()=>{if(!timer||reference)return;const id=setInterval(()=>setElapsed(s=>s+1),1000);return()=>clearInterval(id);},[timer,reference]);
   useEffect(()=>{if(reference){lastFocus.current=document.activeElement as HTMLElement;dialog.current?.showModal();}else{dialog.current?.close();lastFocus.current?.focus();}},[reference]);
   useEffect(()=>{if(notes)notesDialog.current?.showModal();else notesDialog.current?.close();},[notes]);
-  const go=useCallback((n:number)=>{setChapter(Math.max(0,Math.min(chapters.length-1,n)));if(n===3){setAgentTab("parts");setDevelopment(0);}setOverview(false);setIndex(false);setPlaying(false);setMode("guide");},[]);
-  const advance=useCallback(()=>{if(chapter===3){setPlaying(false);if(agentTab!=="development"){setAgentTab("development");setDevelopment(0);return;}if(development<6){setDevelopment(n=>n+1);return;}}go(chapter+1);},[chapter,agentTab,development,go]);
-  const retreat=useCallback(()=>{if(chapter===3&&agentTab==="development"){if(development>0)setDevelopment(n=>n-1);else setAgentTab("parts");return;}go(chapter-1);},[chapter,agentTab,development,go]);
+  const go=useCallback((n:number)=>{setChapter(Math.max(0,Math.min(chapters.length-1,n)));if(n===3){setAgentTab("development");setDevelopment(0);}setOverview(false);setIndex(false);setPlaying(false);setMode("guide");},[]);
+  const advance=useCallback(()=>{if(chapter===3){setPlaying(false);if(agentTab==="development"){if(development<6)setDevelopment(n=>n+1);else setAgentTab("parts");return;}if(agentTab==="parts"){setAgentTab("loop");return;}}go(chapter+1);},[chapter,agentTab,development,go]);
+  const retreat=useCallback(()=>{if(chapter===3){setPlaying(false);if(agentTab==="loop"){setAgentTab("parts");return;}if(agentTab==="parts"){setAgentTab("development");setDevelopment(6);return;}if(development>0){setDevelopment(n=>n-1);return;}}go(chapter-1);},[chapter,agentTab,development,go]);
   const explore=useCallback(()=>{setOverview(true);setMode("explore");setIndex(false);setPlaying(false);},[]);
   const openReference=useCallback(()=>{setReference(true);setPlaying(false);},[]);
   const select=useCallback((id:ObjectId)=>{

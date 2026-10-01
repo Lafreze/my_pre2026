@@ -3,6 +3,8 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNo
 import * as THREE from "three";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { buildRoom } from "./room";
+import { useStudioWeather } from "./useStudioWeather";
+import EnvironmentMenu from "./EnvironmentMenu";
 import { cameras, objects, type ObjectId, type ViewId } from "./content";
 import { presentationSize, projectSurface, SURFACE_SCALE } from "./projection";
 
@@ -16,20 +18,19 @@ export default function StudioCanvas(props: Props) {
   const trigger = useRef<() => void>(() => {}), control = useRef<(command: SceneCommand) => void>(() => {});
   const focusedObject = useRef<ObjectId | null>(null);
   const [status, setStatus] = useState("loading"), [retry, setRetry] = useState(0), [hover, setHover] = useState<ObjectId | null>(null);
-  const [timeOfDay, setTimeOfDay] = useState<"day" | "dusk">("day"), [breeze, setBreeze] = useState(false);
-  const [sunAngle,setSunAngle]=useState(0);
+  const weatherState=useStudioWeather(),environmentState=weatherState.environment;
+  const [breeze,setBreeze]=useState(true);
   const [visited, setVisited] = useState<ObjectId[]>([]), [stored, setStored] = useState(false);
   const visit = useCallback((id: ObjectId) => {if(id!=="library")setVisited(old => old.includes(id) ? old : [...old,id]);}, []);
   const select = useCallback((id: ObjectId) => { visit(id); onSelect(id); }, [onSelect, visit]);
-  const nextObject = storyObjects.find(o => !visited.includes(o.id)) || storyObjects[0];
-  const discover = useCallback(() => { if (visited.length === storyObjects.length) setVisited([]); select(nextObject.id); }, [visited.length, select, nextObject.id]);
-  const latest = useRef({ ...props, timeOfDay, breeze, sunAngle, select, discover });
+  const latest = useRef({ ...props, environmentState, breeze, select });
   useEffect(() => {
     const init = requestAnimationFrame(() => {
       try {
         const saved: unknown = JSON.parse(sessionStorage.getItem("studio-garden-visits-v2") || "[]");
         if (Array.isArray(saved)) setVisited([...new Set(saved.filter((id): id is ObjectId => storyObjects.some(o => o.id === id)))]);
       } catch { /* Exploration also works when storage is disabled. */ }
+      if(matchMedia("(prefers-reduced-motion: reduce)").matches)setBreeze(false);
       setStored(true);
     });
     return () => cancelAnimationFrame(init);
@@ -40,7 +41,7 @@ export default function StudioCanvas(props: Props) {
     const id = requestAnimationFrame(() => visit(view)); return () => cancelAnimationFrame(id);
   }, [view, visit]);
   useLayoutEffect(() => { if(host.current)host.current.dataset.transition="true"; presentations.current.forEach(page=>{page.inert=true;page.dataset.interactive="false";}); }, [view]);
-  useLayoutEffect(() => { latest.current = { ...props, timeOfDay, breeze, sunAngle, select, discover }; trigger.current(); }, [props, timeOfDay, breeze, sunAngle, select, discover]);
+  useLayoutEffect(() => { latest.current = { ...props, environmentState, breeze, select }; trigger.current(); }, [props, environmentState, breeze, select]);
   useEffect(() => {
     const element = host.current!;
     if (new URLSearchParams(location.search).has("no3d")) { const fallback = requestAnimationFrame(() => setStatus("fallback")); return () => cancelAnimationFrame(fallback); }
@@ -59,11 +60,11 @@ export default function StudioCanvas(props: Props) {
     const camera = new THREE.PerspectiveCamera(34, 1, .01, 80);
     let previousView: ViewId = latest.current.view;
     let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 1800, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
-    let dusk = 0, orbit = 0, zoom = 1, lightAngle = 0;
+    let orbit = 0, zoom = 1, lastEnvironment = "", lastShadow = -1;
     const books={name:0,notebook:0},sourceBooks={...books};
     const overviewPose={orbit:0,zoom:1};
     const sourcePosition = camera.position.clone(), focus=new THREE.Vector3(),sourceFocus=new THREE.Vector3(),sourceUp=new THREE.Vector3(0,1,0),destinationFocus=new THREE.Vector3();
-    let skip = latest.current.skipToken, shadowOpen = -1, slowFrames = 0, wasFlying = false, wasFitting = false;
+    let skip = latest.current.skipToken, shadowOpen = -1, slowFrames = 0, wasFitting = false;
     const destination = new THREE.PerspectiveCamera(34, 1, .01, 80);
     const reduced = matchMedia("(prefers-reduced-motion: reduce)"), ray = new THREE.Raycaster(), pointer = new THREE.Vector2();
     let hoverId: ObjectId | null = null, down: { x: number; y: number; time: number; orbit: number } | null = null, dragged = false, pinch: { distance: number; zoom: number } | null = null;
@@ -96,7 +97,7 @@ export default function StudioCanvas(props: Props) {
     }
     function frame(t: number) {
       raf = 0; if (disposed || contextLost || document.hidden || latest.current.paused) return;
-      const state = latest.current, ambient = state.breeze && state.overview;
+      const state = latest.current, ambient = state.breeze && state.overview && !reduced.matches;
       if (!urgent && ambient && !animating && !settling && last && t - last < 32) { raf = requestAnimationFrame(frame); return; }
       urgent = false; const interval = last ? t - last : 16, dt = Math.min(100, interval); last = t; elapsed += dt / 1000;
       if (animating && interval > 55 && interval < 250) slowFrames++; else slowFrames = Math.max(0, slowFrames - 1);
@@ -116,16 +117,16 @@ export default function StudioCanvas(props: Props) {
       const bookProgress=smooth((progress-.12)/.80);
       for(const id of ["name","notebook"] as const)books[id]=THREE.MathUtils.lerp(sourceBooks[id],state.view===id?1:0,bookProgress);
       room.animate(books.name, books.notebook, state.boardStep, state.review, activeHover, state.view === "monitor" ? state.agentStep : -1);
-      const fitting = room.fitSurfaces(state.view, size.width / size.height, dt / 1000, finish || boot);
-      const lightGoal = state.timeOfDay === "dusk" ? 1 : 0; dusk = finish ? lightGoal : THREE.MathUtils.damp(dusk, lightGoal, 5, dt / 1000);
-      if(lightAngle!==state.sunAngle){renderer.shadowMap.needsUpdate=true;lightAngle=state.sunAngle;}
-      room.setLight(dusk,state.sunAngle,elapsed,ambient); scene.environmentIntensity = .55 - dusk * .18; renderer.toneMappingExposure = 1.13 - dusk * .14;
-      const flying = room.garden.update(elapsed, dt / 1000, state.view, ambient, dusk, finish);
-      room.garden.bird.visible = state.overview;
+      const fitting = room.fitSurfaces(state.view,dt/1000,finish||boot,ambient);
+      const night=room.setEnvironment(state.environmentState,dt/1000,ambient);
+      scene.environmentIntensity=.12+(1-night)*.43;renderer.toneMappingExposure=1.08;
+      const environmentKey=JSON.stringify(state.environmentState);
+      if(environmentKey!==lastEnvironment||(ambient&&elapsed-lastShadow>.12)){renderer.shadowMap.needsUpdate=true;lastEnvironment=environmentKey;lastShadow=elapsed;}
+      const flying=room.garden.update(dt/1000,ambient,night);
       const opening=books.name+books.notebook;
-      if (animating || Math.abs(opening - shadowOpen) > .05 || wasFlying && !flying || wasFitting && !fitting) { renderer.shadowMap.needsUpdate = true; shadowOpen = opening; }
-      wasFlying = flying; wasFitting = fitting;
-      const surface = room.readingFrame(state.view,size.width/size.height);
+      if (animating || Math.abs(opening - shadowOpen) > .05 || wasFitting && !fitting) { renderer.shadowMap.needsUpdate = true; shadowOpen = opening; }
+      wasFitting = fitting;
+      const surface = room.readingFrame(state.view);
       destination.up.set(0,1,0);
       if (surface) {
         const {center,normal,up}=surface;
@@ -157,11 +158,13 @@ export default function StudioCanvas(props: Props) {
         const normal=target?new THREE.Vector3(0,0,1).applyQuaternion(target.face.getWorldQuaternion(new THREE.Quaternion())):null;
         const center=target?.face.getWorldPosition(new THREE.Vector3());
         const facing=normal&&center&&normal.dot(camera.position.clone().sub(center))>0;
-        const bookOpen=id==="name"?books.name:id==="notebook"?books.notebook:1;
+        const bookOpen=id==="name"?books.name:id==="notebook"?books.notebook:id==="checklist"?room.hologram.open:1;
         const reveal=id==="notebook"?smooth((bookOpen-.76)/.20):smooth((bookOpen-.55)/.35);
         const placed=target&&facing&&reveal>0?projectSurface(page,target.face,target.width,target.height,camera,w,h,size.width,size.height):false;
-        page.style.opacity=String(reveal);
         const active=id===state.view&&!state.overview,interactive=!!placed&&active&&!animating;
+        // Inactive HTML summaries fade with the approach, so distant poster text
+        // cannot loom behind a close reading plane. The physical models remain.
+        page.style.opacity=String(reveal*(state.overview||active?1:1-smooth(progress*1.5)));
         const detail=finish||boot?(active?1:0):THREE.MathUtils.damp(Number(page.dataset.detail||0),active?1:0,9,dt/1000);
         page.dataset.detail=String(detail);page.style.setProperty("--surface-detail",String(detail>.998?1:detail<.002?0:detail));
         page.dataset.visible=String(!!placed);page.dataset.interactive=String(interactive);page.dataset.hover=String(state.overview&&activeHover===id);
@@ -173,20 +176,20 @@ export default function StudioCanvas(props: Props) {
       element.dataset.transition=String(animating);element.dataset.orbit=orbit.toFixed(3);element.dataset.zoom=zoom.toFixed(3);element.dataset.flying=String(flying);element.dataset.ambient=String(ambient);
       element.dataset.cameraPosition=camera.position.toArray().map(v=>v.toFixed(4)).join(",");
       element.dataset.cameraFocus=focus.toArray().map(v=>v.toFixed(4)).join(",");element.dataset.bookOpen=JSON.stringify(books);element.dataset.flightProgress=String(progress);
+      element.dataset.birdPosition=room.garden.bird.position.toArray().map(v=>v.toFixed(3)).join(",");element.dataset.life=JSON.stringify(room.life.snapshot());element.dataset.projectorScale=room.hologram.base.scale.toArray().join(",");element.dataset.hologram=room.hologram.open.toFixed(3);element.dataset.sunDirection=room.sun.position.clone().normalize().toArray().map(v=>v.toFixed(4)).join(",");
       element.dataset.gazeOffset=destinationFocus.clone().project(camera).toArray().slice(0,2).map(v=>v.toFixed(5)).join(",");
       if(dirty){dirty=false;setStatus("ready");}boot=false;
-      settling=fitting||flying||Math.abs(dusk-lightGoal)>.002;
+      settling=fitting;
       if(animating||settling||ambient)raf=requestAnimationFrame(frame);
     }
     function wake() { urgent = true; if (!raf && !disposed && !contextLost) { last = 0; raf = requestAnimationFrame(frame); } }
     trigger.current = wake;
     function resize() { renderer.setSize(element.clientWidth, element.clientHeight); resized = !boot; wake(); }
     const ro = new ResizeObserver(resize); ro.observe(element);
-    function hit(e: PointerEvent): ObjectId | "guide" | null {
+    function hit(e: PointerEvent): ObjectId | null {
       const r = element.getBoundingClientRect(); pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
       ray.setFromCamera(pointer, camera);
       for (const f of ray.intersectObject(room.root, true)) for (let o: THREE.Object3D | null = f.object; o; o = o.parent) {
-        if (o.userData.gardenGuide) return "guide";
         if (o.userData.objectId) return o.userData.objectId as ObjectId;
       }
       return null;
@@ -200,7 +203,7 @@ export default function StudioCanvas(props: Props) {
         if (latest.current.overview) { orbit = THREE.MathUtils.clamp(down.orbit + (e.clientX - down.x) / 700, -.55, .55); wake(); }
         return;
       }
-      const found = hit(e), id = found === "guide" ? null : found;
+      const found=hit(e),id=found;
       if (id !== hoverId) { hoverId = id; setHover(id); wake(); }
       renderer.domElement.style.cursor = found ? "pointer" : "grab";
     }
@@ -211,7 +214,7 @@ export default function StudioCanvas(props: Props) {
       else if (pointers.size === 1) { down = { x: e.clientX, y: e.clientY, time: performance.now(), orbit }; dragged = false; }
     }
     function release(e: PointerEvent) {
-      if (down && !dragged && performance.now() - down.time < 700) { const id = hit(e); if (id === "guide") latest.current.discover(); else if (id) latest.current.select(id); }
+      if (down && !dragged && performance.now() - down.time < 700) { const id = hit(e); if (id) latest.current.select(id); }
       pointers.delete(e.pointerId); if (renderer.domElement.hasPointerCapture(e.pointerId)) renderer.domElement.releasePointerCapture(e.pointerId);
       if (!pointers.size) { down = null; pinch = null; } else { dragged = true; pinch = null; down = null; }
     }
@@ -233,14 +236,14 @@ export default function StudioCanvas(props: Props) {
   }, [retry]);
   useEffect(() => { if(status==="fallback"){if(host.current)host.current.dataset.transition="false";presentations.current.forEach((page,id)=>{const active=id===view;page.style.opacity="1";page.inert=!active;page.dataset.visible=String(active);page.dataset.interactive=String(active);page.setAttribute("aria-hidden",String(!active));});} },[status,view]);
   const focusObject = (id: ObjectId | null) => { focusedObject.current = id; setHover(id); trigger.current(); };
-  return <div className="studio-scene" ref={host} data-status={status} data-view={view} data-time={timeOfDay} data-breeze={breeze} data-visited={visited.length} data-sun-angle={sunAngle}>
+  return <div className="studio-scene" ref={host} data-status={status} data-view={view} data-time={environmentState.time} data-weather={environmentState.weather} data-season={environmentState.season} data-weather-mode={weatherState.mode} data-weather-status={weatherState.current?(weatherState.error||weatherState.stale?"stale":"current"):"preview"} data-breeze={breeze} data-visited={visited.length}>
     {props.panels.map(panel=><div key={panel.id} className="studio-surface-host" ref={el=>{if(el)presentations.current.set(panel.id,el);else presentations.current.delete(panel.id);}} data-kind={panel.id} data-active={!overview&&view===panel.id} data-visible="false" data-interactive="false" aria-hidden={overview||view!==panel.id} inert={overview||view!==panel.id}>{panel.content}</div>)}
     {status === "loading" && <div className="studio-loading" role="status"><span className="studio-loader" />庭のあるスタジオへ…</div>}
     {status === "fallback" ? <div className={`studio-fallback ${overview?"":"studio-fallback-compact"}`}><span>TEXT EDITION</span>{overview&&<h2>同じ物語を、ここから。</h2>}<p>3Dを表示できませんでした。内容と操作は、このまま使えます。</p><button onClick={() => { const url = new URL(location.href); url.searchParams.delete("no3d"); history.replaceState(null, "", url); setStatus("loading"); setRetry(n => n + 1); }}>3Dを再読み込み</button><div hidden={!overview}>{objects.map(o => <button key={o.id} onClick={() => select(o.id)}>{o.title} ↗</button>)}</div></div> : <>
       <div className="studio-object-labels" aria-label="スタジオの物件">{objects.map(o => <button ref={el => { if (el) labels.current.set(o.id, el); else labels.current.delete(o.id); }} key={o.id} data-object={o.id} data-selected={view === o.id} data-hovered={hover === o.id} data-visited={visited.includes(o.id)} data-visible={view === "room" || view === o.id || hover === o.id} className="studio-object" onClick={() => select(o.id)} onFocus={() => focusObject(o.id)} onBlur={() => focusObject(null)} onPointerEnter={() => focusObject(o.id)} onPointerLeave={() => focusObject(null)} aria-label={`${o.title}を開く`}><span>{o.title}<b aria-hidden="true">↗</b></span></button>)}</div>
       {overview && status === "ready" && <>
         <button className="garden-start" onClick={()=>{setVisited([]);select("name");}}>はじめる <span aria-hidden="true">↗</span></button>
-        <details className="environment-menu"><summary aria-label="環境設定"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/></svg></summary><div className="environment-panel"><span>SCENE SETTINGS</span><div className="environment-light" role="group" aria-label="時間帯"><button aria-label="昼の光" aria-pressed={timeOfDay==="day"} onClick={()=>setTimeOfDay("day")}>昼</button><button aria-label="夕暮れの光" aria-pressed={timeOfDay==="dusk"} onClick={()=>setTimeOfDay("dusk")}>夕暮れ</button></div><button className="environment-motion" aria-label="庭の動き" aria-pressed={breeze} onClick={()=>setBreeze(v=>!v)}>植物・小鳥の動き <b>{breeze?"ON":"OFF"}</b></button><label>光の方向 <output>{sunAngle}°</output><input type="range" min="-45" max="45" value={sunAngle} aria-label="光の方向" onChange={e=>setSunAngle(Number(e.target.value))}/></label><div className="garden-camera-tools" role="group" aria-label="全景のカメラ"><button aria-label="庭を縮小" onClick={()=>control.current("farther")}>−</button><button aria-label="庭の視点を戻す" onClick={()=>control.current("reset")}>視点を戻す</button><button aria-label="庭を拡大" onClick={()=>control.current("closer")}>＋</button></div></div></details>
+        <EnvironmentMenu state={weatherState} motion={breeze} onMotion={()=>setBreeze(v=>!v)} onCamera={command=>control.current(command)}/>
 
       </>}
     </>}

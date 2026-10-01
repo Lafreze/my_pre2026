@@ -1,3 +1,4 @@
+import {mockWeather} from './weather-fixture.mjs';
 import assert from 'node:assert/strict';
 import { mkdir, writeFile } from 'node:fs/promises';
 const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
@@ -14,21 +15,23 @@ try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
   page.on('pageerror', e => errors.push(e.message));
   page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
-  await page.goto(base, { waitUntil: 'networkidle' });
+  await mockWeather(page);
+ await page.goto(base, { waitUntil: 'networkidle' });
   const scene = page.locator('.studio-scene');
   await page.locator('.studio-scene[data-status=ready]').waitFor();
   await check('reduced motion starts still; daylight and dusk keep every chapter reachable', async () => {
     assert.equal(await scene.getAttribute('data-breeze'), 'false');
     await page.screenshot({ path: `${output}/day.png` });
-    await page.locator('.environment-menu summary').click();
-    await page.getByRole('button', { name: '夕暮れの光', exact: true }).click();
-    assert.equal(await scene.getAttribute('data-time'), 'dusk');
+    await page.locator('.environment-menu>summary').click();
+    await page.getByRole('button',{name:'季節・天気を試す',exact:true}).click();
+    await page.getByLabel('時間帯',{exact:true}).selectOption('evening');
+    assert.equal(await scene.getAttribute('data-time'), 'evening');
     await page.screenshot({ path: `${output}/dusk.png` });
     assert.equal(await page.locator('.studio-object:visible').count(), 6);
-    await page.getByRole('button', { name: '昼の光', exact: true }).click();
+    await page.getByLabel('時間帯',{exact:true}).selectOption('noon');
   });
   await check('overview has no explanatory panels or markers; only hovered objects reveal names',async()=>{
-    await page.locator('.environment-menu summary').click();await page.mouse.move(0,0);
+    await page.locator('.environment-menu>summary').click();await page.mouse.move(0,0);
     assert.equal(await page.locator('.garden-intro,.garden-progress,.garden-discovery,.garden-operation-hint,.object-marker,.studio-object small,.studio-footer').count(),0);
     for(const button of await page.locator('.studio-object').all()){assert.equal(await button.evaluate(e=>getComputedStyle(e).backgroundColor),'rgba(0, 0, 0, 0)');assert.equal(await button.locator('span').evaluate(e=>getComputedStyle(e).visibility),'hidden');}
     assert.equal(await page.locator('.garden-camera-tools:visible').count(),0);
@@ -47,12 +50,12 @@ try {
   });
   await check('light direction changes the illuminated room without moving the camera',async()=>{
     await page.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();
-    await page.locator('.environment-menu summary').click();
+    await page.locator('.environment-menu>summary').click();
     const camera=await scene.getAttribute('data-camera-position');
-    await page.getByRole('slider',{name:'光の方向',exact:true}).fill('-35');await page.waitForTimeout(100);
-    const first=await page.screenshot();await page.getByRole('slider',{name:'光の方向',exact:true}).fill('35');await page.waitForTimeout(100);
-    assert.equal(await scene.getAttribute('data-sun-angle'),'35');assert.equal(await scene.getAttribute('data-camera-position'),camera);assert.ok(!first.equals(await page.screenshot()));
-    await page.screenshot({path:`${output}/light-study.png`});await page.getByRole('slider',{name:'光の方向',exact:true}).fill('0');await page.locator('.environment-menu summary').click();
+    await page.getByLabel('時間帯',{exact:true}).selectOption('morning');await page.waitForTimeout(100);
+    const first=await page.screenshot();await page.getByLabel('時間帯',{exact:true}).selectOption('evening');await page.waitForTimeout(100);
+    assert.equal(await scene.getAttribute('data-time'),'evening');assert.equal(await scene.getAttribute('data-camera-position'),camera);assert.ok(!first.equals(await page.screenshot()));
+    await page.screenshot({path:`${output}/light-study.png`});await page.getByLabel('時間帯',{exact:true}).selectOption('morning');await page.locator('.environment-menu>summary').click();
   });
   await check('visits are preserved without on-screen counters or completion notices', async () => {
     for (const [i,id] of ['notebook','board','monitor','checklist'].entries()){
@@ -71,7 +74,7 @@ try {
     assert.equal(await page.locator('.work-studio').getAttribute('data-chapter'), chapter);
     assert.equal(await page.locator('.studio-copy').count(), 0);
     const orbit=await scene.getAttribute('data-orbit'),zoom=await scene.getAttribute('data-zoom');await page.locator('[data-object=monitor]').click();await page.locator('.studio-scene[data-view=monitor][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();await page.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();assert.equal(await scene.getAttribute('data-orbit'),orbit);assert.equal(await scene.getAttribute('data-zoom'),zoom);
-    await page.locator('.environment-menu summary').click();
+    await page.locator('.environment-menu>summary').click();
     await page.getByRole('button', { name: '庭の視点を戻す' }).click();
     await page.locator('.studio-scene[data-orbit="0.000"][data-zoom="1.000"]').waitFor();
     assert.equal(await scene.getAttribute('data-orbit'), '0.000');
@@ -81,14 +84,14 @@ try {
     assert.equal(await scene.getAttribute('data-zoom'), '0.900');
     await page.getByRole('button', { name: '庭を縮小', exact: true }).click();
     await page.locator('.studio-scene[data-zoom="1.000"]').waitFor();
-    assert.equal(await scene.getAttribute('data-zoom'), '1.000');await page.locator('.environment-menu summary').click();
+    assert.equal(await scene.getAttribute('data-zoom'), '1.000');await page.locator('.environment-menu>summary').click();
   });
   await check('PC entrance, menu and 44px object targets fit common desktop windows', async () => {
     for (const [width, height] of [[1920,1080],[1440,900],[1366,768],[1280,720]]) {
       await page.setViewportSize({ width, height }); await page.waitForTimeout(100);
       const layout = await page.evaluate(() => {
         const boxes = [...document.querySelectorAll('.studio-object')].map(e => ({ id:e.dataset.object,...e.getBoundingClientRect().toJSON() }));
-        const controls = [...document.querySelectorAll('.garden-start,.environment-menu summary,.studio-header-actions button')].map(e => e.getBoundingClientRect().toJSON());
+        const controls = [...document.querySelectorAll('.garden-start,.environment-menu>summary,.studio-header-actions button')].map(e => e.getBoundingClientRect().toJSON());
         return { boxes, controls, width:document.documentElement.scrollWidth };
       });
       assert.equal(layout.width, width);
@@ -108,7 +111,7 @@ try {
   await page.setViewportSize({ width:1440,height:1000 });
   await check('ambient motion pauses completely and chapter transitions stay responsive', async () => {
     await page.emulateMedia({ reducedMotion:'no-preference' });
-    await page.locator('.environment-menu summary').click();
+    await page.locator('.environment-menu>summary').click();
     await page.getByRole('button', { name:'庭の動き',exact:true }).click();
     await page.waitForTimeout(200);
     await page.locator('.studio-scene[data-transition=false][data-flying=false]').waitFor();
@@ -128,7 +131,7 @@ try {
     const paused = await scene.getAttribute('data-frames'); await page.waitForTimeout(500);
     assert.equal(await scene.getAttribute('data-frames'), paused);
     await page.locator('[data-object=notebook]').click();
-    await page.locator('.studio-scene[data-flying=true]').waitFor();
+    await page.locator('.studio-scene[data-transition=true]').waitFor();
     await page.locator('.studio-scene[data-transition=false][data-flying=false]').waitFor();
     metrics.push(await scene.evaluate(e=>({ mode:'notebook',drawCalls:Number(e.dataset.drawCalls),triangles:Number(e.dataset.triangles),quality:e.dataset.quality||'standard' })));
     await page.screenshot({ path:`${output}/notebook-flight-end.png` });

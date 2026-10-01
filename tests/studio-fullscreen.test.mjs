@@ -1,3 +1,4 @@
+import {mockWeather} from './weather-fixture.mjs';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
@@ -19,6 +20,7 @@ async function go(n,page=p){
  await page.locator('.studio-surface-host[data-active=true][data-interactive=true]').waitFor();
 }
 try{
+ await mockWeather(p);
  await p.goto(base,{waitUntil:'networkidle'});await p.locator('.studio-scene[data-status=ready]').waitFor();
  await check('overview starts still with a clickable primary entrance and five story destinations',async()=>{
   assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'true');assert.equal(await p.locator('.studio-scene').getAttribute('data-breeze'),'false');
@@ -38,7 +40,7 @@ try{
  await check('every next action moves straight to the next model and centers its presentation',async()=>{
   await p.evaluate(()=>{window.observedViews=[];new MutationObserver(()=>window.observedViews.push(document.querySelector('.studio-scene').dataset.view)).observe(document.querySelector('.studio-scene'),{attributes:true,attributeFilter:['data-view']});});
   for(let i=0;i<5;i++){
-   if(i){if(i===4){for(let stage=0;stage<7;stage++){await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),String(stage));assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');}}await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator(`.studio-scene[data-view=${views[i]}][data-transition=false]`).waitFor();await p.locator('.studio-surface-host[data-active=true][data-interactive=true]').waitFor();}
+   if(i){if(i===4){for(let stage=0;stage<7;stage++){assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),String(stage));await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');}assert.equal(await p.locator('.agent-architecture[data-mode=parts]').count(),1);await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.agent-architecture[data-mode=loop]').count(),1);}await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator(`.studio-scene[data-view=${views[i]}][data-transition=false]`).waitFor();await p.locator('.studio-surface-host[data-active=true][data-interactive=true]').waitFor();}
    const box=await p.locator('.studio-surface-host[data-active=true]').boundingBox();assert.ok(Math.abs(box.x+box.width/2-720)<2,JSON.stringify(box));assert.ok(Math.abs(box.y+box.height/2-500)<2,JSON.stringify(box));
    assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'false');
    await p.screenshot({path:`${output}/${views[i]}.png`});
@@ -51,7 +53,7 @@ try{
   assert.ok((await p.locator('.usage-feedback').innerText()).includes('文脈'));await p.locator('.usage-tabs button').nth(1).click();assert.ok((await p.locator('.usage-output').innerText()).includes('System'));assert.ok((await p.locator('.usage-scope').innerText()).includes('1回に限りません'));
  });
  await check('harness encloses the roles and loop selection highlights the directed feedback path',async()=>{
-  await go(3);assert.equal(await p.locator('.harness-frame .architecture-node').count(),3);
+  await go(3);await p.getByRole('tab',{name:'構成を見る',exact:true}).click();assert.equal(await p.locator('.harness-frame .architecture-node').count(),3);
   for(const element of ['model','context','tools','harness','loop']){await p.locator('.architecture-select[data-element='+element+']').click();assert.ok((await p.locator('.architecture-detail h2').innerText()).toLowerCase().includes(element));}
   assert.ok((await p.locator('.wire-call').innerText()).includes('ツール呼び出し要求'));assert.ok((await p.locator('.wire-call').innerText()).includes('Harness が権限'));assert.equal(await p.locator('.loop-return-label').innerText(),'結果を文脈に反映');assert.ok((await p.locator('.circuit-feedback').innerText()).includes('必要に応じた検証'));assert.ok((await p.locator('.architecture-principle').innerText()).includes('別の判断'));
   assert.equal(await p.locator('.agent-circuit').getAttribute('data-loop-selected'),'true');assert.equal(await p.locator('.agent-part-detail,.agent-data-flow').count(),0);
@@ -112,7 +114,7 @@ try{
    if([0,4,5,6].includes(i))await p.screenshot({path:output+'/agent-development-'+i+'.png'});
   }
   await p.locator('.development-rail button').nth(6).focus();await p.keyboard.press('Home');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'0');await p.keyboard.press('ArrowRight');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'1');
-  await p.locator('.development-panel').focus();await p.keyboard.press('ArrowLeft');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'0');await p.keyboard.press('ArrowLeft');assert.equal(await p.locator('.agent-architecture[data-mode=parts]').count(),1);
+  await p.locator('.development-panel').focus();await p.keyboard.press('ArrowLeft');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'0');await p.keyboard.press('ArrowLeft');await p.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();await go(3);
   await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.waitForTimeout(2300);assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),'0');assert.equal(await p.getByRole('button',{name:'一時停止',exact:true}).count(),0);
  });
  await check('product workflow replaces the screenshot with five stages and leads to four competitive advantages',async()=>{
@@ -130,7 +132,7 @@ try{
   const camera=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.locator('.studio-index-toggle').click();await p.getByRole('button',{name:'参考資料',exact:true}).click();assert.equal(await p.locator('.studio-library-grid>button').count(),20);await p.getByRole('searchbox',{name:'資料を検索'}).fill('Evals');await p.locator('.studio-library-grid>button').click();await p.frameLocator('iframe').locator('#presentation[data-current-slide=trust]').waitFor({timeout:60000});await p.getByRole('button',{name:'資料を閉じて元の章に戻る'}).click();assert.equal(await p.locator('iframe').count(),0);assert.equal(await p.locator('.studio-scene').getAttribute('data-camera-position'),camera);assert.ok((await p.locator('.execution-detail').innerText()).includes('ボタンの幅超過を発見'));
  });
  await check('reference deck ignores removed pages even with saved settings and old deep links',async()=>{
-  const q=await browser.newPage({reducedMotion:'reduce'});await q.addInitScript(()=>localStorage.setItem('gen-ai-slide-settings-v2',JSON.stringify({hidden:[],order:['game-case','intro','game-process']})));await q.goto(new URL('reference/?slide=game-case',base).href,{waitUntil:'networkidle'});
+  const q=await browser.newPage({reducedMotion:'reduce'});await q.addInitScript(()=>localStorage.setItem('gen-ai-slide-settings-v2',JSON.stringify({hidden:[],order:['game-case','intro','game-process']})));await mockWeather(q);await q.goto(new URL('reference/?slide=game-case',base).href,{waitUntil:'networkidle'});
   await q.locator('#presentation[data-ready=true]').waitFor();assert.equal(await q.locator('section[data-slide-id]').count(),20);assert.equal(await q.locator('section[data-slide-id^="game-"]').count(),0);assert.equal(await q.locator('iframe[src*="daycard"],a[href*="daycard"]').count(),0);assert.equal(/day\s*card/i.test(await q.locator('body').innerText()),false);await q.close();
  });
  await check('keyboard, notes and optional timer follow the five-chapter story',async()=>{
@@ -170,7 +172,7 @@ try{
   }
  });
  await check('text fallback keeps the same readable chapter, working controls and retry',async()=>{
-  const q=await browser.newPage({viewport:{width:1366,height:768},reducedMotion:'reduce'});await q.goto(base+'?no3d=1');await q.locator('.studio-scene[data-status=fallback]').waitFor();assert.equal(await q.locator('canvas').count(),0);await go(3,q);assert.equal(await q.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),false);await q.getByRole('tab',{name:'動きを見る',exact:true}).click();await q.getByRole('button',{name:'次の工程 →',exact:true}).click();assert.ok((await q.locator('.execution-detail').innerText()).includes('コードを生成'));await q.getByRole('button',{name:'3Dを再読み込み'}).click();await q.locator('.studio-scene[data-status=ready][data-view=monitor]').waitFor();await q.close();
+  const q=await browser.newPage({viewport:{width:1366,height:768},reducedMotion:'reduce'});await mockWeather(q);await q.goto(base+'?no3d=1');await q.locator('.studio-scene[data-status=fallback]').waitFor();assert.equal(await q.locator('canvas').count(),0);await go(3,q);assert.equal(await q.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),false);await q.getByRole('tab',{name:'動きを見る',exact:true}).click();await q.getByRole('button',{name:'次の工程 →',exact:true}).click();assert.ok((await q.locator('.execution-detail').innerText()).includes('コードを生成'));await q.getByRole('button',{name:'3Dを再読み込み'}).click();await q.locator('.studio-scene[data-status=ready][data-view=monitor]').waitFor();await q.close();
  });
  await p.setViewportSize({width:1440,height:1000});await p.emulateMedia({reducedMotion:'no-preference'});
  await check('camera transitions are continuous, interruptible and never route through the overview',async()=>{

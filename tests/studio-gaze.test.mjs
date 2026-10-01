@@ -1,3 +1,4 @@
+import {mockWeather} from './weather-fixture.mjs';
 import assert from 'node:assert/strict';
 import {mkdir,writeFile} from 'node:fs/promises';
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright');
@@ -6,6 +7,7 @@ const browser=await chromium.launch({headless:true,...(process.env.PLAYWRIGHT_CH
 const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'no-preference'});
 const reports=[];
 try{
+ await mockWeather(page);
  await page.goto(process.env.STUDIO_URL||'http://127.0.0.1:5173/',{waitUntil:'networkidle'});await page.locator('.studio-scene[data-status=ready]').waitFor();
  const scene=page.locator('.studio-scene');
  assert.deepEqual(JSON.parse(await scene.getAttribute('data-book-open')),{name:0,notebook:0});

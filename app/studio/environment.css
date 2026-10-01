@@ -1,0 +1,32 @@
+.living-environment{display:flex;flex-direction:column;width:292px;max-height:calc(100dvh - 150px);overflow:auto;overscroll-behavior:contain;gap:16px!important;font-size:13px}
+.environment-mode{display:flex;padding:3px;background:#e8e8dc;border-radius:9px;gap:3px}
+.environment-mode button{flex:1;border:0;background:none;border-radius:7px;padding:9px 5px;font-size:12px;white-space:nowrap;color:#3d594e}
+.environment-mode button[aria-pressed=true]{background:#365b4e;color:#fff9e9;box-shadow:0 2px 5px #233e2914}
+.weather-current{display:flex;flex-direction:column;gap:7px;padding:1px 3px}
+.weather-current strong{font-size:16px;font-weight:500;overflow-wrap:anywhere}
+.weather-current>span{font-size:24px;color:#355748;letter-spacing:.03em}
+.living-environment small{font-size:11px;line-height:1.6;color:#647363}
+.living-environment button{cursor:pointer;min-height:32px}
+.weather-place{border-block:1px solid #365b4e22;padding:10px 2px}
+.weather-place summary{font-size:12px;cursor:pointer}
+.weather-place form{display:flex;gap:6px;margin:12px 0 8px}
+.weather-place input{width:0;min-width:0;flex:1;background:#fffdf7;border:1px solid #44645344;border-radius:5px;padding:7px;color:#294a3e}
+.weather-place button,.weather-current button{background:#e5e9db;border:1px solid #385d5030;padding:6px 10px;border-radius:5px;color:#294a3e;font:inherit}
+.weather-place small{display:block;margin-top:6px}
+.weather-result{display:block;width:100%;margin:5px 0;text-align:left;line-height:1.5}
+.weather-credit{font-size:10px;color:#5b705d;text-decoration:none;align-self:flex-start}
+.environment-selects{display:grid;gap:12px}
+.living-environment .environment-selects label{display:flex;flex-direction:row;align-items:center;justify-content:space-between;color:#365748;font-size:12px}
+.environment-selects select{width:160px;border:1px solid #365b4e35;border-radius:6px;background:#fffcf2;padding:7px 9px;color:#2d4c40;font:inherit}
+.living-environment .environment-motion{border-top:1px solid #365b4e22;padding-top:12px}
+.model-page-footer>button{width:52px;min-width:52px;justify-content:center!important;padding:6px!important}
+.model-page-footer>button b{font-size:26px}
+.model-checklist{--paper:#e8f4ed;--ink:#1f4c45;background:linear-gradient(145deg,#effaf3,#d7eae1)!important;box-shadow:inset 0 0 0 1px #a4d2c7,0 0 24px #a3e2d41a!important;border-radius:7px}
+.model-checklist .model-topline,.model-checklist .model-page-footer{background:#e2f1eac9;border-color:#80ab9b55}
+.model-checklist .model-eyebrow{color:#486e63}
+
+/* Light stays spatial; a quiet backdrop lets the evening lamps read as warm light. */
+.model-led-studio .studio-app:has(.studio-scene[data-time=night]),.model-led-studio .studio-app:has(.studio-scene[data-time=midnight]){background:radial-gradient(ellipse at 48% 43%,#a0aba8,#7e9290 75%,#738783)!important}
+.model-led-studio:not([data-overview=true]) .studio-scene>canvas{filter:brightness(.84) blur(1px);transition:filter .8s ease}
+.model-led-studio[data-overview=true] .studio-scene>canvas{filter:none;transition:filter .8s ease}
+@media(prefers-reduced-motion:reduce){.model-led-studio .studio-scene>canvas{transition:none!important}}

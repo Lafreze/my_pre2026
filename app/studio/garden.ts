@@ -2,13 +2,12 @@ import * as THREE from "three";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { createSurfaceMaterials, metricUV } from "../surfaceMaterials";
-import type { ViewId } from "./content";
 
 // An original, metre-scale garden. Instances share geometry and materials;
 // nothing is downloaded and the same seeded planting grows on every visit.
 export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>) {
   const root = new THREE.Group(), canopy = new THREE.Group(), bird = new THREE.Group();
-  root.name = "Summer garden"; bird.name = "Studio guide"; bird.userData.gardenGuide = true;
+  root.name = "Seasonal garden"; bird.name = "Free-flying robin";
   const geometries = new Set<THREE.BufferGeometry>(), materials = new Set<THREE.Material>(), textures = new Set<THREE.Texture>();
   let seed = 20260928;
   const random = () => { seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0; return seed / 4294967296; };
@@ -26,7 +25,13 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   }
   function branch(points: number[][], radius: number, m: THREE.Material) {
     const path = new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3().fromArray(p)));
-    return mesh(geometry(new THREE.TubeGeometry(path, 16, radius, 7, false)), m, [0, 0, 0]);
+    const tube=new THREE.TubeGeometry(path,16,radius,7,false),positions=tube.getAttribute("position");
+    // Taper to fine tips instead of exposing blunt cylinders when leaves fall.
+    for(let ring=0;ring<=16;ring++){
+      const t=ring/16,center=path.getPointAt(t),scale=1-.88*Math.pow(t,1.15);
+      for(let side=0;side<=7;side++){const i=ring*8+side;positions.setXYZ(i,center.x+(positions.getX(i)-center.x)*scale,center.y+(positions.getY(i)-center.y)*scale,center.z+(positions.getZ(i)-center.z)*scale);}
+    }
+    tube.computeVertexNormals();return mesh(geometry(tube),m,[0,0,0]);
   }
   function painted(draw: (c: CanvasRenderingContext2D) => void, size = 512) {
     const canvas = document.createElement("canvas"); canvas.width = canvas.height = size; draw(canvas.getContext("2d")!);
@@ -99,6 +104,13 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   for (let i = 0; i < 7; i++) {
     const a = i * 2.399, h = 1.3 + i * .15;
     branch([[treeX, h, treeZ], [treeX + Math.cos(a) * .25, h + .24, treeZ + Math.sin(a) * .25], [treeX + Math.cos(a) * .67, h + .44, treeZ + Math.sin(a) * .63]], .019, bark);
+    for(let fork=0;fork<3;fork++){
+      const distance=.28+fork*.13,angle=a+(fork-1)*.48;
+      const start=[treeX+Math.cos(a)*distance,h+.24+(distance-.25)*.47,treeZ+Math.sin(a)*distance];
+      const tip=[treeX+Math.cos(angle)*(.62+fork*.10),h+.61+fork*.08,treeZ+Math.sin(angle)*(.59+fork*.10)];
+      branch([start,[(start[0]+tip[0])*.5,h+.43+fork*.06,(start[2]+tip[2])*.5],tip],.009,bark);
+      for(const side of [-1,1])branch([[tip[0]*.35+start[0]*.65,tip[1]*.35+start[1]*.65,tip[2]*.35+start[2]*.65],[tip[0]+Math.cos(angle+side*.7)*.13,tip[1]+.12,tip[2]+Math.sin(angle+side*.7)*.13]],.004,bark);
+    }
   }
   canopy.position.set(treeX, 1.2, treeZ);canopy.scale.setScalar(.82); root.add(canopy);
   const leafShape = new THREE.Shape(); leafShape.moveTo(0, -.5); leafShape.bezierCurveTo(-.45, -.15, -.36, .24, 0, .5); leafShape.bezierCurveTo(.36, .24, .45, -.15, 0, -.5);
@@ -170,7 +182,7 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
       #endif`);};
     m.customProgramCacheKey=()=>"garden-wind-v1";
   }
-  // A hand-built robin: separate wings let the guide hop and fly between chapters.
+  // A robin with independent wings; its outdoor route is unrelated to the camera.
   const feather = finishes.material("fabric", "#b6ae8c"), breast = finishes.material("fabric", "#d0a35e"), wing = finishes.material("fabric", "#67795d"), beak = finishes.material("ceramic", "#514936");
   bird.position.set(-1.45, .315, 3.03); root.add(bird);
   ellipsoid([0, .15, 0], [.115, .14, .105], feather, bird);
@@ -189,7 +201,7 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   const glowMap = painted(c => { const g = c.createRadialGradient(256, 256, 0, 256, 256, 250); g.addColorStop(0, "#fffbd7"); g.addColorStop(.17, "#ffedaaa8"); g.addColorStop(1, "#ffdb7a00"); c.fillStyle = g; c.fillRect(0, 0, 512, 512); });
   const glow = material(new THREE.PointsMaterial({ color: "#ffe69e", size: .1, map: glowMap, transparent: true, depthWrite: false, toneMapped: false, opacity: 0 }));
   const fireflies = new THREE.Points(fireflyGeo, glow); fireflies.frustumCulled = false; root.add(fireflies);
-  // Merge static garden details, preserving the independently animated tree / guide.
+  // Merge static garden details, preserving the independently animated tree and robin.
   root.updateMatrixWorld(true);
   const batches = new Map<THREE.Material, THREE.Mesh[]>();
   root.traverse(o => {
@@ -203,38 +215,39 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
     const merged = mergeGeometries(pieces); pieces.forEach(g => g.dispose());
     if (merged) { mesh(geometry(merged), m, [0, 0, 0]); meshes.forEach(o => o.removeFromParent()); }
   }
-  const perches: Record<ViewId, number[]> = {
-    room: [-1.45, .315, 3.03], name: [.1, .74, .9], notebook: [-2.20, 1.12, .5], board: [1.61, .71, -2.1],
-    monitor: [-.62, .8, -1.7], checklist: [1.55, 1.02, -1.72], library: [-2.46, 2.1, .58],
-  };
-  let view: ViewId = "room", flight = 1;
-  const from = bird.position.clone(), to = bird.position.clone();
+  const perches=[[-1.45,.315,3.03],[3.3,.65,2.95],[3.65,1.75,-.4],[3.8,1.15,2.6]].map(p=>new THREE.Vector3(...p));
+  let lifeTime=0;
   return {
     root, bird,
-    update(time: number, dt: number, nextView: ViewId, breeze: boolean, dusk: number, instant: boolean) {
-      if (nextView !== view) { view = nextView; from.copy(bird.position); to.fromArray(perches[view]); flight = 0; }
-      flight = instant ? 1 : Math.min(1, flight + dt / 1.45);
-      const u = flight * flight * (3 - 2 * flight);
-      bird.position.lerpVectors(from, to, u); bird.position.y += Math.sin(flight * Math.PI) * .85;
-      bird.rotation.y = flight < 1 ? Math.atan2(to.x - from.x, to.z - from.z) : .25;
-      leftWing.rotation.z = flight < 1 ? -.75 + Math.sin(time * 32) * .65 : -.1;
-      rightWing.rotation.z = -leftWing.rotation.z;
-      if (breeze && flight === 1) bird.rotation.z = Math.sin(time * 1.5) * .018;
-      else bird.rotation.z = 0;
+    setSeason(season:"spring"|"summer"|"autumn"|"winter",weather:string){
+      leafMat.color.set({spring:"#b8c49a",summer:"#9bb581",autumn:"#d7a15c",winter:"#b8b8a4"}[season]);
+      leaves.visible=season!=="winter";for(const flowers of [petals,centers,stems])flowers.visible=season!=="winter";butterflies.forEach(b=>b.body.visible=season!=="winter"&&weather!=="storm"&&weather!=="snow");
+      bladeMat.color.set(season==="winter"?"#c6c4b0":season==="autumn"?"#b4b68d":"#a9bf88");
+      lawn.color.set(weather==="snow"?"#e2e4d9":season==="winter"?"#c0c1a8":"#c7d1af");
+    },
+    update(dt: number, breeze: boolean, dusk: number) {
+      if(breeze)lifeTime+=dt;
+      const time=lifeTime,index=Math.floor(time/15)%perches.length,phase=time%15;
+      const flight=THREE.MathUtils.clamp((phase-7)/8,0,1),u=flight*flight*(3-2*flight);
+      const from=perches[index],to=perches[(index+1)%perches.length];
+      bird.position.lerpVectors(from,to,u);bird.position.y+=Math.sin(flight*Math.PI)*1.15;
+      bird.rotation.y=flight>0&&flight<1?Math.atan2(to.x-from.x,to.z-from.z):.25+Math.sin(time*.9)*.17;
+      leftWing.rotation.z=flight>0&&flight<1?-.8+Math.sin(time*26)*.7:-.1;rightWing.rotation.z=-leftWing.rotation.z;
+      bird.rotation.z=flight>0?Math.sin(time*2)*.04:Math.sin(time*1.5)*.018;
       if(breeze)wind.value=time;
-      ripples.forEach((ring,i)=>{const phase=breeze?(time*.3+i*.5)%1:.35+i*.3;ring.scale.setScalar(.25+phase*1.35);});
+      ripples.forEach((ring,i)=>{const phase=(time*.3+i*.5)%1;ring.scale.setScalar(.25+phase*1.35);});
       butterflies.forEach(({body,left,right,phase},i)=>{
-        const t=breeze?time:0;
+        const t=time;
         body.position.set(i===0?3.4+Math.sin(t*.31+phase)*.28:-2.65+Math.sin(t*.26+phase)*.35,.33+Math.sin(t*.8+phase)*.1,i===0?.57+Math.cos(t*.25+phase)*.43:3.0+Math.cos(t*.32+phase)*.16);
         body.rotation.set(-.4,Math.sin(t*.31+phase)*.65,Math.sin(t*.8+phase)*.15);
-        left.rotation.y=breeze?Math.sin(t*11+phase)*.75:.35;right.rotation.y=-left.rotation.y;
+        left.rotation.y=Math.sin(t*11+phase)*.75;right.rotation.y=-left.rotation.y;
       });
-      canopy.rotation.z = breeze ? Math.sin(time * .7) * .009 : 0;
-      canopy.rotation.x = breeze ? Math.sin(time * .45) * .006 : 0;
+      canopy.rotation.z = Math.sin(time * .7) * .009;
+      canopy.rotation.x = Math.sin(time * .45) * .006;
       glow.opacity = dusk * .85;
       fireflySeeds.forEach(([x, y, z, phase], i) => { fireflyPositions[i * 3] = x + Math.sin(time * .35 + phase) * .15; fireflyPositions[i * 3 + 1] = y + Math.sin(time * .65 + phase) * .14; fireflyPositions[i * 3 + 2] = z + Math.cos(time * .4 + phase) * .1; });
       fireflyGeo.attributes.position.needsUpdate = true;
-      return flight < 1;
+      return flight>0&&flight<1;
     },
     dispose() { geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); },
   };
