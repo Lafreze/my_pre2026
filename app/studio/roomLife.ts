@@ -2,8 +2,8 @@ import * as T from "three";
 import {RoundedBoxGeometry} from "three/addons/geometries/RoundedBoxGeometry.js";
 import {createSteamEffect} from "./steamEffect";
 
-/** Floor route clears the rug, table legs, desk chair and plant pots by the robot radius. */
-export function createRoomLife() {
+/** Floor route clears the furniture; the vacuum rises gently onto the low woven rug. */
+export function createRoomLife(coffeeSurface:T.Vector3,rug:{center:T.Vector2;halfSize:T.Vector2;height:number}) {
   const root=new T.Group();root.name="Room life";
   const robot=new T.Group();root.add(robot);robot.scale.y=.72;robot.name="Robot vacuum";
   const ivory=new T.MeshStandardMaterial({color:"#e3e4d9",roughness:.38,metalness:.05}),rubber=new T.MeshStandardMaterial({color:"#303d39",roughness:.9}),silver=new T.MeshStandardMaterial({color:"#92a59a",roughness:.25,metalness:.7}),lens=new T.MeshPhysicalMaterial({color:"#1d3434",roughness:.16,clearcoat:1}),led=new T.MeshBasicMaterial({color:"#a3d3c1"});
@@ -30,12 +30,12 @@ export function createRoomLife() {
   const cable=new T.CatmullRomCurve3([new T.Vector3(2.23,.04,-2.36),new T.Vector3(2.4,.038,-2.42),new T.Vector3(2.5,.10,-2.44)]);
   mesh(new T.TubeGeometry(cable,20,.004,6,false),rubber,[0,0,0],root);
   const route=new T.CatmullRomCurve3([[1.18,-1.1],[1.18,-.45],[1.18,.45],[1.18,1.5],[.78,1.90],[-.78,1.90],[-1.12,1.55],[-1.12,.64],[-.90,-.04],[.35,-.12],[.9,-.65]].map(([x,z])=>new T.Vector3(x,.029,z)),true,"centripetal");
-  const steam=createSteamEffect({count:12,height:.28,width:.055,seed:3});steam.root.position.set(-.79,.865,-1.34);root.add(steam.root);
+  const steam=createSteamEffect({count:12,height:.28,width:.055,seed:3});steam.root.position.copy(coffeeSurface);root.add(steam.root);
   // Second quiet movement: bubbles in the cup are intentionally omitted; freshly poured coffee only steams.
   let elapsed=0;
   return {root,robot,update(dt:number,motion:boolean,paused=false,coffee=false){
     if(motion&&!paused)elapsed+=dt;
-    const t=(elapsed/130)%1,point=route.getPointAt(t),tangent=route.getTangentAt(t);robot.position.copy(point);robot.rotation.y=Math.atan2(tangent.x,tangent.z);
+    const t=(elapsed/130)%1,point=route.getPointAt(t),tangent=route.getTangentAt(t);const edgeDistance=Math.min(rug.halfSize.x-Math.abs(point.x-rug.center.x),rug.halfSize.y-Math.abs(point.z-rug.center.y));point.y+=rug.height*T.MathUtils.smoothstep(edgeDistance,-.12,.12);robot.position.copy(point);robot.rotation.y=Math.atan2(tangent.x,tangent.z);
     if(motion&&!paused)brush.rotation.y+=dt*4.5;
     steam.update(dt,coffee?1.15:.85,!motion&&!coffee);
   },snapshot:()=>({robot:robot.position.toArray(),steam:steam.snapshot(),time:elapsed}),dispose(){steam.dispose();root.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(o.material as T.Material).dispose();}});root.removeFromParent();}};

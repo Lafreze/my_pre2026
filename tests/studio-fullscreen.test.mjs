@@ -38,8 +38,8 @@ try{
   assert.ok(!text.includes('近年は、生成AI'));for(const phrase of ['文章生成から製品開発へ','ツールを利用','人の関与'])assert.ok(text.includes(phrase));
   await p.screenshot({path:output+'/profile.png'});
  });
- await check('four chapters have a 625-second script and preserve the supplied personal history',async()=>{
-  const data=await readFile('app/studio/content.ts','utf8');assert.equal([...data.matchAll(/time: (\d+)/g)].reduce((sum,m)=>sum+Number(m[1]),0),625);
+ await check('four chapters have a 685-second script and preserve the supplied personal history',async()=>{
+  const data=await readFile('app/studio/content.ts','utf8');assert.equal([...data.matchAll(/time: (\d+)/g)].reduce((sum,m)=>sum+Number(m[1]),0),685);
   const scripts=[...data.matchAll(/script: "([^"]+)"/g)];assert.equal(scripts.length,4);
   for(const name of ['KIOXIA','ViT','OpenClaw','Claude Code','Codex','ADC'])assert.ok(scripts.map(m=>m[1]).join('').includes(name));
  });
@@ -124,15 +124,15 @@ try{
   await p.locator('.development-panel').focus();await p.keyboard.press('ArrowLeft');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'0');await p.keyboard.press('ArrowLeft');await p.locator('.agent-architecture[data-mode=loop]').waitFor();await go(2);
   await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.waitForTimeout(2300);assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),'0');assert.equal(await p.getByRole('button',{name:'一時停止',exact:true}).count(),0);
  });
- await check('product workflow replaces the screenshot with five stages and leads to four competitive advantages',async()=>{
+ await check('product flow advances through comparison, expertise and a dedicated closing screen',async()=>{
   await go(3);assert.equal(await p.locator('.model-checklist img,.product-artifact,.product-brief').count(),0);assert.ok(!(await p.locator('.model-checklist').innerText()).includes('企画例'));await p.getByRole('tab',{name:'開発プロセス',exact:true}).click();
   for(let i=0;i<5;i++){await p.locator('.product-step-rail button').nth(i).click();assert.ok((await p.locator('.product-step-detail').innerText()).includes('人による判断'));assert.ok((await p.locator('.product-check').innerText()).length>20);}
-  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.advantage-grid article').count(),4);assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'false');
+  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.development-comparison tbody tr').count(),4);assert.match(await p.locator('.comparison-note').innerText(),/CI\/CD/);await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.advantage-grid article').count(),4);await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.conclusion-points article').count(),3);await p.locator('.studio-navigation button[aria-label=前の章]').click();assert.equal(await p.locator('.model-checklist').getAttribute('data-product-tab'),'value');await p.locator('.model-checklist h1').focus();await p.keyboard.press('ArrowRight');assert.equal(await p.locator('.model-checklist').getAttribute('data-product-tab'),'summary');assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'false');
  });
  await check('retired card experience is absent from the story and the last chapter ends in exploration',async()=>{
   await go(3);assert.equal(await p.locator('.journey-dots button').count(),4);assert.equal(await p.locator('[data-object=cards],.studio-play-card').count(),0);
   assert.equal(/day\s*card|カードをひく/i.test(await p.locator('body').innerText()),false);
-  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();await p.waitForFunction(()=>[...document.querySelectorAll('.studio-object')].filter(e=>getComputedStyle(e).visibility==='visible').length===4);assert.equal(await p.locator('.studio-object:visible').count(),4);await go(0);
+  await p.getByRole('tab',{name:'まとめ',exact:true}).click();await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();await p.waitForFunction(()=>[...document.querySelectorAll('.studio-object')].filter(e=>getComputedStyle(e).visibility==='visible').length===4);assert.equal(await p.locator('.studio-object:visible').count(),4);await go(0);
  });
  await check('archive keeps 20 pages, searches and restores the exact current model',async()=>{
   await go(2);await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.getByRole('button',{name:'4 ボタンの幅超過を発見',exact:true}).click();
@@ -151,10 +151,10 @@ try{
   await p.setViewportSize({width,height});
   for(let n=0;n<4;n++){
    await go(n);
-   const modes=n===2?['usage-0','usage-1','usage-2','parts','context','tools','harness','loop-part',...Array.from({length:7},(_,i)=>'loop-'+i),'limit','blocked',...Array.from({length:7},(_,i)=>'development-'+i)]:n===3?['product-0','product-1','product-2','product-3','product-4','value']:['page'];
+   const modes=n===2?['usage-0','usage-1','usage-2','parts','context','tools','harness','loop-part',...Array.from({length:7},(_,i)=>'loop-'+i),'limit','blocked',...Array.from({length:7},(_,i)=>'development-'+i)]:n===3?['product-0','product-1','product-2','product-3','product-4','comparison','value','summary']:['page'];
    for(const mode of modes){
     if(n===2&&mode.startsWith('usage-')){await p.getByRole('tab',{name:'利用の広がり',exact:true}).click();await p.locator('.usage-tabs button').nth(Number(mode.slice(-1))).click();}
-    if(n===3){await p.getByRole('tab',{name:mode==='value'?'競争力':'開発プロセス',exact:true}).click();if(mode!=='value')await p.locator('.product-step-rail button').nth(Number(mode.slice(-1))).click();}
+    if(n===3){await p.getByRole('tab',{name:({comparison:'開発の比較',value:'競争力',summary:'まとめ'})[mode]||'開発プロセス',exact:true}).click();if(mode.startsWith('product-'))await p.locator('.product-step-rail button').nth(Number(mode.slice(-1))).click();}
     if(n===2&&mode.startsWith('development-')){await p.getByRole('tab',{name:'発展をたどる',exact:true}).click();await selectDevelopment(Number(mode.slice(-1)));}
     else if(n===2&&!mode.startsWith('usage-')){const demo=/^loop-\d/.test(mode)||['limit','blocked'].includes(mode);await p.getByRole('tab',{name:demo?'動きを見る':'構成を見る',exact:true}).click();if(demo){const scenario=['limit','blocked'].includes(mode)?mode:'complete';await p.getByLabel('終了条件の例',{exact:true}).selectOption(scenario);await p.locator('.execution-track button').nth(scenario==='limit'?3:scenario==='blocked'?2:Number(mode.slice(-1))).click();}else await p.locator('.architecture-select[data-element='+({parts:'model',context:'context',tools:'tools',harness:'harness','loop-part':'loop'}[mode])+']').click();}
 
@@ -168,7 +168,7 @@ try{
     assert.ok(m.x>=0&&m.x+m.width<=width+2,JSON.stringify(m));assert.ok(Math.abs(m.x+m.width/2-width/2)<2);assert.ok(m.bottom<=m.footerTop+1,JSON.stringify(m));assert.ok(m.y>=m.headerBottom+2,JSON.stringify(m));assert.deepEqual(m.nodeOverflow,[],`Node text outside container: ${width} ${mode} ${JSON.stringify(m.nodeOverflow)}`);assert.equal(m.body,width);assert.equal(m.overflow,false,JSON.stringify(m));assert.equal(m.inert,false);if(width>=1280&&height>=720)assert.equal(m.verticalOverflow,false,`Desktop content needs scrolling: ${width} ${views[n]} ${mode}`);
     assert.ok(m.x>m.mesh.left&&m.x+m.width<m.mesh.right&&m.y>m.mesh.top&&m.bottom<m.mesh.bottom,JSON.stringify(m));assert.ok(m.insideBottom<=m.bottom+1&&m.scrollBottom<=m.insideTop+1,JSON.stringify(m));assert.deepEqual(m.outside,[],`${width}×${height} ${views[n]} ${mode}: ${JSON.stringify(m.outside)}`);
     await p.locator('.studio-surface-host[data-active=true] .model-page-scroll').evaluate(e=>e.scrollTop=e.scrollHeight);await p.locator('.studio-surface-host[data-active=true] .model-page-scroll').evaluate(e=>e.scrollTop=0);
-    if([1440,1366,1280].includes(width)&&['page','parts','context','loop-5','vision-1','vision-2','usage-0','usage-2','product-2','value','development-0','development-4','development-5','development-6'].includes(mode))await p.screenshot({path:`${output}/${width}-${views[n]}-${mode}.png`});
+    if([1440,1366,1280].includes(width)&&['page','parts','context','loop-5','vision-1','vision-2','usage-0','usage-2','product-2','comparison','value','summary','development-0','development-4','development-5','development-6'].includes(mode))await p.screenshot({path:`${output}/${width}-${views[n]}-${mode}.png`});
    }
   }
  });
@@ -184,8 +184,11 @@ try{
  await p.setViewportSize({width:1440,height:1000});await p.emulateMedia({reducedMotion:'no-preference'});
  await check('camera transitions are continuous, interruptible and never route through the overview',async()=>{
   await go(0);const before=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.locator('.journey-dots button').nth(2).click();await p.locator('.studio-scene[data-transition=true]').waitFor();
-  assert.equal(await p.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),true);await p.waitForTimeout(180);assert.equal(await p.locator('.studio-surface-host[data-active=true]').getAttribute('data-visible'),'true');assert.equal(await p.locator('.studio-surface-host').count(),4);const midway=await p.locator('.studio-scene').getAttribute('data-camera-position');assert.notEqual(midway,before);assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');
+  assert.equal(await p.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),true);await p.waitForTimeout(180);assert.equal(await p.locator('.studio-surface-host').count(),4);const midway=await p.locator('.studio-scene').getAttribute('data-camera-position');assert.notEqual(midway,before);assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');
   assert.equal(await p.locator('.studio-skip').count(),0);
+  // The destination enters the frustum during the direct move from the rotated journal.
+  await p.locator('.studio-scene[data-transition=true] .studio-surface-host[data-active=true][data-visible=true]').waitFor();
+  assert.equal(await p.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),true);
   await p.locator('.journey-dots button').nth(1).click();await p.locator('.studio-scene[data-view=notebook][data-transition=false]').waitFor();assert.equal(await p.locator('.studio-copy').count(),0);assert.ok((await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').innerText()).includes('Transformerとの接点'));
  });
  await check('settled close-up stops rendering and context loss recovers on the same model',async()=>{

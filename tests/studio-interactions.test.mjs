@@ -29,10 +29,11 @@ try{
  await page.locator('.journey-dots button').nth(3).click();await page.locator('[data-kind=checklist][data-interactive=true]').waitFor();await page.getByRole('tab',{name:'競争力',exact:true}).click();assert.equal(await page.getByText('議論の論点',{exact:true}).count(),0);assert.match(await page.locator('.advantage-closing').innerText(),/専門性をどの業務に活かし/);await shot('discussion');pass('closing discussion uses concise presentation wording');
  for(const [width,height] of [[1920,1080],[1440,900],[1280,720],[1280,600],[1024,576],[960,540]]){
   await page.setViewportSize({width,height});await settled();
+  for(const [label,mode] of [['競争力','value'],['開発の比較','comparison'],['まとめ','summary']]){await page.getByRole('tab',{name:label,exact:true}).click();
   const bounds=await page.locator('.model-checklist .model-page-scroll').evaluate(e=>{const r=e.getBoundingClientRect();return {h:e.clientHeight,scroll:e.scrollHeight,w:e.clientWidth,scrollW:e.scrollWidth,bad:[...e.querySelectorAll('p,h1,h2,small,button')].filter(c=>{const b=c.getBoundingClientRect();return b.bottom>r.bottom+1||b.right>r.right+1||b.left<r.left-1;}).map(c=>c.textContent),scale:e.getBoundingClientRect().width/e.offsetWidth};});
   assert.ok(bounds.scroll<=bounds.h+1&&bounds.scrollW<=bounds.w+1,JSON.stringify({width,height,...bounds}));assert.deepEqual(bounds.bad,[],JSON.stringify({width,height,...bounds}));assert.ok(Math.abs(bounds.scale-1)<.01,'text retains its natural proportions');
-  await shot(`value-${width}-${height}`);
- }await page.setViewportSize({width:1440,height:1000});pass('discussion fits six PC window sizes without scrolling, clipping or stretched text');
+  await shot(`${mode}-${width}-${height}`);}
+ }await page.setViewportSize({width:1440,height:1000});pass('value, comparison and closing fit six PC window sizes without scrolling, clipping or stretched text');
  await page.reload({waitUntil:'networkidle'});await page.locator('.studio-scene[data-status=ready]').waitFor();assert.equal((await state()).ink,'0');assert.equal(await scene.getAttribute('data-music'),'paused');await inspect('chalkboard');assert.equal(await canvas.evaluate(c=>c.toDataURL()),before);pass('reload restores original chalk sketch and leaves music off');
  assert.deepEqual(errors,[]);pass('no uncaught browser errors');
 }catch(error){await shot('failure');console.error(await scene.getAttribute('data-props'));throw error;}finally{await writeFile(out+'/report.json',JSON.stringify({reports,errors},null,2));await browser.close();}

@@ -26,6 +26,14 @@ try{
   page.on('console',m=>{if(m.type()==='error'&&/WebGL|THREE|shader|ReferenceError/i.test(m.text()))errors.push(m.text());});
   await mockWeather(page);
   await page.goto(process.env.STUDIO_URL||'http://127.0.0.1:5180/');const scene=page.locator('.studio-scene');await page.locator('.studio-scene[data-status=ready][data-weather-status=current]').waitFor();
+  await check('perpendicular windows load distinct courtyard and side-orchard landscapes',async()=>{
+    await page.waitForLoadState('networkidle');
+    const loaded=await page.evaluate(()=>performance.getEntriesByType('resource').filter(r=>r.name.includes('/environments/garden-')&&r.name.endsWith('.png')).map(r=>new URL(r.name).pathname));
+    assert.ok(loaded.includes('/environments/garden-seasons.png'));
+    assert.ok(loaded.includes('/environments/garden-side-seasons.png'));
+    const main=await page.request.get(new URL('/environments/garden-seasons.png',page.url()).href),side=await page.request.get(new URL('/environments/garden-side-seasons.png',page.url()).href);
+    assert.equal(main.status(),200);assert.equal(side.status(),200);assert.ok(!(await main.body()).equals(await side.body()));
+  });
   await check('live weather names its city, observes weather, and identifies the data source',async()=>{
     await page.locator('.environment-menu>summary').click();assert.match(await page.locator('.weather-current').innerText(),/東京/);assert.match(await page.locator('.weather-current').innerText(),/22°C/);assert.match(await page.locator('.weather-current').innerText(),/更新/);assert.equal(await page.locator('.weather-credit').getAttribute('href'),'https://open-meteo.com/');assert.equal(await scene.getAttribute('data-weather-mode'),'live');
   });

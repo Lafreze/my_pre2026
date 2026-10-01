@@ -370,11 +370,15 @@
     },
     {
       "path": "public/environments/CREDITS.md",
-      "bytes": 2163
+      "bytes": 3123
     },
     {
       "path": "public/environments/garden-seasons.png",
       "bytes": 4058214
+    },
+    {
+      "path": "public/environments/garden-side-seasons.png",
+      "bytes": 4208127
     },
     {
       "path": "public/favicon.svg",

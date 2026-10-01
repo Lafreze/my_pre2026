@@ -65,3 +65,59 @@
 .model-monitor .screen-heading .model-eyebrow{margin-bottom:4px}
 .model-monitor .execution-evidence{margin-top:6px}
 @media(min-width:1000px) and (max-height:850px){.agent-architecture[data-mode=loop]{row-gap:4px}}
+/* Product flow, comparison and closing share one calm holographic surface. */
+.model-checklist[data-product-tab] .model-page-scroll{display:flex;flex-direction:column;overflow:clip;padding:clamp(12px,3cqh,26px) clamp(24px,3.4cqw,38px)}
+.model-checklist[data-product-tab] .chapter-panel-heading{flex:0 0 auto;align-items:center;flex-wrap:nowrap;margin:0 0 clamp(10px,2cqh,20px);gap:16px}
+.model-checklist[data-product-tab] .chapter-panel-heading h1{font:400 clamp(21px,4.2cqh,28px)/1.45 Arial,"Yu Gothic",sans-serif;margin:0;text-wrap:balance}
+.model-checklist[data-product-tab] .chapter-panel-heading .model-eyebrow{font-size:8px;margin-bottom:6px}
+.model-checklist[data-product-tab] .paper-tabs{width:auto;flex-shrink:0}
+.model-checklist[data-product-tab] .paper-tabs button{font-size:10px;min-height:34px;padding:0 10px;white-space:nowrap}
+.product-section-panel{display:flex;flex-direction:column;flex:1;min-height:0}
+.development-comparison{display:flex;flex-direction:column;flex:1;min-height:0;gap:clamp(10px,2cqh,18px)}
+.model-checklist .comparison-intro,.model-checklist .conclusion-intro{font-size:clamp(12px,2.3cqh,15px);line-height:1.8;color:#cde4e9;margin:0}
+.development-comparison table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:clamp(11px,2.1cqh,13px);line-height:1.8}
+.development-comparison th,.development-comparison td{text-align:left;vertical-align:middle;border-bottom:1px solid #8acdd22e;padding:clamp(8px,1.6cqh,15px) 16px;font-weight:400}
+.development-comparison thead th{font-size:11px;color:#a1dce5;background:#183640}
+.development-comparison th:first-child{width:14%;padding-left:0;color:#dbedf0}
+.development-comparison thead th:first-child{background:transparent}
+.development-comparison td{color:#c0d5dc}
+.development-comparison td:last-child{color:#e1f0f1;background:#8bd9e807}
+.comparison-boundary{display:flex;align-items:baseline;gap:20px;border-left:2px solid #a3d7df;padding:8px 16px;background:#163641}
+.model-checklist .comparison-boundary span,.conclusion-note span{font-size:10px;color:#a2d7df;flex-shrink:0}
+.model-checklist .comparison-boundary p{font-size:13px;margin:0;color:#e1edf0;line-height:1.7}
+.model-checklist .comparison-note{font-size:10px;line-height:1.7;color:#aec8cd;margin:0}
+.presentation-conclusion{display:flex;flex-direction:column;flex:1;min-height:0;gap:clamp(16px,4cqh,35px)}
+.conclusion-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;flex:1;align-content:center}
+.conclusion-points article{border-top:1px solid #8dd4df55;padding-top:clamp(14px,3.3cqh,28px)}
+.model-checklist .conclusion-points .model-eyebrow{font-size:9px;color:#a0dbe6;margin-bottom:12px}
+.model-checklist .conclusion-points h2{font-size:clamp(18px,3.7cqh,25px);line-height:1.5;margin:0 0 14px}
+.model-checklist .conclusion-points p{font-size:clamp(12px,2.35cqh,15px);color:#cadde2;line-height:1.85;margin:0}
+.conclusion-note{display:flex;align-items:baseline;gap:22px;padding:16px 20px;border:1px solid #8cd4df30;background:#15343e}
+.model-checklist .conclusion-note p{font-size:clamp(14px,2.8cqh,18px);color:#e2eff2;line-height:1.7;margin:0}
+.model-checklist .conclusion-signature{font-size:13px;letter-spacing:.13em;color:#d4e6e8;margin:0;text-align:right}
+.conclusion-signature span{margin-left:14px;font-size:9px;letter-spacing:.15em;color:#9cbec6}
+@container(max-height:480px){
+ .model-checklist[data-product-tab] .paper-tabs button{font-size:9px;padding:0 8px;min-height:30px}
+ .development-comparison{gap:6px}.development-comparison th,.development-comparison td{padding:5px 12px;font-size:11px;line-height:1.65}
+ .model-checklist .comparison-note{font-size:9px}.comparison-boundary{padding:7px 12px}.model-checklist .comparison-boundary p{font-size:12px}
+ .presentation-conclusion{gap:13px}.conclusion-points{gap:22px}.conclusion-points article{padding-top:14px}.model-checklist .conclusion-points h2{margin-bottom:8px}.model-checklist .conclusion-points .model-eyebrow{margin-bottom:8px}.conclusion-note{padding:12px 16px}
+}
+
+@container(max-height:460px){
+ .model-checklist[data-product-tab=comparison] .model-page-scroll{padding-top:10px;padding-bottom:10px}
+ .model-checklist[data-product-tab=comparison] .chapter-panel-heading{margin-bottom:8px}
+ .model-checklist .comparison-intro{font-size:11px;line-height:1.6}
+ .development-comparison th,.development-comparison td{font-size:10.5px;line-height:1.5;padding:4px 10px}
+ .development-comparison th:first-child{width:12%}
+ .comparison-boundary{padding:5px 10px;gap:12px}.model-checklist .comparison-boundary p{font-size:11px}
+ .model-checklist .comparison-note{font-size:9px;line-height:1.5}
+}
+
+@container(max-height:420px){
+ .development-comparison{gap:4px}.development-comparison th,.development-comparison td{padding-top:3px;padding-bottom:3px}
+ .model-checklist[data-product-tab=summary] .model-page-scroll{padding-top:10px;padding-bottom:10px}
+ .presentation-conclusion{gap:9px}.conclusion-note{padding:8px 12px;gap:12px}.conclusion-points{gap:18px}
+ .model-checklist .conclusion-points p{font-size:11px;line-height:1.7}
+ .model-checklist .conclusion-points .model-eyebrow{margin-bottom:6px}.model-checklist .conclusion-points h2{margin-bottom:6px}
+ .model-checklist .conclusion-signature{font-size:11px;line-height:1.5}
+}

@@ -4,8 +4,8 @@ import {metricUV} from "../surfaceMaterials";
 import {sunDirection,type Environment} from "./environment";
 
 /** Window-local +Z points into the room; every layer stays inside the real wall aperture. */
-export function createWindow(position:T.Vector3,rotation:number,width:number,height:number,oak:T.Material,invalidate:()=>void) {
-  const root=new T.Group();root.name="Architectural window";root.position.copy(position);root.rotation.y=rotation;
+export function createWindow(position:T.Vector3,rotation:number,width:number,height:number,oak:T.Material,invalidate:()=>void,view:"courtyard"|"orchard") {
+  const root=new T.Group();root.name=`Architectural window / ${view}`;root.userData.landscape=view;root.position.copy(position);root.rotation.y=rotation;
   const white=new T.MeshStandardMaterial({color:"#f4eedc",roughness:.6}),seal=new T.MeshStandardMaterial({color:"#647266",roughness:.84}),brass=new T.MeshStandardMaterial({color:"#aa9671",roughness:.31,metalness:.74});
   function box(w:number,h:number,d:number,x:number,y:number,z:number,m:T.Material,r=.006){const b=new T.Mesh(metricUV(new RoundedBoxGeometry(w,h,d,2,r)),m);b.position.set(x,y,z);b.castShadow=true;b.receiveShadow=true;root.add(b);return b;}
   for(const x of [-width/2-.038,width/2+.038]){
@@ -20,20 +20,20 @@ export function createWindow(position:T.Vector3,rotation:number,width:number,hei
   for(const y of [-height*.32,height*.32])for(const x of [-width/2+.017,width/2-.017]){
     const hinge=new T.Mesh(new T.CylinderGeometry(.009,.009,.07,12),brass);hinge.position.set(x,y,.132);root.add(hinge);
   }
-  const sky=new T.ShaderMaterial({depthWrite:false,side:T.DoubleSide,uniforms:{clock:{value:0},top:{value:new T.Color()},bottom:{value:new T.Color()},cloud:{value:.1},night:{value:0},sun:{value:new T.Vector2(.3,.7)}},vertexShader:`varying vec2 v;void main(){v=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`
-    varying vec2 v;uniform vec3 top,bottom;uniform float clock,cloud,night;uniform vec2 sun;
+  const sky=new T.ShaderMaterial({depthWrite:false,side:T.DoubleSide,uniforms:{clock:{value:0},top:{value:new T.Color()},bottom:{value:new T.Color()},cloud:{value:.1},night:{value:0},sun:{value:new T.Vector2(.3,.7)},moon:{value:new T.Vector2(-10,-10)}},vertexShader:`varying vec2 v;void main(){v=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`
+    varying vec2 v;uniform vec3 top,bottom;uniform float clock,cloud,night;uniform vec2 sun,moon;
     float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
     float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
     void main(){vec3 c=mix(bottom,top,smoothstep(.1,1.,v.y));vec2 p=v*vec2(3.,6.)+vec2(clock*.007,0.);float n=noise(p)+.5*noise(p*2.1)+.25*noise(p*4.3);float clouds=smoothstep(1.15-cloud*.5,1.45-cloud*.2,n)*smoothstep(.2,.55,v.y);c=mix(c,mix(vec3(.94,.95,.92),vec3(.23,.29,.35),night),clouds*(.18+cloud*.57));
       vec2 q=(v-sun)*vec2(1.45,1.);float disk=1.-smoothstep(.026,.032,length(q));float halo=exp(-length(q)*19.)*.2;c+=vec3(1.,.85,.61)*(disk*.5+halo)*(1.-cloud)* (1.-night);
       float star=step(.997,hash(floor(v*vec2(170.,105.))))*(1.-smoothstep(.025,.07,length(fract(v*vec2(170.,105.))-.5)));c+=vec3(.67,.74,.8)*star*night*(1.-cloud)*smoothstep(.35,.7,v.y);
-      vec2 moon=(v-vec2(.78,.79))*vec2(1.45,1.);float crescent=(1.-smoothstep(.026,.029,length(moon)))*smoothstep(.022,.026,length(moon-vec2(.01,.004)));c+=vec3(.8,.85,.73)*crescent*night*(1.-cloud*.8);gl_FragColor=vec4(c,1.);
+      vec2 moonUV=(v-moon)*vec2(1.45,1.);float crescent=(1.-smoothstep(.026,.029,length(moonUV)))*smoothstep(.022,.026,length(moonUV-vec2(.01,.004)));c+=vec3(.8,.85,.73)*crescent*night*(1.-cloud*.8);gl_FragColor=vec4(c,1.);
     }`});
   const skyMesh=new T.Mesh(new T.PlaneGeometry(width,height),sky);skyMesh.position.z=-.10;skyMesh.raycast=()=>{};root.add(skyMesh);
   let disposed=false;
-  const landscapeTexture=new T.TextureLoader().load("/environments/garden-seasons.png",()=>{if(disposed)landscapeTexture.dispose();else{landscapeMat.uniforms.ready.value=1;invalidate();}},undefined,()=>{if(!disposed)invalidate();});
+  const landscapeTexture=new T.TextureLoader().load(view==="orchard"?"/environments/garden-side-seasons.png":"/environments/garden-seasons.png",()=>{if(disposed)landscapeTexture.dispose();else{landscapeMat.uniforms.ready.value=1;invalidate();}},undefined,()=>{if(!disposed)invalidate();});
   landscapeTexture.colorSpace=T.SRGBColorSpace;landscapeTexture.anisotropy=4;
-  const landscapeMat=new T.ShaderMaterial({transparent:true,depthWrite:false,side:T.DoubleSide,uniforms:{ready:{value:0},atlas:{value:landscapeTexture},quadrant:{value:new T.Vector2(0,.5)},night:{value:0},cloud:{value:0},warm:{value:0},aspect:{value:width/height},offset:{value:rotation?-.035:.035}},vertexShader:`varying vec2 v;void main(){v=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`
+  const landscapeMat=new T.ShaderMaterial({transparent:true,depthWrite:false,side:T.DoubleSide,uniforms:{ready:{value:0},atlas:{value:landscapeTexture},quadrant:{value:new T.Vector2(0,.5)},night:{value:0},cloud:{value:0},warm:{value:0},aspect:{value:width/height},offset:{value:0}},vertexShader:`varying vec2 v;void main(){v=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`
     varying vec2 v;uniform sampler2D atlas;uniform vec2 quadrant;uniform float night,cloud,warm,aspect,offset,ready;
     void main(){vec2 p=v;float crop=min(1.,aspect/1.5);p.x=(p.x-.5)*crop+.5+offset;
       p=clamp(p,vec2(.003),vec2(.997));vec3 c=texture2D(atlas,quadrant+p*.5).rgb;
@@ -68,10 +68,13 @@ export function createWindow(position:T.Vector3,rotation:number,width:number,hei
     const season=["spring","summer","autumn","winter"].indexOf(env.season);
     landscapeMat.uniforms.quadrant.value.set(season%2*.5,season<2?.5:0);
     landscapeMat.uniforms.night.value=night;landscapeMat.uniforms.cloud.value=env.cloud;landscapeMat.uniforms.warm.value=warm;
-    sky.uniforms.clock.value=clock;sky.uniforms.cloud.value=env.cloud;sky.uniforms.night.value=night;
+    sky.uniforms.clock.value=clock+(view==="orchard"?43:0);sky.uniforms.cloud.value=env.cloud;sky.uniforms.night.value=night;
     sky.uniforms.top.value.set(night>.65?"#152e46":env.cloud>.7?"#859ba5":"#8fbbd1");sky.uniforms.bottom.value.set(night>.65?"#5d6471":warm>.65?"#e5bea1":"#e1e9db");const localSun=new T.Vector3(...sunDirection(env)).applyAxisAngle(new T.Vector3(0,1,0),-rotation);
     if(localSun.z<-.05)sky.uniforms.sun.value.set(.5+localSun.x/(-localSun.z)*.5,.48+localSun.y/(-localSun.z)*.5);else sky.uniforms.sun.value.set(-10,-10);
-    rain.uniforms.clock.value=clock;rain.uniforms.rain.value=env.weather==="rain"?.65:env.weather==="storm"?1:0;rain.uniforms.snow.value=env.weather==="snow"?1:0;rain.uniforms.fog.value=env.weather==="fog"?1:env.weather==="storm"?.25:0;rain.uniforms.night.value=night;
+    // Project one illustrative world-space moon direction into each window.
+    const localMoon=new T.Vector3(-.40,.55,-.72).applyAxisAngle(new T.Vector3(0,1,0),-rotation);
+    if(localMoon.z<-.05)sky.uniforms.moon.value.set(.5+localMoon.x/(-localMoon.z)*.5,.48+localMoon.y/(-localMoon.z)*.5);else sky.uniforms.moon.value.set(-10,-10);
+    rain.uniforms.clock.value=clock+(view==="orchard"?17.3:0);rain.uniforms.rain.value=env.weather==="rain"?.65:env.weather==="storm"?1:0;rain.uniforms.snow.value=env.weather==="snow"?1:0;rain.uniforms.fog.value=env.weather==="fog"?1:env.weather==="storm"?.25:0;rain.uniforms.night.value=night;
     const direction=new T.Vector3(...sunDirection(env)).negate(),normal=new T.Vector3(0,0,1).applyAxisAngle(new T.Vector3(0,1,0),rotation);
     const enabled=env.altitude>3&&direction.dot(normal)>.08&&env.cloud<.7&&openness>.04;
     shaftRoot.visible=enabled;root.updateMatrixWorld(true);

@@ -1,11 +1,11 @@
 {
-  "date": "2026-10-01",
-  "target": "Production static export at http://127.0.0.1:5180/",
-  "scope": "Four-chapter narrative, unified LLM/Agent monitor, distinct history/product/technology perspectives, general Agent-assisted product development",
-  "checks": 73,
-  "passed": 73,
-  "layoutStates": 192,
-  "additionalDiscussionViewports": [
+  "date": "2026-10-02",
+  "target": "Production static export at http://127.0.0.1:5181/",
+  "scope": "Sofa-aligned coffee table, distinct perpendicular window landscapes, conventional/Agent-assisted development comparison, closing summary and continuous chapter navigation",
+  "checks": 74,
+  "passed": 74,
+  "layoutStates": 204,
+  "additionalProductViewports": [
     [
       1920,
       1080
@@ -31,6 +31,11 @@
       540
     ]
   ],
+  "additionalProductStates": [
+    "value",
+    "comparison",
+    "summary"
+  ],
   "suites": {
     "story": {
       "results": [
@@ -39,7 +44,7 @@
           "pass": true
         },
         {
-          "name": "four chapters have a 625-second script and preserve the supplied personal history",
+          "name": "four chapters have a 685-second script and preserve the supplied personal history",
           "pass": true
         },
         {
@@ -79,7 +84,7 @@
           "pass": true
         },
         {
-          "name": "product workflow replaces the screenshot with five stages and leads to four competitive advantages",
+          "name": "product flow advances through comparison, expertise and a dedicated closing screen",
           "pass": true
         },
         {
@@ -165,10 +170,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 388.46876475667204,
-            "right": 1531.5312352433282,
-            "top": 215.26634361174564,
-            "bottom": 864.7336563882544
+            "left": 388.4687647566707,
+            "right": 1531.531235243327,
+            "top": 215.26634361174618,
+            "bottom": 864.7336563882557
           },
           "insideBottom": 858.2347412109375,
           "scrollBottom": 801.2244873046875,
@@ -195,10 +200,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 388.46876475667193,
-            "right": 1531.531235243328,
-            "top": 215.26634361174564,
-            "bottom": 864.7336563882544
+            "left": 388.46876475667153,
+            "right": 1531.5312352433282,
+            "top": 215.26634361174527,
+            "bottom": 864.7336563882545
           },
           "insideBottom": 858.2347412109375,
           "scrollBottom": 801.2244873046875,
@@ -225,8 +230,8 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 388.4806010832399,
-            "right": 1531.51939891676,
+            "left": 388.48060108323966,
+            "right": 1531.5193989167599,
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
@@ -1082,7 +1087,67 @@
             1080
           ],
           "chapter": 3,
+          "mode": "comparison",
+          "x": 399.9517517089844,
+          "y": 221.79075622558594,
+          "width": 1120.096435546875,
+          "height": 636.4141845703125,
+          "body": 1920,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 858.2049407958984,
+          "footerTop": 1002,
+          "headerBottom": 69,
+          "inert": false,
+          "mesh": {
+            "left": 388.52218662593515,
+            "right": 1531.4778133740647,
+            "top": 215.29669694655402,
+            "bottom": 864.703303053446
+          },
+          "insideBottom": 857.2048950195312,
+          "scrollBottom": 800.199951171875,
+          "insideTop": 800.199951171875,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "chapter": 3,
           "mode": "value",
+          "x": 399.9517517089844,
+          "y": 221.79075622558594,
+          "width": 1120.096435546875,
+          "height": 636.4141845703125,
+          "body": 1920,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 858.2049407958984,
+          "footerTop": 1002,
+          "headerBottom": 69,
+          "inert": false,
+          "mesh": {
+            "left": 388.52218662593515,
+            "right": 1531.4778133740647,
+            "top": 215.29669694655402,
+            "bottom": 864.703303053446
+          },
+          "insideBottom": 857.2048950195312,
+          "scrollBottom": 800.199951171875,
+          "insideTop": 800.199951171875,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1920,
+            1080
+          ],
+          "chapter": 3,
+          "mode": "summary",
           "x": 399.9517517089844,
           "y": 221.79075622558594,
           "width": 1120.096435546875,
@@ -1125,10 +1190,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 268.46583096276953,
-            "right": 1411.5341690372306,
-            "top": 200.26467668339188,
-            "bottom": 849.7353233166082
+            "left": 268.4658309627687,
+            "right": 1411.5341690372304,
+            "top": 200.26467668339149,
+            "bottom": 849.7353233166083
           },
           "insideBottom": 843.236328125,
           "scrollBottom": 786.225830078125,
@@ -1155,10 +1220,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 268.4658309627694,
-            "right": 1411.5341690372304,
-            "top": 200.26467668339188,
-            "bottom": 849.7353233166082
+            "left": 268.4658309627678,
+            "right": 1411.5341690372297,
+            "top": 200.264676683392,
+            "bottom": 849.7353233166095
           },
           "insideBottom": 843.236328125,
           "scrollBottom": 786.225830078125,
@@ -1185,10 +1250,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 268.47800558788026,
+            "left": 268.47800558788,
             "right": 1411.5219944121197,
-            "top": 200.2715940840227,
-            "bottom": 849.7284059159773
+            "top": 200.27159408402264,
+            "bottom": 849.7284059159774
           },
           "insideBottom": 842.2294311523438,
           "scrollBottom": 785.2200775146484,
@@ -2042,7 +2107,67 @@
             1050
           ],
           "chapter": 3,
+          "mode": "comparison",
+          "x": 279.95037841796875,
+          "y": 206.78997802734375,
+          "width": 1120.099365234375,
+          "height": 636.415771484375,
+          "body": 1680,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 843.2057495117188,
+          "footerTop": 972,
+          "headerBottom": 69,
+          "inert": false,
+          "mesh": {
+            "left": 268.520779588504,
+            "right": 1411.479220411496,
+            "top": 200.29589749346815,
+            "bottom": 849.7041025065319
+          },
+          "insideBottom": 842.2056884765625,
+          "scrollBottom": 785.2006225585938,
+          "insideTop": 785.2006225585938,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1680,
+            1050
+          ],
+          "chapter": 3,
           "mode": "value",
+          "x": 279.95037841796875,
+          "y": 206.78997802734375,
+          "width": 1120.099365234375,
+          "height": 636.415771484375,
+          "body": 1680,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 843.2057495117188,
+          "footerTop": 972,
+          "headerBottom": 69,
+          "inert": false,
+          "mesh": {
+            "left": 268.520779588504,
+            "right": 1411.479220411496,
+            "top": 200.29589749346815,
+            "bottom": 849.7041025065319
+          },
+          "insideBottom": 842.2056884765625,
+          "scrollBottom": 785.2006225585938,
+          "insideTop": 785.2006225585938,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1680,
+            1050
+          ],
+          "chapter": 3,
+          "mode": "summary",
           "x": 279.95037841796875,
           "y": 206.78997802734375,
           "width": 1120.099365234375,
@@ -2085,10 +2210,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 148.44822756682115,
-            "right": 1291.5517724331792,
-            "top": 125.25467475387569,
-            "bottom": 774.7453252461244
+            "left": 148.448227566821,
+            "right": 1291.5517724331787,
+            "top": 125.25467475387549,
+            "bottom": 774.745325246124
           },
           "insideBottom": 768.2461547851562,
           "scrollBottom": 711.23388671875,
@@ -2115,10 +2240,10 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 148.448227566821,
-            "right": 1291.5517724331792,
-            "top": 125.25467475387569,
-            "bottom": 774.7453252461244
+            "left": 148.44822756681987,
+            "right": 1291.5517724331783,
+            "top": 125.25467475387579,
+            "bottom": 774.7453252461256
           },
           "insideBottom": 768.2461547851562,
           "scrollBottom": 711.23388671875,
@@ -2145,8 +2270,8 @@
           "headerBottom": 69,
           "inert": false,
           "mesh": {
-            "left": 148.4624321206465,
-            "right": 1291.5375678793537,
+            "left": 148.46243212064633,
+            "right": 1291.5375678793532,
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
@@ -3002,7 +3127,67 @@
             900
           ],
           "chapter": 3,
+          "mode": "comparison",
+          "x": 159.9420928955078,
+          "y": 131.7852783203125,
+          "width": 1120.11572265625,
+          "height": 636.4251708984375,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 768.21044921875,
+          "footerTop": 822,
+          "headerBottom": 69,
+          "inert": false,
+          "mesh": {
+            "left": 148.51233721841578,
+            "right": 1291.4876627815838,
+            "top": 125.29110069228173,
+            "bottom": 774.7088993077182
+          },
+          "insideBottom": 767.2103271484375,
+          "scrollBottom": 710.2044982910156,
+          "insideTop": 710.2044677734375,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "chapter": 3,
           "mode": "value",
+          "x": 159.9420928955078,
+          "y": 131.7852783203125,
+          "width": 1120.11572265625,
+          "height": 636.4251708984375,
+          "body": 1440,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 768.21044921875,
+          "footerTop": 822,
+          "headerBottom": 69,
+          "inert": false,
+          "mesh": {
+            "left": 148.51233721841578,
+            "right": 1291.4876627815838,
+            "top": 125.29110069228173,
+            "bottom": 774.7088993077182
+          },
+          "insideBottom": 767.2103271484375,
+          "scrollBottom": 710.2044982910156,
+          "insideTop": 710.2044677734375,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "chapter": 3,
+          "mode": "summary",
           "x": 159.9420928955078,
           "y": 131.7852783203125,
           "width": 1120.11572265625,
@@ -3045,10 +3230,10 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.45396209172122,
-            "right": 1198.546037908279,
-            "top": 91.0761148248419,
-            "bottom": 676.9238851751586
+            "left": 167.4539620917191,
+            "right": 1198.5460379082774,
+            "top": 91.07611482484232,
+            "bottom": 676.9238851751602
           },
           "insideBottom": 671.0654296875,
           "scrollBottom": 622.0542449951172,
@@ -3075,10 +3260,10 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.45396209172114,
+            "left": 167.45396209172077,
             "right": 1198.546037908279,
-            "top": 91.0761148248419,
-            "bottom": 676.9238851751586
+            "top": 91.07611482484134,
+            "bottom": 676.9238851751585
           },
           "insideBottom": 671.0654296875,
           "scrollBottom": 622.0542449951172,
@@ -3105,8 +3290,8 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.46750562645423,
-            "right": 1198.532494373546,
+            "left": 167.467505626454,
+            "right": 1198.5324943735457,
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
@@ -3962,7 +4147,67 @@
             768
           ],
           "chapter": 3,
+          "mode": "comparison",
+          "x": 177.8247833251953,
+          "y": 96.9686279296875,
+          "width": 1010.3447875976562,
+          "height": 574.062744140625,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 671.0313720703125,
+          "footerTop": 696,
+          "headerBottom": 63,
+          "inert": false,
+          "mesh": {
+            "left": 167.51508805027618,
+            "right": 1198.4849119497237,
+            "top": 91.11084548311146,
+            "bottom": 676.8891545168885
+          },
+          "insideBottom": 670.03125,
+          "scrollBottom": 621.0258941650391,
+          "insideTop": 621.02587890625,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 3,
           "mode": "value",
+          "x": 177.8247833251953,
+          "y": 96.9686279296875,
+          "width": 1010.3447875976562,
+          "height": 574.062744140625,
+          "body": 1366,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 671.0313720703125,
+          "footerTop": 696,
+          "headerBottom": 63,
+          "inert": false,
+          "mesh": {
+            "left": 167.51508805027618,
+            "right": 1198.4849119497237,
+            "top": 91.11084548311146,
+            "bottom": 676.8891545168885
+          },
+          "insideBottom": 670.03125,
+          "scrollBottom": 621.0258941650391,
+          "insideTop": 621.02587890625,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1366,
+            768
+          ],
+          "chapter": 3,
+          "mode": "summary",
           "x": 177.8247833251953,
           "y": 96.9686279296875,
           "width": 1010.3447875976562,
@@ -4005,10 +4250,10 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.5682518460401,
-            "right": 1112.4317481539601,
-            "top": 91.57287036706836,
-            "bottom": 628.4271296329317
+            "left": 167.56825184603827,
+            "right": 1112.4317481539588,
+            "top": 91.57287036706873,
+            "bottom": 628.4271296329332
           },
           "insideBottom": 623.05859375,
           "scrollBottom": 574.0476684570312,
@@ -4035,10 +4280,10 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.56825184603997,
-            "right": 1112.4317481539601,
-            "top": 91.57287036706836,
-            "bottom": 628.4271296329317
+            "left": 167.56825184603917,
+            "right": 1112.4317481539592,
+            "top": 91.57287036706852,
+            "bottom": 628.4271296329325
           },
           "insideBottom": 623.05859375,
           "scrollBottom": 574.0476684570312,
@@ -4065,14 +4310,14 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 167.58038305964652,
-            "right": 1112.4196169403538,
+            "left": 167.58038305964632,
+            "right": 1112.4196169403533,
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 622.0515747070312,
-          "scrollBottom": 573.0419464111328,
-          "insideTop": 573.0419311523438,
+          "insideBottom": 622.0516357421875,
+          "scrollBottom": 573.0420074462891,
+          "insideTop": 573.0419921875,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4922,7 +5167,67 @@
             720
           ],
           "chapter": 3,
+          "mode": "comparison",
+          "x": 177.07054138183594,
+          "y": 96.9719009399414,
+          "width": 925.848876953125,
+          "height": 526.05615234375,
+          "body": 1280,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 623.0280532836914,
+          "footerTop": 648,
+          "headerBottom": 63,
+          "inert": false,
+          "mesh": {
+            "left": 167.62300369754576,
+            "right": 1112.3769963024542,
+            "top": 91.6039793736056,
+            "bottom": 628.3960206263944
+          },
+          "insideBottom": 622.0280151367188,
+          "scrollBottom": 573.0227661132812,
+          "insideTop": 573.0227661132812,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1280,
+            720
+          ],
+          "chapter": 3,
           "mode": "value",
+          "x": 177.07054138183594,
+          "y": 96.9719009399414,
+          "width": 925.848876953125,
+          "height": 526.05615234375,
+          "body": 1280,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 623.0280532836914,
+          "footerTop": 648,
+          "headerBottom": 63,
+          "inert": false,
+          "mesh": {
+            "left": 167.62300369754576,
+            "right": 1112.3769963024542,
+            "top": 91.6039793736056,
+            "bottom": 628.3960206263944
+          },
+          "insideBottom": 622.0280151367188,
+          "scrollBottom": 573.0227661132812,
+          "insideTop": 573.0227661132812,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1280,
+            720
+          ],
+          "chapter": 3,
+          "mode": "summary",
           "x": 177.07054138183594,
           "y": 96.9719009399414,
           "width": 925.848876953125,
@@ -4965,10 +5270,10 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 60.88965098510266,
-            "right": 963.1103490148976,
-            "top": 127.68730169608114,
-            "bottom": 640.3126983039189
+            "left": 60.889650985102605,
+            "right": 963.1103490148973,
+            "top": 127.68730169608097,
+            "bottom": 640.3126983039188
           },
           "insideBottom": 635.1793212890625,
           "scrollBottom": 586.1695556640625,
@@ -4995,10 +5300,10 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 60.889650985102605,
-            "right": 963.1103490148973,
-            "top": 127.68730169608114,
-            "bottom": 640.3126983039189
+            "left": 60.88965098510147,
+            "right": 963.1103490148967,
+            "top": 127.6873016960813,
+            "bottom": 640.31269830392
           },
           "insideBottom": 635.1793212890625,
           "scrollBottom": 586.1695556640625,
@@ -5015,7 +5320,7 @@
           "mode": "usage-0",
           "x": 69.9220199584961,
           "y": 132.8193359375,
-          "width": 884.1559448242188,
+          "width": 884.156005859375,
           "height": 502.354248046875,
           "body": 1024,
           "overflow": false,
@@ -5025,10 +5330,10 @@
           "headerBottom": 63,
           "inert": false,
           "mesh": {
-            "left": 60.900020635757755,
-            "right": 963.0999793642425,
-            "top": 127.69319354304409,
-            "bottom": 640.3068064569559
+            "left": 60.90002063575747,
+            "right": 963.0999793642421,
+            "top": 127.693193543044,
+            "bottom": 640.306806456956
           },
           "insideBottom": 634.1734008789062,
           "scrollBottom": 585.1647186279297,
@@ -5882,7 +6187,67 @@
             768
           ],
           "chapter": 3,
+          "mode": "comparison",
+          "x": 69.95772552490234,
+          "y": 132.83961486816406,
+          "width": 884.0845336914062,
+          "height": 502.31365966796875,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 635.1532745361328,
+          "footerTop": 696,
+          "headerBottom": 63,
+          "inert": false,
+          "mesh": {
+            "left": 60.93645281052204,
+            "right": 963.0635471894777,
+            "top": 127.71389364234216,
+            "bottom": 640.2861063576579
+          },
+          "insideBottom": 634.1531372070312,
+          "scrollBottom": 585.1485137939453,
+          "insideTop": 585.1484985351562,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 3,
           "mode": "value",
+          "x": 69.95772552490234,
+          "y": 132.83961486816406,
+          "width": 884.0845336914062,
+          "height": 502.31365966796875,
+          "body": 1024,
+          "overflow": false,
+          "verticalOverflow": false,
+          "bottom": 635.1532745361328,
+          "footerTop": 696,
+          "headerBottom": 63,
+          "inert": false,
+          "mesh": {
+            "left": 60.93645281052204,
+            "right": 963.0635471894777,
+            "top": 127.71389364234216,
+            "bottom": 640.2861063576579
+          },
+          "insideBottom": 634.1531372070312,
+          "scrollBottom": 585.1485137939453,
+          "insideTop": 585.1484985351562,
+          "outside": [],
+          "nodeOverflow": []
+        },
+        {
+          "viewport": [
+            1024,
+            768
+          ],
+          "chapter": 3,
+          "mode": "summary",
           "x": 69.95772552490234,
           "y": 132.83961486816406,
           "width": 884.0845336914062,
@@ -5955,13 +6320,13 @@
       "metrics": [
         {
           "mode": "ambient",
-          "renderedFrames": 34,
+          "renderedFrames": 33,
           "milliseconds": 1100
         },
         {
           "mode": "notebook",
-          "drawCalls": 44,
-          "triangles": 301146,
+          "drawCalls": 55,
+          "triangles": 334512,
           "quality": "standard"
         }
       ]
@@ -5974,6 +6339,10 @@
         },
         {
           "name": "season and solar direction respect hemisphere, date and local time",
+          "pass": true
+        },
+        {
+          "name": "perpendicular windows load distinct courtyard and side-orchard landscapes",
           "pass": true
         },
         {
@@ -6089,7 +6458,7 @@
           "pass": true
         },
         {
-          "name": "discussion fits six PC window sizes without scrolling, clipping or stretched text",
+          "name": "value, comparison and closing fit six PC window sizes without scrolling, clipping or stretched text",
           "pass": true
         },
         {
@@ -6111,8 +6480,8 @@
       {
         "name": "closed journal opens during direct approach",
         "pass": true,
-        "milliseconds": 2034,
-        "sampledFrames": 122
+        "milliseconds": 2070,
+        "sampledFrames": 124
       },
       {
         "name": "AI encounter stays on the open journal",
@@ -6125,8 +6494,8 @@
       {
         "name": "focus on projector before unfolding the light field",
         "pass": true,
-        "milliseconds": 3583,
-        "sampledFrames": 215
+        "milliseconds": 3553,
+        "sampledFrames": 214
       },
       {
         "name": "journal closes; bookshelf and chalkboard never become chapter destinations",
@@ -6146,19 +6515,19 @@
     "mobile": "not in scope"
   },
   "notes": [
-    "Four chapters share three physical presentation objects. LLM usage, architecture, execution and development are four sections within one monitor chapter.",
-    "Only the historical perspective has a year rail. Product categories describe purposes; supporting technologies describe roles and have no timeline dates.",
-    "The introduction adds an accurate topic: generative AI expands from text generation to product development using Agent tools, with human judgment on requirements, quality and release.",
-    "Product development explains five general stages, human decisions, Agent work and expected outputs. The fictional log comparison proposal and decorative verification arrow card have been removed.",
-    "All 192 story states remain centered and within the model. At 1280×720 and larger, main content does not require scrolling. The discussion also fits smaller PC windows.",
-    "Book turns, stationary monitor transitions, staged holographic unfolding, source archive restoration and WebGL fallback pass.",
-    "Fifteen direct object interactions, temporary chalk writing, curtains, lamps, independent cabinet doors, and user-initiated music remain functional.",
-    "Final copy-only correction removes redundant wording in the technology introduction; its shorter text is checked in the rebuilt preview."
+    "Four chapters remain on three physical story objects. Product development now advances through process, comparison, expertise and closing, with footer and keyboard back/forward navigation.",
+    "Comparison distinguishes task delegation from automation already used in conventional development. No unmeasured productivity claims or unconditional autonomous-delivery claims are made.",
+    "All 204 main story states remain centered and within their model. The comparison, expertise and closing also fit six PC window sizes, including 960 by 540, without scrolling, clipping or stretched glyphs.",
+    "The 44 cm rounded oak coffee table follows the sofa orientation, carries an articulated journal, coffee and saucer, coasters, linen, flowers and a slatted book shelf. Coffee steam and inspection move with the mug.",
+    "Perpendicular windows load distinct courtyard and side-orchard seasonal atlases. Weather and season remain synchronized; cloud and precipitation phases and celestial projections vary with each window.",
+    "All fifteen direct living-object interactions, temporary chalk, independent curtains and doors, user-initiated music, journal turns, gaze and fixed hologram unfolding pass.",
+    "Production preview now sends explicit content lengths, avoiding the interrupted chunked image loads observed in the original local test service."
   ],
   "assets": {
     "pbrTextures": 27,
     "publicLicense": "Existing Poly Haven CC0 textures",
-    "models": "Existing procedural studio models retained",
+    "seasonalAtlases": 2,
+    "models": "Procedural rounded coffee table and additional ceramic/linen/botanical details",
     "music": "Original Web Audio sequence"
   }
 }
