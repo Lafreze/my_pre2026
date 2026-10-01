@@ -22,7 +22,7 @@ async function go(n,page=p){
 try{
  await mockWeather(p);
  await p.goto(base,{waitUntil:'networkidle'});await p.locator('.studio-scene[data-status=ready]').waitFor();
- await check('overview starts still with a clickable primary entrance and five story destinations',async()=>{
+ await check('overview starts still with a clickable primary entrance and five chapters across three story objects',async()=>{
   assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'true');assert.equal(await p.locator('.studio-scene').getAttribute('data-breeze'),'false');
   assert.equal(await p.locator('.garden-intro,.garden-progress,.object-marker,.garden-operation-hint').count(),0);assert.equal(await p.locator('.environment-menu').getAttribute('open'),null);
   assert.equal(await p.locator('.garden-camera-tools:visible,.studio-footer').count(),0);
@@ -40,7 +40,7 @@ try{
  await check('every next action moves straight to the next model and centers its presentation',async()=>{
   await p.evaluate(()=>{window.observedViews=[];new MutationObserver(()=>window.observedViews.push(document.querySelector('.studio-scene').dataset.view)).observe(document.querySelector('.studio-scene'),{attributes:true,attributeFilter:['data-view']});});
   for(let i=0;i<5;i++){
-   if(i){if(i===4){for(let stage=0;stage<7;stage++){assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),String(stage));await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');}assert.equal(await p.locator('.agent-architecture[data-mode=parts]').count(),1);await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.agent-architecture[data-mode=loop]').count(),1);}await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator(`.studio-scene[data-view=${views[i]}][data-transition=false]`).waitFor();await p.locator('.studio-surface-host[data-active=true][data-interactive=true]').waitFor();}
+   if(i){if(i===4){assert.equal(await p.locator('.agent-architecture[data-mode=parts]').count(),1);await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.agent-architecture[data-mode=loop]').count(),1);await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();for(let stage=0;stage<6;stage++){assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),String(stage));await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');}assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'6');}await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator(`.studio-scene[data-view=${views[i]}][data-transition=false]`).waitFor();await p.locator('.studio-surface-host[data-active=true][data-interactive=true]').waitFor();}
    const box=await p.locator('.studio-surface-host[data-active=true]').boundingBox();assert.ok(Math.abs(box.x+box.width/2-720)<2,JSON.stringify(box));assert.ok(Math.abs(box.y+box.height/2-500)<2,JSON.stringify(box));
    assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'false');
    await p.screenshot({path:`${output}/${views[i]}.png`});
@@ -114,7 +114,7 @@ try{
    if([0,4,5,6].includes(i))await p.screenshot({path:output+'/agent-development-'+i+'.png'});
   }
   await p.locator('.development-rail button').nth(6).focus();await p.keyboard.press('Home');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'0');await p.keyboard.press('ArrowRight');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'1');
-  await p.locator('.development-panel').focus();await p.keyboard.press('ArrowLeft');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'0');await p.keyboard.press('ArrowLeft');await p.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();await go(3);
+  await p.locator('.development-panel').focus();await p.keyboard.press('ArrowLeft');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'0');await p.keyboard.press('ArrowLeft');await p.locator('.agent-architecture[data-mode=loop]').waitFor();await go(3);
   await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.waitForTimeout(2300);assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),'0');assert.equal(await p.getByRole('button',{name:'一時停止',exact:true}).count(),0);
  });
  await check('product workflow replaces the screenshot with five stages and leads to four competitive advantages',async()=>{
@@ -125,7 +125,7 @@ try{
  await check('retired card experience is absent from the story and the last chapter ends in exploration',async()=>{
   await go(4);assert.equal(await p.locator('.journey-dots button').count(),5);assert.equal(await p.locator('[data-object=cards],.studio-play-card').count(),0);
   assert.equal(/day\s*card|カードをひく/i.test(await p.locator('body').innerText()),false);
-  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();await p.waitForFunction(()=>[...document.querySelectorAll('.studio-object')].filter(e=>getComputedStyle(e).visibility==='visible').length===6);assert.equal(await p.locator('.studio-object:visible').count(),6);await go(0);
+  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();await p.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();await p.waitForFunction(()=>[...document.querySelectorAll('.studio-object')].filter(e=>getComputedStyle(e).visibility==='visible').length===4);assert.equal(await p.locator('.studio-object:visible').count(),4);await go(0);
  });
  await check('archive keeps 20 pages, searches and restores the exact current model',async()=>{
   await go(3);await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.getByRole('button',{name:'4 ボタンの幅超過を発見',exact:true}).click();
@@ -178,8 +178,8 @@ try{
  await check('camera transitions are continuous, interruptible and never route through the overview',async()=>{
   await go(0);const before=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.locator('.journey-dots button').nth(3).click();await p.locator('.studio-scene[data-transition=true]').waitFor();
   assert.equal(await p.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),true);await p.waitForTimeout(180);assert.equal(await p.locator('.studio-surface-host[data-active=true]').getAttribute('data-visible'),'true');assert.equal(await p.locator('.studio-surface-host').count(),5);const midway=await p.locator('.studio-scene').getAttribute('data-camera-position');assert.notEqual(midway,before);assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');
-  const skip=await p.locator('.studio-skip').boundingBox();assert.ok(skip.x>0&&skip.y>0&&skip.x+skip.width<=1440&&skip.y+skip.height<=1000&&skip.height>=44,JSON.stringify(skip));
-  await p.locator('.journey-dots button').nth(1).click();await p.locator('.studio-skip').click();await p.locator('.studio-scene[data-view=notebook][data-transition=false]').waitFor();assert.equal(await p.locator('.studio-copy').count(),0);assert.ok((await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').innerText()).includes('AIとの距離'));
+  assert.equal(await p.locator('.studio-skip').count(),0);
+  await p.locator('.journey-dots button').nth(1).click();await p.locator('.studio-scene[data-view=notebook][data-transition=false]').waitFor();assert.equal(await p.locator('.studio-copy').count(),0);assert.ok((await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').innerText()).includes('AIとの距離'));
  });
  await check('settled close-up stops rendering and context loss recovers on the same model',async()=>{
   await p.mouse.move(0,0);await p.waitForTimeout(900);const frames=await p.locator('.studio-scene').getAttribute('data-frames');await p.waitForTimeout(450);assert.equal(await p.locator('.studio-scene').getAttribute('data-frames'),frames);

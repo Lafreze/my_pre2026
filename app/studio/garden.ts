@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import {createSongbird} from "./songbird";
 import { RoundedBoxGeometry } from "three/addons/geometries/RoundedBoxGeometry.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { createSurfaceMaterials, metricUV } from "../surfaceMaterials";
@@ -101,15 +102,16 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
   // A single airy tree, kept outside the cutaway so every indoor object stays visible.
   const treeX = 3.86, treeZ = -2.7;
   branch([[treeX, -.16, treeZ], [treeX - .06, .7, treeZ], [treeX + .06, 1.5, treeZ + .08], [treeX - .03, 2.6, treeZ]], .067, bark);
+  const treeBranch=(points:number[][],radius:number,m:THREE.Material)=>branch(points.map(p=>[treeX+(p[0]-treeX)*.82,1.2+(p[1]-1.2)*.82,treeZ+(p[2]-treeZ)*.82]),radius,m);
   for (let i = 0; i < 7; i++) {
     const a = i * 2.399, h = 1.3 + i * .15;
-    branch([[treeX, h, treeZ], [treeX + Math.cos(a) * .25, h + .24, treeZ + Math.sin(a) * .25], [treeX + Math.cos(a) * .67, h + .44, treeZ + Math.sin(a) * .63]], .019, bark);
+    treeBranch([[treeX, h, treeZ], [treeX + Math.cos(a) * .25, h + .24, treeZ + Math.sin(a) * .25], [treeX + Math.cos(a) * .67, h + .44, treeZ + Math.sin(a) * .63]], .019, bark);
     for(let fork=0;fork<3;fork++){
       const distance=.28+fork*.13,angle=a+(fork-1)*.48;
       const start=[treeX+Math.cos(a)*distance,h+.24+(distance-.25)*.47,treeZ+Math.sin(a)*distance];
       const tip=[treeX+Math.cos(angle)*(.62+fork*.10),h+.61+fork*.08,treeZ+Math.sin(angle)*(.59+fork*.10)];
-      branch([start,[(start[0]+tip[0])*.5,h+.43+fork*.06,(start[2]+tip[2])*.5],tip],.009,bark);
-      for(const side of [-1,1])branch([[tip[0]*.35+start[0]*.65,tip[1]*.35+start[1]*.65,tip[2]*.35+start[2]*.65],[tip[0]+Math.cos(angle+side*.7)*.13,tip[1]+.12,tip[2]+Math.sin(angle+side*.7)*.13]],.004,bark);
+      treeBranch([start,[(start[0]+tip[0])*.5,h+.43+fork*.06,(start[2]+tip[2])*.5],tip],.009,bark);
+      for(const side of [-1,1])treeBranch([[tip[0]*.35+start[0]*.65,tip[1]*.35+start[1]*.65,tip[2]*.35+start[2]*.65],[tip[0]+Math.cos(angle+side*.7)*.13,tip[1]+.12,tip[2]+Math.sin(angle+side*.7)*.13]],.004,bark);
     }
   }
   canopy.position.set(treeX, 1.2, treeZ);canopy.scale.setScalar(.82); root.add(canopy);
@@ -182,18 +184,8 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
       #endif`);};
     m.customProgramCacheKey=()=>"garden-wind-v1";
   }
-  // A robin with independent wings; its outdoor route is unrelated to the camera.
-  const feather = finishes.material("fabric", "#b6ae8c"), breast = finishes.material("fabric", "#d0a35e"), wing = finishes.material("fabric", "#67795d"), beak = finishes.material("ceramic", "#514936");
-  bird.position.set(-1.45, .315, 3.03); root.add(bird);
-  ellipsoid([0, .15, 0], [.115, .14, .105], feather, bird);
-  ellipsoid([0, .15, .071], [.09, .102, .055], breast, bird);
-  ellipsoid([0, .273, .044], [.085, .082, .081], feather, bird);
-  for (const x of [-.047, .047]) { ellipsoid([x, .289, .108], [.011, .012, .009], beak, bird); ellipsoid([x - .002, .293, .115], [.003, .003, .003], flowerMat, bird); }
-  const bill = mesh(geometry(new THREE.ConeGeometry(.018, .07, 8)), beak, [0, .262, .145], bird); bill.rotation.x = Math.PI / 2;
-  const leftWing = new THREE.Group(), rightWing = new THREE.Group(); leftWing.position.set(-.09, .18, -.01); rightWing.position.set(.09, .18, -.01); bird.add(leftWing, rightWing);
-  ellipsoid([-.015, -.02, -.015], [.029, .091, .076], wing, leftWing); ellipsoid([.015, -.02, -.015], [.029, .091, .076], wing, rightWing);
-  const tail = ellipsoid([0, .11, -.125], [.055, .025, .11], wing, bird); tail.rotation.x = -.4;
-  for (const x of [-.038, .038]) ellipsoid([x, .016, .02], [.021, .017, .036], beak, bird);
+  const songbird=createSongbird();bird.add(songbird.root);
+  bird.position.set(-1.45,.315,3.03);root.add(bird);
   // Warm, sparse fireflies appear only at dusk. Their positions are animated in one draw call.
   const fireflyGeo = geometry(new THREE.BufferGeometry()), fireflyPositions = new Float32Array(18 * 3);
   const fireflySeeds = Array.from({ length: 18 }, () => [random() * 7 - 3.5, .3 + random() * 1.4, 2.6 + random() * .8, random() * 6.28]);
@@ -232,7 +224,7 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
       const from=perches[index],to=perches[(index+1)%perches.length];
       bird.position.lerpVectors(from,to,u);bird.position.y+=Math.sin(flight*Math.PI)*1.15;
       bird.rotation.y=flight>0&&flight<1?Math.atan2(to.x-from.x,to.z-from.z):.25+Math.sin(time*.9)*.17;
-      leftWing.rotation.z=flight>0&&flight<1?-.8+Math.sin(time*26)*.7:-.1;rightWing.rotation.z=-leftWing.rotation.z;
+      songbird.update(time,flight>0&&flight<1);
       bird.rotation.z=flight>0?Math.sin(time*2)*.04:Math.sin(time*1.5)*.018;
       if(breeze)wind.value=time;
       ripples.forEach((ring,i)=>{const phase=(time*.3+i*.5)%1;ring.scale.setScalar(.25+phase*1.35);});
@@ -249,6 +241,6 @@ export function buildGarden(finishes: ReturnType<typeof createSurfaceMaterials>)
       fireflyGeo.attributes.position.needsUpdate = true;
       return flight>0&&flight<1;
     },
-    dispose() { geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); },
+    dispose() { songbird.dispose();geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose()); },
   };
 }

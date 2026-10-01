@@ -43,6 +43,9 @@ try{
     for(const [width,height] of [[1280,720],[1920,1080]]){await page.setViewportSize({width,height});const box=await page.locator('.environment-panel').boundingBox();assert.ok(box.x>=0&&box.x+box.width<=width&&box.y+box.height<=height);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth),width);}
     await page.setViewportSize({width:1440,height:900});
   });
+  await check('wall clock follows real local time across environment previews',async()=>{
+    for(const time of ['midnight','morning','noon']){await page.getByLabel('時間帯',{exact:true}).selectOption(time);await page.waitForTimeout(80);const actual=await page.evaluate(()=>new Date().toTimeString().slice(0,5));assert.equal((await scene.getAttribute('data-clock-time')).slice(0,5),actual);}
+  });
   await check('city search changes coordinates and a failed request never masquerades as current weather',async()=>{
     await page.getByRole('button',{name:'いまの天気',exact:true}).click();await page.locator('.weather-place>summary').click();
     await page.route('https://geocoding-api.open-meteo.com/**',route=>route.fulfill({json:{results:[{name:'大阪',country:'日本',latitude:34.69,longitude:135.5}]}}));
@@ -60,9 +63,9 @@ try{
     await page.emulateMedia({reducedMotion:'no-preference'});await page.locator('.environment-menu>summary').click();await page.getByRole('button',{name:'庭の動き',exact:true}).click();
     const a=JSON.parse(await scene.getAttribute('data-life'));await page.waitForTimeout(1500);const b=JSON.parse(await scene.getAttribute('data-life'));assert.ok(b.time>a.time+.8);assert.notDeepEqual(a.robot,b.robot);assert.equal(b.steam.visible,true);
     const perched=await scene.getAttribute('data-bird-position');await page.waitForFunction(before=>document.querySelector('.studio-scene').dataset.birdPosition!==before,perched,{timeout:12000});
-    await page.locator('.environment-menu>summary').click();await page.locator('[data-object=monitor]').click();await page.locator('.studio-scene[data-view=monitor][data-transition=true][data-ambient=false]').waitFor();const bird=await scene.getAttribute('data-bird-position');await page.locator('.studio-scene[data-view=monitor][data-transition=false]').waitFor();assert.equal(await scene.getAttribute('data-bird-position'),bird);
-    const paused=JSON.parse(await scene.getAttribute('data-life'));await page.waitForTimeout(800);assert.equal(JSON.parse(await scene.getAttribute('data-life')).time,paused.time);assert.equal(paused.steam.visible,false);assert.equal(await page.getByRole('tab',{name:'発展をたどる',exact:true}).getAttribute('aria-selected'),'true');
-    assert.deepEqual(await page.locator('.screen-tabs button').allTextContents(),['発展をたどる','構成を見る','動きを見る']);
+    await page.locator('.environment-menu>summary').click();await page.locator('[data-object=monitor]').click();await page.locator('.studio-scene[data-view=board][data-transition=true][data-ambient=false]').waitFor();const bird=await scene.getAttribute('data-bird-position');await page.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();assert.equal(await scene.getAttribute('data-bird-position'),bird);
+    const paused=JSON.parse(await scene.getAttribute('data-life'));await page.waitForTimeout(800);assert.equal(JSON.parse(await scene.getAttribute('data-life')).time,paused.time);assert.equal(paused.steam.visible,false);await page.locator('.journey-dots button').nth(3).click();await page.locator('.studio-surface-host[data-kind=monitor][data-interactive=true]').waitFor();assert.equal(await page.getByRole('tab',{name:'構成を見る',exact:true}).getAttribute('aria-selected'),'true');
+    assert.deepEqual(await page.locator('.screen-tabs button').allTextContents(),['構成を見る','動きを見る','発展をたどる']);
     await page.getByRole('button',{name:'全景に戻る',exact:true}).click();await page.waitForTimeout(100);const resumed=JSON.parse(await scene.getAttribute('data-life'));assert.ok(resumed.time>=paused.time&&resumed.time<paused.time+1);
   });
   await check('no browser exceptions or shader errors',()=>assert.deepEqual(errors,[]));

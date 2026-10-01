@@ -71,18 +71,18 @@ export function createSurfaceMaterials(invalidate: () => void = () => {}, anisot
       if (!["fabric","wool","plaster"].includes(kind)) m.map = map(`${asset}_diffuse`, true, channel);
       m.normalMap = map(`${asset}_nor_gl`, false, channel);
       m.roughnessMap = map(`${asset}_rough`, false, channel);
-      m.normalScale.setScalar(kind === "plaster" ? .16 : kind === "bark" ? .55 : kind === "stone" ? .3 : ["wood","oak","floor"].includes(kind) ? .18 : .35);
-      m.roughness = ["wood","oak","floor"].includes(kind) ? .92 : kind === "leather" ? .8 : 1;
-      if (["wood","oak","floor"].includes(kind)) { m.clearcoat = .07; m.clearcoatRoughness = .58; }
-      if (kind === "leather") { m.clearcoat = .1; m.clearcoatRoughness = .55; }
+      m.normalScale.setScalar(kind === "plaster" ? .16 : kind === "bark" ? .55 : kind === "stone" ? .3 : ["wood","oak","floor"].includes(kind) ? .27 : .35);
+      m.roughness = ["wood","oak","floor"].includes(kind) ? .72 : kind === "leather" ? .7 : 1;
+      if (["wood","oak","floor"].includes(kind)) { m.clearcoat = .23; m.clearcoatRoughness = .34; }
+      if (kind === "leather") { m.clearcoat = .18; m.clearcoatRoughness = .42; m.sheen = .15; m.sheenColor.set(color); }
       if (kind === "fabric" || kind === "wool") { m.sheen = .65; m.sheenColor.set(color); m.sheenRoughness = .9; }
     } else {
       m.bumpMap = micro(kind, channel);
       m.bumpScale = kind === "cork" ? .008 : kind === "paper" ? .00045 : .0008;
-      m.roughness = { metal: .32, paper: .86, ceramic: .25, cork: .95, rubber: .78 }[kind as "metal" | "paper" | "ceramic" | "cork" | "rubber"];
+      m.roughness = { metal: .29, paper: .86, ceramic: .22, cork: .95, rubber: .78 }[kind as "metal" | "paper" | "ceramic" | "cork" | "rubber"];
       if (kind === "cork") m.map = m.bumpMap;
-      if (kind === "metal") { m.metalness = .82; m.anisotropy = .45; }
-      if (kind === "ceramic") { m.clearcoat = .65; m.clearcoatRoughness = .22; }
+      if (kind === "metal") { m.metalness = .82; m.anisotropy = .6; }
+      if (kind === "ceramic") { m.clearcoat = .8; m.clearcoatRoughness = .18; }
     }
     materials.set(key, m);
     return m;

@@ -21,12 +21,35 @@
 .living-environment .environment-motion{border-top:1px solid #365b4e22;padding-top:12px}
 .model-page-footer>button{width:52px;min-width:52px;justify-content:center!important;padding:6px!important}
 .model-page-footer>button b{font-size:26px}
-.model-checklist{--paper:#e8f4ed;--ink:#1f4c45;background:linear-gradient(145deg,#effaf3,#d7eae1)!important;box-shadow:inset 0 0 0 1px #a4d2c7,0 0 24px #a3e2d41a!important;border-radius:7px}
-.model-checklist .model-topline,.model-checklist .model-page-footer{background:#e2f1eac9;border-color:#80ab9b55}
-.model-checklist .model-eyebrow{color:#486e63}
-
 /* Light stays spatial; a quiet backdrop lets the evening lamps read as warm light. */
 .model-led-studio .studio-app:has(.studio-scene[data-time=night]),.model-led-studio .studio-app:has(.studio-scene[data-time=midnight]){background:radial-gradient(ellipse at 48% 43%,#a0aba8,#7e9290 75%,#738783)!important}
-.model-led-studio:not([data-overview=true]) .studio-scene>canvas{filter:brightness(.84) blur(1px);transition:filter .8s ease}
+.model-led-studio:not([data-overview=true]) .studio-scene[data-transition=false]>canvas{filter:brightness(.84) blur(1px);transition:filter .8s ease}
 .model-led-studio[data-overview=true] .studio-scene>canvas{filter:none;transition:filter .8s ease}
 @media(prefers-reduced-motion:reduce){.model-led-studio .studio-scene>canvas{transition:none!important}}
+
+/* The light field is a calm technical canvas, with the display edge doing the glowing. */
+.model-checklist{--paper:#0d202b;--ink:#e1f0f1;--page-ink:#e1f0f1;--page-muted:#a3c4cf;--page-line:#8acdd233;color:var(--ink);background:radial-gradient(ellipse at 95% 0,#163d49 0,transparent 52%),linear-gradient(135deg,#102a36,#0b1b27)!important;border:1px solid #8fdae76b!important;border-radius:5px;box-shadow:inset 0 0 0 5px #76daf908,inset 0 0 55px #88e8ff05,0 0 30px #3dbcd32b!important;font-family:Arial,"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif}
+.model-checklist .model-topline,.model-checklist .model-page-footer{background:#122d38bd;border-color:#8acdd233;color:#b2d3d9}
+.model-checklist .model-topline>span:first-child:before{content:"";display:inline-block;width:5px;height:5px;margin-right:9px;background:#9ee9fa;box-shadow:0 0 8px #9ee9fa;border-radius:50%}
+.model-checklist .model-eyebrow{color:#8bd0dc;letter-spacing:.12em}
+.model-checklist h1,.model-checklist h2,.model-checklist h3,.model-checklist .product-brief p,.model-checklist .advantage-closing p{font-family:inherit;color:#e9f4f5;font-weight:400}
+.model-checklist .paper-tabs{border-color:#84cbdb44;background:#0a202a}
+.model-checklist .paper-tabs button{color:#b9d6da}
+.model-checklist .paper-tabs button[aria-selected=true]{background:#a0dce5;color:#0e303a}
+.model-checklist .product-brief{border-color:#8acdd233}
+.model-checklist .product-brief>span,.model-checklist .product-collaboration>div>span{color:#94d5df}
+.model-checklist .product-brief small,.model-checklist .product-footnote,.model-checklist .advantage-grid small{color:#a3bbc3}
+.model-checklist .product-step-rail button{background:#12303c;border-color:#7ccadd2c;color:#d9ecee;border-radius:3px}
+.model-checklist .product-step-rail small,.model-checklist .product-step-rail button>span{color:#9abfc7}
+.model-checklist .product-step-rail button[aria-selected=true]{background:#1a4351;border-color:#88d4e3;color:#eefbff;box-shadow:inset 0 2px #99e3ef}
+.model-checklist .product-step-rail button[aria-selected=true] small{color:#acf0f7}
+.model-checklist .product-collaboration p,.model-checklist .product-deliverable>p,.model-checklist .advantage-grid p,.model-checklist .advantage-intro{color:#c2d6dc}
+.model-checklist .product-artifact{color:#c5e5ed;background:#102c39;border-color:#8acdd23d;border-left-color:#9ce3ef}
+.model-checklist .product-artifact i{background:#679ba9}.model-checklist .product-artifact i:nth-child(3){background:#b1eaf4}
+.model-checklist .product-check,.model-checklist .advantage-grid article,.model-checklist .advantage-grid small{border-color:#8acdd233}
+.model-checklist .product-check b,.model-checklist .advantage-closing span{color:#91c8d3}
+.model-checklist .advantage-intro strong{color:#d5f3f8}
+.model-checklist .advantage-symbol{color:#9fdde8}
+.model-checklist .advantage-closing{background:#193642;border-color:#9bcfdb}
+.model-checklist .model-page-footer>button{color:#abecf7}
+.model-checklist button:focus-visible{outline-color:#b4edfa}

@@ -5,10 +5,10 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { buildRoom } from "./room";
 import { useStudioWeather } from "./useStudioWeather";
 import EnvironmentMenu from "./EnvironmentMenu";
-import { cameras, objects, type ObjectId, type ViewId } from "./content";
+import { cameras, objects, physicalObject, type ObjectId, type ViewId } from "./content";
 import { presentationSize, projectSurface, SURFACE_SCALE } from "./projection";
 
-type Props = { panels: {id:ViewId;content:ReactNode}[]; overview: boolean; view: ViewId; chapter: number; paused: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; skipToken: number; agentStep: number; };
+type Props = { panels: {id:ViewId;content:ReactNode}[]; overview: boolean; view: ViewId; chapter: number; paused: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; agentStep: number; };
 const storyObjects=objects.filter(o=>o.chapter>=0);
 type SceneCommand = "closer" | "farther" | "reset";
 
@@ -38,7 +38,7 @@ export default function StudioCanvas(props: Props) {
   useEffect(() => { if (stored) try { sessionStorage.setItem("studio-garden-visits-v2", JSON.stringify(visited)); } catch { /* Optional session memory. */ } }, [stored, visited]);
   useEffect(() => {
     if (view === "room") return;
-    const id = requestAnimationFrame(() => visit(view)); return () => cancelAnimationFrame(id);
+    const id = requestAnimationFrame(() => visit(physicalObject(view) as ObjectId)); return () => cancelAnimationFrame(id);
   }, [view, visit]);
   useLayoutEffect(() => { if(host.current)host.current.dataset.transition="true"; presentations.current.forEach(page=>{page.inert=true;page.dataset.interactive="false";}); }, [view]);
   useLayoutEffect(() => { latest.current = { ...props, environmentState, breeze, select }; trigger.current(); }, [props, environmentState, breeze, select]);
@@ -60,11 +60,12 @@ export default function StudioCanvas(props: Props) {
     const camera = new THREE.PerspectiveCamera(34, 1, .01, 80);
     let previousView: ViewId = latest.current.view;
     let raf = 0, last = 0, elapsed = 0, urgent = true, dirty = true, from = 0, duration = 1800, animating = false, settling = false, disposed = false, contextLost = false, boot = true, resized = false;
+    let inspecting = false;
     let orbit = 0, zoom = 1, lastEnvironment = "", lastShadow = -1;
     const books={name:0,notebook:0},sourceBooks={...books};
     const overviewPose={orbit:0,zoom:1};
     const sourcePosition = camera.position.clone(), focus=new THREE.Vector3(),sourceFocus=new THREE.Vector3(),sourceUp=new THREE.Vector3(0,1,0),destinationFocus=new THREE.Vector3();
-    let skip = latest.current.skipToken, shadowOpen = -1, slowFrames = 0, wasFitting = false;
+    let shadowOpen = -1, slowFrames = 0, wasFitting = false;
     const destination = new THREE.PerspectiveCamera(34, 1, .01, 80);
     const reduced = matchMedia("(prefers-reduced-motion: reduce)"), ray = new THREE.Raycaster(), pointer = new THREE.Vector2();
     let hoverId: ObjectId | null = null, down: { x: number; y: number; time: number; orbit: number } | null = null, dragged = false, pinch: { distance: number; zoom: number } | null = null;
@@ -103,10 +104,11 @@ export default function StudioCanvas(props: Props) {
       if (animating && interval > 55 && interval < 250) slowFrames++; else slowFrames = Math.max(0, slowFrames - 1);
       if (slowFrames === 18) { renderer.setPixelRatio(.85); element.dataset.quality = "economy"; renderer.shadowMap.enabled = false; }
       const w = Math.max(1, element.clientWidth), h = Math.max(1, element.clientHeight), size = presentationSize(w, h);
-      const finish = skip !== state.skipToken || reduced.matches; skip = state.skipToken;
-      if (previousView !== state.view || resized) {
+      const finish = reduced.matches;
+      if (physicalObject(previousView) !== physicalObject(state.view) || resized) {
         sourcePosition.copy(camera.position); sourceFocus.copy(focus);sourceUp.copy(camera.up);Object.assign(sourceBooks,books);from = t;
-        duration = resized ? 600 : 1800;
+        inspecting=!resized&&state.view==="checklist";
+        duration = resized ? 600 : state.view === "checklist" ? 3400 : 2000;
         if(previousView==="room"){overviewPose.orbit=orbit;overviewPose.zoom=zoom;}
         orbit=state.view==="room"?overviewPose.orbit:0;zoom=state.view==="room"?overviewPose.zoom:1;
         previousView = state.view; animating = !boot; resized = false;
@@ -115,9 +117,10 @@ export default function StudioCanvas(props: Props) {
       const progress=finish||boot||!animating?1:Math.min(1,(t-from)/duration);
       const smooth=(v:number)=>{const x=THREE.MathUtils.clamp(v,0,1);return x*x*x*(x*(x*6-15)+10);};
       const bookProgress=smooth((progress-.12)/.80);
-      for(const id of ["name","notebook"] as const)books[id]=THREE.MathUtils.lerp(sourceBooks[id],state.view===id?1:0,bookProgress);
-      room.animate(books.name, books.notebook, state.boardStep, state.review, activeHover, state.view === "monitor" ? state.agentStep : -1);
-      const fitting = room.fitSurfaces(state.view,dt/1000,finish||boot,ambient);
+      for(const id of ["name","notebook"] as const)books[id]=THREE.MathUtils.lerp(sourceBooks[id],physicalObject(state.view)===id?1:0,bookProgress);
+      room.animate(books.name, state.view === "monitor" ? state.agentStep : -1);
+      const hologramReveal=state.view==="checklist"?(inspecting?smooth((progress-.68)/.32):1):0;
+      const fitting = room.fitSurfaces(state.view,dt/1000,finish||boot,ambient,hologramReveal);
       const night=room.setEnvironment(state.environmentState,dt/1000,ambient);
       scene.environmentIntensity=.12+(1-night)*.43;renderer.toneMappingExposure=1.08;
       const environmentKey=JSON.stringify(state.environmentState);
@@ -142,11 +145,17 @@ export default function StudioCanvas(props: Props) {
       }
       if (animating) {
         const eased=smooth(progress);
-        camera.position.lerpVectors(sourcePosition,destination.position,eased);
-        // Eyes settle on the object while approaching it; interpolating camera
-        // rotations alone looks below a horizontal page before tilting back up.
-        focus.lerpVectors(sourceFocus,destinationFocus,smooth(progress*1.35));
-        camera.up.lerpVectors(sourceUp,destination.up,eased).normalize();
+        if(state.view==="checklist"&&inspecting){
+          const arrival=smooth(progress/.58),unfold=smooth((progress-.68)/.32);
+          const inspection=room.hologram.focus.clone().add(new THREE.Vector3(-.43,.45,1.18));
+          camera.position.lerpVectors(sourcePosition,inspection,arrival).lerp(destination.position,unfold);
+          focus.lerpVectors(sourceFocus,room.hologram.focus,smooth(progress/.48)).lerp(destinationFocus,unfold);
+          camera.up.lerpVectors(sourceUp,new THREE.Vector3(0,1,0),arrival).lerp(destination.up,unfold).normalize();
+        }else{
+          camera.position.lerpVectors(sourcePosition,destination.position,eased);
+          focus.lerpVectors(sourceFocus,destinationFocus,smooth(progress*1.35));
+          camera.up.lerpVectors(sourceUp,destination.up,eased).normalize();
+        }
         if(progress===1)animating=false;
       } else { camera.position.copy(destination.position);focus.copy(destinationFocus);camera.up.copy(destination.up); }
       camera.lookAt(focus);
@@ -158,14 +167,16 @@ export default function StudioCanvas(props: Props) {
         const normal=target?new THREE.Vector3(0,0,1).applyQuaternion(target.face.getWorldQuaternion(new THREE.Quaternion())):null;
         const center=target?.face.getWorldPosition(new THREE.Vector3());
         const facing=normal&&center&&normal.dot(camera.position.clone().sub(center))>0;
-        const bookOpen=id==="name"?books.name:id==="notebook"?books.notebook:id==="checklist"?room.hologram.open:1;
-        const reveal=id==="notebook"?smooth((bookOpen-.76)/.20):smooth((bookOpen-.55)/.35);
-        const placed=target&&facing&&reveal>0?projectSurface(page,target.face,target.width,target.height,camera,w,h,size.width,size.height):false;
-        const active=id===state.view&&!state.overview,interactive=!!placed&&active&&!animating;
+        const bookOpen=id==="name"?books.name:id==="notebook"?books.name:id==="checklist"?room.hologram.open:1;
+        const reveal=smooth((bookOpen-.55)/.35);
+        const active=id===state.view&&!state.overview;
+        const aliasHidden=state.overview?(id==="notebook"||id==="board"):!active&&physicalObject(id)===physicalObject(state.view);
+        const placed=target&&!aliasHidden&&facing&&reveal>0?projectSurface(page,target.face,target.width,target.height,camera,w,h,size.width,size.height):false;
+        const interactive=!!placed&&active&&!animating&&(id!=="checklist"||room.hologram.open>.99);
         // Inactive HTML summaries fade with the approach, so distant poster text
         // cannot loom behind a close reading plane. The physical models remain.
-        page.style.opacity=String(reveal*(state.overview||active?1:1-smooth(progress*1.5)));
-        const detail=finish||boot?(active?1:0):THREE.MathUtils.damp(Number(page.dataset.detail||0),active?1:0,9,dt/1000);
+        page.style.opacity=String((aliasHidden?0:1)*reveal*(state.overview||active?1:1-smooth(progress*1.5)));
+        const detail=finish||boot||!animating?(active?1:0):THREE.MathUtils.damp(Number(page.dataset.detail||0),active?1:0,9,dt/1000);
         page.dataset.detail=String(detail);page.style.setProperty("--surface-detail",String(detail>.998?1:detail<.002?0:detail));
         page.dataset.visible=String(!!placed);page.dataset.interactive=String(interactive);page.dataset.hover=String(state.overview&&activeHover===id);
         page.inert=!interactive;page.setAttribute("aria-hidden",String(!interactive));
@@ -176,6 +187,8 @@ export default function StudioCanvas(props: Props) {
       element.dataset.transition=String(animating);element.dataset.orbit=orbit.toFixed(3);element.dataset.zoom=zoom.toFixed(3);element.dataset.flying=String(flying);element.dataset.ambient=String(ambient);
       element.dataset.cameraPosition=camera.position.toArray().map(v=>v.toFixed(4)).join(",");
       element.dataset.cameraFocus=focus.toArray().map(v=>v.toFixed(4)).join(",");element.dataset.bookOpen=JSON.stringify(books);element.dataset.flightProgress=String(progress);
+      element.dataset.clockTime=room.clock.userData.time;
+      element.dataset.hologramPhase=state.view!=="checklist"?"idle":progress<.58?"approach":progress<.68?"focus":room.hologram.open<.99?"unfold":"ready";
       element.dataset.birdPosition=room.garden.bird.position.toArray().map(v=>v.toFixed(3)).join(",");element.dataset.life=JSON.stringify(room.life.snapshot());element.dataset.projectorScale=room.hologram.base.scale.toArray().join(",");element.dataset.hologram=room.hologram.open.toFixed(3);element.dataset.sunDirection=room.sun.position.clone().normalize().toArray().map(v=>v.toFixed(4)).join(",");
       element.dataset.gazeOffset=destinationFocus.clone().project(camera).toArray().slice(0,2).map(v=>v.toFixed(5)).join(",");
       if(dirty){dirty=false;setStatus("ready");}boot=false;
@@ -186,6 +199,7 @@ export default function StudioCanvas(props: Props) {
     trigger.current = wake;
     function resize() { renderer.setSize(element.clientWidth, element.clientHeight); resized = !boot; wake(); }
     const ro = new ResizeObserver(resize); ro.observe(element);
+    const clockTick=setInterval(()=>{if(room.clock.userData.time?.slice(0,5)!==new Date().toTimeString().slice(0,5))wake();},1000);
     function hit(e: PointerEvent): ObjectId | null {
       const r = element.getBoundingClientRect(); pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
       ray.setFromCamera(pointer, camera);
@@ -228,7 +242,7 @@ export default function StudioCanvas(props: Props) {
     canvas.addEventListener("pointermove", move); canvas.addEventListener("pointerdown", press); canvas.addEventListener("pointerup", release); canvas.addEventListener("pointercancel", cancel); canvas.addEventListener("pointerleave", leave);
     canvas.addEventListener("wheel", wheel, { passive: false }); canvas.addEventListener("webglcontextlost", lost); document.addEventListener("visibilitychange", wake); reduced.addEventListener("change", motionPreference); resize();
     return () => {
-      disposed = true; trigger.current = () => {}; control.current = () => {}; cancelAnimationFrame(raf); ro.disconnect();
+      disposed = true; trigger.current = () => {}; control.current = () => {}; cancelAnimationFrame(raf); ro.disconnect();clearInterval(clockTick);
       canvas.removeEventListener("pointermove", move); canvas.removeEventListener("pointerdown", press); canvas.removeEventListener("pointerup", release); canvas.removeEventListener("pointercancel", cancel); canvas.removeEventListener("pointerleave", leave);
       canvas.removeEventListener("wheel", wheel); canvas.removeEventListener("webglcontextlost", lost); document.removeEventListener("visibilitychange", wake); reduced.removeEventListener("change", motionPreference);
       room.dispose(); environment.dispose(); renderer.dispose(); canvas.remove();

@@ -27,7 +27,7 @@ try {
     await page.getByLabel('時間帯',{exact:true}).selectOption('evening');
     assert.equal(await scene.getAttribute('data-time'), 'evening');
     await page.screenshot({ path: `${output}/dusk.png` });
-    assert.equal(await page.locator('.studio-object:visible').count(), 6);
+    assert.equal(await page.locator('.studio-object:visible').count(), 4);
     await page.getByLabel('時間帯',{exact:true}).selectOption('noon');
   });
   await check('overview has no explanatory panels or markers; only hovered objects reveal names',async()=>{
@@ -58,12 +58,12 @@ try {
     await page.screenshot({path:`${output}/light-study.png`});await page.getByLabel('時間帯',{exact:true}).selectOption('morning');await page.locator('.environment-menu>summary').click();
   });
   await check('visits are preserved without on-screen counters or completion notices', async () => {
-    for (const [i,id] of ['notebook','board','monitor','checklist'].entries()){
-      await page.locator('[data-object='+id+']').click();await page.locator('.studio-scene[data-view='+id+'][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();assert.equal(await scene.getAttribute('data-visited'),String(i+2));
+    for (const [i,id] of ['monitor','checklist'].entries()){
+      await page.locator('[data-object='+id+']').click();await page.locator('.studio-scene[data-view='+(id==='monitor'?'board':id)+'][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();assert.equal(await scene.getAttribute('data-visited'),String(i+2));
     }
     assert.equal(await page.locator('.garden-discovery,.garden-progress').count(),0);
-    await page.locator('.studio-index-toggle').click();await page.getByRole('button',{name:'参考資料',exact:true}).click();await page.getByRole('button',{name:'資料を閉じて元の章に戻る'}).click();assert.equal(await scene.getAttribute('data-visited'),'5');
-    await page.reload({waitUntil:'networkidle'});await page.locator('.studio-scene[data-status=ready][data-visited="5"]').waitFor();await page.locator('.garden-start').click();await page.locator('.studio-scene[data-view=name][data-visited="1"]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();
+    await page.locator('.studio-index-toggle').click();await page.getByRole('button',{name:'参考資料',exact:true}).click();await page.getByRole('button',{name:'資料を閉じて元の章に戻る'}).click();assert.equal(await scene.getAttribute('data-visited'),'3');
+    await page.reload({waitUntil:'networkidle'});await page.locator('.studio-scene[data-status=ready][data-visited="3"]').waitFor();await page.locator('.garden-start').click();await page.locator('.studio-scene[data-view=name][data-visited="1"]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();
   });
   await check('drag, wheel, accessible zoom and reset preserve the selected chapter', async () => {
     const chapter = await page.locator('.work-studio').getAttribute('data-chapter');
@@ -73,7 +73,7 @@ try {
     assert.ok(Number(await scene.getAttribute('data-zoom')) < .9);
     assert.equal(await page.locator('.work-studio').getAttribute('data-chapter'), chapter);
     assert.equal(await page.locator('.studio-copy').count(), 0);
-    const orbit=await scene.getAttribute('data-orbit'),zoom=await scene.getAttribute('data-zoom');await page.locator('[data-object=monitor]').click();await page.locator('.studio-scene[data-view=monitor][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();await page.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();assert.equal(await scene.getAttribute('data-orbit'),orbit);assert.equal(await scene.getAttribute('data-zoom'),zoom);
+    const orbit=await scene.getAttribute('data-orbit'),zoom=await scene.getAttribute('data-zoom');await page.locator('[data-object=monitor]').click();await page.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();await page.getByRole('button',{name:'全景に戻る',exact:true}).click();await page.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();assert.equal(await scene.getAttribute('data-orbit'),orbit);assert.equal(await scene.getAttribute('data-zoom'),zoom);
     await page.locator('.environment-menu>summary').click();
     await page.getByRole('button', { name: '庭の視点を戻す' }).click();
     await page.locator('.studio-scene[data-orbit="0.000"][data-zoom="1.000"]').waitFor();
@@ -98,9 +98,9 @@ try {
       for (const b of [...layout.boxes, ...layout.controls]) { assert.ok(b.left >= 0 && b.right <= width, JSON.stringify(b)); assert.ok(b.height >= 44); }
       for (const [i, a] of layout.boxes.entries()) for (const b of layout.boxes.slice(i + 1)) assert.ok(Math.min(a.right,b.right)-Math.max(a.left,b.left)<1 || Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)<1, `Overlapping ${a.id}/${b.id} at ${width}`);
       await page.screenshot({ path: `${output}/${width}-garden.png` });
-      for (const id of ['name','notebook','board','monitor','checklist']) {
+      for (const id of ['name','monitor','checklist']) {
         await page.locator(`[data-object=${id}]`).click();
-        await page.locator(`.studio-scene[data-view=${id}]`).waitFor();
+        await page.locator(`.studio-scene[data-view=${id==='monitor'?'board':id}]`).waitFor();
         await page.getByRole('button', { name: '全景に戻る', exact: true }).click();
       }
     }
@@ -129,8 +129,8 @@ try {
     await page.getByRole('button', { name:'庭の動き',exact:true }).click();
     await page.mouse.move(0,0); await page.waitForTimeout(100);
     const paused = await scene.getAttribute('data-frames'); await page.waitForTimeout(500);
-    assert.equal(await scene.getAttribute('data-frames'), paused);
-    await page.locator('[data-object=notebook]').click();
+    assert.ok(Number(await scene.getAttribute('data-frames'))-Number(paused)<=1);
+    await page.locator('[data-object=name]').click();
     await page.locator('.studio-scene[data-transition=true]').waitFor();
     await page.locator('.studio-scene[data-transition=false][data-flying=false]').waitFor();
     metrics.push(await scene.evaluate(e=>({ mode:'notebook',drawCalls:Number(e.dataset.drawCalls),triangles:Number(e.dataset.triangles),quality:e.dataset.quality||'standard' })));

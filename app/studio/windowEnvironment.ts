@@ -1,12 +1,13 @@
 import * as T from "three";
 import {RoundedBoxGeometry} from "three/addons/geometries/RoundedBoxGeometry.js";
+import {metricUV} from "../surfaceMaterials";
 import {sunDirection,type Environment} from "./environment";
 
 /** Window-local +Z points into the room; every layer stays inside the real wall aperture. */
-export function createWindow(position:T.Vector3,rotation:number,width:number,height:number,oak:T.Material) {
+export function createWindow(position:T.Vector3,rotation:number,width:number,height:number,oak:T.Material,invalidate:()=>void) {
   const root=new T.Group();root.name="Architectural window";root.position.copy(position);root.rotation.y=rotation;
   const white=new T.MeshStandardMaterial({color:"#f4eedc",roughness:.6}),seal=new T.MeshStandardMaterial({color:"#647266",roughness:.84}),brass=new T.MeshStandardMaterial({color:"#aa9671",roughness:.31,metalness:.74});
-  function box(w:number,h:number,d:number,x:number,y:number,z:number,m:T.Material,r=.006){const b=new T.Mesh(new RoundedBoxGeometry(w,h,d,2,r),m);b.position.set(x,y,z);b.castShadow=true;b.receiveShadow=true;root.add(b);return b;}
+  function box(w:number,h:number,d:number,x:number,y:number,z:number,m:T.Material,r=.006){const b=new T.Mesh(metricUV(new RoundedBoxGeometry(w,h,d,2,r)),m);b.position.set(x,y,z);b.castShadow=true;b.receiveShadow=true;root.add(b);return b;}
   for(const x of [-width/2-.038,width/2+.038]){
     box(.075,height+.16,.16,x,0,.035,oak);box(.032,height+.055,.05,x-Math.sign(x)*.02,0,.122,white);
     box(.008,height,.02,x-Math.sign(x)*.039,0,.073,seal,.002);
@@ -29,9 +30,19 @@ export function createWindow(position:T.Vector3,rotation:number,width:number,hei
       vec2 moon=(v-vec2(.78,.79))*vec2(1.45,1.);float crescent=(1.-smoothstep(.026,.029,length(moon)))*smoothstep(.022,.026,length(moon-vec2(.01,.004)));c+=vec3(.8,.85,.73)*crescent*night*(1.-cloud*.8);gl_FragColor=vec4(c,1.);
     }`});
   const skyMesh=new T.Mesh(new T.PlaneGeometry(width,height),sky);skyMesh.position.z=-.10;skyMesh.raycast=()=>{};root.add(skyMesh);
-  const canvas=document.createElement("canvas");canvas.width=1024;canvas.height=768;const ctx=canvas.getContext("2d")!;
-  const landscapeTexture=new T.CanvasTexture(canvas);landscapeTexture.colorSpace=T.SRGBColorSpace;
-  const landscapeMat=new T.MeshBasicMaterial({map:landscapeTexture,transparent:true,depthWrite:false,side:T.DoubleSide});
+  let disposed=false;
+  const landscapeTexture=new T.TextureLoader().load("/environments/garden-seasons.png",()=>{if(disposed)landscapeTexture.dispose();else{landscapeMat.uniforms.ready.value=1;invalidate();}},undefined,()=>{if(!disposed)invalidate();});
+  landscapeTexture.colorSpace=T.SRGBColorSpace;landscapeTexture.anisotropy=4;
+  const landscapeMat=new T.ShaderMaterial({transparent:true,depthWrite:false,side:T.DoubleSide,uniforms:{ready:{value:0},atlas:{value:landscapeTexture},quadrant:{value:new T.Vector2(0,.5)},night:{value:0},cloud:{value:0},warm:{value:0},aspect:{value:width/height},offset:{value:rotation?-.035:.035}},vertexShader:`varying vec2 v;void main(){v=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`
+    varying vec2 v;uniform sampler2D atlas;uniform vec2 quadrant;uniform float night,cloud,warm,aspect,offset,ready;
+    void main(){vec2 p=v;float crop=min(1.,aspect/1.5);p.x=(p.x-.5)*crop+.5+offset;
+      p=clamp(p,vec2(.003),vec2(.997));vec3 c=texture2D(atlas,quadrant+p*.5).rgb;
+      float luminance=dot(c,vec3(.2126,.7152,.0722));c=mix(c,vec3(luminance)*vec3(.90,.99,1.07),cloud*.42);
+      c*=mix(vec3(1.),vec3(1.11,.87,.67),warm*(1.-night)*.36);c*=mix(vec3(1.-cloud*.20),vec3(.075,.13,.22),night);
+      float fog=cloud*.12*smoothstep(.1,.78,v.y);c=mix(c,vec3(.38,.47,.48)*(1.-night*.86),fog);
+      float alpha=1.-smoothstep(.77,.98,v.y);gl_FragColor=vec4(c,alpha*ready);
+      #include <colorspace_fragment>
+    }`});
   const landscape=new T.Mesh(new T.PlaneGeometry(width,height),landscapeMat);landscape.position.z=-.08;landscape.raycast=()=>{};root.add(landscape);
   const glass=new T.Mesh(new T.PlaneGeometry(width,height),new T.MeshPhysicalMaterial({color:"#dfede6",roughness:.1,metalness:.03,transparent:true,opacity:.035,clearcoat:1,depthWrite:false,side:T.DoubleSide}));glass.position.z=.058;glass.raycast=()=>{};root.add(glass);
   // The fragment shader clips the precipitation at the pane edges, including each flake's radius.
@@ -50,31 +61,13 @@ export function createWindow(position:T.Vector3,rotation:number,width:number,hei
     const m=new T.ShaderMaterial({transparent:true,depthWrite:false,side:T.DoubleSide,blending:T.AdditiveBlending,uniforms:{strength:{value:0}},vertexShader:`varying vec2 v;void main(){v=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,fragmentShader:`varying vec2 v;uniform float strength;void main(){float soft=sin(v.x*3.14159)*pow(1.-v.y,1.4);gl_FragColor=vec4(1.,.91,.70,soft*strength);}`});
     const b=new T.Mesh(g,m);b.frustumCulled=false;b.raycast=()=>{};shaftRoot.add(b);beams.push(b);
   }
-  let key="",clock=0;
-  function paint(env:Environment,night:number){
-    ctx.clearRect(0,0,1024,768);
-    const autumn=env.season==="autumn",winter=env.season==="winter",spring=env.season==="spring";
-    const colors=winter?["#acbac0","#cdd7d4","#dce0d6"]:autumn?["#82998b","#8d9c78","#a5ac7f"]:["#799e98","#82a58b","#a5b89a"];
-    for(let j=0;j<3;j++){
-      ctx.beginPath();ctx.moveTo(0,768);for(let x=0;x<=1024;x+=8)ctx.lineTo(x,335+j*64+Math.sin(x*.004+j*2)*38+Math.sin(x*.011+j)*14);ctx.lineTo(1024,768);ctx.closePath();ctx.fillStyle=colors[j];ctx.fill();
-    }
-    ctx.fillStyle=winter?"#e4e6dd":"#b4c8be";ctx.beginPath();ctx.moveTo(380,475);ctx.bezierCurveTo(860,565,190,597,700,768);ctx.lineTo(920,768);ctx.bezierCurveTo(410,570,930,556,424,473);ctx.fill();
-    for(let i=0;i<24;i++){
-      const x=(i*193+36)%1060,y=448+(i*97)%230,h=35+(i*23)%85;
-      ctx.strokeStyle="#626f58";ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y-h);ctx.moveTo(x,y-h*.45);ctx.lineTo(x-13,y-h*.73);ctx.moveTo(x,y-h*.55);ctx.lineTo(x+16,y-h*.85);ctx.stroke();
-      if(!winter){for(let j=0;j<5;j++){ctx.fillStyle=(spring?["#b7be99","#d4beb2","#9cb48c"]:autumn?["#b79b61","#a97546","#8f9260"]:["#658a66","#83a47b","#74936c"])[(i+j)%3];ctx.beginPath();ctx.ellipse(x+Math.sin(j*2.4)*h*.18,y-h*.78+Math.cos(j*2.4)*h*.16,h*.2,h*.19,0,0,Math.PI*2);ctx.fill();}}
-      else{ctx.strokeStyle="#eef0e9";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x-13,y-h*.73);ctx.lineTo(x,y-h*.45);ctx.stroke();}
-    }
-    // A distant lit house makes scale, rain and nighttime readable through either window.
-    ctx.fillStyle=winter?"#d9dace":"#dcd4b7";ctx.fillRect(735,452,84,61);ctx.fillStyle="#647169";ctx.beginPath();ctx.moveTo(726,452);ctx.lineTo(777,416);ctx.lineTo(829,452);ctx.closePath();ctx.fill();
-    ctx.fillStyle=night>.3?"#edcc8b":"#839e98";for(const x of [750,787])ctx.fillRect(x,468,16,23);
-    if(night>0){ctx.globalCompositeOperation="source-atop";ctx.fillStyle=`rgba(16,30,47,${night*.66})`;ctx.fillRect(0,0,1024,768);ctx.globalCompositeOperation="source-over";ctx.fillStyle=`rgba(247,206,132,${night})`;for(const x of [750,787])ctx.fillRect(x,468,16,23);}
-    landscapeTexture.needsUpdate=true;
-  }
+  let clock=0;
   return {root,shaftRoot,update(env:Environment,dt:number,motion:boolean){
     if(motion)clock+=dt;
     const night=1-T.MathUtils.smoothstep(env.altitude,-10,8),warm=1-T.MathUtils.smoothstep(env.altitude,3,28);
-    const next=[env.season,env.weather,env.time,Math.round(night*20)].join("/");if(key!==next){key=next;paint(env,night);}
+    const season=["spring","summer","autumn","winter"].indexOf(env.season);
+    landscapeMat.uniforms.quadrant.value.set(season%2*.5,season<2?.5:0);
+    landscapeMat.uniforms.night.value=night;landscapeMat.uniforms.cloud.value=env.cloud;landscapeMat.uniforms.warm.value=warm;
     sky.uniforms.clock.value=clock;sky.uniforms.cloud.value=env.cloud;sky.uniforms.night.value=night;
     sky.uniforms.top.value.set(night>.65?"#152e46":env.cloud>.7?"#859ba5":"#8fbbd1");sky.uniforms.bottom.value.set(night>.65?"#5d6471":warm>.65?"#e5bea1":"#e1e9db");const localSun=new T.Vector3(...sunDirection(env)).applyAxisAngle(new T.Vector3(0,1,0),-rotation);
     if(localSun.z<-.05)sky.uniforms.sun.value.set(.5+localSun.x/(-localSun.z)*.5,.48+localSun.y/(-localSun.z)*.5);else sky.uniforms.sun.value.set(-10,-10);
@@ -90,5 +83,5 @@ export function createWindow(position:T.Vector3,rotation:number,width:number,hei
       const positions=b.geometry.attributes.position as T.BufferAttribute;[a,c,end(c),end(a)].forEach((p,j)=>positions.setXYZ(j,p.x,p.y,p.z));positions.needsUpdate=true;
       (b.material as T.ShaderMaterial).uniforms.strength.value=.045*(1-env.cloud);
     });
-  },dispose(){root.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();if(o.material!==oak)(o.material as T.Material).dispose();}});shaftRoot.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(o.material as T.Material).dispose();}});landscapeTexture.dispose();root.removeFromParent();shaftRoot.removeFromParent();}};
+  },dispose(){disposed=true;root.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();if(o.material!==oak)(o.material as T.Material).dispose();}});shaftRoot.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(o.material as T.Material).dispose();}});landscapeTexture.dispose();root.removeFromParent();shaftRoot.removeFromParent();}};
 }
