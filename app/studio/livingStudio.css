@@ -1,0 +1,50 @@
+/* The room's controls appear at the object, without permanent markers. */
+.studio-prop-labels{position:absolute;inset:0;pointer-events:none;z-index:10}
+.studio-prop{position:absolute;transform:translate(-50%,-50%);width:32px;height:32px;border:0!important;background:transparent!important;pointer-events:auto;overflow:visible;padding:0}
+.studio-prop span{position:absolute;bottom:36px;left:50%;transform:translate(-50%,5px);white-space:nowrap;pointer-events:none;opacity:0;padding:7px 12px;border:1px solid #f8f1dd66;border-radius:5px;background:#263e34ed;color:#f5edd8;font:11px/1.5 Arial,"Yu Gothic",sans-serif;box-shadow:0 5px 20px #20312414;transition:opacity .2s,transform .2s}
+.studio-prop:is(:hover,:focus-visible,[data-hovered=true]) span{opacity:1;transform:translate(-50%,0)}
+.studio-prop:focus-visible{outline:1px solid #bd9f5f!important;outline-offset:3px}
+.studio-prop[hidden],.studio-object-labels[hidden],.chalk-surface[hidden]{display:none!important}
+.prop-controls{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:18;display:flex;align-items:center;gap:5px;padding:6px;border:1px solid #d5d9bc66;border-radius:12px;background:#f9f3e4ed;box-shadow:0 10px 38px #2939281a;backdrop-filter:blur(16px);color:#304d3e}
+.prop-controls button{min-height:40px;padding:0 17px;border-radius:7px;font-size:12px;white-space:nowrap}
+.prop-controls button:first-child{font-size:23px;padding:0 15px}
+.prop-controls button[aria-pressed=true]{background:#294d3d;color:#faf4e3}
+.prop-controls button:hover{background:#7c916325}
+.prop-controls input{width:110px;margin:0 12px;accent-color:#43634a}
+.prop-controls :focus-visible{outline:2px solid #b49b65;outline-offset:2px}
+.music-pause{position:absolute;bottom:22px;left:24px;z-index:19;border:1px solid #7c906533!important;border-radius:20px;background:#f6f0deeb!important;color:#3c5a47;padding:9px 16px;font-size:12px}
+.chalk-surface{position:absolute;left:0;top:0;transform-origin:0 0;z-index:12;overflow:hidden;pointer-events:auto;touch-action:none}
+.chalk-writing-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.chalk-surface[data-tool=eraser] .chalk-writing-canvas{cursor:cell}
+.studio-scene[data-inspection]:not([data-inspection=""]) .studio-surface-host{pointer-events:none!important}
+.model-presentation{backface-visibility:hidden;transform-style:preserve-3d}
+.studio-scene[data-page-transition=paper] .studio-surface-host{clip-path:none;overflow:visible;perspective:1800px}
+.studio-scene[data-page-transition=paper] .model-presentation{box-shadow:12px 1px 25px #493e2733}
+.personal-identity .personal-work{font-size:17px;line-height:1.85;margin-bottom:16px;color:#314f3f}
+.model-checklist .advantage-closing{display:block;border-color:#76d5d455;padding:14px 16px}
+.model-checklist .advantage-closing p{font-size:19px;line-height:1.8;color:#e0f6ed;margin:0;max-width:none}
+/* Both chapters inhabit the same calibrated, dark monitor screen. */
+.model-presentation:is(.model-board,.model-monitor){--page-ink:#e2eee6;--page-muted:#b2c7ba;--page-line:#c0d8c32b;background:#142a29;color:var(--page-ink);border:1px solid #9cbcb53b;box-shadow:inset 0 0 28px #051b2266,inset 0 1px 0 #d6f3e326;border-radius:3px}
+.model-presentation:is(.model-board,.model-monitor) .model-topline{background:linear-gradient(110deg,#22403a,#192f2e);border-color:var(--page-line);color:var(--page-muted)}
+.model-presentation:is(.model-board,.model-monitor) .model-page-footer{background:#102625;border-color:var(--page-line);color:#dfedc7}
+.model-presentation:is(.model-board,.model-monitor) .model-page-scroll{background:radial-gradient(ellipse at 48% 0,#385e4a28,transparent 70%)}
+.model-board .model-eyebrow,.model-board .usage-tabs small,.model-board .usage-memory p,.model-board .usage-scope{color:#b7cbba}
+.model-board .background-trigger{color:#c9d9b6!important;border-color:#a1b58e}
+.model-board .usage-tabs button{background:#1d3732;border-color:#7e9e8055;color:#e2eee6}
+.model-board .usage-tabs [aria-selected=true]{background:#43513b;border-color:#cbbb80;box-shadow:inset 0 2px #d7c48d}
+.model-board .usage-tabs span,.model-board .usage-task p,.model-board .usage-flow span,.model-board .usage-memory h3{color:#dce9d9}
+.model-board .usage-task>span,.model-board .usage-flow small,.model-board .usage-flow b{color:#dbca94}
+.model-board .usage-task>small{color:#aec2b2}
+.model-board .usage-output{background:#102421;border:1px solid #819b7850}
+.model-board .usage-memory{border-color:#91b79b3d}
+.model-board .model-page-footer button{color:#dce6bd}
+.screen-refresh{animation:screen-refresh .28s ease-out both}
+@keyframes screen-refresh{from{opacity:.25;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.screen-refresh{animation:none}.studio-prop span{transition:none}}
+@media(min-width:1000px) and (max-height:800px){.personal-identity .personal-work{font-size:15px;line-height:1.8;margin-bottom:10px}.model-checklist .advantage-closing{padding:10px 13px;margin-top:12px}.model-checklist .advantage-closing p{font-size:15px;line-height:1.65}}
+.model-led-studio:not([data-overview=true]) .studio-scene:is([data-page-transition=paper],[data-page-transition=screen])>canvas{filter:brightness(.84) blur(1px)}
+@media(min-width:1000px) and (max-height:740px){
+ .model-checklist:has(.product-advantage) .model-page-scroll{padding-top:14px;padding-bottom:12px}
+ .model-checklist:has(.product-advantage) .chapter-panel-heading{margin-bottom:10px}
+ .model-checklist .advantage-closing{margin-top:8px}
+}

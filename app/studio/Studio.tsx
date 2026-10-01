@@ -10,10 +10,13 @@ import "./agentArchitecture.css";
 import "./desktopStory.css";
 import "./agentDevelopment.css";
 import "./environment.css";
+import "./livingStudio.css";
+import type {ScenePropId} from "./interactions";
 const Canvas=lazy(()=>import("./StudioCanvas"));
 class SceneBoundary extends Component<{children:ReactNode;fallback:ReactNode},{failed:boolean}>{state={failed:false};static getDerivedStateFromError(){return {failed:true};}render(){return this.state.failed?<div className="scene-error-page"><p>3Dを準備できませんでした。内容はこのままご覧いただけます。</p>{this.props.fallback}</div>:this.props.children;}}
 const format=(seconds:number)=>`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`;
 export default function Studio(){
+  const [inspection,setInspection]=useState<ScenePropId|null>(null);
   const [chapter,setChapter]=useState(0),[mode,setMode]=useState<"guide"|"explore">("guide"),[overview,setOverview]=useState(true);
   const [reference,setReference]=useState(false),[referencePage,setReferencePage]=useState<string|null>(null),[query,setQuery]=useState(""),[category,setCategory]=useState("すべて");
   const [index,setIndex]=useState(false),[notes,setNotes]=useState(false),[elapsed,setElapsed]=useState(0),[timer,setTimer]=useState(false);
@@ -36,10 +39,10 @@ export default function Studio(){
   useEffect(()=>{if(!timer||reference)return;const id=setInterval(()=>setElapsed(s=>s+1),1000);return()=>clearInterval(id);},[timer,reference]);
   useEffect(()=>{if(reference){lastFocus.current=document.activeElement as HTMLElement;dialog.current?.showModal();}else{dialog.current?.close();lastFocus.current?.focus();}},[reference]);
   useEffect(()=>{if(notes)notesDialog.current?.showModal();else notesDialog.current?.close();},[notes]);
-  const go=useCallback((n:number)=>{setChapter(Math.max(0,Math.min(chapters.length-1,n)));if(n===3){setAgentTab("parts");setDevelopment(0);}setOverview(false);setIndex(false);setPlaying(false);setMode("guide");},[]);
+  const go=useCallback((n:number)=>{setInspection(null);setChapter(Math.max(0,Math.min(chapters.length-1,n)));if(n===3){setAgentTab("parts");setDevelopment(0);}setOverview(false);setIndex(false);setPlaying(false);setMode("guide");},[]);
   const advance=useCallback(()=>{if(chapter===3){setPlaying(false);if(agentTab==="parts"){setAgentTab("loop");return;}if(agentTab==="loop"){setAgentTab("development");setDevelopment(0);return;}if(development<6){setDevelopment(n=>n+1);return;}}go(chapter+1);},[chapter,agentTab,development,go]);
   const retreat=useCallback(()=>{if(chapter===3){setPlaying(false);if(agentTab==="development"){if(development>0)setDevelopment(n=>n-1);else setAgentTab("loop");return;}if(agentTab==="loop"){setAgentTab("parts");return;}}go(chapter-1);},[chapter,agentTab,development,go]);
-  const explore=useCallback(()=>{setOverview(true);setMode("explore");setIndex(false);setPlaying(false);},[]);
+  const explore=useCallback(()=>{setInspection(null);setOverview(true);setMode("explore");setIndex(false);setPlaying(false);},[]);
   const openReference=useCallback(()=>{setReference(true);setPlaying(false);},[]);
   const select=useCallback((id:ObjectId)=>{
     if(id==="library"){openReference();return;}
@@ -61,7 +64,7 @@ export default function Studio(){
     <div className="studio-app" inert={reference||notes}>
       <header className="studio-header"><button className="studio-brand" aria-label="スタジオの全景に戻る" onClick={explore}><span className="studio-monogram">w<span>.</span></span><span>WANG BO</span></button><div className="studio-header-actions"><button className="studio-index-toggle" aria-expanded={index} aria-controls="studio-index" onClick={()=>setIndex(v=>!v)}>目次 <span>{index?"−":"+"}</span></button></div></header>
       {index&&<nav id="studio-index" className="studio-index" aria-label="章を選ぶ"><div className="studio-index-head"><span>STUDIO / CONTENTS</span><button onClick={()=>setIndex(false)} aria-label="目次を閉じる">×</button></div><div className="studio-mode" role="group" aria-label="表示モード"><button aria-pressed={!overview} onClick={()=>go(chapter)}>ストーリー</button><button aria-pressed={overview} onClick={explore}>自由探索</button></div>{chapters.map((ch,i)=><button className="studio-index-chapter" key={ch.title} aria-label={`${i+1} ${ch.title}`} aria-current={chapter===i&&!overview?"step":undefined} onClick={()=>go(i)}><span>{ch.title}</span><b>↗</b></button>)}<button className="studio-archive-entry" aria-label="参考資料" onClick={()=>{setIndex(false);openReference();}}>過去の資料 ↗</button><button className="studio-presenter" aria-label="講者モードを開く" onClick={()=>{setIndex(false);setNotes(true);}}>講者メモ・タイマー ↗</button></nav>}
-      <div className="studio-body"><section className="studio-stage" aria-label="3Dスタジオ"><SceneBoundary fallback={content}><Suspense fallback={<div className="studio-loading">スタジオを準備しています…</div>}><Canvas overview={overview} view={view} chapter={chapter} paused={reference||notes} boardStep={board} review={0} onSelect={select} agentStep={step} panels={panels}/></Suspense></SceneBoundary></section></div>
+      <div className="studio-body"><section className="studio-stage" aria-label="3Dスタジオ"><SceneBoundary fallback={content}><Suspense fallback={<div className="studio-loading">スタジオを準備しています…</div>}><Canvas inspection={inspection} onInspect={setInspection} overview={overview} view={view} chapter={chapter} paused={reference||notes} boardStep={board} review={0} onSelect={select} agentStep={step} panels={panels}/></Suspense></SceneBoundary></section></div>
       {!overview&&<footer className="studio-footer"><div className="studio-location"><span className="studio-live-dot"/><span>{c.en}</span><small>{String(chapter+1).padStart(2,"0")+" / "+String(chapters.length).padStart(2,"0")}</small></div><div className="studio-navigation"><button aria-label="全景に戻る" onClick={explore}>⌂</button><button aria-label="前の章" disabled={chapter===0} onClick={retreat}>←</button><div className="journey-dots" aria-label="五つの章">{chapters.map((ch,i)=><button key={ch.title} aria-label={`${i+1}章 ${ch.title}`} aria-current={chapter===i?"step":undefined} onClick={()=>go(i)}><i/></button>)}</div><button aria-label="次の章" disabled={chapter===chapters.length-1} onClick={advance}>→</button></div></footer>}
       <div className="studio-sr" aria-live="polite">第{chapter+1}章 {c.title}。{overview?"全景を表示中。":"モデルに直接表示しています。"}</div>
     </div>

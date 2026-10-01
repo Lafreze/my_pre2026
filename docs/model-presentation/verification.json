@@ -1,9 +1,9 @@
 {
   "date": "2026-10-01",
   "target": "Production static export at http://127.0.0.1:5180/",
-  "scope": "PC immersive story mapping, four-season window atlas, real wall clock, staged hologram, feathered bird and shared PBR materials",
-  "checks": 58,
-  "passed": 58,
+  "scope": "PC paper and monitor transitions, physical prop inspection, temporary chalk drawing, curtain light occlusion, gramophone music and living room models",
+  "checks": 70,
+  "passed": 70,
   "layoutStates": 192,
   "suites": {
     "story": {
@@ -204,9 +204,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -234,9 +234,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -264,9 +264,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -294,9 +294,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -324,9 +324,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -354,9 +354,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -384,9 +384,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -414,9 +414,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -444,9 +444,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -474,9 +474,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -504,9 +504,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -534,9 +534,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -564,9 +564,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -594,9 +594,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -624,9 +624,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -654,9 +654,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -684,9 +684,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -714,9 +714,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -744,9 +744,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -774,9 +774,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -804,9 +804,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -834,9 +834,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -864,9 +864,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -894,9 +894,9 @@
             "top": 215.2730687972953,
             "bottom": 864.7269312027047
           },
-          "insideBottom": 858.2281494140625,
-          "scrollBottom": 801.2190246582031,
-          "insideTop": 801.2190551757812,
+          "insideBottom": 857.2279663085938,
+          "scrollBottom": 800.2189331054688,
+          "insideTop": 800.2189331054688,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1164,9 +1164,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1194,9 +1194,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1224,9 +1224,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1254,9 +1254,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1284,9 +1284,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1314,9 +1314,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1344,9 +1344,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1374,9 +1374,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1404,9 +1404,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1434,9 +1434,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1464,9 +1464,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1494,9 +1494,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1524,9 +1524,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1554,9 +1554,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1584,9 +1584,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1614,9 +1614,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1644,9 +1644,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1674,9 +1674,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1704,9 +1704,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1734,9 +1734,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1764,9 +1764,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1794,9 +1794,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1824,9 +1824,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -1854,9 +1854,9 @@
             "top": 200.2715940840227,
             "bottom": 849.7284059159773
           },
-          "insideBottom": 843.2295532226562,
-          "scrollBottom": 786.2202758789062,
-          "insideTop": 786.2202758789062,
+          "insideBottom": 842.2294311523438,
+          "scrollBottom": 785.2200775146484,
+          "insideTop": 785.2200927734375,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2124,9 +2124,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2154,9 +2154,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2184,9 +2184,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2214,9 +2214,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2244,9 +2244,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2274,9 +2274,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2304,9 +2304,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2334,9 +2334,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2364,9 +2364,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2394,9 +2394,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2424,9 +2424,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2454,9 +2454,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2484,9 +2484,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2514,9 +2514,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2544,9 +2544,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2574,9 +2574,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2604,9 +2604,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2634,9 +2634,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2664,9 +2664,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2694,9 +2694,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2724,9 +2724,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2754,9 +2754,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2784,9 +2784,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -2814,9 +2814,9 @@
             "top": 125.26274552309444,
             "bottom": 774.7372544769056
           },
-          "insideBottom": 768.2382202148438,
-          "scrollBottom": 711.2273559570312,
-          "insideTop": 711.2273559570312,
+          "insideBottom": 767.238037109375,
+          "scrollBottom": 710.2271881103516,
+          "insideTop": 710.2271728515625,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3084,9 +3084,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3114,9 +3114,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3144,9 +3144,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3174,9 +3174,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3204,9 +3204,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3234,9 +3234,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3264,9 +3264,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3294,9 +3294,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3324,9 +3324,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3354,9 +3354,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3384,9 +3384,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3414,9 +3414,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3444,9 +3444,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3474,9 +3474,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3504,9 +3504,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3534,9 +3534,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3564,9 +3564,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3594,9 +3594,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3624,9 +3624,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3654,9 +3654,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3684,9 +3684,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3714,9 +3714,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3744,9 +3744,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -3774,9 +3774,9 @@
             "top": 91.08381001503068,
             "bottom": 676.9161899849694
           },
-          "insideBottom": 671.057861328125,
-          "scrollBottom": 622.0479583740234,
-          "insideTop": 622.0479736328125,
+          "insideBottom": 670.0576782226562,
+          "scrollBottom": 621.0478057861328,
+          "insideTop": 621.0477905273438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4044,9 +4044,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4074,9 +4074,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4104,9 +4104,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4134,9 +4134,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4164,9 +4164,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4194,9 +4194,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4224,9 +4224,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4254,9 +4254,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4284,9 +4284,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4314,9 +4314,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4344,9 +4344,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4374,9 +4374,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4404,9 +4404,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4434,9 +4434,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4464,9 +4464,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4494,9 +4494,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4524,9 +4524,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4554,9 +4554,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4584,9 +4584,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4614,9 +4614,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4644,9 +4644,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4674,9 +4674,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4704,9 +4704,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -4734,9 +4734,9 @@
             "top": 91.57976310207181,
             "bottom": 628.4202368979282
           },
-          "insideBottom": 623.0518188476562,
-          "scrollBottom": 574.0421142578125,
-          "insideTop": 574.0421142578125,
+          "insideBottom": 622.0515747070312,
+          "scrollBottom": 573.0419464111328,
+          "insideTop": 573.0419311523438,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5004,9 +5004,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5023,7 +5023,7 @@
           "height": 502.354248046875,
           "body": 1024,
           "overflow": false,
-          "verticalOverflow": false,
+          "verticalOverflow": true,
           "bottom": 635.173583984375,
           "footerTop": 696,
           "headerBottom": 63,
@@ -5034,9 +5034,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5064,9 +5064,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5094,9 +5094,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5124,9 +5124,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5154,9 +5154,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5184,9 +5184,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5214,9 +5214,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5244,9 +5244,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5274,9 +5274,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5304,9 +5304,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5334,9 +5334,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5364,9 +5364,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5394,9 +5394,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5424,9 +5424,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5454,9 +5454,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5484,9 +5484,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5514,9 +5514,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5544,9 +5544,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5574,9 +5574,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5604,9 +5604,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5634,9 +5634,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5664,9 +5664,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5694,9 +5694,9 @@
             "top": 127.69319354304409,
             "bottom": 640.3068064569559
           },
-          "insideBottom": 635.173583984375,
-          "scrollBottom": 586.1649169921875,
-          "insideTop": 586.1649169921875,
+          "insideBottom": 634.1734008789062,
+          "scrollBottom": 585.1647186279297,
+          "insideTop": 585.1647338867188,
           "outside": [],
           "nodeOverflow": []
         },
@@ -5929,13 +5929,13 @@
       "metrics": [
         {
           "mode": "ambient",
-          "renderedFrames": 33,
+          "renderedFrames": 34,
           "milliseconds": 1100
         },
         {
           "mode": "notebook",
-          "drawCalls": 381,
-          "triangles": 754532,
+          "drawCalls": 610,
+          "triangles": 789844,
           "quality": "standard"
         }
       ]
@@ -6011,6 +6011,59 @@
       "errors": [],
       "textureCount": 27,
       "textureBytes": 16779157
+    },
+    "interactions": {
+      "results": [
+        {
+          "name": "immersive room has no persistent prop labels and no autoplay",
+          "pass": true
+        },
+        {
+          "name": "desk lamp switches off and on, camera focuses then returns",
+          "pass": true
+        },
+        {
+          "name": "floor lamp controls its own bulb and local illumination",
+          "pass": true
+        },
+        {
+          "name": "both linen curtains gather and close independently",
+          "pass": true
+        },
+        {
+          "name": "chalk draws on physical board; eraser removes strokes and ink survives focus changes",
+          "pass": true
+        },
+        {
+          "name": "gramophone starts original BGM only on click, supports volume and pause",
+          "pass": true
+        },
+        {
+          "name": "living props focus and respond without blocking the chapter entrances",
+          "pass": true
+        },
+        {
+          "name": "journal turns a sheet without camera detour and introduction uses personal work wording",
+          "pass": true
+        },
+        {
+          "name": "LLM and Agent have one monitor style and a stationary screen transition",
+          "pass": true
+        },
+        {
+          "name": "closing discussion is about maximizing our value with generative AI",
+          "pass": true
+        },
+        {
+          "name": "reload restores original chalk sketch and leaves music off",
+          "pass": true
+        },
+        {
+          "name": "no uncaught browser errors",
+          "pass": true
+        }
+      ],
+      "errors": []
     }
   },
   "motion": {
@@ -6020,8 +6073,8 @@
       {
         "name": "closed journal opens during direct approach",
         "pass": true,
-        "milliseconds": 2051,
-        "sampledFrames": 124
+        "milliseconds": 2049,
+        "sampledFrames": 123
       },
       {
         "name": "AI encounter stays on the open journal",
@@ -6034,7 +6087,7 @@
       {
         "name": "focus on projector before unfolding the light field",
         "pass": true,
-        "milliseconds": 3552,
+        "milliseconds": 3551,
         "sampledFrames": 214
       },
       {
@@ -6066,14 +6119,19 @@
   },
   "assets": {
     "gardenAtlas": "public/environments/garden-seasons.png",
-    "creation": "Built-in ImageGen; complete prompt in public/environments/CREDITS.md",
+    "creation": "Existing built-in ImageGen asset; full prompt in public/environments/CREDITS.md",
     "pbrTextures": 27,
     "publicLicense": "Poly Haven CC0",
-    "bird": "Original procedural model with articulated wings and overlapping feathers"
+    "models": "Original procedural linen curtains, walnut/brass gramophone, upholstered sofa and cabinet interiors",
+    "music": "Original Web Audio sequence, user initiated, no third-party audio files"
   },
   "notes": [
-    "Story chapters 1–2 share the journal; 3–4 share the monitor. The shelf opens only references, and the wall chalkboard has no chapter target.",
-    "Hologram gaze samples verify focus on the fixed projector before interface reveal. Reduced motion arrives immediately.",
-    "A clock-minute change can repaint an otherwise still scene. Ambient motion remains paused while reading."
+    "Five chapters remain on three physical surfaces; the shelf is for references. The chalkboard is interactive scenery, not a chapter.",
+    "Chalk and eraser mesh clicks are tested, as are drawing, erasing, leaving/revisiting and reload reset. No drawing persistence.",
+    "Page turn and screen transition keep the same camera position; the sheet stays within the viewport.",
+    "Curtains and local lights work independently. Hidden controls never appear as overview markers.",
+    "The late cabinet interior and aperture-light refinements were followed by fresh interaction, environment and material suites; other passing suites cover unchanged story layout and camera behavior.",
+    "BGM is never started by loading the page. Audio controls include pause and volume; a page visibility listener stops music when hidden.",
+    "Final curtain-to-window-handle clearance and cabinet leg-to-shelf clearance were visually checked in the rebuilt production preview; screenshots updated."
   ]
 }

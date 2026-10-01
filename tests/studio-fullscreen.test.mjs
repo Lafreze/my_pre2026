@@ -27,7 +27,7 @@ try{
   assert.equal(await p.locator('.garden-intro,.garden-progress,.object-marker,.garden-operation-hint').count(),0);assert.equal(await p.locator('.environment-menu').getAttribute('open'),null);
   assert.equal(await p.locator('.garden-camera-tools:visible,.studio-footer').count(),0);
   await p.getByRole('button',{name:'はじめる',exact:true}).click();await p.locator('.studio-surface-host[data-kind=name][data-interactive=true]').waitFor();
-  assert.equal(await p.locator('.studio-copy').count(),0);assert.equal(await p.locator('canvas').count(),1);
+  assert.equal(await p.locator('.studio-copy').count(),0);assert.equal(await p.locator('.studio-scene > canvas').count(),1);
   const text=await p.locator('.personal-introduction').innerText();for(const fact of ['KIOXIA','2023','日立ハイテク','次フレーム予測','Active Learning','Multi Beam','ADC'])assert.ok(text.includes(fact),fact);
   assert.equal(await p.locator('.personal-seal,.personal-skills,.cover-monogram').count(),0);assert.equal(await p.locator('.personal-career li').count(),2);assert.equal((text.match(/ADC/g)||[]).length,1);assert.ok(!text.includes('2019'));assert.ok(!text.includes('VGG'));assert.ok(!(await p.locator('.personal-name').innerText()).includes('です'));
   await p.screenshot({path:output+'/profile.png'});
@@ -138,7 +138,7 @@ try{
  await check('keyboard, notes and optional timer follow the five-chapter story',async()=>{
   await go(2);await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').focus();await p.keyboard.press('ArrowRight');await p.locator('.studio-scene[data-view=monitor][data-transition=false]').waitFor();await p.keyboard.press('ArrowLeft');await p.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();
   await p.locator('.studio-index-toggle').click();await p.getByRole('button',{name:'講者モードを開く'}).click();assert.ok((await p.locator('.studio-script').innerText()).includes('参加登録'));await p.getByRole('button',{name:'計時を開始'}).click();await p.waitForTimeout(1100);assert.notEqual(await p.locator('.studio-notes-clock>b').innerText(),'0:00');await p.getByRole('button',{name:'計時を停止'}).click();await p.locator('.studio-notes-dialog').getByRole('button',{name:'閉じる ×'}).click();
-  await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').focus();await p.keyboard.press('Escape');await p.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();await p.locator('.studio-scene canvas').click({position:{x:20,y:300}});await p.keyboard.press('Enter');await p.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();
+  await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').focus();await p.keyboard.press('Escape');await p.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();await p.locator('.studio-scene > canvas').click({position:{x:20,y:300}});await p.keyboard.press('Enter');await p.locator('.studio-scene[data-view=board][data-transition=false]').waitFor();
  });
  for(const [width,height] of [[1920,1080],[1680,1050],[1440,900],[1366,768],[1280,720],[1024,768]])await check(`all five model surfaces fit and scroll within ${width}×${height}`,async()=>{
   await p.setViewportSize({width,height});
@@ -172,7 +172,7 @@ try{
   }
  });
  await check('text fallback keeps the same readable chapter, working controls and retry',async()=>{
-  const q=await browser.newPage({viewport:{width:1366,height:768},reducedMotion:'reduce'});await mockWeather(q);await q.goto(base+'?no3d=1');await q.locator('.studio-scene[data-status=fallback]').waitFor();assert.equal(await q.locator('canvas').count(),0);await go(3,q);assert.equal(await q.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),false);await q.getByRole('tab',{name:'動きを見る',exact:true}).click();await q.getByRole('button',{name:'次の工程 →',exact:true}).click();assert.ok((await q.locator('.execution-detail').innerText()).includes('コードを生成'));await q.getByRole('button',{name:'3Dを再読み込み'}).click();await q.locator('.studio-scene[data-status=ready][data-view=monitor]').waitFor();await q.close();
+  const q=await browser.newPage({viewport:{width:1366,height:768},reducedMotion:'reduce'});await mockWeather(q);await q.goto(base+'?no3d=1');await q.locator('.studio-scene[data-status=fallback]').waitFor();assert.equal(await q.locator('.studio-scene > canvas').count(),0);await go(3,q);assert.equal(await q.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),false);await q.getByRole('tab',{name:'動きを見る',exact:true}).click();await q.getByRole('button',{name:'次の工程 →',exact:true}).click();assert.ok((await q.locator('.execution-detail').innerText()).includes('コードを生成'));await q.getByRole('button',{name:'3Dを再読み込み'}).click();await q.locator('.studio-scene[data-status=ready][data-view=monitor]').waitFor();await q.close();
  });
  await p.setViewportSize({width:1440,height:1000});await p.emulateMedia({reducedMotion:'no-preference'});
  await check('camera transitions are continuous, interruptible and never route through the overview',async()=>{
@@ -183,7 +183,7 @@ try{
  });
  await check('settled close-up stops rendering and context loss recovers on the same model',async()=>{
   await p.mouse.move(0,0);await p.waitForTimeout(900);const frames=await p.locator('.studio-scene').getAttribute('data-frames');await p.waitForTimeout(450);assert.equal(await p.locator('.studio-scene').getAttribute('data-frames'),frames);
-  await p.locator('canvas').evaluate(c=>c.getContext('webgl2').getExtension('WEBGL_lose_context').loseContext());await p.locator('.studio-scene[data-status=fallback]').waitFor();await p.getByRole('button',{name:'3Dを再読み込み'}).click();await p.locator('.studio-scene[data-status=ready][data-view=notebook]').waitFor();assert.equal(await p.locator('canvas').count(),1);
+  await p.locator('.studio-scene > canvas').evaluate(c=>c.getContext('webgl2').getExtension('WEBGL_lose_context').loseContext());await p.locator('.studio-scene[data-status=fallback]').waitFor();await p.getByRole('button',{name:'3Dを再読み込み'}).click();await p.locator('.studio-scene[data-status=ready][data-view=notebook]').waitFor();assert.equal(await p.locator('.studio-scene > canvas').count(),1);
  });
  await check('no browser exceptions or shader errors',async()=>assert.deepEqual(errors,[]));
 }finally{await writeFile(`${output}/report.json`,JSON.stringify({results,errors,networkFailures,layouts},null,2));console.log(`${results.filter(r=>r.pass).length}/${results.length} passed`);await browser.close();}

@@ -29,14 +29,14 @@ export function createRoomLife() {
   mesh(new T.BoxGeometry(.026,.007,.003),led,[0,.182,-.06],dock);
   const cable=new T.CatmullRomCurve3([new T.Vector3(2.23,.04,-2.36),new T.Vector3(2.4,.038,-2.42),new T.Vector3(2.5,.10,-2.44)]);
   mesh(new T.TubeGeometry(cable,20,.004,6,false),rubber,[0,0,0],root);
-  const route=new T.CatmullRomCurve3([[2.08,-1.78],[1.98,-1.1],[1.75,.1],[1.74,1.46],[1.1,1.92],[-.8,1.92],[-1.4,1.72],[-.85,1.87],[1.1,1.91],[1.95,1.15],[2.05,-.6]].map(([x,z])=>new T.Vector3(x,.029,z)),true,"centripetal");
+  const route=new T.CatmullRomCurve3([[2.08,-1.78],[1.98,-1.1],[1.75,.1],[1.74,1.46],[1.1,1.92],[-.8,1.92],[-1.1,2.05],[-.85,1.87],[1.1,1.91],[1.95,1.15],[2.05,-.6]].map(([x,z])=>new T.Vector3(x,.029,z)),true,"centripetal");
   const steam=createSteamEffect({count:12,height:.28,width:.055,seed:3});steam.root.position.set(-.79,.865,-1.34);root.add(steam.root);
   // Second quiet movement: bubbles in the cup are intentionally omitted; freshly poured coffee only steams.
   let elapsed=0;
-  return {root,robot,update(dt:number,motion:boolean){
-    if(motion)elapsed+=dt;
+  return {root,robot,update(dt:number,motion:boolean,paused=false,coffee=false){
+    if(motion&&!paused)elapsed+=dt;
     const t=(elapsed/130)%1,point=route.getPointAt(t),tangent=route.getTangentAt(t);robot.position.copy(point);robot.rotation.y=Math.atan2(tangent.x,tangent.z);
-    if(motion)brush.rotation.y+=dt*4.5;
-    steam.update(dt,.85,!motion);
+    if(motion&&!paused)brush.rotation.y+=dt*4.5;
+    steam.update(dt,coffee?1.15:.85,!motion&&!coffee);
   },snapshot:()=>({robot:robot.position.toArray(),steam:steam.snapshot(),time:elapsed}),dispose(){steam.dispose();root.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(o.material as T.Material).dispose();}});root.removeFromParent();}};
 }

@@ -62,7 +62,7 @@ export function createWindow(position:T.Vector3,rotation:number,width:number,hei
     const b=new T.Mesh(g,m);b.frustumCulled=false;b.raycast=()=>{};shaftRoot.add(b);beams.push(b);
   }
   let clock=0;
-  return {root,shaftRoot,update(env:Environment,dt:number,motion:boolean){
+  return {root,shaftRoot,update(env:Environment,dt:number,motion:boolean,openness=1){
     if(motion)clock+=dt;
     const night=1-T.MathUtils.smoothstep(env.altitude,-10,8),warm=1-T.MathUtils.smoothstep(env.altitude,3,28);
     const season=["spring","summer","autumn","winter"].indexOf(env.season);
@@ -73,15 +73,16 @@ export function createWindow(position:T.Vector3,rotation:number,width:number,hei
     if(localSun.z<-.05)sky.uniforms.sun.value.set(.5+localSun.x/(-localSun.z)*.5,.48+localSun.y/(-localSun.z)*.5);else sky.uniforms.sun.value.set(-10,-10);
     rain.uniforms.clock.value=clock;rain.uniforms.rain.value=env.weather==="rain"?.65:env.weather==="storm"?1:0;rain.uniforms.snow.value=env.weather==="snow"?1:0;rain.uniforms.fog.value=env.weather==="fog"?1:env.weather==="storm"?.25:0;rain.uniforms.night.value=night;
     const direction=new T.Vector3(...sunDirection(env)).negate(),normal=new T.Vector3(0,0,1).applyAxisAngle(new T.Vector3(0,1,0),rotation);
-    const enabled=env.altitude>3&&direction.dot(normal)>.08&&env.cloud<.7;
+    const enabled=env.altitude>3&&direction.dot(normal)>.08&&env.cloud<.7&&openness>.04;
     shaftRoot.visible=enabled;root.updateMatrixWorld(true);
     beams.forEach((b,i)=>{
-      // Left blinds cover the upper part; rays begin below them, never on the wall or frame.
-      const localY=rotation?-.22:height*.32;
-      const a=new T.Vector3((i?1:-1)*width*.25,localY,.17).applyMatrix4(root.matrixWorld),c=new T.Vector3((i?1:-1)*width*.25+.14,localY,.17).applyMatrix4(root.matrixWorld);
+      // Rays begin in the uncovered gap between the two gathered curtains.
+      const localY=height*.32,gap=Math.max(0,-.01+openness*(width/2-.095));
+      const x=(i?1:-1)*gap*.42,band=Math.min(.14,gap*.4);
+      const a=new T.Vector3(x-band/2,localY,.205).applyMatrix4(root.matrixWorld),c=new T.Vector3(x+band/2,localY,.205).applyMatrix4(root.matrixWorld);
       const end=(p:T.Vector3)=>{let distance=(p.y-.041)/Math.max(.001,-direction.y);for(const [axis,lo,hi] of [["x",-2.95,2.95],["z",-2.44,2.45]] as const){if(Math.abs(direction[axis])>.001){const d=((direction[axis]>0?hi:lo)-p[axis])/direction[axis];if(d>0)distance=Math.min(distance,d);}}return p.clone().addScaledVector(direction,Math.max(0,distance));};
       const positions=b.geometry.attributes.position as T.BufferAttribute;[a,c,end(c),end(a)].forEach((p,j)=>positions.setXYZ(j,p.x,p.y,p.z));positions.needsUpdate=true;
-      (b.material as T.ShaderMaterial).uniforms.strength.value=.045*(1-env.cloud);
+      (b.material as T.ShaderMaterial).uniforms.strength.value=.045*(1-env.cloud)*openness;
     });
   },dispose(){disposed=true;root.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();if(o.material!==oak)(o.material as T.Material).dispose();}});shaftRoot.traverse(o=>{if(o instanceof T.Mesh){o.geometry.dispose();(o.material as T.Material).dispose();}});landscapeTexture.dispose();root.removeFromParent();shaftRoot.removeFromParent();}};
 }

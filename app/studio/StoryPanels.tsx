@@ -23,5 +23,5 @@ export function ProductJourney({ selected,onSelect }: { selected:number;onSelect
 }
 
 export function ProductAdvantage() {
- return <div className="product-advantage"><p className="advantage-intro">実装コストが下がる中、<strong>課題設定・専門知識・品質判断・運用</strong>が差別化の要因になると考えます。</p><div className="advantage-grid">{advantages.map((item,i)=><article key={item.en}><span className="advantage-symbol" aria-hidden="true">{['⌕','▤','◇','↻'][i]}</span><span className="model-eyebrow">{item.en}</span><h2>{item.name}</h2><p>{item.text}</p><small>{item.example}</small></article>)}</div><div className="advantage-closing"><span>議論の論点</span><p>自分たちの専門性を、どの課題と評価基準に活かすか。</p></div></div>;
+ return <div className="product-advantage"><p className="advantage-intro">実装コストが下がる中、<strong>課題設定・専門知識・品質判断・運用</strong>が差別化の要因になると考えます。</p><div className="advantage-grid">{advantages.map((item,i)=><article key={item.en}><span className="advantage-symbol" aria-hidden="true">{['⌕','▤','◇','↻'][i]}</span><span className="model-eyebrow">{item.en}</span><h2>{item.name}</h2><p>{item.text}</p><small>{item.example}</small></article>)}</div><div className="advantage-closing"><p>生成AIが急速に発展する今、<br/>私たちはどうすれば、自分たちの価値を最大限に発揮できるか。</p></div></div>;
 }
