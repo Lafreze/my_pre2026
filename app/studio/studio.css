@@ -10,7 +10,7 @@ html:has(.work-studio),body:has(.work-studio){margin:0;overflow:hidden;backgroun
 .studio-header-actions{display:flex;gap:10px;align-items:center}.studio-header-actions button{border:1px solid #333d341b;border-radius:28px;padding:0 20px!important;background:#f7f5ed99;backdrop-filter:blur(14px);font-size:12px!important;min-width:105px;transition:background .2s,color .2s;height:46px}
 .studio-header-actions button{white-space:nowrap}.studio-header-actions button span{display:inline-block;margin-left:16px;font-size:18px}.studio-header-actions .studio-index-toggle{background:#272e2b;color:#fff;border-color:#272e2b}.studio-header-actions button:hover{background:var(--s-blue);color:white}
 .studio-body,.studio-stage,.studio-scene{position:absolute;inset:0;width:auto;height:auto;min-height:0;display:block;padding:0;margin:0;border:0;border-radius:0;background:transparent;overflow:hidden}
-.studio-stage{z-index:0}.studio-scene canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+.studio-stage{z-index:0}.studio-scene>canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
 .studio-object-labels{position:absolute;inset:0;pointer-events:none}
 .studio-object,.studio-object[data-selected=true],.studio-scene[data-view=room] .studio-object[data-object=notebook]{pointer-events:auto;position:absolute;transform:translate(-50%,-50%);width:44px;height:44px;display:grid;place-items:center;padding:0;z-index:2;background:none;border:0}
 .studio-object i{width:20px;height:20px;display:block;border-radius:50%;border:5px solid #fffcf0;box-shadow:0 2px 12px #15203433,0 0 0 1px #fff5;background:#2e58d8;transition:transform .2s,background .2s}

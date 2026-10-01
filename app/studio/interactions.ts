@@ -12,6 +12,8 @@ export const sceneProps = [
   {id:"cabinet", title:"レコードキャビネット"},
   {id:"clock", title:"時計"},
   {id:"robot", title:"お掃除ロボット"},
+  {id:"desk-drawer", title:"デスクの引き出し"},
+  {id:"hourglass", title:"砂時計"},
 ] as const;
 export type ScenePropId = typeof sceneProps[number]["id"];
 export type ChalkTool = "chalk" | "eraser";

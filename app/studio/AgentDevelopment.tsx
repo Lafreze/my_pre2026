@@ -22,11 +22,11 @@ export default function AgentDevelopment({selected,onSelect}:{selected:number;on
         <div className="development-events" style={{gridTemplateColumns:`repeat(${era.events.length},minmax(0,1fr))`}}>{era.events.map(event=><article key={event.name}><time>{event.date}</time><a href={event.url} target="_blank" rel="noreferrer">{event.name} <span>↗</span></a><p>{event.text}</p></article>)}</div>
         <p className="development-note">{era.note}</p>
       </div>:selected===5?<div className="development-parallel">
-        <header className="development-heading"><h2>置き換えではなく、複数の流れが交わる</h2><p>分類は重なり合う。AI IDEにもCoding Agentが入り、個人Agentから開発タスクを委ねることもある。</p></header>
+        <header className="development-heading"><h2>複数の用途における並行した発展</h2><p>分類は重なり合う。AI IDEにもCoding Agentが入り、個人Agentから開発タスクを委ねることもある。</p></header>
         <div className="development-routes">{developmentRoutes.map(route=><article key={route.name}><div><h3>{route.name}</h3><small>{route.label}</small></div><p><span>{route.early}</span><i>→</i><span>{route.middle}</span><i>→</i><span>{route.now}</span></p><a href={route.url} target="_blank" rel="noreferrer">{route.examples} ↗</a></article>)}</div>
         <p className="development-note">矢印は使い方の広がりを示す。製品の直接の継承関係や、性能の順位ではない。</p>
       </div>:<div className="development-infrastructure">
-        <header className="development-heading"><h2>製品を動かす、技術と運用の基盤</h2><p>モデル、製品、開発の枠組み、接続方式は異なる層。MCP・A2A・Skillsは新しいモデルでも、必須部品でもない。</p></header>
+        <header className="development-heading"><h2>実行を支える技術と運用基盤</h2><p>モデル、製品、開発の枠組み、接続方式は異なる層。MCP・A2A・Skillsは新しいモデルでも、必須部品でもない。</p></header>
         <div className="development-foundations">{developmentFoundations.map(item=><article key={item.name}><time>{item.date}</time><h3>{item.name}</h3><p>{item.text}</p><a href={item.url} target="_blank" rel="noreferrer">{item.source} ↗</a></article>)}</div>
         <p className="development-enterprise"><strong>企業での運用</strong><span>業務データ・操作との接続に加え、ID、権限、承認、監査を設計する。</span><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html" target="_blank" rel="noreferrer">Bedrock Agents ↗</a></p>
       </div>}

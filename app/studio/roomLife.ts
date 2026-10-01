@@ -29,7 +29,7 @@ export function createRoomLife() {
   mesh(new T.BoxGeometry(.026,.007,.003),led,[0,.182,-.06],dock);
   const cable=new T.CatmullRomCurve3([new T.Vector3(2.23,.04,-2.36),new T.Vector3(2.4,.038,-2.42),new T.Vector3(2.5,.10,-2.44)]);
   mesh(new T.TubeGeometry(cable,20,.004,6,false),rubber,[0,0,0],root);
-  const route=new T.CatmullRomCurve3([[2.08,-1.78],[1.98,-1.1],[1.75,.1],[1.74,1.46],[1.1,1.92],[-.8,1.92],[-1.1,2.05],[-.85,1.87],[1.1,1.91],[1.95,1.15],[2.05,-.6]].map(([x,z])=>new T.Vector3(x,.029,z)),true,"centripetal");
+  const route=new T.CatmullRomCurve3([[1.18,-1.1],[1.18,-.45],[1.18,.45],[1.18,1.5],[.78,1.90],[-.78,1.90],[-1.12,1.55],[-1.12,.64],[-.90,-.04],[.35,-.12],[.9,-.65]].map(([x,z])=>new T.Vector3(x,.029,z)),true,"centripetal");
   const steam=createSteamEffect({count:12,height:.28,width:.055,seed:3});steam.root.position.set(-.79,.865,-1.34);root.add(steam.root);
   // Second quiet movement: bubbles in the cup are intentionally omitted; freshly poured coffee only steams.
   let elapsed=0;

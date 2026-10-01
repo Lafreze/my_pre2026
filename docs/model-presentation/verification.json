@@ -1,10 +1,36 @@
 {
   "date": "2026-10-01",
   "target": "Production static export at http://127.0.0.1:5180/",
-  "scope": "PC paper and monitor transitions, physical prop inspection, temporary chalk drawing, curtain light occlusion, gramophone music and living room models",
-  "checks": 70,
-  "passed": 70,
+  "scope": "Presentation Japanese, curved paper turns, unclipped holographic discussion, direct object interaction and realistic furniture layout",
+  "checks": 73,
+  "passed": 73,
   "layoutStates": 192,
+  "additionalDiscussionViewports": [
+    [
+      1920,
+      1080
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      1280,
+      720
+    ],
+    [
+      1280,
+      600
+    ],
+    [
+      1024,
+      576
+    ],
+    [
+      960,
+      540
+    ]
+  ],
   "suites": {
     "story": {
       "results": [
@@ -5863,7 +5889,7 @@
           "height": 502.31365966796875,
           "body": 1024,
           "overflow": false,
-          "verticalOverflow": true,
+          "verticalOverflow": false,
           "bottom": 635.1532745361328,
           "footerTop": 696,
           "headerBottom": 63,
@@ -5929,13 +5955,13 @@
       "metrics": [
         {
           "mode": "ambient",
-          "renderedFrames": 34,
+          "renderedFrames": 33,
           "milliseconds": 1100
         },
         {
           "mode": "notebook",
-          "drawCalls": 610,
-          "triangles": 789844,
+          "drawCalls": 45,
+          "triangles": 301306,
           "quality": "standard"
         }
       ]
@@ -6043,6 +6069,14 @@
           "pass": true
         },
         {
+          "name": "four narrow cabinet doors open and close independently at their handles",
+          "pass": true
+        },
+        {
+          "name": "desk drawer reveals stationery and the hourglass reverses and runs",
+          "pass": true
+        },
+        {
           "name": "journal turns a sheet without camera detour and introduction uses personal work wording",
           "pass": true
         },
@@ -6051,7 +6085,11 @@
           "pass": true
         },
         {
-          "name": "closing discussion is about maximizing our value with generative AI",
+          "name": "closing discussion uses concise presentation wording",
+          "pass": true
+        },
+        {
+          "name": "discussion fits six PC window sizes without scrolling, clipping or stretched text",
           "pass": true
         },
         {
@@ -6074,7 +6112,7 @@
         "name": "closed journal opens during direct approach",
         "pass": true,
         "milliseconds": 2049,
-        "sampledFrames": 123
+        "sampledFrames": 124
       },
       {
         "name": "AI encounter stays on the open journal",
@@ -6087,7 +6125,7 @@
       {
         "name": "focus on projector before unfolding the light field",
         "pass": true,
-        "milliseconds": 3551,
+        "milliseconds": 3550,
         "sampledFrames": 214
       },
       {
@@ -6107,31 +6145,21 @@
     "browser": "Chrome",
     "mobile": "not in scope"
   },
-  "weather": {
-    "provider": "Open-Meteo",
-    "defaultCity": "Tokyo; explicit, editable default",
-    "refreshMinutes": 15,
-    "regressionData": "Deterministic fixtures, city changes, service failure and reload without observations",
-    "previewSeasons": 4,
-    "previewTimes": 6,
-    "previewWeatherTypes": 6,
-    "clock": "Device local real time, independent of city/weather preview"
-  },
-  "assets": {
-    "gardenAtlas": "public/environments/garden-seasons.png",
-    "creation": "Existing built-in ImageGen asset; full prompt in public/environments/CREDITS.md",
-    "pbrTextures": 27,
-    "publicLicense": "Poly Haven CC0",
-    "models": "Original procedural linen curtains, walnut/brass gramophone, upholstered sofa and cabinet interiors",
-    "music": "Original Web Audio sequence, user initiated, no third-party audio files"
-  },
   "notes": [
-    "Five chapters remain on three physical surfaces; the shelf is for references. The chalkboard is interactive scenery, not a chapter.",
-    "Chalk and eraser mesh clicks are tested, as are drawing, erasing, leaving/revisiting and reload reset. No drawing persistence.",
-    "Page turn and screen transition keep the same camera position; the sheet stays within the viewport.",
-    "Curtains and local lights work independently. Hidden controls never appear as overview markers.",
-    "The late cabinet interior and aperture-light refinements were followed by fresh interaction, environment and material suites; other passing suites cover unchanged story layout and camera behavior.",
-    "BGM is never started by loading the page. Audio controls include pause and volume; a page visibility listener stops music when hidden.",
-    "Final curtain-to-window-handle clearance and cabinet leg-to-shelf clearance were visually checked in the rebuilt production preview; screenshots updated."
-  ]
+    "All five chapters and background states were checked for layout and interaction. Japanese copy uses concise presentation wording; the short closing question is about applying expertise and evaluating outcomes.",
+    "All fifteen living object entrances remain keyboard accessible without a bottom toolbar. Repeated object clicks operate the object; off-object scene clicks restore the overview.",
+    "Chalk and eraser use separate SVG cursors; physical tool clicks, temporary ink and reload reset pass.",
+    "A curved sheet lifts toward the reader and turns right-to-left about a fixed spine; screen changes retain the monitor camera.",
+    "The discussion fits six PC viewport sizes without scrolling, clipped text or horizontal glyph compression.",
+    "Four cabinet doors are operated independently at their physical handles. The sofa is on the floor-lamp side, leaving the bookshelf clear.",
+    "Late refinements to hourglass glass/sand geometry and the drawer camera were followed by a fresh fifteen-check interaction suite. Other suites cover unchanged behavior.",
+    "Original user-initiated BGM supports direct-click pause and wheel/keyboard volume; reload leaves it off.",
+    "Final Multi Beam wording was additionally verified at 1440×1000, 1280×720 and 1024×768 after the copy review. Presentation backgrounds also dismiss to the overview."
+  ],
+  "assets": {
+    "pbrTextures": 27,
+    "publicLicense": "Existing Poly Haven CC0 textures",
+    "models": "Original procedural furniture, brass hourglass and articulated desk drawer",
+    "music": "Original Web Audio sequence"
+  }
 }

@@ -1,25 +1,13 @@
 /* The room's controls appear at the object, without permanent markers. */
 .studio-prop-labels{position:absolute;inset:0;pointer-events:none;z-index:10}
-.studio-prop{position:absolute;transform:translate(-50%,-50%);width:32px;height:32px;border:0!important;background:transparent!important;pointer-events:auto;overflow:visible;padding:0}
+.studio-prop{position:absolute;transform:translate(-50%,-50%);width:20px;height:20px;min-height:20px!important;border:0!important;background:transparent!important;pointer-events:auto;overflow:visible;padding:0}
 .studio-prop span{position:absolute;bottom:36px;left:50%;transform:translate(-50%,5px);white-space:nowrap;pointer-events:none;opacity:0;padding:7px 12px;border:1px solid #f8f1dd66;border-radius:5px;background:#263e34ed;color:#f5edd8;font:11px/1.5 Arial,"Yu Gothic",sans-serif;box-shadow:0 5px 20px #20312414;transition:opacity .2s,transform .2s}
 .studio-prop:is(:hover,:focus-visible,[data-hovered=true]) span{opacity:1;transform:translate(-50%,0)}
 .studio-prop:focus-visible{outline:1px solid #bd9f5f!important;outline-offset:3px}
 .studio-prop[hidden],.studio-object-labels[hidden],.chalk-surface[hidden]{display:none!important}
-.prop-controls{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:18;display:flex;align-items:center;gap:5px;padding:6px;border:1px solid #d5d9bc66;border-radius:12px;background:#f9f3e4ed;box-shadow:0 10px 38px #2939281a;backdrop-filter:blur(16px);color:#304d3e}
-.prop-controls button{min-height:40px;padding:0 17px;border-radius:7px;font-size:12px;white-space:nowrap}
-.prop-controls button:first-child{font-size:23px;padding:0 15px}
-.prop-controls button[aria-pressed=true]{background:#294d3d;color:#faf4e3}
-.prop-controls button:hover{background:#7c916325}
-.prop-controls input{width:110px;margin:0 12px;accent-color:#43634a}
-.prop-controls :focus-visible{outline:2px solid #b49b65;outline-offset:2px}
-.music-pause{position:absolute;bottom:22px;left:24px;z-index:19;border:1px solid #7c906533!important;border-radius:20px;background:#f6f0deeb!important;color:#3c5a47;padding:9px 16px;font-size:12px}
 .chalk-surface{position:absolute;left:0;top:0;transform-origin:0 0;z-index:12;overflow:hidden;pointer-events:auto;touch-action:none}
-.chalk-writing-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
-.chalk-surface[data-tool=eraser] .chalk-writing-canvas{cursor:cell}
 .studio-scene[data-inspection]:not([data-inspection=""]) .studio-surface-host{pointer-events:none!important}
 .model-presentation{backface-visibility:hidden;transform-style:preserve-3d}
-.studio-scene[data-page-transition=paper] .studio-surface-host{clip-path:none;overflow:visible;perspective:1800px}
-.studio-scene[data-page-transition=paper] .model-presentation{box-shadow:12px 1px 25px #493e2733}
 .personal-identity .personal-work{font-size:17px;line-height:1.85;margin-bottom:16px;color:#314f3f}
 .model-checklist .advantage-closing{display:block;border-color:#76d5d455;padding:14px 16px}
 .model-checklist .advantage-closing p{font-size:19px;line-height:1.8;color:#e0f6ed;margin:0;max-width:none}
@@ -47,4 +35,45 @@
  .model-checklist:has(.product-advantage) .model-page-scroll{padding-top:14px;padding-bottom:12px}
  .model-checklist:has(.product-advantage) .chapter-panel-heading{margin-bottom:10px}
  .model-checklist .advantage-closing{margin-top:8px}
+}
+.chalk-writing-canvas{display:block;width:100%;height:100%;touch-action:none;cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M5%2027%209%2017%2023%203Q25%201%2028%204L29%207%2015%2022Z%22%20fill%3D%22%23f4ebcf%22%20stroke%3D%22%23665e4b%22%20stroke-width%3D%221.3%22/%3E%3Cpath%20d%3D%22m9%2017%206%205M12%2018%2025%205%22%20stroke%3D%22%23fffaf0%22%20stroke-width%3D%222%22/%3E%3Cpath%20d%3D%22m5%2027%204-2-2-2Z%22%20fill%3D%22%23fff%22/%3E%3C/svg%3E") 5 27,crosshair}
+.chalk-surface[data-tool=eraser] .chalk-writing-canvas{cursor:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2232%22%20viewBox%3D%220%200%2040%2032%22%3E%3Cpath%20d%3D%22m4%2012%2011-7%2021%207-10%209Z%22%20fill%3D%22%23b89157%22%20stroke%3D%22%234a3e2a%22/%3E%3Cpath%20d%3D%22M4%2012v9l22%208v-8Z%22%20fill%3D%22%23354f42%22%20stroke%3D%22%23d0d6bb%22%20stroke-width%3D%22.7%22/%3E%3Cpath%20d%3D%22m26%2021%2010-9v9l-10%208Z%22%20fill%3D%22%23243e33%22%20stroke%3D%22%23d0d6bb%22%20stroke-width%3D%22.7%22/%3E%3Cpath%20d%3D%22m8%2013%2017%206M13%2010l17%206%22%20stroke%3D%22%23dcc291%22%20stroke-width%3D%221.2%22/%3E%3C/svg%3E") 20 22,cell}
+
+.physical-tool-labels{position:absolute;inset:0;z-index:13;pointer-events:none}
+.physical-tool-labels .studio-prop{width:26px;height:22px}
+.physical-tool-labels .cabinet-handle{width:22px;height:26px}
+.studio-surface-host{container-type:size}
+.studio-scene[data-page-transition=paper] .studio-surface-host{clip-path:none;overflow:visible}
+.book-turn-sheet{position:absolute;left:0;top:0;pointer-events:none;perspective:12000px;perspective-origin:left center;transform-style:preserve-3d}
+.book-turn-strip{position:absolute;left:0;top:0;height:100%;transform-origin:left center;transform-style:preserve-3d;will-change:transform}
+.book-turn-front,.book-turn-back{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden}
+.book-turn-front .model-presentation{max-width:none!important}
+.book-turn-back{transform:rotateY(180deg);background:linear-gradient(90deg,#f3ead6,#f8f1df);border-block:1px solid #b9a27755}
+/* The discussion is a single slide. Allocate its height rather than hiding overflow. */
+.model-checklist[data-product-tab=value] .model-page-scroll{display:flex;flex-direction:column;overflow:clip;padding:clamp(12px,3cqh,26px) clamp(24px,3.4cqw,38px)}
+.model-checklist[data-product-tab=value] .chapter-panel-heading{flex:0 0 auto;align-items:center;flex-wrap:nowrap;margin:0 0 clamp(10px,2cqh,20px);gap:16px}
+.model-checklist[data-product-tab=value] .chapter-panel-heading h1{font-size:clamp(23px,4.4cqh,30px);line-height:1.4;margin:0}
+.model-checklist[data-product-tab=value] .chapter-panel-heading .model-eyebrow{margin:0 0 6px;font-size:8px}
+.model-checklist[data-product-tab=value] .paper-tabs{width:auto;flex-shrink:0}
+.model-checklist[data-product-tab=value] .paper-tabs button{font-size:11px;min-height:34px;padding:0 12px}
+.model-checklist .product-advantage{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:clamp(10px,2.5cqh,22px);flex:1;min-height:0}
+.model-checklist .advantage-intro{font-size:clamp(12px,2.2cqh,14px);line-height:1.7;margin:0;max-width:none}
+.model-checklist .advantage-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin:0;gap:clamp(14px,2cqw,24px);align-items:stretch}
+.model-checklist .advantage-grid article{display:flex;flex-direction:column;padding-top:clamp(10px,2.3cqh,18px);min-height:0}
+.model-checklist .advantage-symbol{display:none}
+.model-checklist .advantage-grid .model-eyebrow{font-size:8px;margin:0 0 9px;line-height:1.3;letter-spacing:.09em}
+.model-checklist .advantage-grid h2{font-size:clamp(17px,3.3cqh,22px);line-height:1.5;margin:0 0 10px}
+.model-checklist .advantage-grid p{font-size:clamp(12px,2.25cqh,14px);line-height:1.8;margin:0 0 12px}
+.model-checklist .advantage-grid small{font-size:clamp(10px,1.9cqh,11px);line-height:1.6;margin:auto 0 0;padding-top:9px}
+.model-checklist .advantage-closing{margin:0;padding:clamp(10px,2cqh,16px) 16px}
+.model-checklist .advantage-closing p{font-size:clamp(14px,2.75cqh,19px);line-height:1.6;margin:0}
+@container(max-height:420px){
+ .model-checklist[data-product-tab=value] .model-page-scroll{padding:10px 26px}
+ .model-checklist[data-product-tab=value] .chapter-panel-heading{margin-bottom:9px}
+ .model-checklist .product-advantage{gap:10px}
+ .model-checklist .advantage-grid .model-eyebrow{margin-bottom:6px}
+ .model-checklist .advantage-grid h2{margin-bottom:7px;font-size:17px}
+ .model-checklist .advantage-grid p{line-height:1.65;margin-bottom:8px}
+ .model-checklist .advantage-grid small{padding-top:6px;font-size:10px}
+ .model-checklist .advantage-closing{padding:8px 12px}
 }

@@ -46,11 +46,12 @@ try{
    await p.screenshot({path:`${output}/${views[i]}.png`});
   }
   assert.deepEqual(await p.evaluate(()=>[...new Set(window.observedViews)]),views.slice(1));
+  await p.locator('.studio-scene > canvas').click({position:{x:24,y:180}});await p.locator('.studio-scene[data-view=room][data-transition=false]').waitFor();assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'true');
  });
  await check('three usage modes keep the same task and distinguish generation, execution and feedback',async()=>{
   await go(2);assert.equal(await p.locator('.usage-tabs button').count(),3);assert.equal(await p.locator('.evolution-tabs,.paper-tabs[aria-label="LLMの説明"]').count(),0);
-  for(const [i,phrase] of [[0,'2022'],[1,'API'],[2,'OpenClaw']]){await p.locator('.usage-tabs button').nth(i).click();assert.ok((await p.locator('.usage-memory').innerText()).includes(phrase));assert.equal(await p.locator('.usage-task p').innerText(),'イベントの参加登録ページをつくる');if(i)assert.ok(!(await p.locator('.usage-memory').innerText()).includes('2022'));}
-  assert.ok((await p.locator('.usage-feedback').innerText()).includes('文脈'));await p.locator('.usage-tabs button').nth(1).click();assert.ok((await p.locator('.usage-output').innerText()).includes('System'));assert.ok((await p.locator('.usage-scope').innerText()).includes('1回に限りません'));
+  for(const [i,phrase] of [[0,'2022'],[1,'API'],[2,'OpenClaw']]){await p.locator('.usage-tabs button').nth(i).click();assert.ok((await p.locator('.usage-memory').innerText()).includes(phrase));assert.equal(await p.locator('.usage-task p').innerText(),'イベント参加登録ページの制作');if(i)assert.ok(!(await p.locator('.usage-memory').innerText()).includes('2022'));}
+  assert.ok((await p.locator('.usage-feedback').innerText()).includes('文脈'));await p.locator('.usage-tabs button').nth(1).click();assert.ok((await p.locator('.usage-output').innerText()).includes('System'));assert.ok((await p.locator('.usage-scope').innerText()).includes('回数は限定されない'));
  });
  await check('harness encloses the roles and loop selection highlights the directed feedback path',async()=>{
   await go(3);await p.getByRole('tab',{name:'構成を見る',exact:true}).click();assert.equal(await p.locator('.harness-frame .architecture-node').count(),3);
@@ -78,7 +79,7 @@ try{
  await check('execution limits and permission blockers stop playback and request human judgment',async()=>{
   for(const [scenario,end] of [['limit',3],['blocked',2]]){
    await p.getByLabel('終了条件の例',{exact:true}).selectOption(scenario);await p.locator('.execution-track button').nth(end-1).click();await p.getByRole('button',{name:'工程を再生',exact:true}).click();
-   await p.locator('.agent-architecture[data-finished=true]').waitFor();assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),String(end));assert.equal(await p.locator('.execution-detail').getAttribute('data-outcome'),'human');assert.ok((await p.locator('.execution-detail').innerText()).includes('人に確認'));
+   await p.locator('.agent-architecture[data-finished=true]').waitFor();assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),String(end));assert.equal(await p.locator('.execution-detail').getAttribute('data-outcome'),'human');assert.ok((await p.locator('.execution-detail').innerText()).includes('人に判断を求める'));
    assert.ok(await p.getByRole('button',{name:'次の工程 →',exact:true}).isDisabled());assert.ok(await p.getByRole('button',{name:'工程を再生',exact:true}).isDisabled());assert.equal(await p.locator('.execution-track button:disabled').count(),6-end);
    await p.waitForTimeout(2400);assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),String(end));
   }
@@ -86,7 +87,7 @@ try{
  });
  await check('the introduction connects Transformer, ViT and GPT to everyday AI without a classification lesson',async()=>{
   await go(1);assert.equal(await p.locator('.vit-stage-tabs,.vision-practice,.vit-pipeline').count(),0);
-  const text=await p.locator('.agent-prelude').innerText();for(const phrase of ['2017','2020','2022','機械翻訳','事前学習','賢い対話ボット','仕事を進めるAI'])assert.ok(text.includes(phrase),phrase);
+  const text=await p.locator('.agent-prelude').innerText();for(const phrase of ['2017','2020','2022','機械翻訳','事前学習','対話支援','開発工程への応用'])assert.ok(text.includes(phrase),phrase);
   assert.equal(await p.locator('.prelude-chapters article').count(),3);assert.equal(await p.locator('.prelude-sources a').count(),2);assert.ok(!(await p.locator('body').innerText()).includes('私の体験'));
   await p.screenshot({path:output+'/agent-prelude.png'});
  });
@@ -119,7 +120,7 @@ try{
  });
  await check('product workflow replaces the screenshot with five stages and leads to four competitive advantages',async()=>{
   await go(4);assert.equal(await p.locator('.model-checklist img').count(),0);await p.getByRole('tab',{name:'開発プロセス',exact:true}).click();
-  for(let i=0;i<5;i++){await p.locator('.product-step-rail button').nth(i).click();assert.ok((await p.locator('.product-step-detail').innerText()).includes('人が決める'));assert.ok((await p.locator('.product-check').innerText()).length>20);}
+  for(let i=0;i<5;i++){await p.locator('.product-step-rail button').nth(i).click();assert.ok((await p.locator('.product-step-detail').innerText()).includes('人による判断'));assert.ok((await p.locator('.product-check').innerText()).length>20);}
   await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.advantage-grid article').count(),4);assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'false');
  });
  await check('retired card experience is absent from the story and the last chapter ends in exploration',async()=>{
@@ -179,7 +180,7 @@ try{
   await go(0);const before=await p.locator('.studio-scene').getAttribute('data-camera-position');await p.locator('.journey-dots button').nth(3).click();await p.locator('.studio-scene[data-transition=true]').waitFor();
   assert.equal(await p.locator('.studio-surface-host[data-active=true]').evaluate(e=>e.inert),true);await p.waitForTimeout(180);assert.equal(await p.locator('.studio-surface-host[data-active=true]').getAttribute('data-visible'),'true');assert.equal(await p.locator('.studio-surface-host').count(),5);const midway=await p.locator('.studio-scene').getAttribute('data-camera-position');assert.notEqual(midway,before);assert.equal(await p.locator('.studio-scene').getAttribute('data-view'),'monitor');
   assert.equal(await p.locator('.studio-skip').count(),0);
-  await p.locator('.journey-dots button').nth(1).click();await p.locator('.studio-scene[data-view=notebook][data-transition=false]').waitFor();assert.equal(await p.locator('.studio-copy').count(),0);assert.ok((await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').innerText()).includes('AIとの距離'));
+  await p.locator('.journey-dots button').nth(1).click();await p.locator('.studio-scene[data-view=notebook][data-transition=false]').waitFor();assert.equal(await p.locator('.studio-copy').count(),0);assert.ok((await p.locator('.studio-surface-host[data-active=true] .model-presentation h1').innerText()).includes('Transformerとの接点'));
  });
  await check('settled close-up stops rendering and context loss recovers on the same model',async()=>{
   await p.mouse.move(0,0);await p.waitForTimeout(900);const frames=await p.locator('.studio-scene').getAttribute('data-frames');await p.waitForTimeout(450);assert.equal(await p.locator('.studio-scene').getAttribute('data-frames'),frames);

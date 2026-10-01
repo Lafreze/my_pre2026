@@ -125,8 +125,17 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   box([1.46,.065,.76],[0,.727,0],wood,desk,.034);
   for(const x of [-.63,.63]) for(const z of [-.27,.27]) box([.065,.685,.065],[x,.365,z],edge,desk,.014);
   box([1.3,.09,.035],[0,.635,-.29],edge,desk);
-  box([.41,.17,.5],[.46,.603,.015],wood,desk);
-  box([.12,.018,.026],[.46,.615,.278],metal,desk,.008);
+  // A shallow drawer with an actual empty interior, mounted on side runners.
+  for(const x of [.247,.673])box([.018,.17,.50],[x,.603,.015],wood,desk,.005);
+  box([.42,.018,.50],[.46,.52,.015],wood,desk,.005);
+  const deskDrawer=new THREE.Group();deskDrawer.position.set(.46,.59,.015);desk.add(deskDrawer);
+  box([.396,.013,.45],[0,-.047,0],wood,deskDrawer,.004);
+  for(const x of [-.192,.192])box([.012,.087,.45],[x,-.005,0],wood,deskDrawer,.003);
+  box([.396,.087,.012],[0,-.005,-.219],wood,deskDrawer,.003);
+  box([.426,.14,.027],[0,.011,.24],wood,deskDrawer,.008);
+  box([.105,.014,.024],[0,.019,.266],brass,deskDrawer,.005);
+  box([.23,.019,.17],[-.035,-.029,-.02],paper,deskDrawer,.003);
+  for(let i=0;i<3;i++)rod([.12,-.029,-.14+i*.025],[.12,-.029,.06+i*.025],.0035,[edge,olive,brass][i],deskDrawer);
   box([.89,.012,.34],[-.15,.768,.1],finishes.material("leather", "#34483e"),desk,.025);
   for(const x of [-.63,.63]) box([.046,.075,.69],[x,.64,0],edge,desk,.009);
   for(const x of [-.55,.55]) { const screw = cyl(.009,.009,.003,[x,.763,-.29],brass,desk); screw.name="desk-joinery"; }
@@ -260,6 +269,16 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const pencilJar=group([-.55,.685,.47]);
   turned([[.03,0],[.048,.008],[.047,.11],[.043,.115],[.037,.112],[.037,.02],[.03,.01]],[0,0,0],ceramic,pencilJar);
   for(let i=0;i<3;i++){const x=(i-1)*.016;rod([x,.015,0],[x+(i-1)*.024,.195+i*.012,.01],.004,[edge,olive,brass][i],pencilJar);}
+  const hourglass=group([.58,.685,.46]);hourglass.name="Brass sand timer";
+  const sandFrame=new THREE.Group();sandFrame.position.y=.136;hourglass.add(sandFrame);
+  for(const y of [-.122,.122]){cyl(.056,.056,.012,[0,y,0],brass,sandFrame);cyl(.047,.047,.006,[0,y+(y<0?.008:-.008),0],edge,sandFrame);}
+  for(let i=0;i<3;i++){const a=i*Math.PI*2/3;rod([Math.cos(a)*.045,-.115,Math.sin(a)*.045],[Math.cos(a)*.045,.115,Math.sin(a)*.045],.0025,brass,sandFrame);}
+  const timerGlass=new THREE.MeshPhysicalMaterial({color:"#e6ede4",roughness:.09,metalness:0,transparent:true,opacity:.25,side:THREE.DoubleSide,depthWrite:false});
+  const glassProfile=new THREE.SplineCurve([[.033,-.106],[.039,-.085],[.031,-.045],[.009,-.012],[.006,0],[.009,.012],[.031,.045],[.039,.085],[.033,.106]].map(([x,y])=>new THREE.Vector2(x,y)));
+  turned(glassProfile.getPoints(64).map(p=>[Math.max(.005,p.x),p.y]),[0,0,0],timerGlass,sandFrame);
+  const sand=finishes.material("cork","#d5bb7c");
+  const upperSand=cyl(.032,.002,.103,[0,.0515,0],sand,sandFrame),lowerSand=cyl(.002,.033,.070,[0,-.070,0],sand,sandFrame);
+  const fallingSand=cyl(.0015,.0015,.14,[0,-.022,0],sand,sandFrame);fallingSand.castShadow=false;
   const hologram=createHologram(finishes);root.add(hologram.base,hologram.panel);
   const checklist=hologram.panel,checklistFace=hologram.face;
   const leafTexture=texture(c=>{
@@ -310,15 +329,19 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   box([.16,.021,.007],[-.72,.51,.174],paper,storage,.002);
   box([2.77,.05,.49],[0,.68,0],wood,storage,.025);
   for(const x of [-1.16,1.16])for(const z of [-.12,.12])cyl(.028,.035,.12,[x,.075,z],graphite,storage);
-  const doors=[-1,1].map(sign=>{const door=new THREE.Group();door.position.set(sign*1.32,.39,.207);storage.add(door);
-    box([1.31,.46,.018],[-sign*.655,0,0],wood,door,.008);
-    for(let i=0;i<18;i++)box([.038,.43,.025],[-sign*(.03+i*.073),0,.018],edge,door,.006);
-    sphere([.018,.018,.016],[-sign*1.23,.09,.045],brass,door);return {door,sign};
+  const doors=[{x:-1.32,sign:-1},{x:-.012,sign:1},{x:.012,sign:-1},{x:1.32,sign:1}].map(({x,sign},index)=>{
+    const door=new THREE.Group();door.position.set(x,.39,.207);door.userData.doorIndex=index;storage.add(door);
+    // Four 64.5 cm leaves, with meeting gaps and hinges on the cabinet partitions.
+    box([.645,.46,.018],[-sign*.3225,0,0],wood,door,.006);
+    for(let i=0;i<9;i++)box([.034,.425,.018],[-sign*(.032+i*.072),0,.015],edge,door,.004);
+    sphere([.013,.013,.014],[-sign*.594,.065,.036],brass,door);
+    for(const y of [-.155,.155])cyl(.004,.004,.035,[-sign*.012,y,-.003],brass,door);
+    return {door,sign};
   });
   const gramophone=createGramophone(finishes);root.add(gramophone.root);
 
   // Slender floor lamp, held by a weighted disc and a curved steel neck.
-  const floorLamp=group([2.62,0,.28]);
+  const floorLamp=group([2.60,0,1.90]);
   cyl(.18,.2,.045,[0,.05,0],graphite,floorLamp);
   rod([0,.08,0],[0,1.64,0],.013,metal,floorLamp);
   const lampCurve=new THREE.CatmullRomCurve3([new THREE.Vector3(0,1.61,0),new THREE.Vector3(-.02,1.78,0),new THREE.Vector3(-.2,1.84,0),new THREE.Vector3(-.34,1.77,0)]);
@@ -356,7 +379,7 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   }
   const cabinetPlant=plant([.10,.865,-2.15],.36);
   const sofa=createSofa(finishes);root.add(sofa.root);
-  const propState={deskLamp:true,floorLamp:true,record:false,robotPaused:false,cabinetOpen:false,chairTurn:false,coffee:0,plant:0};
+  const propState={deskLamp:true,floorLamp:true,record:false,robotPaused:false,cabinetOpen:false,doorsOpen:[false,false,false,false],drawerOpen:false,timerFlips:0,timerRemaining:0,chairTurn:false,coffee:0,plant:0};
   const targets={} as Record<ScenePropId,{object:THREE.Object3D;center:THREE.Vector3;direction:THREE.Vector3;distance:number}>;
   function interactive(id:ScenePropId,object:THREE.Object3D,center:number[],distance:number,direction=[.25,.32,1]){
     object.userData.interactionId=id;targets[id]={object,center:new THREE.Vector3(...center),direction:new THREE.Vector3(...direction).normalize(),distance};
@@ -364,23 +387,27 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   interactive("rear-curtain",windows[1].root,[-1.55,1.91,-2.4],3.4,[0,.02,1]);
   interactive("left-curtain",windows[0].root,[-2.9,1.64,-1.15],2.9,[1,.04,.08]);
   interactive("desk-lamp",lamp,[-1.85,1.03,-1.84],1.35,[.5,.35,1]);
-  interactive("floor-lamp",floorLamp,[2.37,1.22,.28],2.65,[.3,.24,1]);
+  interactive("floor-lamp",floorLamp,[2.35,1.22,1.90],2.65,[.3,.24,1]);
   interactive("chalkboard",board,[.99,1.85,-2.38],3.05,[0,0,1]);
   interactive("gramophone",gramophone.root,[2.18,1.12,-2.03],1.65,[.2,.3,1]);
   interactive("coffee",mug,[-.79,.85,-1.34],.62,[.5,.8,1]);
-  interactive("sofa",sofa.root,[-1.98,.53,.86],2.7,[1,.6,.8]);
+  interactive("sofa",sofa.root,[1.91,.53,.80],2.7,[-1,.6,.8]);
   interactive("chair",chair,[-1.32,.5,-.60],1.95,[.55,.35,1]);
   interactive("plant",cabinetPlant,[.1,1.01,-2.15],1.3);
   [tallPlant,entryPlant,bookStack].forEach(o=>o.userData.interactionId="plant");
   interactive("cabinet",storage,[1.1,.39,-2.15],3.9);
+  interactive("desk-drawer",deskDrawer,[-.89,.59,-1.47],1.4,[.3,.32,1]);
+  interactive("hourglass",hourglass,[.58,.82,.46],.70,[.3,.25,1]);
   interactive("clock",clock,[2.32,2.26,-2.39],.95,[0,0,1]);
   // Small reactions preserve each object's scale and physical placement.
-  function activate(id:ScenePropId){
+  function activate(id:ScenePropId,detail?:number){
     if(id==="sofa")sofa.touch();else if(id==="rear-curtain")curtains[1].toggle();else if(id==="left-curtain")curtains[0].toggle();
     else if(id==="desk-lamp")propState.deskLamp=!propState.deskLamp;
     else if(id==="floor-lamp")propState.floorLamp=!propState.floorLamp;
     else if(id==="chair")propState.chairTurn=!propState.chairTurn;
-    else if(id==="cabinet")propState.cabinetOpen=!propState.cabinetOpen;
+    else if(id==="cabinet"){const index=detail??0;propState.doorsOpen[index]=!propState.doorsOpen[index];propState.cabinetOpen=propState.doorsOpen.some(Boolean);}
+    else if(id==="desk-drawer")propState.drawerOpen=!propState.drawerOpen;
+    else if(id==="hourglass"){propState.timerFlips++;propState.timerRemaining=30;}
     else if(id==="robot")propState.robotPaused=!propState.robotPaused;
     else if(id==="coffee")propState.coffee=8;
     else if(id==="plant")propState.plant=2;
@@ -410,12 +437,12 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const foundationGeo=new THREE.PlaneGeometry(11.6,10.5);geometries.set("foundationShadow",foundationGeo);const foundation=mesh(foundationGeo,new THREE.MeshBasicMaterial({map:foundationTex,transparent:true,depthWrite:false}),[.25,-.51,.18]);foundation.rotation.x=-Math.PI/2;foundation.castShadow=false;
   // Soft contact pools augment the directional shadows without full-screen effects.
   const shadowTex=texture(c=>{const g=c.createRadialGradient(256,256,0,256,256,250);g.addColorStop(0,"rgba(52,44,33,.28)");g.addColorStop(1,"rgba(52,44,33,0)");c.fillStyle=g;c.fillRect(0,0,512,512);},512,512);
-  for(const [x,z,w,h] of [[-1.35,-1.65,2,1.3],[-1.32,-.6,.8,.8],[.05,.75,2.3,1.6],[-2.7,.58,.8,1.8],[2.51,-1.96,.85,.85]]){const geo=new THREE.PlaneGeometry(w,h);geometries.set(`shadow${x}`,geo);const m=mesh(geo,new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}),[x,.032,z]);m.rotation.x=-Math.PI/2;m.castShadow=false;}
+  for(const [x,z,w,h] of [[-1.35,-1.65,2,1.3],[-1.32,-.6,.8,.8],[.05,.75,2.3,1.6],[-2.7,.58,.8,1.8],[2.51,-1.96,.85,.85],[1.91,.8,1.05,1.9]]){const geo=new THREE.PlaneGeometry(w,h);geometries.set(`shadow${x}`,geo);const m=mesh(geo,new THREE.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}),[x,.032,z]);m.rotation.x=-Math.PI/2;m.castShadow=false;}
   const hemi=new THREE.HemisphereLight("#f6f0e5","#7a8070",1.25);root.add(hemi);
   const sun=new THREE.DirectionalLight("#fff0d8",3.1);sun.position.set(-3.7,6.5,4.8);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-4.8;sun.shadow.camera.right=4.8;sun.shadow.camera.top=4.8;sun.shadow.camera.bottom=-4.8;sun.shadow.normalBias=.012;sun.shadow.bias=-.00015;sun.shadow.radius=4;root.add(sun);
   const fill=new THREE.DirectionalLight("#fff3dc",.6);fill.position.set(5,4,2);root.add(fill);
   // Batch static meshes by material and interaction owner. Animated joints stay separate.
-  const dynamic=new Set<THREE.Object3D>([cover,journalCover,journal,name,notebook,board,monitor,checklist,hologram.base,clock,sofa.root,chair,lamp,floorLamp,mug,storage,gramophone.root,cabinetPlant,tallPlant,entryPlant,bookStack,...windows.flatMap(w=>[w.root,w.shaftRoot])]);
+  const dynamic=new Set<THREE.Object3D>([cover,journalCover,journal,name,notebook,board,monitor,checklist,hologram.base,clock,sofa.root,chair,lamp,floorLamp,mug,storage,gramophone.root,cabinetPlant,tallPlant,entryPlant,bookStack,deskDrawer,hourglass,...windows.flatMap(w=>[w.root,w.shaftRoot])]);
   const batches=new Map<string,{material:THREE.Material;id?:string;shadow:boolean;meshes:THREE.Mesh[]}>();
   root.updateMatrixWorld(true);
   root.traverse(o=>{if(!(o instanceof THREE.Mesh)||Array.isArray(o.material))return;let parent:THREE.Object3D|null=o,id:string|undefined;while(parent){if(dynamic.has(parent))return;if(parent.userData.objectId)id=parent.userData.objectId;parent=parent.parent;}const key=o.material.uuid+id+o.castShadow;let b=batches.get(key);if(!b){b={material:o.material,id,shadow:o.castShadow,meshes:[]};batches.set(key,b);}b.meshes.push(o);});
@@ -424,11 +451,22 @@ export function buildRoom(invalidate: () => void = () => {}, anisotropy = 4) {
   const life=createRoomLife();root.add(life.root);
   interactive("robot",life.robot,[2.08,.12,-1.78],1.45,[.3,.8,1]);
   let screenStep=-2,robotPreviewMotion=false,allowReactions=true;
-  const interactions={targets,activate,setRecord(playing:boolean){propState.record=playing;invalidate();},
+  const interactions={targets,doors,activate,setRecord(playing:boolean){propState.record=playing;invalidate();},
     snapshot:()=>({...propState,curtains:curtains.map(c=>({open:c.open,target:c.target})),lampIntensity:[bulb.intensity,readingLight.intensity],ink:chalkboard.canvas.dataset.strokes||"0"}),
     update(dt:number,instant:boolean,inspection:ScenePropId|null){robotPreviewMotion=inspection==="robot"&&!instant;allowReactions=!instant;let changing=sofa.update(dt,instant);curtains.forEach(c=>{if(c.update(dt,instant))changing=true;});
       const chairGoal=propState.chairTurn?.55:-.13;chair.rotation.y=instant?chairGoal:THREE.MathUtils.damp(chair.rotation.y,chairGoal,4,dt);changing ||=Math.abs(chair.rotation.y-chairGoal)>.001;
-      doors.forEach(({door,sign})=>{const goal=propState.cabinetOpen?sign*1.15:0;door.rotation.y=instant?goal:THREE.MathUtils.damp(door.rotation.y,goal,4,dt);changing ||=Math.abs(door.rotation.y-goal)>.001;});
+      doors.forEach(({door,sign},i)=>{const goal=propState.doorsOpen[i]?sign*1.12:0;door.rotation.y=instant?goal:THREE.MathUtils.damp(door.rotation.y,goal,4,dt);changing ||=Math.abs(door.rotation.y-goal)>.001;});
+      const drawerGoal=propState.drawerOpen?.30:.015;
+      deskDrawer.position.z=instant?drawerGoal:THREE.MathUtils.damp(deskDrawer.position.z,drawerGoal,5,dt);changing ||=Math.abs(deskDrawer.position.z-drawerGoal)>.001;
+      const flipGoal=propState.timerFlips*Math.PI;
+      sandFrame.rotation.z=instant?flipGoal:THREE.MathUtils.damp(sandFrame.rotation.z,flipGoal,5,dt);changing ||=Math.abs(sandFrame.rotation.z-flipGoal)>.001;
+      if(propState.timerRemaining>0&&!instant){propState.timerRemaining=Math.max(0,propState.timerRemaining-dt);changing=true;}
+      const amount=propState.timerFlips?propState.timerRemaining/30:1,odd=propState.timerFlips%2,side=odd?-1:1;
+      const upperFill=Math.cbrt(amount),lowerFill=Math.cbrt(1-amount);
+      upperSand.scale.setScalar(Math.max(.001,upperFill));lowerSand.scale.setScalar(Math.max(.001,lowerFill));
+      upperSand.position.y=side*.0515*upperFill;lowerSand.position.y=side*(-.105+.035*lowerFill);
+      upperSand.rotation.z=lowerSand.rotation.z=odd*Math.PI;fallingSand.position.y=-side*.022;
+      fallingSand.visible=propState.timerRemaining>0&&!instant;
       if(propState.plant>0){propState.plant=Math.max(0,propState.plant-dt);[cabinetPlant,tallPlant,entryPlant].forEach(p=>p.rotation.z=instant?0:Math.sin(propState.plant*12)*.018*Math.min(1,propState.plant));changing=true;}
       propState.coffee=Math.max(0,propState.coffee-dt);
       changing=gramophone.update(dt,propState.record,instant)||changing;

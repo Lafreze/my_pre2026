@@ -3,7 +3,7 @@ import {RoundedBoxGeometry} from "three/addons/geometries/RoundedBoxGeometry.js"
 import {metricUV,type createSurfaceMaterials} from "../surfaceMaterials";
 
 export function createSofa(finishes:ReturnType<typeof createSurfaceMaterials>){
-  const root=new T.Group();root.position.set(-1.98,.028,.86);root.rotation.y=Math.PI/2;root.name="Linen reading sofa";
+  const root=new T.Group();root.position.set(1.91,.028,.80);root.rotation.y=-Math.PI/2;root.name="Linen reading sofa";
   const linen=finishes.material("fabric","#e2d7bd"),seam=finishes.material("wool","#c6bda7"),wood=finishes.material("wood","#a78b66"),green=finishes.material("wool","#798160");
   function box(size:number[],p:number[],m:T.Material,r=.045,parent:T.Object3D=root){const o=new T.Mesh(metricUV(new RoundedBoxGeometry(size[0],size[1],size[2],5,r),.8),m);o.position.set(p[0],p[1],p[2]);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;}
   box([1.64,.12,.74],[0,.22,0],wood,.022);box([1.60,.16,.72],[0,.32,0],linen);
