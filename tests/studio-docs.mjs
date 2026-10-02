@@ -5,7 +5,7 @@ const detailsUrl='data:text/javascript;base64,'+Buffer.from(details).toString('b
 const source=(await readFile('app/studio/content.ts','utf8')).replace('"./storyDetails"',JSON.stringify(detailsUrl));
 const js=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
 const {chapters,cameras,objects,sources,legacyTopics,physicalObject}=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
-await writeFile('public/studio/guide.json',JSON.stringify({version:'2026-10-01',chapters,cameras,objects,sources},null,2));
+await writeFile('public/studio/guide.json',JSON.stringify({version:'2026-10-02',chapters,cameras,objects,sources},null,2));
 const historyCode=ts.transpileModule(await readFile('app/studio/agentHistoryData.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
 const {developmentCutoff,developmentReviewed,developmentEras,developmentRoutes,developmentFoundations}=await import('data:text/javascript;base64,'+Buffer.from(historyCode).toString('base64'));
 await writeFile('public/studio/agent-development.json',JSON.stringify({cutoff:developmentCutoff,reviewed:developmentReviewed,eras:developmentEras,routes:developmentRoutes,foundations:developmentFoundations},null,2));

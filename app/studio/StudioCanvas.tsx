@@ -9,9 +9,9 @@ import {createPageTurn} from "./pageTurn";
 import {createStudioMusic} from "./studioMusic";
 import EnvironmentMenu from "./EnvironmentMenu";
 import { cameras, objects, physicalObject, type ObjectId, type ViewId } from "./content";
-import { presentationSize, projectSurface, SURFACE_SCALE } from "./projection";
+import { presentationSize, fullscreenPresentationSize, projectSurface, SURFACE_SCALE } from "./projection";
 
-type Props = { onOverview:()=>void; inspection:ScenePropId|null; onInspect:(id:ScenePropId|null)=>void; panels: {id:ViewId;content:ReactNode}[]; overview: boolean; view: ViewId; chapter: number; paused: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; agentStep: number; };
+type Props = { fullscreen:boolean; onOverview:()=>void; inspection:ScenePropId|null; onInspect:(id:ScenePropId|null)=>void; panels: {id:ViewId;content:ReactNode}[]; overview: boolean; view: ViewId; chapter: number; paused: boolean; boardStep: number; review: number; onSelect: (id: ObjectId) => void; agentStep: number; };
 const storyObjects=objects.filter(o=>o.chapter>=0);
 type SceneCommand = "closer" | "farther" | "reset";
 
@@ -49,7 +49,7 @@ export default function StudioCanvas(props: Props) {
     if (view === "room") return;
     const id = requestAnimationFrame(() => visit(physicalObject(view) as ObjectId)); return () => cancelAnimationFrame(id);
   }, [view, visit]);
-  useLayoutEffect(() => { if(host.current)host.current.dataset.transition="true"; presentations.current.forEach(page=>{page.inert=true;page.dataset.interactive="false";}); }, [view,props.inspection]);
+  useLayoutEffect(() => { if(host.current)host.current.dataset.transition="true"; presentations.current.forEach(page=>{page.inert=true;page.dataset.interactive="false";}); }, [view,props.inspection,props.fullscreen]);
   useLayoutEffect(() => { latest.current = { ...props, environmentState, breeze, select }; trigger.current(); }, [props, environmentState, breeze, select]);
   useEffect(() => {
     const element = host.current!;
@@ -67,6 +67,7 @@ export default function StudioCanvas(props: Props) {
     scene.environment = environment.texture; scene.environmentIntensity = .55; environmentScene.dispose(); pmrem.dispose();
     if (innerWidth < 700) room.sun.shadow.mapSize.set(1024, 1024);
     const camera = new THREE.PerspectiveCamera(34, 1, .01, 80);
+    let previousFullscreen=latest.current.fullscreen, expandingFullscreen=false;
     let previousView: ViewId = latest.current.view;
     let previousFocus:string=latest.current.inspection||physicalObject(previousView);
     let pageTurn:{from:ViewId;to:ViewId;start:number;book:boolean;sheet?:ReturnType<typeof createPageTurn>}|null=null;
@@ -132,10 +133,13 @@ export default function StudioCanvas(props: Props) {
       if (slowFrames === 18) { renderer.setPixelRatio(.85); element.dataset.quality = "economy"; renderer.shadowMap.enabled = false; }
       const w = Math.max(1, element.clientWidth), h = Math.max(1, element.clientHeight), size = presentationSize(w, h);
       const finish = reduced.matches;
+      const fullscreenChanged=previousFullscreen!==state.fullscreen;
+      if(fullscreenChanged){resized=true;previousFullscreen=state.fullscreen;}
       const cameraKey=state.inspection||physicalObject(state.view);
       if(pageTurn&&(state.view!==pageTurn.to||resized)){pageTurn.sheet?.dispose();pageTurn=null;}
       if(previousView!==state.view&&physicalObject(previousView)===physicalObject(state.view)&&state.view!=="room"&&!finish){pageTurn={from:previousView,to:state.view,start:t,book:physicalObject(state.view)==="name"};}
       if (previousFocus !== cameraKey || resized) {
+        expandingFullscreen=state.fullscreen&&(previousFocus!==cameraKey||fullscreenChanged);
         sourcePosition.copy(camera.position); sourceFocus.copy(focus);sourceUp.copy(camera.up);Object.assign(sourceBooks,books);from = t;
         inspecting=!resized&&state.view==="checklist";
         duration = resized ? 600 : state.view === "checklist" ? 3400 : 2000;
@@ -215,7 +219,11 @@ export default function StudioCanvas(props: Props) {
         const active=id===state.view&&!state.overview;
         const turning=pageTurn&&(id===pageTurn.from||id===pageTurn.to);
         const aliasHidden=!!state.inspection||(!turning&&(state.overview?(id==="notebook"||id==="board"):!active&&physicalObject(id)===physicalObject(state.view)));
-        const placed=target&&!aliasHidden&&facing&&reveal>0?projectSurface(page,target.face,target.width,target.height,camera,w,h,size.width,size.height):false;
+        const expanded=state.fullscreen&&(active||!!turning);
+        const pageSize=expanded?fullscreenPresentationSize(w,h):size;
+        const expansion=expanded?(animating&&expandingFullscreen?smooth((progress-.65)/.35):1):0;
+        const placed=target&&!aliasHidden&&facing&&reveal>0?projectSurface(page,target.face,target.width,target.height,camera,w,h,pageSize.width,pageSize.height,expansion):false;
+        page.dataset.expanded=String(expanded);
         const interactive=!!placed&&active&&!animating&&!pageTurn&&(id!=="checklist"||room.hologram.open>.99);
         // Inactive HTML summaries fade with the approach, so distant poster text
         // cannot loom behind a close reading plane. The physical models remain.
@@ -319,7 +327,12 @@ export default function StudioCanvas(props: Props) {
       room.dispose(); environment.dispose(); renderer.dispose(); canvas.remove();
     };
   }, [retry]);
-  useEffect(() => { if(status==="fallback"){if(host.current)host.current.dataset.transition="false";presentations.current.forEach((page,id)=>{const active=id===view;page.style.opacity="1";page.inert=!active;page.dataset.visible=String(active);page.dataset.interactive=String(active);page.setAttribute("aria-hidden",String(!active));});} },[status,view]);
+  useEffect(() => { if(status==="fallback"){if(host.current)host.current.dataset.transition="false";presentations.current.forEach((page,id)=>{const active=id===view;page.style.opacity="1";page.inert=!active;page.dataset.visible=String(active);page.dataset.interactive=String(active);page.setAttribute("aria-hidden",String(!active));});} },[status,view,props.fullscreen]);
+  useLayoutEffect(()=>{
+    const element=host.current;if(status!=="fallback"||!element)return;
+    const fit=()=>{const {width,height}=fullscreenPresentationSize(element.clientWidth,element.clientHeight);element.style.setProperty("--fullscreen-width",`${width}px`);element.style.setProperty("--fullscreen-height",`${height}px`);element.style.setProperty("--fullscreen-scale",String(.96*element.clientWidth/width));};
+    fit();const observer=new ResizeObserver(fit);observer.observe(element);return()=>observer.disconnect();
+  },[status,props.fullscreen]);
   const focusObject = (id: ObjectId | null) => { focusedObject.current = id; setHover(id); trigger.current(); };
   return <div className="studio-scene" ref={host} data-inspection={props.inspection||""} data-prop-revision={propRevision} data-music={musicPlaying?"playing":"paused"} data-status={status} data-view={view} data-time={environmentState.time} data-weather={environmentState.weather} data-season={environmentState.season} data-weather-mode={weatherState.mode} data-weather-status={weatherState.current?(weatherState.error||weatherState.stale?"stale":"current"):"preview"} data-breeze={breeze} data-visited={visited.length}>
     <div ref={chalkHost} className="chalk-surface" hidden data-tool={chalkTool}/>

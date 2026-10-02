@@ -2,6 +2,12 @@ import * as THREE from "three";
 
 // Leave a narrow reveal of the physical paper/screen around the HTML page.
 export const SURFACE_SCALE = .98;
+// Fullscreen is an explicit reading mode. Keep one uniform scale for the live
+// HTML surface and let its layout adapt to the screen, without stretching meshes.
+export function fullscreenPresentationSize(width:number,height:number) {
+  const logicalHeight=Math.max(640,1120*height/width);
+  return {width:logicalHeight*width/height,height:logicalHeight};
+}
 export function presentationSize(width:number,height:number) {
   const usableWidth = Math.max(100, width - (width <= 900 ? 56 : 140));
   // Desktop slides can use the space between the fixed header and navigation.
@@ -14,12 +20,16 @@ export function presentationSize(width:number,height:number) {
 // Map the HTML rectangle to the four screen-space corners of the real mesh.
 // This keeps selectable, accessible text on the model without a texture capture
 // or an unrelated screen-space card. Perspective and browser zoom use CSS pixels.
-export function projectSurface(element:HTMLElement,face:THREE.Object3D,physicalWidth:number,physicalHeight:number,camera:THREE.Camera,viewportWidth:number,viewportHeight:number,htmlWidth:number,htmlHeight:number) {
+export function projectSurface(element:HTMLElement,face:THREE.Object3D,physicalWidth:number,physicalHeight:number,camera:THREE.Camera,viewportWidth:number,viewportHeight:number,htmlWidth:number,htmlHeight:number,fullscreenBlend=0) {
   const project = (scale:number) => [[-.5,.5],[.5,.5],[.5,-.5],[-.5,-.5]].map(([x,y])=>{
     const p=new THREE.Vector3(x*physicalWidth*scale,y*physicalHeight*scale,.00015).applyMatrix4(face.matrixWorld).project(camera);
     return {x:(p.x*.5+.5)*viewportWidth,y:(-.5*p.y+.5)*viewportHeight,z:p.z};
   });
   const points=project(SURFACE_SCALE);
+  if(fullscreenBlend>0){
+    const corners=[[.02,.02],[.98,.02],[.98,.98],[.02,.98]];
+    points.forEach((p,i)=>{p.x=THREE.MathUtils.lerp(p.x,corners[i][0]*viewportWidth,fullscreenBlend);p.y=THREE.MathUtils.lerp(p.y,corners[i][1]*viewportHeight,fullscreenBlend);});
+  }
   const mesh=project(1);
   element.dataset.surfaceBounds=JSON.stringify({left:Math.min(...mesh.map(p=>p.x)),right:Math.max(...mesh.map(p=>p.x)),top:Math.min(...mesh.map(p=>p.y)),bottom:Math.max(...mesh.map(p=>p.y))});
   const [p0,p1,p2,p3]=points;

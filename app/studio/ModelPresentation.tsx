@@ -1,7 +1,6 @@
 "use client";
 import { useLayoutEffect, useRef, type Dispatch, type SetStateAction } from "react";
-import { ProductJourney, ProductAdvantage } from "./StoryPanels";
-import { DevelopmentComparison, PresentationConclusion, productSections, type ProductSection } from "./ProductConclusion";
+import { ProductPossibility, ProductRisks, ProductExpertise, PresentationConclusion, productSections, type ProductSection } from "./ProductConclusion";
 import { developmentCutoff } from "./agentHistoryData";
 import AgentDevelopment from "./AgentDevelopment";
 import AgentArchitecture from "./AgentArchitecture";
@@ -13,7 +12,7 @@ type Props = {
   chapter:number; active:boolean; profile:{name:string;romanName:string}; board:number;setBoard:Set<number>;
   agentTab:"usage"|"parts"|"loop"|"development";setAgentTab:Set<"usage"|"parts"|"loop"|"development">;development:number;setDevelopment:Set<number>;part:number;setPart:Set<number>;
   step:number;setStep:Set<number>;playing:boolean;setPlaying:Set<boolean>;
-  application:number;setApplication:Set<number>;productTab:ProductSection;setProductTab:Set<ProductSection>;
+  productTab:ProductSection;setProductTab:Set<ProductSection>;
   onNext:()=>void;onExplore:()=>void;
 };
 export default function ModelPresentation(p:Props) {
@@ -28,7 +27,7 @@ export default function ModelPresentation(p:Props) {
     <div className="model-page-scroll" ref={scroll}>
       {p.chapter===0&&<div className="personal-introduction">
         <div className="personal-identity"><span className="model-eyebrow">ABOUT ME / 自己紹介</span><div className="personal-name"><div><h1 tabIndex={-1}>{p.profile.name}</h1><span>{p.profile.romanName}</span></div></div><p className="personal-work">画像処理・機械学習を中心とした開発を担当。</p></div>
-        <ol className="personal-career"><li><span>2023年以前</span><h2>KIOXIA</h2><p>画像処理・画像分類モデルの開発</p></li><li><span>2023 — 現在</span><h2>日立ハイテク</h2><p>次フレーム予測・画像分類・Active Learning</p><small>現在はMulti Beamグループの業務も担当。<br/>主にADC関連の開発に従事。</small></li></ol>
+        <ol className="personal-career"><li><span>2023年以前</span><h2>KIOXIA</h2><p>画像処理・画像分類モデルの開発</p></li><li><span>2023 — 現在</span><h2>日立ハイテク</h2><div className="career-assignment"><h3>2023年 · シス１に配属</h3><p>画質改善・前フレーム予測<br/>画像分類・Active Learning</p></div><div className="career-assignment"><h3>2025年〜 · Multi Beamチームで兼務</h3><p>クラスタリング・ADC関連の開発</p></div></li></ol>
         <div className="personal-topic"><span className="model-eyebrow">発表テーマ</span><h2>生成AIの活用：文章生成から製品開発へ</h2><p>Agentがツールを利用し、実装・検証を支援する。<br/>製品としての要件・品質・公開の判断には、人の関与が必要となる。</p></div>
       </div>}
       {p.chapter===1&&<AgentPrelude/>}
@@ -39,7 +38,7 @@ export default function ModelPresentation(p:Props) {
       {p.chapter===3&&<>
         <div className="chapter-panel-heading"><div className="application-heading"><span className="model-eyebrow">{productTab==="summary"?"CONCLUSION / まとめ":"AI-ASSISTED PRODUCT DEVELOPMENT"}</span><h1 tabIndex={-1}>{productSection.title}</h1></div><div className="paper-tabs" role="tablist" aria-label="製品開発と発表のまとめ">{productSections.map(section=><button key={section.id} id={`product-section-${section.id}`} role="tab" aria-selected={productTab===section.id} aria-controls="product-section-panel" onClick={()=>setProductTab(section.id)}>{section.label}</button>)}</div></div>
         <div className="product-section-panel" id="product-section-panel" role="tabpanel" aria-labelledby={`product-section-${productTab}`}>
-          {productTab==="process"?<ProductJourney selected={p.application} onSelect={p.setApplication}/>:productTab==="comparison"?<DevelopmentComparison/>:productTab==="value"?<ProductAdvantage/>:<PresentationConclusion/>}
+          {productTab==="possibility"?<ProductPossibility/>:productTab==="risks"?<ProductRisks/>:productTab==="expertise"?<ProductExpertise/>:<PresentationConclusion profile={p.profile}/>}
         </div>
       </>}
     </div>

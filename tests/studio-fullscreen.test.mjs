@@ -33,7 +33,7 @@ try{
   assert.equal(await p.locator('.garden-camera-tools:visible,.studio-footer').count(),0);
   await p.getByRole('button',{name:'はじめる',exact:true}).click();await p.locator('.studio-surface-host[data-kind=name][data-interactive=true]').waitFor();
   assert.equal(await p.locator('.studio-copy').count(),0);assert.equal(await p.locator('.studio-scene > canvas').count(),1);
-  const text=await p.locator('.personal-introduction').innerText();for(const fact of ['KIOXIA','2023','日立ハイテク','次フレーム予測','Active Learning','Multi Beam','ADC'])assert.ok(text.includes(fact),fact);
+  const text=await p.locator('.personal-introduction').innerText();for(const fact of ['KIOXIA','2023','日立ハイテク','シス１','画質改善','前フレーム予測','2025','クラスタリング','Active Learning','Multi Beam','ADC'])assert.ok(text.includes(fact),fact);
   assert.equal(await p.locator('.personal-seal,.personal-skills,.cover-monogram').count(),0);assert.equal(await p.locator('.personal-career li').count(),2);assert.equal((text.match(/ADC/g)||[]).length,1);assert.ok(!text.includes('2019'));assert.ok(!text.includes('VGG'));assert.ok(!(await p.locator('.personal-name').innerText()).includes('です'));
   assert.ok(!text.includes('近年は、生成AI'));for(const phrase of ['文章生成から製品開発へ','ツールを利用','人の関与'])assert.ok(text.includes(phrase));
   await p.screenshot({path:output+'/profile.png'});
@@ -124,10 +124,14 @@ try{
   await p.locator('.development-panel').focus();await p.keyboard.press('ArrowLeft');assert.equal(await p.locator('.agent-development').getAttribute('data-stage'),'0');await p.keyboard.press('ArrowLeft');await p.locator('.agent-architecture[data-mode=loop]').waitFor();await go(2);
   await p.getByRole('tab',{name:'動きを見る',exact:true}).click();await p.waitForTimeout(2300);assert.equal(await p.locator('.agent-architecture').getAttribute('data-step'),'0');assert.equal(await p.getByRole('button',{name:'一時停止',exact:true}).count(),0);
  });
- await check('product flow advances through comparison, expertise and a dedicated closing screen',async()=>{
-  await go(3);assert.equal(await p.locator('.model-checklist img,.product-artifact,.product-brief').count(),0);assert.ok(!(await p.locator('.model-checklist').innerText()).includes('企画例'));await p.getByRole('tab',{name:'開発プロセス',exact:true}).click();
-  for(let i=0;i<5;i++){await p.locator('.product-step-rail button').nth(i).click();assert.ok((await p.locator('.product-step-detail').innerText()).includes('人による判断'));assert.ok((await p.locator('.product-check').innerText()).length>20);}
-  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.development-comparison tbody tr').count(),4);assert.match(await p.locator('.comparison-note').innerText(),/CI\/CD/);await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.advantage-grid article').count(),4);await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.conclusion-points article').count(),3);await p.locator('.studio-navigation button[aria-label=前の章]').click();assert.equal(await p.locator('.model-checklist').getAttribute('data-product-tab'),'value');await p.locator('.model-checklist h1').focus();await p.keyboard.press('ArrowRight');assert.equal(await p.locator('.model-checklist').getAttribute('data-product-tab'),'summary');assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'false');
+ await check('product narrative connects prototyping, risks, expertise and a concise conclusion',async()=>{
+  await go(3);assert.equal(await p.locator('.model-checklist img,.product-artifact,.product-brief,.product-step-rail,.development-comparison').count(),0);
+  for(let i=0;i<3;i++){await p.locator('.iteration-rail button').nth(i).click();assert.ok((await p.locator('.iteration-detail').innerText()).length>70);}
+  await p.locator('.iteration-rail button').nth(0).focus();await p.keyboard.press('ArrowRight');assert.equal(await p.locator('.iteration-rail [aria-selected=true]').getAttribute('id'),'iteration-1');
+  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.product-risks article').count(),3);assert.match(await p.locator('.product-risks').innerText(),/権限/);
+  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.product-expertise article').count(),3);
+  await p.locator('.studio-surface-host[data-active=true] .model-page-footer button').click();assert.equal(await p.locator('.conclusion-statements p').count(),3);
+  await p.locator('.studio-navigation button[aria-label=前の章]').click();assert.equal(await p.locator('.model-checklist').getAttribute('data-product-tab'),'expertise');await p.locator('.model-checklist h1').focus();await p.keyboard.press('ArrowRight');assert.equal(await p.locator('.model-checklist').getAttribute('data-product-tab'),'summary');assert.equal(await p.locator('.work-studio').getAttribute('data-overview'),'false');
  });
  await check('retired card experience is absent from the story and the last chapter ends in exploration',async()=>{
   await go(3);assert.equal(await p.locator('.journey-dots button').count(),4);assert.equal(await p.locator('[data-object=cards],.studio-play-card').count(),0);
@@ -151,10 +155,10 @@ try{
   await p.setViewportSize({width,height});
   for(let n=0;n<4;n++){
    await go(n);
-   const modes=n===2?['usage-0','usage-1','usage-2','parts','context','tools','harness','loop-part',...Array.from({length:7},(_,i)=>'loop-'+i),'limit','blocked',...Array.from({length:7},(_,i)=>'development-'+i)]:n===3?['product-0','product-1','product-2','product-3','product-4','comparison','value','summary']:['page'];
+   const modes=n===2?['usage-0','usage-1','usage-2','parts','context','tools','harness','loop-part',...Array.from({length:7},(_,i)=>'loop-'+i),'limit','blocked',...Array.from({length:7},(_,i)=>'development-'+i)]:n===3?['product-0','product-1','product-2','risks','expertise','summary']:['page'];
    for(const mode of modes){
     if(n===2&&mode.startsWith('usage-')){await p.getByRole('tab',{name:'利用の広がり',exact:true}).click();await p.locator('.usage-tabs button').nth(Number(mode.slice(-1))).click();}
-    if(n===3){await p.getByRole('tab',{name:({comparison:'開発の比較',value:'競争力',summary:'まとめ'})[mode]||'開発プロセス',exact:true}).click();if(mode.startsWith('product-'))await p.locator('.product-step-rail button').nth(Number(mode.slice(-1))).click();}
+    if(n===3){await p.getByRole('tab',{name:({risks:'開発上の課題',expertise:'専門性',summary:'まとめ'})[mode]||'開発の変化',exact:true}).click();if(mode.startsWith('product-'))await p.locator('.iteration-rail button').nth(Number(mode.slice(-1))).click();}
     if(n===2&&mode.startsWith('development-')){await p.getByRole('tab',{name:'発展をたどる',exact:true}).click();await selectDevelopment(Number(mode.slice(-1)));}
     else if(n===2&&!mode.startsWith('usage-')){const demo=/^loop-\d/.test(mode)||['limit','blocked'].includes(mode);await p.getByRole('tab',{name:demo?'動きを見る':'構成を見る',exact:true}).click();if(demo){const scenario=['limit','blocked'].includes(mode)?mode:'complete';await p.getByLabel('終了条件の例',{exact:true}).selectOption(scenario);await p.locator('.execution-track button').nth(scenario==='limit'?3:scenario==='blocked'?2:Number(mode.slice(-1))).click();}else await p.locator('.architecture-select[data-element='+({parts:'model',context:'context',tools:'tools',harness:'harness','loop-part':'loop'}[mode])+']').click();}
 
@@ -168,7 +172,7 @@ try{
     assert.ok(m.x>=0&&m.x+m.width<=width+2,JSON.stringify(m));assert.ok(Math.abs(m.x+m.width/2-width/2)<2);assert.ok(m.bottom<=m.footerTop+1,JSON.stringify(m));assert.ok(m.y>=m.headerBottom+2,JSON.stringify(m));assert.deepEqual(m.nodeOverflow,[],`Node text outside container: ${width} ${mode} ${JSON.stringify(m.nodeOverflow)}`);assert.equal(m.body,width);assert.equal(m.overflow,false,JSON.stringify(m));assert.equal(m.inert,false);if(width>=1280&&height>=720)assert.equal(m.verticalOverflow,false,`Desktop content needs scrolling: ${width} ${views[n]} ${mode}`);
     assert.ok(m.x>m.mesh.left&&m.x+m.width<m.mesh.right&&m.y>m.mesh.top&&m.bottom<m.mesh.bottom,JSON.stringify(m));assert.ok(m.insideBottom<=m.bottom+1&&m.scrollBottom<=m.insideTop+1,JSON.stringify(m));assert.deepEqual(m.outside,[],`${width}×${height} ${views[n]} ${mode}: ${JSON.stringify(m.outside)}`);
     await p.locator('.studio-surface-host[data-active=true] .model-page-scroll').evaluate(e=>e.scrollTop=e.scrollHeight);await p.locator('.studio-surface-host[data-active=true] .model-page-scroll').evaluate(e=>e.scrollTop=0);
-    if([1440,1366,1280].includes(width)&&['page','parts','context','loop-5','vision-1','vision-2','usage-0','usage-2','product-2','comparison','value','summary','development-0','development-4','development-5','development-6'].includes(mode))await p.screenshot({path:`${output}/${width}-${views[n]}-${mode}.png`});
+    if([1440,1366,1280].includes(width)&&['page','parts','context','loop-5','vision-1','vision-2','usage-0','usage-2','product-2','risks','expertise','summary','development-0','development-4','development-5','development-6'].includes(mode))await p.screenshot({path:`${output}/${width}-${views[n]}-${mode}.png`});
    }
   }
  });

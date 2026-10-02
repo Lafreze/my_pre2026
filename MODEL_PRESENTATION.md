@@ -1,6 +1,6 @@
 # 花园工作室：PC 展示版
 
-2026-10-02 更新。首页以居中的完整花园工作室为主体，底部简短的「はじめる」从个人介绍开始。个人笔记、显示器、全息投影器承载四个章节，书架仅用于参考资料，正文始终附着在实际模型表面；章节之间直接运镜，不绕回全景，也不在抵达后替换成独立页面。本轮只以 PC 为设计和验证目标。
+2026-10-02 更新。首页以居中的完整花园工作室为主体，底部简短的「はじめる」从个人介绍开始。个人笔记、显示器、全息投影器承载四个章节，书架仅用于参考资料，普通模式下正文附着在实际模型表面；章节之间直接运镜，不绕回全景，也不在抵达后替换成独立页面。本轮只以 PC 为设计和验证目标。
 
 ![工作室入口](docs/model-presentation/garden.png)
 
@@ -8,10 +8,10 @@
 
 | 章节 | 对应物件 | 表达重点 | 操作込み目安 |
 | --- | --- | --- | --- |
-| 自己紹介 | 中央茶几上的个人笔记 | 姓名、研究领域，以及 KIOXIA / 日立ハイテク两段经历。Multi Beam 与 ADC 合并在当前职责中 | 0:00–0:40 |
+| 自己紹介 | 中央茶几上的个人笔记 | KIOXIA / 日立ハイテク两段经历；2023年シス１配属与2025年起Multi Beam兼务职责 | 0:00–0:40 |
 | TransformerとAI活用の変化 | 个人笔记的下一页 | 从 Transformer、ViT、首次接触 GPT，讲到如今与 AI 一起工作 | 0:40–1:55 |
 | LLMとAgent | 桌上的电脑 | 四部分依次介绍利用方式、构成、执行、发展；发展中分别呈现年表、产品用途、支撑技术 | 1:55–7:35 |
-| AIを活用した製品開発 | 右侧作品柜上的全息投影器 | 通用的 Agent 辅助开发流程：目的与条件、调查与计划、实现、验证与修正、导入与改善；接着比较传统开发与 Agent 辅助开发，讨论专业性，并以总结界面结束 | 7:35–11:25 |
+| AIを活用した製品開発 | 右侧作品柜上的全息投影器 | 技术门槛降低与快速试作 → 代码理解、安全和评价风险 → 专业性的维持与更新 → 简短总结 | 7:35–11:25 |
 
 完整日语讲稿见 [STUDIO_SCRIPT_JA.md](STUDIO_SCRIPT_JA.md)，与讲者备注共用内容。时间是包含操作的规划值，尚未经过讲者本人音读排练。KIOXIA 的起始年份未获确认，因此保留「2023年以前」，没有把建议中的示例年份 2019 写成实际履历。
 
@@ -27,7 +27,7 @@
 - **LLM 使用方式**：显示器内「利用の広がり」部分以三张卡片比较利用形态。生成代码、系统执行文件工具、依据浏览器反馈修正三个例子都围绕活动报名网页。Tool Use 不限于一次调用，Agent 仍使用模型和工具；三者不表示互相替代的三代技术。
 - **个人体会与技术背景**：2022 首次体验 GPT 出现在第二章叙事，并在「応答生成」中呼应。API 工具、OpenClaw、Claude Code 和 Codex 以发表用语直接陈述，不显示「私の体験」或重复的身份说明。六个技术节点及一次资料收进「背景を見る」窗口，Escape 只关闭窗口，保留当前章节。
 - **Agent**：Harness 管理模型调用、工具调度、状态和权限 / 次数 / 时间限制；Model 生成调用请求，Harness 依据权限与规则执行、等待批准或阻止。Agent Loop 指 Context → Model → 工具执行 → 结果／观测 → Context 的完整循环；返回箭头只标「結果を文脈に反映」。执行成功与任务达成分开判断，测试、规则、模型、人工验证按任务需要选择。框表示运行职责，并不限定物理部署位置。结构可逐项选择，运行演示包括正常交付、检查次数达到上限、浏览器权限不足三条分支。
-- **产品开发**：不再使用虚构企划例。五个可选择工程分别说明人的判断、Agent 的处理与需确认的成果，并强调依验证结果反复、工具与权限的限制、人的发布判断。移除不可点击的「検証記録」装饰卡及箭头；此网站仍作为一句实际制作说明。作品柜以固定全息底座投出产品开发画面；左侧陈列书册与陶盆绿植，不再摆放含义不明的小房间模型。最后的讨论以「専門性をどの業務に活かし、成果をどう評価するか。」概括，不显示「議論の論点」标签。
+- **产品开发**：重写为「開発の変化 → 開発上の課題 → 専門性 → まとめ」。第一部分可切换要件、试作、改善三个步骤，说明技术经验较少的人也更容易参与开发；同时明确技术门槛下降并不意味着技术知识不再必要。风险部分分别说明代码把握不足、安全问题和评价不足，并给出对应措施。专业性落在业务知识、技术理解和成果评价；总结保留三条要点。
 
 Agent 演示按「目标 → 生成代码 → 浏览器检查 → 发现按钮超出 → 修正 → 复验 → 交付」播放。每一步只高亮当前节点，结果加入 Context。320px 是该教学情境中的验收宽度，不代表此网站在做手机端适配。整个演示明确标注为本地模拟，未连接 AI 或真实浏览器检查服务。「できた」的回答不能替代验收；受阻或达到上限时停止，并向人说明未完成项。
 
@@ -44,11 +44,19 @@ Agent 演示按「目标 → 生成代码 → 浏览器检查 → 发现按钮�
 ![四类产品用途](docs/model-presentation/agent-routes.png)
 ![支撑技术](docs/model-presentation/agent-foundations.png)
 ![从想法到产品](docs/model-presentation/checklist.png)
-![开发方式的比较](docs/model-presentation/comparison.png)
-![竞争力讨论](docs/model-presentation/value.png)
+![代码理解与质量方面的课题](docs/model-presentation/risks.png)
+![专业性的作用](docs/model-presentation/expertise.png)
 ![发表总结](docs/model-presentation/conclusion.png)
 
-第四章内部依次为「開発プロセス → 開発の比較 → 競争力 → まとめ」。比较表围绕调查与设计、实现、验证与修正、发布与运维，说明人与 Agent 的分工；脚注明确传统开发同样使用自动化与 CI/CD，实际委任范围与效果取决于环境。最后以独立的总结画面回顾能力、运行机制与人的专业贡献，内外页脚及键盘均可连续前进和返回。
+第四章不再使用原来的五阶段流程与开发对比表。正文与讲稿同步强调：更容易形成可见试作，但代码理解、质量和安全不会由生成速度自动保证；持续积累业务与技术知识，以验证结果作出判断。
+
+## 全屏发表
+
+右上角增加全屏图标。支持系统 Fullscreen API 时进入系统全屏；受嵌入环境限制或请求被拒绝时，改为窗口内放大，并通过辅助技术状态告知。Esc 或同一图标退出，当前章节、选项和演示进度不重置。
+
+展开的资料面占可用宽高各96%，面积约92.16%。沿用同一份可选择文字和可操作内容，以统一比例放大；全屏布局适配实际窗口比例，不拉伸书本、显示器或投影器。全屏仍保留书页翻动、屏幕切换和物件之间的连续移动。正文期间隐去外部底部导航，右上角保留精简目次和退出入口；键盘与页面内箭头继续工作。文字备用模式采用相同的覆盖率和等比缩放。
+
+![全屏中的第四章](docs/model-presentation/fullscreen-product.png)
 
 ## 房间、材质与操作
 
@@ -99,24 +107,23 @@ Agent 演示按「目标 → 生成代码 → 浏览器检查 → 发现按钮�
 ![独立柜门](docs/model-presentation/cabinet.png)
 ![抽屉内部](docs/model-presentation/desk-drawer.png)
 ![黄铜砂時計](docs/model-presentation/hourglass.png)
-![较矮窗口中的完整末页](docs/model-presentation/value-compact.png)
+![较矮窗口中的完整末页](docs/model-presentation/expertise-compact.png)
 
 ## 内容依据
 
-工作经历及个人使用体验来自本人提供的信息；技术说明对照 [Transformer 原论文](https://arxiv.org/abs/1706.03762)、[ViT 原论文](https://arxiv.org/html/2010.11929v2) 和 [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)。Harness 边界参考 [Scaling Managed Agents](https://www.anthropic.com/engineering/managed-agents)。六个技术背景节点各自保留论文或官方说明链接。
+工作经历及个人使用体验来自本人提供的信息；技术说明对照 [Transformer 原论文](https://arxiv.org/abs/1706.03762)、[ViT 原论文](https://arxiv.org/html/2010.11929v2) 和 [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)。Harness 边界参考 [Scaling Managed Agents](https://www.anthropic.com/engineering/managed-agents)。六个技术背景节点各自保留论文或官方说明链接。第四章对 AI 评审的限制参考 [GitHub Copilot 官方资料](https://docs.github.com/en/copilot/concepts/agents/code-review)，详见[本轮内容整理说明](docs/model-presentation/product-development-sources.md)。
 
 ## 验证
 
-本次生产版本 **74 / 74 项检查通过**，覆盖204个正文页面状态，并额外检查对比、专业价值与总结的18种PC状态、四季、六个时段与六类天气。四章展示27项、庭院10项、环境与生活动效10项、逐帧凝视与展开6项，公共材质与独立Atlas6项，生活交互与翻页15项；TypeScript、修改范围ESLint、生产构建均通过。检查结果保存在 [verification.json](docs/model-presentation/verification.json)。检查范围包括 PC 版面、隐藏标签与简洁入口、物件点击、连续运镜、参考资料、文字备用页、WebGL 恢复和庭院操作。PC 窗口为1920×1080、1680×1050、1440×900、1366×768、1280×720、1024×768；不开展手机端优化和触控回归。
+本轮 **54 / 54 项检查通过**，覆盖192个普通版面状态、60个全屏版面状态及18个较矮窗口的第四章状态；TypeScript、修改范围ESLint和生产构建通过。验证范围为全屏模式、个人履历与第四章重写，并回归四章动线、资料库、书本翻页及生活物件交互。实际检查结果保存在 [verification.json](docs/model-presentation/verification.json)。PC 普通模式覆盖1920×1080、1680×1050、1440×900、1366×768、1280×720、1024×768；第四章另测较矮窗口。全屏模式覆盖1920×1080、1440×900、1280×720、1024×768、2560×1080和3840×2160，检查覆盖率、字体等比、内容边界、Esc、原生退出、API不可用与拒绝、文字备用模式。只优化PC，不开展手机端或触控回归。
 
-常见 PC 窗口（1280×720及以上）的四章主内容和隐藏状态均检查无需滚动；1024×768保持区域内阅读和操作。对比、专业价值与总结另测1280×600、1024×576、960×540，确认无滚动条、无文字裁切、无字形横向压缩。同时检查技术背景弹窗、Agent 节点与结果框、新增发展介绍的文字边界。发展介绍的五个年份与两类分类视图均保持电脑视角，支持逐段前后翻页与键盘切换，并在进入时停止执行演示。合并章节后重新验证直接凝视、书本展开、资料恢复与 WebGL 备用显示，并检查同物件内翻页不运镜、四季窗景、真实墙钟、全息注视与展开的先后顺序、固定底座和独立生活动效。
-
-[上一版性能采样](docs/model-presentation/performance.json)记录本机 Chrome 的四段连续切换；刷新回调包含抵达后的空闲时间，不能当作 GPU 帧耗时或跨设备性能承诺。本次增加咖啡桌与生活细节、第二套窗景图集，并重新运行材质加载、失败降级与独立Atlas模型检查。
+[上一版性能采样](docs/model-presentation/performance.json)不是跨设备性能承诺。房间、材质与天气资产沿用上一版，本轮没有新增运行依赖。
 
 ```sh
 pnpm typecheck
 pnpm build
 node tests/studio-fullscreen.test.mjs
+node tests/studio-presentation-mode.test.mjs
 node tests/garden.test.mjs
 node tests/studio-gaze.test.mjs
 node tests/studio-environment.test.mjs
