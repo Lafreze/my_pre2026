@@ -79,8 +79,8 @@
 .model-checklist .product-response h3{font-size:10px;line-height:1.5;color:#9cd9e2;margin:0 0 8px;font-weight:400}
 .model-checklist .product-response p{font-size:clamp(11px,2.15cqh,13px);color:#b9d4dc}
 .model-checklist .product-source{font-size:9px;color:#9ecad3;line-height:1.7;align-self:flex-end;margin-top:-12px}
-.product-personal-note{display:flex;gap:20px;align-items:baseline;padding:17px 20px;border-left:2px solid #96d6df;background:#1a3c46}
-.product-personal-note span{font-size:10px;flex-shrink:0;color:#a5ced5}.model-checklist .product-personal-note p{font-size:13px;line-height:1.8;margin:0;color:#d7eaed}
+.product-expertise-note{display:flex;gap:20px;align-items:baseline;padding:17px 20px;border-left:2px solid #96d6df;background:#1a3c46}
+.product-expertise-note span{font-size:10px;flex-shrink:0;color:#a5ced5}.model-checklist .product-expertise-note p{font-size:13px;line-height:1.8;margin:0;color:#d7eaed}
 .conclusion-statements{display:flex;flex-direction:column;justify-content:center;flex:1;gap:26px}
 .model-checklist .conclusion-statements p{display:grid;grid-template-columns:1fr 1.8fr;align-items:baseline;gap:30px;border-top:1px solid #8dccd544;padding-top:20px;margin:0}
 .conclusion-statements strong{font-size:21px;font-weight:400;line-height:1.6;color:#dff1f3}.conclusion-statements span{font-size:15px;line-height:1.9;color:#c6dfe5}
@@ -93,7 +93,7 @@
  .product-narrative{gap:12px}.model-checklist .product-lead{font-size:12px;line-height:1.7}.product-observation{padding:9px 15px}.model-checklist .product-observation h2{font-size:17px;margin-bottom:4px}.model-checklist .product-observation p{font-size:11px;line-height:1.7}
  .model-checklist .iteration-rail button{padding:8px 12px;gap:4px}.iteration-rail span{font-size:8px}.iteration-rail strong{font-size:12px}.iteration-detail{gap:5px}.model-checklist .iteration-detail h3{font-size:16px}.model-checklist .iteration-detail p{font-size:12px;line-height:1.7}.iteration-detail small{font-size:10px}.model-checklist .product-boundary{font-size:9px;padding-top:8px}
  .product-columns{gap:23px}.product-columns article{padding-top:12px}.model-checklist .product-columns h2{margin:9px 0;font-size:18px}.model-checklist .product-columns p{font-size:11.5px;line-height:1.8}.product-response{margin-top:15px;padding-top:11px}.model-checklist .product-response p{font-size:11px}.model-checklist .product-source{margin-top:-6px;font-size:8px}
- .product-personal-note{padding:10px 13px;gap:12px}.model-checklist .product-personal-note p{font-size:11px}.product-personal-note span{font-size:9px}.conclusion-statements{gap:16px}.model-checklist .conclusion-statements p{padding-top:14px;gap:20px}.conclusion-statements strong{font-size:17px}.conclusion-statements span{font-size:12px}.model-checklist .conclusion-final{font-size:13px}
+ .product-expertise-note{padding:10px 13px;gap:12px}.model-checklist .product-expertise-note p{font-size:11px}.product-expertise-note span{font-size:9px}.conclusion-statements{gap:16px}.model-checklist .conclusion-statements p{padding-top:14px;gap:20px}.conclusion-statements strong{font-size:17px}.conclusion-statements span{font-size:12px}.model-checklist .conclusion-final{font-size:13px}
 }
 @container(max-height:490px){
  .model-name .personal-introduction{grid-template-areas:"identity career" "topic career";grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);grid-template-rows:auto 1fr;gap:15px 28px;align-content:start}
@@ -111,5 +111,5 @@
 }
 @container(max-height:420px){
  .model-name .personal-introduction{gap:10px 24px;min-height:0;height:100%}.model-name .personal-career>li>p{font-size:11px;line-height:1.7;margin:4px 0}.model-name .personal-topic h2{font-size:14px}.model-name .personal-topic p{font-size:9.5px}
- .model-checklist[data-product-tab] .model-page-scroll{padding-top:10px;padding-bottom:10px}.model-checklist[data-product-tab] .chapter-panel-heading{margin-bottom:7px}.product-narrative{gap:6px}.product-columns article{padding:5px 0}.model-checklist .product-lead{font-size:10.5px}.product-personal-note{padding:7px 10px}
+ .model-checklist[data-product-tab] .model-page-scroll{padding-top:10px;padding-bottom:10px}.model-checklist[data-product-tab] .chapter-panel-heading{margin-bottom:7px}.product-narrative{gap:6px}.product-columns article{padding:5px 0}.model-checklist .product-lead{font-size:10.5px}.product-expertise-note{padding:7px 10px}
 }

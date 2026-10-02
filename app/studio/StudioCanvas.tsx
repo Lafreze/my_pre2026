@@ -201,7 +201,7 @@ export default function StudioCanvas(props: Props) {
       } else { camera.position.copy(destination.position);focus.copy(destinationFocus);camera.up.copy(destination.up); }
       camera.lookAt(focus);
       camera.aspect=w/h;camera.updateProjectionMatrix();camera.updateMatrixWorld();
-      renderer.render(scene,camera); project();
+      updateCursor();renderer.render(scene,camera); project();
       for(const [id,b] of propLabels.current){const target=room.interactions.targets[id];const world=id==="robot"?room.life.robot.position.clone().add(new THREE.Vector3(0,.1,0)):target.center.clone();const v=world.project(camera);b.style.left=`${(v.x*.5+.5)*w}px`;b.style.top=`${(-v.y*.5+.5)*h}px`;b.hidden=!state.overview||!!state.inspection&&(state.inspection!==id||id==="chalkboard"||id==="cabinet")||v.z>1||Math.abs(v.x)>.94||Math.abs(v.y)>.94;}
       const projectControl=(b:HTMLButtonElement,point:THREE.Vector3,show:boolean)=>{const v=point.project(camera);b.hidden=!show||animating||v.z>1||Math.abs(v.x)>.96||Math.abs(v.y)>.96;b.style.left=`${(v.x*.5+.5)*w}px`;b.style.top=`${(-v.y*.5+.5)*h}px`;};
       for(const [tool,b] of chalkLabels.current){const board=room.interactions.targets.chalkboard.object;projectControl(b,board.localToWorld(new THREE.Vector3(tool==="chalk"?-.6:.77,-.55,.09)),state.inspection==="chalkboard");}
@@ -276,17 +276,22 @@ export default function StudioCanvas(props: Props) {
       return null;
     }
     function pointerDistance() { const pair = [...pointers.values()]; return pair.length === 2 ? pair[0].distanceTo(pair[1]) : 0; }
+    function updateCursor() {
+      const state=latest.current;
+      renderer.domElement.style.cursor=down&&dragged&&state.overview&&!state.inspection?"grabbing":hoverId&&state.overview?"pointer":state.fullscreen?"var(--presentation-cursor)":state.inspection?"default":"grab";
+    }
     function move(e: PointerEvent) {
       if (pointers.has(e.pointerId)) pointers.set(e.pointerId, new THREE.Vector2(e.clientX, e.clientY));
       if (pinch && pointers.size === 2) { zoom = THREE.MathUtils.clamp(pinch.zoom * pinch.distance / Math.max(1, pointerDistance()), .8, 1.2); dragged = true; wake(); return; }
       if (down && Math.hypot(e.clientX - down.x, e.clientY - down.y) > 7) {
         dragged = true;
         if (latest.current.overview&&!latest.current.inspection) { orbit = THREE.MathUtils.clamp(down.orbit + (e.clientX - down.x) / 700, -.55, .55); wake(); }
+        updateCursor();
         return;
       }
       const found=hit(e),id=found?.id||null;
       if (id !== hoverId) { hoverId = id; setHover(id); wake(); }
-      renderer.domElement.style.cursor = found ? "pointer" : latest.current.inspection?"default":"grab";
+      updateCursor();
     }
     function press(e: PointerEvent) {
       if (e.button !== 0) return;
@@ -308,6 +313,7 @@ export default function StudioCanvas(props: Props) {
       }
       pointers.delete(e.pointerId); if (renderer.domElement.hasPointerCapture(e.pointerId)) renderer.domElement.releasePointerCapture(e.pointerId);
       if (!pointers.size) { down = null; pinch = null; } else { dragged = true; pinch = null; down = null; }
+      updateCursor();
     }
     function cancel() { pointers.clear(); down = null; pinch = null; hoverId = null; setHover(null); wake(); }
     function leave() { if (!pointers.size) { hoverId = null; setHover(null); wake(); } }

@@ -46,7 +46,7 @@ export function ProductExpertise() {
   return <section className="product-narrative product-expertise" aria-label="専門性の役割">
     <p className="product-lead">Agentを活用しながら、業務知識・技術理解・評価能力を維持し、更新していく。</p>
     <div className="product-columns">{expertise.map(item=><article key={item.en}><span className="product-kicker">{item.en}</span><h2>{item.title}</h2><p>{item.text}</p><div className="product-response"><h3>継続する取り組み</h3><p>{item.practice}</p></div></article>)}</div>
-    <div className="product-personal-note"><span>担当業務との接点</span><p>画像処理やADC関連開発で蓄積した知識を、課題設定と検証に生かす。</p></div>
+    <div className="product-expertise-note"><span>専門性の活用</span><p>蓄積した知識と経験を、課題設定・設計・検証の判断に生かす。</p></div>
   </section>;
 }
 export function PresentationConclusion({profile}:{profile:{name:string;romanName:string}}) {

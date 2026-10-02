@@ -19,3 +19,10 @@
 .work-studio:not([data-fullscreen=off]) .model-monitor .model-topline>span:last-child,.work-studio:not([data-fullscreen=off]) .model-checklist .model-topline>span:last-child{color:#adcbd0}
 .work-studio:not([data-fullscreen=off])[data-overview=false] .studio-scene[data-status=fallback] .studio-surface-host{width:var(--fullscreen-width)!important;height:var(--fullscreen-height)!important;transform:translate(-50%,-50%) scale(var(--fullscreen-scale))!important;transform-origin:center}
 .work-studio:not([data-fullscreen=off]) .agent-chapter{width:100%;max-width:1120px;margin-inline:auto}
+/* Native cursor stays sharp at every slide scale and never intercepts clicks. */
+.work-studio:not([data-fullscreen=off]){--presentation-cursor:url('/studio/presenter-dot.svg') 12 12,crosshair;cursor:var(--presentation-cursor)}
+.work-studio:not([data-fullscreen=off]) :is(button:not(:disabled),a[href],summary,select,[role=button]:not([aria-disabled=true])){cursor:pointer}
+.work-studio:not([data-fullscreen=off]) :is(input,textarea,[contenteditable=true]){cursor:text}
+.work-studio:not([data-fullscreen=off]) input:is([type=checkbox],[type=radio],[type=button],[type=submit],[type=color]){cursor:pointer}
+.work-studio:not([data-fullscreen=off]) input[type=range]{cursor:ew-resize}
+.work-studio:not([data-fullscreen=off]) :is(button:disabled,input:disabled,select:disabled,[aria-disabled=true]){cursor:not-allowed}
